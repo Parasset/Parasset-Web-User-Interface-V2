@@ -6,6 +6,7 @@ import Card from "../../../components/Card";
 import CardButton from "../../../components/CardButton";
 import Select from "../../../components/Select";
 import Button from "../../../components/Button";
+import Label from "../../../components/Label";
 const Specie: React.FC = ({ text }) => {
   return (
     <>
@@ -35,20 +36,14 @@ const Specie: React.FC = ({ text }) => {
           </div>
         </div>
         <Spacer size="mmd" />
-        <CardButton className="wing-blank-lg flex-jc-center">
-          <div className="color-grey">PUSD 合约</div>
-          <div>0x4657df32…675df23b</div>
-        </CardButton>
+        <Label label="PUSD 合约" value="0x4657df32…675df23b" className="wing-blank-lg" />
+
         <Spacer size="mmd" />
-        <CardButton className="wing-blank-lg flex-jc-center">
-          <div className="color-grey">预言机调用费</div>
-          <div>0.01 ETH</div>
-        </CardButton>
+        <Label label="预言机调用费" value="0.01 ETH"  className="wing-blank-lg"/>
+
         <Spacer size="mmd" />
-        <CardButton className="wing-blank-lg flex-jc-center">
-          <div className="color-grey">稳定费</div>
-          <div>0.01 PUSD</div>
-        </CardButton>
+        <Label label="稳定费" value="0.01 PUSD"  className="wing-blank-lg"/>
+
         <Spacer />
         <Button text="铸币" variant="secondary" />
 

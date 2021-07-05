@@ -11,7 +11,10 @@ import Home from "./views/Home";
 import Coin from "./views/Coin";
 import Mine from "./views/Mine";
 import MinePool from "./views/MinePool";
+import ITankDetail from "./views/ITankDetail";
+import ITank from "./views/ITank";
 import Exchange from "./views/Exchange";
+import Barn from "./views/Barn";
 
 import store from "./state";
 import theme from "./theme";
@@ -39,6 +42,16 @@ const App: React.FC = () => {
             <Route path="/exchange" exact>
               <Exchange />
             </Route>
+            <Route path="/barn" exact>
+              <Barn />
+            </Route>
+            <Route path="/itank" exact>
+              <ITank />
+            </Route>
+            <Route path="/itank/detail" exact>
+              <ITankDetail />
+            </Route>
+        
             
           </Page>
         </Switch>

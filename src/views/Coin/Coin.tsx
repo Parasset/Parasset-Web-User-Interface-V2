@@ -24,9 +24,9 @@ const Coin: React.FC = () => {
   return (
     <div className="wing-blank-xl">
       <Tab tabs={tabs} tab={tab} onChangeTab={() => {}} />
-      {/* <Specie /> */}
-      <Debt />
-      <Depot />
+      <Specie />
+      {/* <Debt />
+      <Depot /> */}
     </div>
   );
 };

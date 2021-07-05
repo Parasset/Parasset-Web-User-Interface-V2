@@ -1,28 +1,47 @@
-import React from 'react';
-import styled from 'styled-components';
+//@ts-nocheck
+import React from "react";
+import styled from "styled-components";
 
-import Card from '../Card';
-import CardContent from '../CardContent';
-import Container from '../Container';
+import Card from "../Card";
+import CardContent from "../CardContent";
+import Container from "../Container";
 export interface ModalProps {
   isOpen?: boolean;
   className?: string;
   children: any;
   onDismiss: () => void;
 }
-const Modal: React.FC<ModalProps> = ({ isOpen, onDismiss, children, className }) => {
+const Modal: React.FC<ModalProps> = ({
+  isOpen,
+  onDismiss,
+  children,
+  className,
+  width,
+  showHeader = false,
+  title,
+}) => {
   return (
     <>
       {isOpen && (
         <StyledModalWrapper>
           <StyledModalBackdrop onClick={onDismiss} />
-          <Container size="sm">
-            <StyledModal className={className}>
-              <Card>
-                <CardContent>{children}</CardContent>
-              </Card>
-            </StyledModal>
-          </Container>
+
+          <StyledModal className={className} width={width}>
+            {showHeader ? (
+              <StyledModalHeader className="flex-jc-center bd-bottom">
+                <div>{title}</div>
+                <CloseIcon
+                  className="cursor-pointer"
+                  src={require("../../assets/img/icon_close.png")}
+                  width="15"
+                  height="15"
+                  onClick={onDismiss}
+                />
+              </StyledModalHeader>
+            ) : null}
+
+            {children}
+          </StyledModal>
         </StyledModalWrapper>
       )}
     </>
@@ -31,8 +50,11 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onDismiss, children, className })
 
 const StyledModal = styled.div`
   border-radius: 12px;
-  box-shadow: 24px 24px 48px -24px ${(props) => props.theme.color.grey[900]};
+  background-color: #fff;
   position: relative;
+  width: ${({ width }) => (width ? width : "50vw")};
+  padding: 20px 15px;
+  box-sizing: border-box;
 `;
 const StyledModalWrapper = styled.div`
   align-items: center;
@@ -45,6 +67,7 @@ const StyledModalWrapper = styled.div`
   left: 0;
   z-index: 9999;
 `;
+const CloseIcon = styled.img``;
 
 const StyledModalBackdrop = styled.div`
   background-color: #00000088;
@@ -53,5 +76,9 @@ const StyledModalBackdrop = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
+`;
+const StyledModalHeader = styled.div`
+  height: 45px;
+  margin-top: -20px;
 `;
 export default Modal;

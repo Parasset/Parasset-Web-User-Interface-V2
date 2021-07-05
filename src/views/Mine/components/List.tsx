@@ -5,6 +5,7 @@ import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
 import CardButton from "../../../components/CardButton";
 import Button from "../../../components/Button";
+import Label from "../../../components/Label";
 const Item: React.FC = ({}) => {
   return (
     <>
@@ -29,25 +30,17 @@ const Item: React.FC = ({}) => {
         <Spacer size="ssm" />
         <div className="color-grey  text-center">存 LP-ETH 赚 ASET</div>
         <Spacer size="mmd" />
-        <CardButton className="flex-jc-center  wing-blank-lg">
-          <div className="color-grey">TVL</div>
-          <div className="color-grey">$ 1,234.45</div>
-        </CardButton>
+  
+        <Label label="TVL" value="$ 1,234.45" />
         <Spacer size="mmd" />
-        <CardButton className="flex-jc-center  wing-blank-lg">
-          <div className="color-grey">APY</div>
-          <div className="color-grey">123.45%</div>
-        </CardButton>
+        <Label label="APY" value="123.45%" />
+        
         <Spacer size="mmd" />
-        <CardButton className="flex-jc-center  wing-blank-lg">
-          <div className="color-grey">我的质押 ( LP-USD )</div>
-          <div className="color-grey">1,234.45</div>
-        </CardButton>
+        <Label label="我的质押 ( LP-USD )" value="1,234.45" />
+        
         <Spacer size="mmd" />
-        <CardButton className="flex-jc-center  wing-blank-lg">
-          <div className="color-grey">待领收益 (.ASET )</div>
-          <div className="color-grey">124.34</div>
-        </CardButton>
+        <Label label="待领收益 (.ASET )" value="124.34" />
+        
         <Spacer />
         <Button text="选择" variant="secondary" />
         <Spacer size="mmd" />

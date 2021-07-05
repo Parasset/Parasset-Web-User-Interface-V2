@@ -5,7 +5,7 @@ import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
 import CardButton from "../../../components/CardButton";
 import Button from "../../../components/Button";
-
+import Label from "../../../components/Label";
 const Info: React.FC = ({ text }) => {
   return (
     <>
@@ -15,25 +15,13 @@ const Info: React.FC = ({ text }) => {
         <div className="wing-blank">
           <Spacer />
           <div className="flex-jc-center">
-            <CardButton className="width-47 flex-jc-center">
-              <div className="color-grey">抵押数 ( LP-USD )</div>
-              <div>564,564.68</div>
-            </CardButton>
-            <CardButton className="width-47 flex-jc-center">
-              <div className="color-grey">日产量 ( ASET )</div>
-              <div>253</div>
-            </CardButton>
+            <Label label="抵押数 ( LP-USD )" value="564,564.68" />
+            <Label label="日产量 ( ASET )" value="253" />
           </div>
           <Spacer />
           <div className="flex-jc-center">
-            <CardButton className="width-47 flex-jc-center">
-              <div className="color-grey">TVL</div>
-              <div>$ 564,564.68</div>
-            </CardButton>
-            <CardButton className="width-47 flex-jc-center">
-              <div className="color-grey">APY</div>
-              <div>102.47%</div>
-            </CardButton>
+            <Label label="TVL" value="$ 564,564.68" />
+            <Label label="APY" value="102.47%" />
           </div>
           <Spacer />
         </div>

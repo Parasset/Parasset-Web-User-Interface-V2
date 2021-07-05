@@ -5,8 +5,8 @@ import Spacer from "../Spacer";
 import CardButton from "../CardButton";
 
 const Select: React.FC = ({}) => (
-  <CardButton className="wing-blank-lg">
-    <Spacer size="sm" />
+  <CardButton className="wing-blank-lg" size="lg">
+  
 
     <div className="flex-jc-center">
       <div className="flex-jc-center">
@@ -27,7 +27,7 @@ const Select: React.FC = ({}) => (
       <div>0.000001</div>
     </div>
 
-    <Spacer size="sm" />
+   
   </CardButton>
 );
 
