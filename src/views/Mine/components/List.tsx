@@ -6,10 +6,12 @@ import Card from "../../../components/Card";
 import CardButton from "../../../components/CardButton";
 import Button from "../../../components/Button";
 import Label from "../../../components/Label";
+import useIsMobile from "../../../hooks/useIsMobile";
 const Item: React.FC = ({}) => {
+  const isMobile = useIsMobile();
   return (
     <>
-      <StyledWrapBox className="wing-blank-lg width-47">
+      <StyledWrapBox className={`wing-blank-lg ${isMobile ? "" : "width-47"} `}>
         <Spacer size="mmd" />
         <div className="flex-row-center-center">
           <img
@@ -30,29 +32,29 @@ const Item: React.FC = ({}) => {
         <Spacer size="ssm" />
         <div className="color-grey  text-center">存 LP-ETH 赚 ASET</div>
         <Spacer size="mmd" />
-  
+
         <Label label="TVL" value="$ 1,234.45" />
         <Spacer size="mmd" />
         <Label label="APY" value="123.45%" />
-        
+
         <Spacer size="mmd" />
         <Label label="我的质押 ( LP-USD )" value="1,234.45" />
-        
+
         <Spacer size="mmd" />
         <Label label="待领收益 (.ASET )" value="124.34" />
-        
+
         <Spacer />
         <Button text="选择" variant="secondary" />
         <Spacer size="mmd" />
       </StyledWrapBox>
-  
     </>
   );
 };
-const List: React.FC = ({ text }) => {
+const List: React.FC = ({}) => {
+  const isMobile = useIsMobile();
   return (
     <>
-      <div className="flex-jc-center width-100">
+      <div className={`width-100 ${isMobile ? "" : "flex-jc-center"} `}>
         <Item />
         <Item />
       </div>
@@ -63,5 +65,9 @@ const List: React.FC = ({ text }) => {
 };
 const StyledWrapBox = styled(Card)`
   height: 400px;
+  @media (max-width: 768px) {
+    margin-bottom: 16px;
+    height: auto;
+  }
 `;
 export default List;

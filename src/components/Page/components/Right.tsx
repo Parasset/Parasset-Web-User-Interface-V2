@@ -34,7 +34,7 @@ const Right: React.FC = () => {
           <div className="flex-jc-start">
             <div className="flex-jc-center">
               <img
-                src={require("../../../assets/img/ETH_icon.png")}
+                src={require("../../../assets/img/NEST_icon.png")}
                 width="25"
                 height="25"
               />
@@ -54,12 +54,12 @@ const Right: React.FC = () => {
           <div className="flex-jc-start">
             <div className="flex-jc-center">
               <img
-                src={require("../../../assets/img/ETH_icon.png")}
+                src={require("../../../assets/img/NEST_icon.png")}
                 width="25"
                 height="25"
               />
               <img
-                src={require("../../../assets/img/USDT_icon.png")}
+                src={require("../../../assets/img/ETH_icon.png")}
                 width="25"
                 height="25"
                 className="margin-left-minus-10"
@@ -110,15 +110,20 @@ const Right: React.FC = () => {
 const StyledNavRight = styled.div`
   background-color: ${(props) => props.theme.color.grey[100]};
   border-left: 1px solid ${(props) => props.theme.color.grey[200]};
-  height: 100vh;
+  min-height: 100vh;
   width: 180px;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const StyledWallet = styled.div`
   height: 90px;
 `;
 const StyledLabel = styled.div`
-  line-height: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
 `;
 
 export default Right;

@@ -1,11 +1,14 @@
+//@ts-nocheck
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import Spacer from "../../Spacer";
 import { useTranslation } from "react-i18next";
+import useIsMobile from "../../../hooks/useIsMobile";
 const Nav: React.FC = () => {
+  const isMobile = useIsMobile();
   return (
     <div className="wing-blank-lg ">
-      <div className="bd-bottom width-100">
+      <div className={` ${isMobile ? "" : "bd-bottom width-100"} `}>
         <div className="wing-blank">
           <StyledBarItem className="flex-jc-start">
             <img

@@ -5,15 +5,16 @@ import Card from "../../../components/Card";
 import Label from "../../../components/Label";
 import Button from "../../../components/Button";
 import Account from "./Account";
-
-const MyInfo: React.FC = ({ text }) => {
+import useIsMobile from "../../../hooks/useIsMobile";
+const MyInfo: React.FC = ({  }) => {
+  const isMobile = useIsMobile();
   return (
     <>
-      <Card className="wing-blank-lg">
+      <Card className={` ${isMobile ? "wing-blank" : "wing-blank-lg"} `}>
         <Spacer size="mmd" />
 
-        <div className="wing-blank">
-          <div className="wing-blank-lg">
+        <div className={` ${isMobile ? "" : "wing-blank"} `}>
+          <div className={` ${isMobile ? "" : "wing-blank-lg"} `}>
             <div className="color-grey">我的保险账户</div>
           </div>
           <Spacer size="mmd" />

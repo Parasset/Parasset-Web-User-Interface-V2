@@ -13,16 +13,15 @@ const Page: React.FC = ({ children }) => (
 
 const StyledPage = styled.div`
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  justify-content: center;
+  align-content: center;
+  /*  stretch让盒子内的每个元素的高度都等于行高 */
+  align-items: stretch;
+  @media (max-width: 768px) {
+    display: block;
+  }
 `;
 
-const StyledMain = styled.div`
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  /* min-height: calc(100vh - ${(props) => props.theme.topBarSize * 2}px); */
-  /* padding-bottom: ${(props) => props.theme.spacing[5]}px; */
-`;
+
 
 export default Page;

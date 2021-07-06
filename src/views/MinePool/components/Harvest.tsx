@@ -4,10 +4,12 @@ import styled from "styled-components";
 import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
 import Button from "../../../components/Button";
+import useIsMobile from "../../../hooks/useIsMobile";
 const Harvest: React.FC = ({}) => {
+  const isMobile = useIsMobile();
   return (
     <>
-      <StyledWrapBox className="wing-blank-lg width-47">
+      <StyledWrapBox className={`wing-blank-lg ${isMobile ? "" : "width-47"} `}>
         <Spacer size="mmd" />
         <div className="color-grey">我的收益</div>
         <Spacer />
@@ -33,6 +35,9 @@ const Harvest: React.FC = ({}) => {
 
 const StyledWrapBox = styled(Card)`
   height: 260px;
+  @media (max-width: 768px) {
+    height: auto;
+  }
 `;
 
 export default Harvest;

@@ -12,7 +12,7 @@ import Button from "../Button";
 export default function HandlerModal({}) {
   const { t } = useTranslation();
 
-  const [isOpen, setOpen] = useState(false);
+  const [isOpen, setOpen] = useState(true);
 
   return (
     <>
@@ -21,7 +21,7 @@ export default function HandlerModal({}) {
         onDismiss={() => {
           setOpen(false);
         }}
-        width="28vw"
+        width="300px"
         showHeader={true}
         title="赎回 LP-USD"
       >

@@ -5,7 +5,7 @@ import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
 const TableTitle: React.FC = ({ text }) => {
   return (
-    <>
+    <StyledTableTitleBox>
       <Card className=" flex-jc-center color-grey">
         <div className="flex1">抵押资产</div>
         <div className="flex1">TVL</div>
@@ -14,8 +14,13 @@ const TableTitle: React.FC = ({ text }) => {
       </Card>
       <Spacer size="sm" />
       <Spacer size="sm" />
-    </>
+    </StyledTableTitleBox>
   );
 };
+const StyledTableTitleBox = styled.div`
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
 
 export default TableTitle;

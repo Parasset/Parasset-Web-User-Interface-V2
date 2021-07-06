@@ -10,7 +10,7 @@ import Button from "../Button";
 export default function StatusModal({}) {
   const { t } = useTranslation();
 
-  const [isOpen, setOpen] = useState(true);
+  const [isOpen, setOpen] = useState(false);
 
   return (
     <>
@@ -19,7 +19,7 @@ export default function StatusModal({}) {
         onDismiss={() => {
           setOpen(false);
         }}
-        width="20vw"
+        width="300px"
       >
         <StyledModalHeader className="flex-jc-center">
           <CloseIcon

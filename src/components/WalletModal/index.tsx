@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import Modal from "../Modal";
 import Spacer from "../Spacer";
 import Button from "../Button";
+import CardButton from "../CardButton";
 
 export default function WalletModal({}) {
   const { t } = useTranslation();
@@ -14,12 +15,12 @@ export default function WalletModal({}) {
 
   return (
     <>
-      {/* <Modal
+      <Modal
         isOpen={isOpen}
         onDismiss={() => {
           setOpen(false);
         }}
-        width="28vw"
+        width="330px"
         showHeader={true}
         title="连接钱包"
       >
@@ -38,13 +39,13 @@ export default function WalletModal({}) {
             MetaMask
           </div>
         </CardButton>
-      </Modal> */}
-      <Modal
+      </Modal>
+      {/* <Modal
         isOpen={isOpen}
         onDismiss={() => {
           setOpen(false);
         }}
-        width="28vw"
+        width="330px"
         showHeader={true}
         title="账户"
       >
@@ -152,7 +153,7 @@ export default function WalletModal({}) {
             20.4756
           </div>
         </div>
-      </Modal>
+      </Modal> */}
     </>
   );
 }

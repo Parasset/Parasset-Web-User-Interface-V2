@@ -4,15 +4,17 @@ import styled from "styled-components";
 import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
 import Button from "../../../components/Button";
+import useIsMobile from "../../../hooks/useIsMobile";
 const Stake: React.FC = ({}) => {
+  const isMobile = useIsMobile();
   return (
     <>
-      <StyledWrapBox className="wing-blank-lg width-47">
+      <StyledWrapBox className={`wing-blank-lg ${isMobile ? "" : "width-47"} `}>
         <Spacer size="mmd" />
-        <div className="color-grey">我的收益</div>
+        <div className="color-grey">我的抵押</div>
         <Spacer />
         <div className="wing-blank-llg  text-center">
-          <div className="flex-jc-center">
+          <div className="flex-row-center-center">
             <img
               src={require("../../../assets/img/USDT_icon.png")}
               width="40"
@@ -45,6 +47,9 @@ const Stake: React.FC = ({}) => {
 
 const StyledWrapBox = styled(Card)`
   height: 260px;
+  @media (max-width: 768px) {
+    height: auto;
+  }
 `;
 
 export default Stake;

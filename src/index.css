@@ -94,7 +94,7 @@ input:-ms-input-placeholder {
   height: 8px;
 }
 .space-white-lg {
-  height: 10px;
+  height: 13px;
 }
 .space-white-llg {
   height: 15px;
@@ -427,7 +427,7 @@ input:-ms-input-placeholder {
 }
 @media (max-width: 768px) {
   .font-size-32 {
-    font-size: 18px !important;
+    font-size: 24px !important;
   }
   .space-white-lg {
     height: 8px;
@@ -449,5 +449,11 @@ input:-ms-input-placeholder {
   }
   .font-size-22 {
     font-size: 13px !important;
+  }
+  .wing-blank-xl {
+    padding-left: 0;
+    padding-right: 0;
+    width: 100%;
+    box-sizing: border-box;
   }
 }

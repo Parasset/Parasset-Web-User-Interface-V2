@@ -42,7 +42,7 @@ const App: React.FC = () => {
             <Route path="/exchange" exact>
               <Exchange />
             </Route>
-            <Route path="/barn" exact>
+            <Route path="/barn/detail" exact>
               <Barn />
             </Route>
             <Route path="/itank" exact>

@@ -19,7 +19,7 @@ export default function RiskModal({}) {
         onDismiss={() => {
           setOpen(false);
         }}
-        width="20vw"
+        width="300px"
       >
        
         <div className="text-center">

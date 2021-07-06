@@ -7,16 +7,14 @@ import useIsMobile from "../../hooks/useIsMobile";
 import BigValue from "../../components/BigValue";
 import List from "./components/List";
 
-
 const Mine: React.FC = () => {
   const isMobile = useIsMobile();
 
   return (
     <>
-      <BigValue text="矿池 TVL" />
+      <BigValue text="矿池 TVL" color="#77A89A" />
 
       <List />
-    
     </>
   );
 };

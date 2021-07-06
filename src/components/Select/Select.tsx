@@ -56,10 +56,12 @@ const Select: React.FC = ({}) => (
 );
 
 const StyledSelectBox = styled.div`
+  display: none;
   position: absolute;
   width: 100%;
   left: 0;
-  border-radius: 40px;
+  border-radius: 10px;
+  padding: 5px 0;
   top: 65px;
   z-index: 99;
   background: #fff;
@@ -67,7 +69,6 @@ const StyledSelectBox = styled.div`
 `;
 const StyledSelectItem = styled.div`
   height: 50px;
-  border-radius: 40px;
   &.active {
     background-color: ${(props) => props.theme.color.grey[500]};
   }

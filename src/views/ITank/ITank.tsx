@@ -19,9 +19,9 @@ const Mine: React.FC = () => {
       <BigValue text="保险池 TVL" />
 
       <List />
-      <StatusModal />
+      {/* <StatusModal /> */}
       {/* <RiskModal /> */}
-      {/* <WalletModal /> */}
+      <WalletModal />
       {/* <HandlerModal /> */}
     </>
   );

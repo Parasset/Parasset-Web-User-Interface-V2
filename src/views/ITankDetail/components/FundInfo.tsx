@@ -7,18 +7,20 @@ import CardButton from "../../../components/CardButton";
 import Label from "../../../components/Label";
 import Button from "../../../components/Button";
 import Account from "./Account";
-
-const FundInfo: React.FC = ({ text }) => {
+import useIsMobile from "../../../hooks/useIsMobile";
+const FundInfo: React.FC = ({}) => {
+  const isMobile = useIsMobile();
   return (
     <>
-      <Card className="wing-blank-lg">
+      <Card className={` ${isMobile ? "wing-blank" : "wing-blank-lg"} `}>
         <Spacer size="mmd" />
-        <div className="wing-blank">
-          <div className="wing-blank-lg">
+        <div className={` ${isMobile ? "" : "wing-blank"} `}>
+          <div className={` ${isMobile ? "" : "wing-blank-lg"} `}>
             <div className="flex-jc-center">
               <div className="color-grey">我的保险账户</div>
               <div>
-                <span className="color-grey">当前净值：</span>1.023846
+                <span className="color-grey">当前净值：</span>
+                <span className="text-underline">1.023846</span>
               </div>
             </div>
           </div>
@@ -33,7 +35,6 @@ const FundInfo: React.FC = ({ text }) => {
             icon={require("../../../assets/img/PUSDT_icon.png")}
             currency="PUSD"
           />
-     
         </div>
 
         <Spacer size="mmd" />

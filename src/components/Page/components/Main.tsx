@@ -5,7 +5,7 @@ import Right from "./Right";
 import Spacer from "../../Spacer";
 const Main: React.FC = ({ children }) => {
   return (
-    <div className="flex-al-start  width-100">
+    <StyledMain className=" width-100">
       <div className="flex1">
         <Header />
         <div className="wing-blank-lg">
@@ -16,8 +16,14 @@ const Main: React.FC = ({ children }) => {
       </div>
 
       <Right />
-    </div>
+    </StyledMain>
   );
 };
+const StyledMain = styled.div`
+  display: flex;
+  justify-content: center;
+  align-content: center;
 
+  align-items: stretch;
+`;
 export default Main;

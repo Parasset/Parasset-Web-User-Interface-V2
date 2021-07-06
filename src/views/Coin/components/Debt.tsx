@@ -11,8 +11,8 @@ const Specie: React.FC = ({ text }) => {
     <>
       <Spacer size="sm" />
       <Spacer size="sm" />
-      <BigValue text="抵押市值" />
-      <BigValue text="债务市值" />
+      <BigValue text="抵押市值"  color="#DD8751"/>
+      <BigValue text="债务市值" color="#77A89A" />
       <Spacer size="sm" />
     
     </>
