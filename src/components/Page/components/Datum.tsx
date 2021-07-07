@@ -1,16 +1,16 @@
 //@ts-nocheck
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
-
+import { useTranslation } from "react-i18next";
 import Spacer from "../../Spacer";
 
 
 const Datum: React.FC = () => {
-
+  const { t } = useTranslation();
 
   return (
     <div>
-      <StyledLabel>我的平行资产</StyledLabel>
+      <StyledLabel>{t('wdpxzc')}</StyledLabel>
       <div className="flex-jc-center">
         <div className="flex-jc-start">
           <img
@@ -62,7 +62,7 @@ const Datum: React.FC = () => {
       </div>
       <Spacer size="mmd" />
       <div>
-        <StyledLabel>价格</StyledLabel>
+        <StyledLabel>{t('jiage')}</StyledLabel>
         <div className="flex-jc-start">
           <div className="flex-jc-center">
             <img
@@ -126,7 +126,7 @@ const Datum: React.FC = () => {
       </div>
 
       <div className="">
-        <StyledLabel>流通量</StyledLabel>
+        <StyledLabel>{t('ltl')}</StyledLabel>
         <div className="flex-jc-start">
           <div className="flex-jc-center">
             <img

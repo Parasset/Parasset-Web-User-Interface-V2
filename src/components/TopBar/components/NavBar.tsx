@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import useIsMobile from "../../../hooks/useIsMobile";
 const Nav: React.FC = () => {
   const isMobile = useIsMobile();
+  const { t } = useTranslation();
   return (
     <div className="wing-blank-lg ">
       <div className={` ${isMobile ? "" : "bd-bottom width-100"} `}>
@@ -17,7 +18,7 @@ const Nav: React.FC = () => {
               height="35"
               className="margin-right-5"
             />
-            首页
+            {t('shouye')}
           </StyledBarItem>
           <StyledBarItem className="flex-jc-start">
             <img
@@ -26,7 +27,7 @@ const Nav: React.FC = () => {
               height="35"
               className="margin-right-5"
             />
-            铸币
+             {t('zhubi')}
           </StyledBarItem>
           <StyledBarItem className="flex-jc-start">
             <img
@@ -35,7 +36,7 @@ const Nav: React.FC = () => {
               height="35"
               className="margin-right-5"
             />
-            兑换
+             {t('duihuan')}
           </StyledBarItem>
           <StyledBarItem className="flex-jc-start">
             <img
@@ -44,7 +45,7 @@ const Nav: React.FC = () => {
               height="35"
               className="margin-right-5"
             />
-            保险池
+            {t('bxc')}
           </StyledBarItem>
           <StyledBarItem className="flex-jc-start active">
             <img
@@ -53,7 +54,7 @@ const Nav: React.FC = () => {
               height="35"
               className="margin-right-5"
             />
-            挖矿
+            {t('wakuang')}
           </StyledBarItem>
         </div>
       </div>

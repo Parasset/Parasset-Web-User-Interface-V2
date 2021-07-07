@@ -1,13 +1,16 @@
 //@ts-nocheck
 import React from "react";
 import styled from "styled-components";
+import { Tooltip } from "antd";
+import { useTranslation } from "react-i18next";
 import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
 import CardButton from "../../../components/CardButton";
 import Select from "../../../components/Select";
 import Button from "../../../components/Button";
 import Label from "../../../components/Label";
-const Specie: React.FC = ({ text }) => {
+const Specie: React.FC = ({}) => {
+  const { t } = useTranslation();
   return (
     <>
       <Spacer size="sm" />
@@ -15,9 +18,10 @@ const Specie: React.FC = ({ text }) => {
       <Card className="wing-blank-lg">
         <Spacer />
         <div className="flex-jc-center color-grey wing-blank-lg">
-          <div>抵押资产数量</div>
+          <div> {t("dyzcsl")}</div>
           <div>
-            余额：<span className="color-dark text-underline">23.3333</span>
+            {t("yue")}
+            <span className="color-dark text-underline">23.3333</span>
           </div>
         </div>
         <Spacer size="sm" />
@@ -25,28 +29,31 @@ const Specie: React.FC = ({ text }) => {
         <Spacer size="sm" />
         <div className="text-right color-grey wing-blank-lg">≈ ＄0.01</div>
         <Spacer size="sm" />
-        <div className="wing-blank-lg">
-          <div>
-            <div className="color-grey">抵押率</div>
-          </div>
-          <Spacer size="sm" />
-          <div className=" color-grey flex-jc-center ">
-            <div>1%</div>
-            <div>70%</div>
-          </div>
-        </div>
+        <Select />
         <Spacer size="mmd" />
-        <Label label="PUSD 合约" value="0x4657df32…675df23b" className="wing-blank-lg" />
+        <Label label={t("dyl")} value="70%" className="wing-blank-lg" />
+        <Spacer size="mmd" />
+        <Label
+          label={t('heyue')}
+          value="0x4657df32…675df23b"
+          className="wing-blank-lg"
+        />
 
         <Spacer size="mmd" />
-        <Label label="预言机调用费" value="0.01 ETH"  className="wing-blank-lg"/>
+        <Label
+          label={
+            <Tooltip title={t("tip2")}>
+              <div className="text-underline">{t("yyjdyf")}</div>
+            </Tooltip>
+          }
+          value="0.01 ETH"
+          className="wing-blank-lg"
+        />
 
         <Spacer size="mmd" />
-        <Label label="稳定费" value="0.01 PUSD"  className="wing-blank-lg"/>
-
+        <Label label={t("wdf")} value="0.01 PUSD" className="wing-blank-lg" />
         <Spacer />
-        <Button text="铸币" variant="secondary" />
-
+        <Button text={t("zhubi")} variant="secondary" />
         <Spacer />
       </Card>
       <Spacer size="sm" />

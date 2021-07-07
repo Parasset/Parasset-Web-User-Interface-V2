@@ -11,7 +11,8 @@ export default function StatusModal({}) {
   const { t } = useTranslation();
 
   const [isOpen, setOpen] = useState(false);
-
+  const textList = ['qrz', 'jygbz', 'jycg', 'jysb', 'jyqx']
+  const imgList = ['icon_loading', 'icon_broadcast', 'icon_success', 'icon_fail', 'icon_warning']
   return (
     <>
       <Modal
@@ -39,10 +40,10 @@ export default function StatusModal({}) {
             height="48"
           />
           <Spacer size="ssm" />
-          <div>交易取消</div>
+          <div>{t('jyqx')}</div>
         </div>
         <Spacer size="mmd" />
-        <Button variant="tertiary" text="查看交易" width="100px" className="center-block"/>
+        <Button variant="tertiary" text={t('ckjy')} width="100px" className="center-block"/>
       </Modal>
     </>
   );

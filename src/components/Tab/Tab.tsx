@@ -2,24 +2,27 @@
 import React from "react";
 import styled from "styled-components";
 import Card from "../Card";
-
-const Tab: React.FC = ({ tabs, tab, onChangeTab }) => (
-  <Card className="flex-jc-center text-center">
-    {tabs.map((item) => {
-      return (
-        <StyledTabItem
-          key={item.id}
-          className={`${item.id === tab ? "active" : ""} flex1`}
-          onClick={() => {
-            onChangeTab(item.id);
-          }}
-        >
-          <span className=" cursor-pointer color-grey">{item.text}</span>
-        </StyledTabItem>
-      );
-    })}
-  </Card>
-);
+import { useTranslation } from "react-i18next";
+const Tab: React.FC = ({ tabs, tab, onChangeTab }) => {
+  const { t } = useTranslation();
+  return (
+    <Card className="flex-jc-center text-center">
+      {tabs.map((item) => {
+        return (
+          <StyledTabItem
+            key={item.id}
+            className={`${item.id === tab ? "active" : ""} flex1`}
+            onClick={() => {
+              onChangeTab(item.id);
+            }}
+          >
+            <span className=" cursor-pointer color-grey">{t(item.text)}</span>
+          </StyledTabItem>
+        );
+      })}
+    </Card>
+  );
+};
 
 const StyledTabItem = styled.div`
   &.active span {

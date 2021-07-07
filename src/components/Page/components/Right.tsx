@@ -1,16 +1,18 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 import Button from "../../Button";
 import Spacer from "../../Spacer";
 const Right: React.FC = () => {
+  const { t } = useTranslation();
   return (
     <StyledNavRight>
       <StyledWallet className="flex-row-center-center bd-bottom wing-blank-lg ">
-        <Button text="连接钱包" variant="secondary" />
+        <Button text={t('ljqb')} variant="secondary" />
       </StyledWallet>
       <div className="wing-blank-lg">
         <div className="bd-bottom">
-          <StyledLabel>价格</StyledLabel>
+          <StyledLabel>{t('jiage')}</StyledLabel>
           <div className="flex-jc-start">
             <div className="flex-jc-center">
               <img
@@ -73,7 +75,7 @@ const Right: React.FC = () => {
           <Spacer size="md" />
         </div>
         <div className="">
-          <StyledLabel>流通量</StyledLabel>
+          <StyledLabel>{t('ltl')}</StyledLabel>
           <div className="flex-jc-start">
             <div className="flex-jc-center">
               <img

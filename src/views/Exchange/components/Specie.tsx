@@ -1,13 +1,15 @@
 //@ts-nocheck
 import React from "react";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
 import CardButton from "../../../components/CardButton";
 import Select from "../../../components/Select";
 import Button from "../../../components/Button";
 import Label from "../../../components/Label";
-const Specie: React.FC = ({ text }) => {
+const Specie: React.FC = ({  }) => {
+  const { t } = useTranslation();
   return (
     <>
       <Spacer size="sm" />
@@ -15,9 +17,9 @@ const Specie: React.FC = ({ text }) => {
       <Card className="wing-blank-lg">
         <Spacer />
         <div className="flex-jc-center color-grey wing-blank-lg">
-          <div>从</div>
+          <div>{t('cong')}</div>
           <div>
-            余额：<span className="color-dark text-underline">23.3333</span>
+          {t('yue')}<span className="color-dark text-underline">23.3333</span>
           </div>
         </div>
         <Spacer size="sm" />
@@ -34,9 +36,9 @@ const Specie: React.FC = ({ text }) => {
           />
         </StyledExchangeImg>
         <div className="flex-jc-center color-grey wing-blank-lg">
-          <div>到</div>
+          <div>{t('dao')}</div>
           <div>
-            余额：<span className="color-dark text-underline">23.3333</span>
+          {t('yue')}<span className="color-dark text-underline">23.3333</span>
           </div>
         </div>
         <Spacer size="sm" />
@@ -44,12 +46,12 @@ const Specie: React.FC = ({ text }) => {
         <Spacer size="sm" />
         <div className="text-right color-grey wing-blank-lg">≈ ＄0.01</div>
         <Spacer size="sm" />
-        <Label label="兑换比例" value="1 ETH = 1200 PUSD" className="wing-blank-lg"/>
+        <Label label={t('dhbl')} value="1 ETH = 1200 PUSD" className="wing-blank-lg"/>
         <Spacer size="mmd" />
-        <Label label="手续费" value="0.01 PETH" className="wing-blank-lg"/>
+        <Label label={t('sxf')} value="0.01 PETH" className="wing-blank-lg"/>
        
         <Spacer />
-        <Button text="兑换" variant="secondary" />
+        <Button text={t('duihuan')} variant="secondary" />
         <Spacer />
       </Card>
       <Spacer size="sm" />

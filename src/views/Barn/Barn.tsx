@@ -13,10 +13,10 @@ import Handler from "./components/Handler";
 
 const Mine: React.FC = () => {
   const isMobile = useIsMobile();
-
+  const { t } = useTranslation();
   return (
     <>
-      <Back text="USDT-PUSD LP 矿池" img="USDT_icon" img1="PUSDT_icon" />
+      <Back text={`USDT-PUSD LP ${t('kuangchi')}`} img="USDT_icon" img1="PUSDT_icon" />
       <Info />
       <Handler />
      

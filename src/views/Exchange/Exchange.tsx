@@ -8,10 +8,11 @@ import Specie from "./components/Specie";
 import BtnLink from "../../components/BtnLink";
 const Coin: React.FC = () => {
   const isMobile = useIsMobile();
+  const { t } = useTranslation();
   return (
     <div className="wing-blank-xl">
       <Specie />
-      <BtnLink text="为保险池提供流动性" />
+      <BtnLink text= {t('wbxctgldx')} />
     </div>
   );
 };

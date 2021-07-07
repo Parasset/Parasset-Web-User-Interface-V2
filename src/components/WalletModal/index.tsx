@@ -22,7 +22,7 @@ export default function WalletModal({}) {
         }}
         width="330px"
         showHeader={true}
-        title="连接钱包"
+        title={t('ljqb')}
       >
         <Spacer size="mmd" />
         <CardButton
@@ -47,7 +47,7 @@ export default function WalletModal({}) {
         }}
         width="330px"
         showHeader={true}
-        title="账户"
+        title={t('zhanghu')}
       >
         <div className="bd-bottom">
           <Spacer size="mmd" />
@@ -64,11 +64,11 @@ export default function WalletModal({}) {
             <div className="flex-jc-end ">
               <Button
                 variant="secondary"
-                text="更改"
+                text={t('genggai')}
                 width="60px"
                 className="margin-right-10"
               />
-              <Button variant="tertiary" text="断开" width="60px" />
+              <Button variant="tertiary" text={t('duankai')} width="60px" />
             </div>
           </div>
           <Spacer size="mmd" />
@@ -95,13 +95,13 @@ export default function WalletModal({}) {
               height="25"
               className="margin-right-10"
             />
-            <span className="color-light-blue">在 Etherscan 上查看</span>
+            <span className="color-light-blue">{t('zethsck')}</span>
           </div>
           <Spacer size="mmd" />
         </div>
         <div>
           <Spacer size="mmd" />
-          <div className="bold-600">我的平行资产</div>
+          <div className="bold-600">{t('wdpxzc')}</div>
           <Spacer size="mmd" />
           <div className="flex-jc-center">
             <div className="flex-jc-start">

@@ -1,17 +1,20 @@
 //@ts-nocheck
 import React from "react";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
 import CardButton from "../../../components/CardButton";
 import Progress from "./Progress";
 import Button from "../../../components/Button";
-const Depot: React.FC = ({ text }) => {
+const Depot: React.FC = ({  }) => {
+  const { t } = useTranslation();
   return (
     <>
       <Card className="wing-blank-lg">
         <Spacer />
         <Progress />
+       
         <Spacer size="sm" />
         <div className="flex-row-center-center ">
           <img
@@ -31,7 +34,7 @@ const Depot: React.FC = ({ text }) => {
         <Spacer size="mmd" />
         <StyledCardButton className="wing-blank-lg">
           <div className="flex-jc-center flex1">
-            <div className="color-grey">抵押资产</div>
+            <div className="color-grey">{t('dyzc')}</div>
             <div className="text-right">
               <div className="font-size-14">10,000 NEST</div>
               <div className="font-size-10 color-grey">$ 420.43</div>
@@ -41,7 +44,7 @@ const Depot: React.FC = ({ text }) => {
         <Spacer size="mmd" />
         <StyledCardButton className="wing-blank-lg">
           <div className="flex-jc-center flex1">
-            <div className="color-grey">铸币债务</div>
+            <div className="color-grey">{t('zbzw')}</div>
             <div className="text-right">
               <div className="font-size-14">294 PUSD</div>
               <div className="font-size-10 color-grey">$ 420.43</div>
@@ -51,13 +54,13 @@ const Depot: React.FC = ({ text }) => {
         <Spacer size="mmd" />
         <StyledCardButton className="wing-blank-lg">
           <div className="flex-jc-center flex1">
-            <div className="color-grey">稳定费</div>
+            <div className="color-grey">{t('wdf')}</div>
             <div className="text-right font-size-14">6 PUSD</div>
           </div>
         </StyledCardButton>
 
         <Spacer size="md" />
-        <Button text="查看" variant="secondary" />
+        <Button text={t('chakan')} variant="secondary" />
         <Spacer />
       </Card>
       <Spacer />
@@ -69,4 +72,5 @@ const StyledCardButton = styled(CardButton)`
   display: flex;
   align-items: center;
 `;
+
 export default Depot;

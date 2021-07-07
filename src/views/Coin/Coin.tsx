@@ -6,16 +6,16 @@ import useIsMobile from "../../hooks/useIsMobile";
 import Tab from "../../components/Tab";
 import Specie from "./components/Specie";
 import Debt from "./components/Debt";
-import Depot from "./components/Depot";
+
 const Coin: React.FC = () => {
   const isMobile = useIsMobile();
   const [tabs, setTabs] = useState([
     {
-      text: "铸币",
+      text: "zhubi",
       id: 1,
     },
     {
-      text: "我的债仓",
+      text: "wdzc",
       id: 2,
     },
   ]);
@@ -24,9 +24,8 @@ const Coin: React.FC = () => {
   return (
     <div className="wing-blank-xl">
       <Tab tabs={tabs} tab={tab} onChangeTab={() => {}} />
-      {/* <Specie /> */}
-      <Debt />
-      <Depot />
+      <Specie />
+      {/* <Debt /> */}
     </div>
   );
 };

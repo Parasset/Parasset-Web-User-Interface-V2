@@ -17,7 +17,7 @@ const FundInfo: React.FC = ({}) => {
         <div className={` ${isMobile ? "" : "wing-blank"} `}>
           <div className={` ${isMobile ? "" : "wing-blank-lg"} `}>
             <div className="flex-jc-center">
-              <div className="color-grey">我的保险账户</div>
+              <div className="color-grey">保险基金账户</div>
               <div>
                 <span className="color-grey">当前净值：</span>
                 <span className="text-underline">1.023846</span>

@@ -2,7 +2,7 @@ body {
   background: #ffffff;
   margin: 0;
   font-family: "Nunito", sans-serif;
-  font-size: 13px;
+  font-size: 13px!important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #000;
@@ -455,5 +455,8 @@ input:-ms-input-placeholder {
     padding-right: 0;
     width: 100%;
     box-sizing: border-box;
+  }
+  body {
+    font-size: 12px!important;
   }
 }

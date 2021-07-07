@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 export interface InputProps {
   endAdornment?: React.ReactNode;
@@ -11,46 +11,29 @@ export interface InputProps {
 }
 
 const Input: React.FC<InputProps> = ({
-  endAdornment,
   onChange,
   placeholder,
-  startAdornment,
   value,
-  type
+  type,
 }) => {
   return (
-    <StyledInputWrapper>
-      {!!startAdornment && startAdornment}
-      <StyledInput placeholder={placeholder} value={value} onChange={onChange} type={type} />
-      {!!endAdornment && endAdornment}
-    </StyledInputWrapper>
+    <StyledInput
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+      type={type}
+    />
   );
 };
 
-const StyledInputWrapper = styled.div`
-  align-items: center;
-  background-color: ${(props) => props.theme.color.grey[200]};
-  border-radius: ${(props) => props.theme.borderRadius}px;
-  display: flex;
-  padding: 0 ${(props) => props.theme.spacing[3]}px;
-  @media (max-width: 768px) {
-    padding: 0 ${(props) => props.theme.spacing[2]}px;
-  }
-`;
-
 const StyledInput = styled.input`
-  background: none;
-  border: 0;
-  color: ${(props) => props.theme.color.grey[600]};
-  font-size: 18px;
-  flex: 1;
-  height: 56px;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  text-align: right;
+  font-size: 12px;
   margin: 0;
   padding: 0;
-  outline: none;
-  @media (max-width: 768px) {
-    width: 150px;
-  }
 `;
 
 export default Input;

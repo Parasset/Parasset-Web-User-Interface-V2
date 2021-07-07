@@ -8,8 +8,9 @@ import Spacer from "../Spacer";
 import CardButton from "../CardButton";
 import Label from "../Label";
 import Button from "../Button";
+import Input from "../Input";
 
-export default function HandlerModal({}) {
+export default function HandlerModal({ title, label, balanceTxt, columns }) {
   const { t } = useTranslation();
 
   const [isOpen, setOpen] = useState(true);
@@ -21,15 +22,16 @@ export default function HandlerModal({}) {
         onDismiss={() => {
           setOpen(false);
         }}
-        width="300px"
+        // width="340px"
         showHeader={true}
-        title="赎回 LP-USD"
+        title={title}
       >
         <Spacer size="mmd" />
         <div className="flex-jc-center">
-          <div className="color-grey">赎回数量</div>
+          <div className="color-grey">{label}</div>
           <div>
-            <span className="color-grey"> 可赎回：</span>23.3333
+            <span className="color-grey"> {balanceTxt}：</span>
+            <span className="text-underline ">23.3333</span>
           </div>
         </div>
         <Spacer size="mmd" />
@@ -38,42 +40,42 @@ export default function HandlerModal({}) {
           size="lg"
         >
           <div className="flex-jc-center">
-            <div className="flex-jc-start">
+            <div className="flex-jc-start font-size-12">
               <div className="flex-jc-start margin-right-10">
                 <img
                   src={require(`../../assets/img/USDT_icon.png`)}
-                  width="35"
-                  height="35"
+                  width="25"
+                  height="25"
                 />
                 <img
                   src={require(`../../assets/img/PUSDT_icon.png`)}
-                  width="35"
-                  height="35"
+                  width="25"
+                  height="25"
                   className="margin-left-minus-10"
                 />
               </div>
-              LP-USD
+              <span>LP-USD</span>
             </div>
-            <StyledInput  />
+            <Input />
           </div>
         </CardButton>
+        {Object.keys(columns).map((key) => {
+          const item = columns[key];
+          return (
+            <React.Fragment key={key}>
+              <Spacer size="mmd" />
+              <Label
+                label={item?.label}
+                value={`${item?.value} ${item?.unit}`}
+              />
+            </React.Fragment>
+          );
+        })}
+
+      
         <Spacer size="mmd" />
-        <Label label="抵押资产变更为" value="345,240 NEST" />
-        <Spacer size="mmd" />
-        <Label label="抵押率变更为" value="64%" />
-        <Spacer size="mmd" />
-        <Label label="清算价变更为" value="1345 PUSD" />
-        <Spacer size="mmd" />
-        <Label label="缴纳稳定费" value="4.41 PUSD" />
-        <Spacer size="mmd" />
-        <Button variant="secondary" text="确认" />
+        <Button variant="secondary" text={t('queren')} />
       </Modal>
     </>
   );
 }
-const StyledInput = styled.input`
-  outline: none;
-  border: none;
-  background-color: transparent;
-  text-align: right;
-`;

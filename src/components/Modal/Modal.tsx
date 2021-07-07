@@ -52,9 +52,14 @@ const StyledModal = styled.div`
   border-radius: 12px;
   background-color: #fff;
   position: relative;
-  width: ${({ width }) => (width ? width : "50vw")};
+  width: ${({ width }) => (width ? width : "400px")};
+  max-width: 400px;
+  min-width: 300px;
   padding: 20px 15px;
   box-sizing: border-box;
+  @media (max-width: 768px) {
+    width: 85%!important;
+  }
 `;
 const StyledModalWrapper = styled.div`
   align-items: center;

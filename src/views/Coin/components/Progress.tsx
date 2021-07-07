@@ -1,19 +1,29 @@
 //@ts-nocheck
 import React from "react";
 import styled from "styled-components";
+import { Tooltip } from "antd";
+import { useTranslation } from "react-i18next";
 import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
+
 const Progress: React.FC = ({}) => {
+  const { t } = useTranslation();
   return (
     <>
       <StyledWrapBox>
         <div className="color-grey flex1 text-right margin-right-10">1%</div>
-        <StyledProgress className="text-center">
+        <StyledProgress className="text-center" id="tip-box">
           <StyledProgressLine />
           <StyledProgressGrey />
 
           <div className="color-light-pink bold-600 font-size-32">35%</div>
-          <div className="color-grey text-underline">当前抵押率</div>
+          <Tooltip
+            title={t('tip1')}
+          >
+            <StyledRatio className="color-grey text-underline">
+              {t('dqdyl')}
+            </StyledRatio>
+          </Tooltip>
         </StyledProgress>
         <div className="color-grey flex1 text-left margin-left-10">70%</div>
       </StyledWrapBox>
@@ -55,7 +65,7 @@ const StyledProgressLine = styled.div`
   top: 0;
   z-index: 2;
   /* transform : rotate(-135deg); */
-  transform : rotate(-80deg);
+  transform: rotate(-80deg);
 `;
 const StyledProgressGrey = styled.div`
   width: 200px;
@@ -69,5 +79,12 @@ const StyledProgressGrey = styled.div`
   left: 0;
   top: 0;
   z-index: 1;
+`;
+const StyledRatio = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
 `;
 export default Progress;

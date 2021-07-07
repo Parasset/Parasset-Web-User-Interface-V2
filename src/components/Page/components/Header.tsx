@@ -1,6 +1,7 @@
 //@ts-nocheck
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 import Logo from "../../Logo";
 import Tab from "../../Tab";
 import Spacer from "../../Spacer";
@@ -11,17 +12,18 @@ import Nav from "./Nav";
 const Header: React.FC = () => {
   const [tabs, setTabs] = useState([
     {
-      text: "菜单",
+      text: "caidan",
       id: 1,
     },
     {
-      text: "数据",
+      text: "shuju",
       id: 2,
     },
   ]);
 
   const [tab, setTab] = useState(1);
   const [show, setShow] = useState(false);
+  const { t } = useTranslation();
   const toggleShow = useCallback(async () => {
     setShow(!show);
   }, [show, setShow]);
@@ -30,8 +32,7 @@ const Header: React.FC = () => {
     <>
       <StyledHeaderPc className="bd-bottom color-grey wing-blank-lg flex-jc-start">
         <StyledHeaderText>
-          <div>Stake Your crypto assets</div>
-          <div> to mint parallel assets</div>
+         <div>{t('dypxzc')}</div>
         </StyledHeaderText>
       </StyledHeaderPc>
       <StyledHeaderMobile className="bd-bottom color-grey wing-blank-lg flex-jc-center">
