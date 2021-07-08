@@ -10,9 +10,10 @@ const CardButton: React.FC<CardProps> = ({
   children,
   className = "text-center  flex-row-center-center ",
   size,
+  onClick
 }) => (
   <>
-    <StyledButton className={`wing-blank ${className}`}>
+    <StyledButton className={`wing-blank ${className}`} onClick={onClick}>
       {size === "lg" ? <Spacer size="sm" /> : null}
       {children}
       {size === "lg" ? <Spacer size="sm" /> : null}

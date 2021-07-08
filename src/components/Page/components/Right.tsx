@@ -1,18 +1,37 @@
-import React, { useState, useCallback } from "react";
+//@ts-nocheck
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
+import { useWallet } from "use-wallet";
 import { useTranslation } from "react-i18next";
 import Button from "../../Button";
 import Spacer from "../../Spacer";
+import WalletModal from "../../WalletModal";
+import useEncryptAddress from "../../../hooks/useEncryptAddress";
 const Right: React.FC = () => {
+  const { account, connect } = useWallet();
+  const newAccount = useEncryptAddress(account);
+  const [isOpen, setOpen] = useState(false);
   const { t } = useTranslation();
+
+  useEffect(() => {
+    if (!account) {
+      connect("injected");
+    }
+  }, [account]);
   return (
     <StyledNavRight>
       <StyledWallet className="flex-row-center-center bd-bottom wing-blank-lg ">
-        <Button text={t('ljqb')} variant="secondary" />
+        <Button
+          text={!account ? t("ljqb") : newAccount}
+          variant="secondary"
+          onClick={() => {
+            setOpen(true);
+          }}
+        />
       </StyledWallet>
       <div className="wing-blank-lg">
         <div className="bd-bottom">
-          <StyledLabel>{t('jiage')}</StyledLabel>
+          <StyledLabel>{t("jiage")}</StyledLabel>
           <div className="flex-jc-start">
             <div className="flex-jc-center">
               <img
@@ -75,7 +94,7 @@ const Right: React.FC = () => {
           <Spacer size="md" />
         </div>
         <div className="">
-          <StyledLabel>{t('ltl')}</StyledLabel>
+          <StyledLabel>{t("ltl")}</StyledLabel>
           <div className="flex-jc-start">
             <div className="flex-jc-center">
               <img
@@ -105,6 +124,12 @@ const Right: React.FC = () => {
           </div>
         </div>
       </div>
+      <WalletModal
+        isOpen={isOpen}
+        onDismiss={() => {
+          setOpen(false);
+        }}
+      />
     </StyledNavRight>
   );
 };
