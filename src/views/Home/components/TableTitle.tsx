@@ -1,16 +1,18 @@
 //@ts-nocheck
 import React from "react";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
-const TableTitle: React.FC = ({ text }) => {
+const TableTitle: React.FC = ({  }) => {
+  const { t } = useTranslation();
   return (
     <StyledTableTitleBox>
       <Card className=" flex-jc-center color-grey">
-        <div className="flex1">抵押资产</div>
+        <div className="flex1">{t('dyzc')}</div>
         <div className="flex1">TVL</div>
-        <div className="flex1">最大抵押率</div>
-        <div className="flex1">清算抵押率</div>
+        <div className="flex1">{t('zddyl')}</div>
+        <div className="flex1">{t('qsdyl')}</div>
       </Card>
       <Spacer size="sm" />
       <Spacer size="sm" />

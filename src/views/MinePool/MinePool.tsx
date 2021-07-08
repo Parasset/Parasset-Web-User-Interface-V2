@@ -17,14 +17,14 @@ const Mine: React.FC = () => {
 
   return (
     <>
-      <Back text="USDT-PUSD LP 矿池" img="USDT_icon" img1="PUSDT_icon" />
+      <Back text={`USDT-PUSD LP ${t("kuangchi")} `} img="USDT_icon" img1="PUSDT_icon" />
       <Info />
       <div className={` ${isMobile ? "" : "flex-jc-center width-100"} `}>
         <Harvest />
         {isMobile ? <Spacer size="mmd" /> : null}
         <Stake />
       </div>
-      <BtnLink text="获取 LP-USD" />
+      <BtnLink text={` ${t("hq")} LP-USD`} />
     </>
   );
 };

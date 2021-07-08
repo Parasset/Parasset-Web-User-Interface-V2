@@ -1,16 +1,18 @@
 import React from "react";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 import Spacer from "../../../components/Spacer";
 import useIsMobile from "../../../hooks/useIsMobile";
 const Footer: React.FC = () => {
   const isMobile = useIsMobile();
+  const { t } = useTranslation();
   return (
     <div className="wing-blank-lg ">
       <div className={`width-100 ${isMobile ? "" : "flex-jc-center"} `} >
         {isMobile ? <Spacer size="mmd" /> : null}
 
         <div className="color-grey text-center">
-          抵押你的加密资产铸造平行资产
+          {t('dypxzc')}
         </div>
         {isMobile ? <Spacer size="mmd" /> : null}
         <div  className={` flex-wrap ${isMobile ? "wing-blank flex-jc-center" : "flex-jc-end flex1"} `}>

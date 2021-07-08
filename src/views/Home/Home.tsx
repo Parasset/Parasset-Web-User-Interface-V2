@@ -11,12 +11,12 @@ import Footer from "./components/Footer";
 
 const Home: React.FC = () => {
   const isMobile = useIsMobile();
-
+  const { t } = useTranslation();
   return (
     <>
-      <BigValue text="抵押资产锁定市值"  color="#DD8751"/>
-      <BigValue text="平行资产流通市值" color="#77A89A" />
-      <BigValue text="保险池流动性总市值"  color="#5DB3D3"/>
+      <BigValue text={t('dyzcsdsz')}  color="#DD8751"/>
+      <BigValue text={t('pxzcltsz')}color="#77A89A" />
+      <BigValue text={t('bxcldxzsz')} color="#5DB3D3"/>
       <TableTitle />
       <TableList />
       <Footer/>

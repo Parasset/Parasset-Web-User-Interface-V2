@@ -1,17 +1,19 @@
 //@ts-nocheck
 import React from "react";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
 import Button from "../../../components/Button";
 import useIsMobile from "../../../hooks/useIsMobile";
 const Stake: React.FC = ({}) => {
   const isMobile = useIsMobile();
+  const { t } = useTranslation();
   return (
     <>
       <StyledWrapBox className={`wing-blank-lg ${isMobile ? "" : "width-47"} `}>
         <Spacer size="mmd" />
-        <div className="color-grey">我的抵押</div>
+        <div className="color-grey">{t("wddy")}</div>
         <Spacer />
         <div className="wing-blank-llg  text-center">
           <div className="flex-row-center-center">
@@ -31,11 +33,11 @@ const Stake: React.FC = ({}) => {
           <Spacer size="sm" />
           <div className="font-size-24 bold-600">10,000</div>
           <Spacer size="sm" />
-          <div className="color-grey">已抵押 ( LP-USD )</div>
+          <div className="color-grey">{t("ydy")} ( LP-USD )</div>
           <Spacer />
           <div className="flex-jc-center">
-            <Button text="授权" variant="secondary" width="47%" />
-            <Button text="赎回" variant="tertiary" width="47%" />
+            <Button text={t("sq")}  variant="secondary" width="47%" />
+            <Button text={t("shuhui")}variant="tertiary" width="47%" />
           </div>
         </div>
 

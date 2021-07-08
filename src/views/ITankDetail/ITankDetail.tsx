@@ -9,10 +9,10 @@ import FundInfo from "./components/FundInfo";
 
 const Mine: React.FC = () => {
   const isMobile = useIsMobile();
-
+  const { t } = useTranslation()
   return (
     <>
-      <Back text="USDT-PUSD 保险池" img="USDT_icon" img1="PUSDT_icon" />
+      <Back text={`USDT-PUSD  ${t('bxc')}`} img="USDT_icon" img1="PUSDT_icon" />
       <div className="wing-blank-xl">
         <MyInfo />
         <FundInfo />

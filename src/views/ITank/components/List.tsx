@@ -1,6 +1,7 @@
 //@ts-nocheck
 import React from "react";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
 import CardButton from "../../../components/CardButton";
@@ -9,6 +10,7 @@ import Label from "../../../components/Label";
 import useIsMobile from "../../../hooks/useIsMobile";
 const Item: React.FC = ({}) => {
   const isMobile = useIsMobile();
+  const { t } = useTranslation()
   return (
     <>
      <StyledWrapBox className={`wing-blank-lg ${isMobile ? "" : "width-47"} `}>
@@ -34,13 +36,13 @@ const Item: React.FC = ({}) => {
         <Label label="TVL" value="$ 1,234.45" />
 
         <Spacer size="mmd" />
-        <Label label="我的份额" value="1,234.45" />
+        <Label label={t('wdfe')} value="1,234.45" />
 
         <Spacer size="mmd" />
-        <Label label="我的占比" value="12.34%" />
+        <Label label={t('wdzb')} value="12.34%" />
 
         <Spacer />
-        <Button text="选择" variant="secondary" />
+        <Button text={t('xuanze')} variant="secondary" />
         <Spacer size="mmd" />
       </StyledWrapBox>
     </>

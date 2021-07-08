@@ -1,6 +1,7 @@
 //@ts-nocheck
 import React from "react";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
 import CardButton from "../../../components/CardButton";
@@ -10,6 +11,7 @@ import Account from "./Account";
 import useIsMobile from "../../../hooks/useIsMobile";
 const FundInfo: React.FC = ({}) => {
   const isMobile = useIsMobile();
+  const { t } = useTranslation()
   return (
     <>
       <Card className={` ${isMobile ? "wing-blank" : "wing-blank-lg"} `}>
@@ -17,9 +19,9 @@ const FundInfo: React.FC = ({}) => {
         <div className={` ${isMobile ? "" : "wing-blank"} `}>
           <div className={` ${isMobile ? "" : "wing-blank-lg"} `}>
             <div className="flex-jc-center">
-              <div className="color-grey">保险基金账户</div>
+              <div className="color-grey">{t("bxjjzh")}</div>
               <div>
-                <span className="color-grey">当前净值：</span>
+                <span className="color-grey">{t("dqjz")}</span>
                 <span className="text-underline">1.023846</span>
               </div>
             </div>

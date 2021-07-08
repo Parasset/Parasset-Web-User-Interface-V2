@@ -1,6 +1,7 @@
 //@ts-nocheck
 import React from "react";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
 import CardButton from "../../../components/CardButton";
@@ -9,6 +10,7 @@ import Label from "../../../components/Label";
 import useIsMobile from "../../../hooks/useIsMobile";
 const Item: React.FC = ({}) => {
   const isMobile = useIsMobile();
+  const { t } = useTranslation();
   return (
     <>
       <StyledWrapBox className={`wing-blank-lg ${isMobile ? "" : "width-47"} `}>
@@ -30,7 +32,7 @@ const Item: React.FC = ({}) => {
         <Spacer size="sm" />
         <div className="font-size-16 text-center">ETH - PETH</div>
         <Spacer size="ssm" />
-        <div className="color-grey  text-center">存 LP-ETH 赚 ASET</div>
+        <div className="color-grey  text-center">{t("cunzhuan")}</div>
         <Spacer size="mmd" />
 
         <Label label="TVL" value="$ 1,234.45" />
@@ -38,13 +40,13 @@ const Item: React.FC = ({}) => {
         <Label label="APY" value="123.45%" />
 
         <Spacer size="mmd" />
-        <Label label="我的质押 ( LP-USD )" value="1,234.45" />
+        <Label label={`${t("cunzhuan")} PUSD`} value="1,234.45" />
 
         <Spacer size="mmd" />
-        <Label label="待领收益 (.ASET )" value="124.34" />
+        <Label label={`${t("dlqsy")} (.ASET )`} value="124.34" />
 
         <Spacer />
-        <Button text="选择" variant="secondary" />
+        <Button text={t("xuanze")} variant="secondary" />
         <Spacer size="mmd" />
       </StyledWrapBox>
     </>

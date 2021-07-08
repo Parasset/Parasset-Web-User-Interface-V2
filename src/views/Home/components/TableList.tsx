@@ -1,11 +1,13 @@
 //@ts-nocheck
 import React from "react";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
 import Button from "../../../components/Button";
 import Label from "../../../components/Label";
-const TableList: React.FC = ({ text }) => {
+const TableList: React.FC = ({  }) => {
+  const { t } = useTranslation();
   return (
     <>
       <StyledPcItem>
@@ -23,7 +25,7 @@ const TableList: React.FC = ({ text }) => {
           <div className="flex1">70%</div>
           <div className="flex1 flex-jc-center">
             <span>84%</span>
-            <Button text="铸币" variant="secondary" width="80px" />
+            <Button text={t('zhubi')} variant="secondary" width="80px" />
           </div>
         </Card>
         <Spacer size="sm" />
@@ -32,7 +34,7 @@ const TableList: React.FC = ({ text }) => {
       <StyledMobileItem>
         <Card className="wing-blank-lg">
           <Spacer size="mmd" />
-          <div className="color-grey">抵押资产</div>
+          <div className="color-grey">{t('dyzc')}</div>
           <Spacer size="mmd" />
           <div className="flex-row-center-center">
             <img
@@ -49,13 +51,13 @@ const TableList: React.FC = ({ text }) => {
           <Label label="TVL" value="$ 1,234.45" />
 
           <Spacer size="mmd" />
-          <Label label="最大抵押率" value="123.45%" />
+          <Label label={t('zddyl')} value="123.45%" />
 
           <Spacer size="mmd" />
-          <Label label="清算抵押率" value="1,234.45" />
+          <Label label={t('qsdyl')} value="1,234.45" />
 
           <Spacer />
-          <Button text="铸币" variant="secondary" />
+          <Button text={t('zhubi')} variant="secondary" />
           <Spacer size="mmd" />
         </Card>
       </StyledMobileItem>

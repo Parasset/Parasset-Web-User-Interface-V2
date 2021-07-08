@@ -9,10 +9,10 @@ import List from "./components/List";
 
 const Mine: React.FC = () => {
   const isMobile = useIsMobile();
-
+  const { t } = useTranslation();
   return (
     <>
-      <BigValue text="矿池 TVL" color="#77A89A" />
+      <BigValue text={`${t("kuangchi")} TVL`} color="#77A89A" />
 
       <List />
     </>
