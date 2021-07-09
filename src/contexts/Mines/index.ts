@@ -1,2 +1,2 @@
-export { default } from './Banks'
+export { default } from './Mines'
 export { default as Context } from './context'

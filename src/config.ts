@@ -1,7 +1,7 @@
 //@ts-nocheck
 import { ChainId } from "@uniswap/sdk";
 import { Configuration } from "./basis-cash/config";
-import { BankInfo } from "./basis-cash";
+import { MineInfo } from "./basis-cash";
 import { formatUnits } from "ethers/lib/utils";
 import { BigNumber } from "ethers";
 
@@ -32,7 +32,7 @@ const configurations: { [env: string]: Configuration } = {
   },
 };
 
-export const bankDefinitions: { [contractName: string]: BankInfo } = {
+export const mineDefinitions: { [contractName: string]: MineInfo } = {
   USDTPUSDPool: {
     name: "USDT-PUSD",
     icon1: "USDT",

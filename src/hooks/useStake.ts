@@ -1,27 +1,27 @@
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import useBasisCash from './useBasisCash';
-import { Bank } from '../basis-cash';
+import { Mine } from '../basis-cash';
 import useHandleTransactionReceipt from './useHandleTransactionReceipt';
 import { parseUnits } from 'ethers/lib/utils';
 
-const useStake = (bank: Bank) => {
+const useStake = (mine: Mine) => {
   const basisCash = useBasisCash();
   const handleTransactionReceipt = useHandleTransactionReceipt();
   const { t } = useTranslation();
   const handleStake = useCallback(
     (amount: string) => {
-      const amountBn = parseUnits(amount, bank.depositToken.decimal);
+      const amountBn = parseUnits(amount, mine.depositToken.decimal);
       handleTransactionReceipt(
-        basisCash.stake(bank.contract, amountBn,bank),
+        basisCash.stake(mine.contract, amountBn,mine),
         t('diyamou', {
           label: amount,
-          label1: bank.depositTokenName,
-          label2: bank.contract,
+          label1: mine.depositTokenName,
+          label2: mine.contract,
         }),
       );
     },
-    [bank, basisCash],
+    [mine, basisCash],
   );
   return { onStake: handleStake };
 };

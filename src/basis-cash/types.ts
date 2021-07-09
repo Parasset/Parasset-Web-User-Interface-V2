@@ -2,7 +2,7 @@ import ERC20 from './ERC20';
 
 export type ContractName = string;
 
-export interface BankInfo {
+export interface MineInfo {
   name: string;
   contract: ContractName;
   depositTokenName: ContractName;
@@ -11,7 +11,7 @@ export interface BankInfo {
   finished: boolean;
 }
 
-export interface Bank extends  BankInfo {
+export interface Mine extends  MineInfo {
   address: string;
   depositToken: ERC20;
   earnToken: ERC20;

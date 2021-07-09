@@ -99,7 +99,7 @@ export class BasisCash {
   async stake(
     poolName: ContractName,
     amount: BigNumber,
-    bank: any
+    mine: any
   ): Promise<TransactionResponse> {
     const pool = this.contracts[poolName];
     var gasObj = {

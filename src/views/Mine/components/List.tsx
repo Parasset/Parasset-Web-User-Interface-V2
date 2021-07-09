@@ -8,7 +8,7 @@ import CardButton from "../../../components/CardButton";
 import Button from "../../../components/Button";
 import Label from "../../../components/Label";
 import useIsMobile from "../../../hooks/useIsMobile";
-const Item: React.FC = ({}) => {
+const Item: React.FC = ({item}) => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
   return (
@@ -52,13 +52,15 @@ const Item: React.FC = ({}) => {
     </>
   );
 };
-const List: React.FC = ({}) => {
+const List: React.FC = ({ mines }) => {
   const isMobile = useIsMobile();
   return (
     <>
       <div className={`width-100 ${isMobile ? "" : "flex-jc-center"} `}>
-        <Item />
-        <Item />
+        {mines.map((item,i) => {
+          console.log(item,mines)
+          return <Item item={item} key={item.name} />;
+        })}
       </div>
       <Spacer size="sm" />
       <Spacer size="sm" />

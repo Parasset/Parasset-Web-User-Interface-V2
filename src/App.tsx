@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { UseWalletProvider } from "use-wallet";
-import BanksProvider from "./contexts/Banks";
+import MinesProvider from "./contexts/Mines";
 import BasisCashProvider from "./contexts/BasisCashProvider";
 import Page from "./components/Page";
 
@@ -67,9 +67,9 @@ const Providers: React.FC = ({ children }) => {
         <Provider store={store}>
           <Updaters />
           <BasisCashProvider>
-            <BanksProvider>
+            <MinesProvider>
               <>{children}</>
-            </BanksProvider>
+            </MinesProvider>
           </BasisCashProvider>
         </Provider>
       </UseWalletProvider>
