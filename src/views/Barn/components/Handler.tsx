@@ -26,7 +26,7 @@ const Info: React.FC = ({}) => {
 
                 <div className="flex-row-center-center ">
                   <img
-                    src={require("../../../assets/img/NEST_icon.png")}
+                    src={require("../../../assets/img/NEST.png")}
                     width="40"
                     height="40"
                   />
@@ -49,7 +49,7 @@ const Info: React.FC = ({}) => {
 
                 <div className="flex-row-center-center ">
                   <img
-                    src={require("../../../assets/img/PUSDT_icon.png")}
+                    src={require("../../../assets/img/PUSD.png")}
                     width="40"
                     height="40"
                   />
@@ -80,7 +80,7 @@ const Info: React.FC = ({}) => {
 
                 <div className="flex-row-center-center ">
                   <img
-                    src={require("../../../assets/img/NEST_icon.png")}
+                    src={require("../../../assets/img/NEST.png")}
                     width="40"
                     height="40"
                   />
@@ -103,7 +103,7 @@ const Info: React.FC = ({}) => {
 
                 <div className="flex-row-center-center ">
                   <img
-                    src={require("../../../assets/img/PUSDT_icon.png")}
+                    src={require("../../../assets/img/PUSD.png")}
                     width="40"
                     height="40"
                   />

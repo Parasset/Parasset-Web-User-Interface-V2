@@ -10,7 +10,7 @@ const Select: React.FC = ({}) => (
       <div className="flex-jc-center">
         <div className="flex-jc-center">
           <img
-            src={require("../../assets/img/ETH_icon.png")}
+            src={require("../../assets/img/ETH.png")}
             width="35"
             height="35"
             className="margin-right-10"
@@ -29,7 +29,7 @@ const Select: React.FC = ({}) => (
         <StyledSelectItem className="flex-jc-center  wing-blank-lg ">
           <div className="flex-jc-start">
             <img
-              src={require("../../assets/img/ETH_icon.png")}
+              src={require("../../assets/img/ETH.png")}
               width="35"
               height="35"
               className="margin-right-10"
@@ -41,7 +41,7 @@ const Select: React.FC = ({}) => (
         <StyledSelectItem className="flex-jc-center  wing-blank-lg active">
           <div className="flex-jc-start">
             <img
-              src={require("../../assets/img/ETH_icon.png")}
+              src={require("../../assets/img/ETH.png")}
               width="35"
               height="35"
               className="margin-right-10"

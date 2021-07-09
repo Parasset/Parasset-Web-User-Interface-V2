@@ -1,13 +1,14 @@
 //@ts-nocheck
+
 import { Configuration } from "./config";
-import { ContractName,  } from "./types";
-import { BigNumber, Contract, ethers, Overrides } from "ethers";
-import { TransactionResponse } from "@ethersproject/providers";
-import ERC20 from "./ERC20";
-import { getDisplayBalance } from "../utils/formatBalance";
+import { Contract, ethers, Overrides } from "ethers";
+import {
+  getDisplayNumber,
+  getToBignumber,
+  getTonumber,
+} from "../utils/formatBalance";
 import { getDefaultProvider } from "../utils/provider";
-
-
+import ERC20 from "./ERC20";
 /**
  * An API module of Gaea Coin contracts.
  * All contract-interacting domain logic should be defined in here.
@@ -19,10 +20,6 @@ export class BasisCash {
   config: Configuration;
   contracts: { [name: string]: Contract };
   externalTokens: { [name: string]: ERC20 };
-  boardroomVersionOfUser?: string;
-  GAC: ERC20;
-  GAS: ERC20;
-  GAB: ERC20;
 
   constructor(cfg: Configuration) {
     const { deployments, externalTokens } = cfg;
@@ -47,8 +44,6 @@ export class BasisCash {
       ); // TODO: add decimal
     }
 
-    
-
     this.config = cfg;
     this.provider = provider;
   }
@@ -68,13 +63,10 @@ export class BasisCash {
     for (const [name, contract] of Object.entries(this.contracts)) {
       this.contracts[name] = contract.connect(this.signer);
     }
-    const tokens = [
-      ...Object.values(this.externalTokens),
-    ];
+    const tokens = [...Object.values(this.externalTokens)];
     for (const token of tokens) {
       token.connect(this.signer);
     }
-
   }
 
   get isUnlocked(): boolean {
@@ -84,52 +76,71 @@ export class BasisCash {
   gasOptions() {
     return {
       // gasLimit: 300000000,
-      from: this.myAccount
+      from: this.myAccount,
+    };
+  }
+
+  async getStaked(address, account = this.myAccount) {
+    try {
+      const { Mine } = this.contracts;
+      
+      let staked = await Mine.getBalance(address, account);
+      return staked;
+    } catch (error) {
+      return "0";
+    }
+  }
+  async getEarned(address, account = this.myAccount) {
+    try {
+      const { Mine } = this.contracts;
+    
+      let earned = await Mine.getAccountReward(address, account);
+      return getTonumber(earned);
+    } catch (error) {
+      return "0";
+    }
+  }
+  async getChannelInfo(address, block) {
+    try {
+      const { Mine } = this.contracts;
+      
+      let info = await Mine.getChannelInfo(address);
+      const endBlock = info.endBlock.toNumber();
+      return {
+        rewardRate: block > endBlock ? 0 : getTonumber(info.rewardRate),
+        totalSupply: getTonumber(info.totalSupply),
+      };
+    } catch (error) {
+      return "0";
     }
   }
 
-
-
-  /**
-   * Deposits token to given pool.
-   * @param poolName A name of pool contract.
-   * @param amount Number of tokens with decimals applied. (e.g. 1.45 DAI * 10^18)
-   * @returns {string} Transaction hash
-   */
-  async stake(
-    poolName: ContractName,
-    amount: BigNumber,
-    mine: any
-  ): Promise<TransactionResponse> {
-    const pool = this.contracts[poolName];
-    var gasObj = {
-      gasLimit: 2300000,
-    };
-    var parm = gasObj;
-    return await pool.stake(amount, parm);
+  async stake(amount, poolName, pid) {
+    try {
+      const pool = this.contracts[poolName];
+      return await pool.deposit(pid, amount, this.gasOptions());
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: BasisCash.ts ~ line 126 ~ BasisCash ~ stake ~ error",
+        error,
+        amount,
+        poolName,
+        pid
+      );
+    }
   }
 
-  /**
-   * Withdraws token from given pool.
-   * @param poolName A name of pool contract.
-   * @param amount Number of tokens with decimals applied. (e.g. 1.45 DAI * 10^18)
-   * @returns {string} Transaction hash
-   */
-  async unstake(
-    poolName: ContractName,
-    amount: BigNumber
-  ): Promise<TransactionResponse> {
+  async unstake(amount, poolName, pid) {
     const pool = this.contracts[poolName];
-    const gas = await pool.estimateGas.withdraw(amount);
-    return await pool.withdraw(amount, this.gasOptions(gas));
+    console.log(
+      "🚀 ~ file: BasisCash.ts ~ line 91 ~ BasisCash ~ unstake ~ amount",
+      amount
+    );
+    return await pool.withdraw(pid, amount, this.gasOptions());
   }
 
-  /**
-   * Transfers earned token reward from given pool to my account.
-   */
-  async harvest(poolName: ContractName): Promise<TransactionResponse> {
-    const pool = this.contracts[poolName];
-    const gas = await pool.estimateGas.getReward();
-    return await pool.getReward(this.gasOptions(gas));
+  async harvest(address, ) {
+    const { Mine } = this.contracts;
+    return await Mine.getReward(address, this.gasOptions());
   }
 }

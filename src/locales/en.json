@@ -94,7 +94,7 @@
   "tq": "Withdraw",
   "zywa": "Stake LP-USD Earn ASET",
   "shuoming": "Note: After deposit, Yourr assets can only be redeemed within the specified date range, and the redemption window period is 2 days",
-  "cunzhuan": "Stake LP-USD Earn ASET",
+  "cunzhuan": "Stake {{lpToken}} Earn {{token}}",
   "wdzy": "Your Staked",
   "dlsy": "Your Earned",
   "wdsy": "Your Earnings",
@@ -102,10 +102,12 @@
   "lqsy": "Claim",
   "kcgl": "Overview",
   "dys": "Total Staked",
-  "rcl": "Daily Output",
+  "rcl": "Block output",
   "wddy": "Your Staked",
   "ydy": "Staked",
   "hq": "Get",
-  "wyljqzfx": "I understand the risks"
+  "wyljqzfx": "I understand the risks",
+  "tip3":"According to the stability fee designed based on the mortgage rate, each debt warehouse should pay the stability fee according to the difference between the liquidation line and the current price and the time cycle when increasing / reducing the mortgage, casting new currency / repaying the debt and clearing.",
+  "diya": "Stake"
   
 }

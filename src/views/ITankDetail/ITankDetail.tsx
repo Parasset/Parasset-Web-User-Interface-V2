@@ -12,7 +12,7 @@ const Mine: React.FC = () => {
   const { t } = useTranslation()
   return (
     <>
-      <Back text={`USDT-PUSD  ${t('bxc')}`} img="USDT_icon" img1="PUSDT_icon" />
+      <Back text={`USDT-PUSD  ${t('bxc')}`} img="USDT" img1="PUSD" />
       <div className="wing-blank-xl">
         <MyInfo />
         <FundInfo />

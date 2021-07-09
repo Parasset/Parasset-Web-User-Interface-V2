@@ -17,13 +17,13 @@ const Item: React.FC = ({}) => {
         <Spacer size="mmd" />
         <div className="flex-row-center-center">
           <img
-            src={require("../../../assets/img/USDT_icon.png")}
+            src={require("../../../assets/img/USDT.png")}
             width="40"
             height="40"
             className="margin-left-minus-10"
           />
           <img
-            src={require("../../../assets/img/PUSDT_icon.png")}
+            src={require("../../../assets/img/PUSD.png")}
             width="40"
             height="40"
             className="margin-left-minus-10"

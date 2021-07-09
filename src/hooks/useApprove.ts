@@ -23,6 +23,7 @@ function useApprove(token: any, spender: string) {
     try {
       return handleTransactionReceipt(token.approve, [spender, APPROVE_AMOUNT], token);
     } catch (error) {
+      console.log("🚀 ~ file: useApprove.ts ~ line 27 ~ approve ~ error", error)
       return '0';
     }
   }, [approvalState, token, spender]);

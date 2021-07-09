@@ -1,60 +1,118 @@
 //@ts-nocheck
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
-import Spacer from "../../Spacer";
+import { NavLink, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import Spacer from "../../Spacer";
 import useIsMobile from "../../../hooks/useIsMobile";
 const Nav: React.FC = () => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
+  const { pathname } = useLocation();
   return (
     <div className="wing-blank-lg ">
       <div className={` ${isMobile ? "" : "bd-bottom width-100"} `}>
         <div className="wing-blank">
-          <StyledBarItem className="flex-jc-start">
+          <StyledBarItem
+            className="flex-jc-start"
+            exact
+            activeClassName="active"
+            to="/"
+          >
             <img
-              src={require("../../../assets/img/home_icon.png")}
+              src={
+                pathname === "/"
+                  ? require("../../../assets/img/home_icon1.png")
+                  : require("../../../assets/img/home_icon.png")
+              }
               width="35"
               height="35"
               className="margin-right-5"
             />
-            {t('shouye')}
+            {t("shouye")}
           </StyledBarItem>
-          <StyledBarItem className="flex-jc-start">
+          <StyledBarItem
+            className="flex-jc-start"
+            exact
+            activeClassName="active"
+            to="/coin"
+            isActive={(match, { pathname }) => {
+              return (
+                pathname.includes("/coin") || pathname.includes("/barn/detail")
+              );
+            }}
+          >
             <img
-              src={require("../../../assets/img/coin_icon.png")}
+              src={
+                pathname.includes("/coin") || pathname.includes("/barn/detail")
+                  ? require("../../../assets/img/coin_icon1.png")
+                  : require("../../../assets/img/coin_icon.png")
+              }
               width="35"
               height="35"
               className="margin-right-5"
             />
-             {t('zhubi')}
+            {t("zhubi")}
           </StyledBarItem>
-          <StyledBarItem className="flex-jc-start">
+          <StyledBarItem
+            className="flex-jc-start"
+            exact
+            activeClassName="active"
+            to="/exchange"
+          >
             <img
-              src={require("../../../assets/img/exchange_icon.png")}
+              src={
+                pathname.includes("/exchange")
+                  ? require("../../../assets/img/exchange_icon1.png")
+                  : require("../../../assets/img/exchange_icon.png")
+              }
               width="35"
               height="35"
               className="margin-right-5"
             />
-             {t('duihuan')}
+            {t("duihuan")}
           </StyledBarItem>
-          <StyledBarItem className="flex-jc-start">
+          <StyledBarItem
+            className="flex-jc-start"
+            exact
+            activeClassName="active"
+            to="/itank"
+            isActive={(match, { pathname }) => {
+              return pathname.includes("/itank");
+            }}
+          >
             <img
-              src={require("../../../assets/img/pool_icon.png")}
+              src={
+                pathname.includes("/itank")
+                  ? require("../../../assets/img/pool_icon1.png")
+                  : require("../../../assets/img/pool_icon.png")
+              }
               width="35"
               height="35"
               className="margin-right-5"
             />
-            {t('bxc')}
+            {t("bxc")}
           </StyledBarItem>
-          <StyledBarItem className="flex-jc-start active">
+          <StyledBarItem
+            className="flex-jc-start "
+            exact
+            activeClassName="active"
+            to="/mine"
+            isActive={(match, { pathname }) => {
+              return pathname.includes("/mine");
+            }}
+          >
             <img
-              src={require("../../../assets/img/mine_icon.png")}
+              src={
+                pathname.includes("/mine")
+                  ? require("../../../assets/img/pool_icon1.png")
+                  : require("../../../assets/img/pool_icon.png")
+              }
               width="35"
               height="35"
               className="margin-right-5"
             />
-            {t('wakuang')}
+            {t("wakuang")}
           </StyledBarItem>
         </div>
       </div>
@@ -62,10 +120,10 @@ const Nav: React.FC = () => {
   );
 };
 
-const StyledBarItem = styled.div`
+const StyledBarItem = styled(NavLink)`
   color: ${(props) => props.theme.color.grey[300]};
   padding-top: 10px;
-  &.active  {
+  &.active {
     color: ${(props) => props.theme.color.primary.main}!important;
     box-sizing: border-box;
   }

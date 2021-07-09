@@ -1,25 +1,28 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useWallet } from 'use-wallet';
-import { BigNumber } from 'ethers';
-import ERC20 from '../basis-cash/ERC20';
-import config from '../config';
-const useAllowance = (token: ERC20, spender: string, pendingApproval?: boolean) => {
-  const [allowance, setAllowance] = useState<BigNumber>(null);
-  const { account } = useWallet();
+//@ts-nocheck
+import { useCallback, useEffect, useState } from "react";
 
+import useBasisCash from "./useBasisCash";
+import { getTonumber } from "../utils/formatBalance";
+const useAllowance = (token: any, spender: string) => {
+  const [allowance, setAllowance] = useState(0);
+  const basisCash = useBasisCash();
   const fetchAllowance = useCallback(async () => {
-    const allowance = await token.allowance(account, spender);
-    setAllowance(allowance);
-  }, [account, spender, token]);
+    if (token) {
+      const allowance = await token.allowance(basisCash?.myAccount, spender);
+      setAllowance(getTonumber(allowance));
+    }
+  }, [basisCash?.myAccount, spender, token]);
 
   useEffect(() => {
     const refreshInterval = setInterval(() => {
-      if (account && spender && token) {
-        fetchAllowance().catch((err) => console.log(`Failed to fetch allowance: ${err.stack}`));
+      if (basisCash?.isUnlocked && spender && token) {
+        fetchAllowance().catch((err) =>
+          console.log(`Failed to fetch allowance: ${err.stack}`)
+        );
       }
-    }, config.refreshInterval);
+    }, 1000);
     return () => clearInterval(refreshInterval);
-  }, [account, spender, token, pendingApproval]);
+  }, [basisCash?.isUnlocked, basisCash?.myAccount, spender, token]);
 
   return allowance;
 };

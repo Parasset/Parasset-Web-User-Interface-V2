@@ -14,7 +14,7 @@ const TableList: React.FC = ({  }) => {
         <Card className=" flex-jc-center ">
           <div className="flex1 flex-jc-start">
             <img
-              src={require("../../../assets/img/ETH_icon.png")}
+              src={require("../../../assets/img/ETH.png")}
               width="25"
               height="25"
               className="margin-right-5"
@@ -38,7 +38,7 @@ const TableList: React.FC = ({  }) => {
           <Spacer size="mmd" />
           <div className="flex-row-center-center">
             <img
-              src={require("../../../assets/img/ETH_icon.png")}
+              src={require("../../../assets/img/ETH.png")}
               width="40"
               height="40"
             />

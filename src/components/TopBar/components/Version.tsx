@@ -5,10 +5,18 @@ import useIsMobile from "../../../hooks/useIsMobile";
 const Version: React.FC = () => {
   const isMobile = useIsMobile();
   return (
-    <div  className={` ${isMobile ? "" : "wing-blank-lg"} `}>
+    <div className={` ${isMobile ? "" : "wing-blank-lg"} `}>
       <div className="width-100">
         <div className="space-white-lg"></div>
-        <CardButton>V1</CardButton>
+        <a
+          href="https://parasset.top/#/
+        "
+          target="__blank"
+        >
+          {" "}
+          <CardButton>V1</CardButton>
+        </a>
+
         <div className="space-white-lg"></div>
       </div>
     </div>

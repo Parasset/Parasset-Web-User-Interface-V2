@@ -16,7 +16,7 @@ const Mine: React.FC = () => {
   const { t } = useTranslation();
   return (
     <>
-      <Back text={`USDT-PUSD LP ${t('kuangchi')}`} img="USDT_icon" img1="PUSDT_icon" />
+      <Back text={`USDT-PUSD LP ${t('kuangchi')}`} img="USDT" img1="PUSD" />
       <Info />
       <Handler />
      

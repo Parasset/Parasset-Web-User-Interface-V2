@@ -1,68 +1,47 @@
-import { createReducer, nanoid } from '@reduxjs/toolkit';
+//@ts-nocheck
+import { createReducer,  } from '@reduxjs/toolkit'
 import {
-  addPopup,
-  PopupContent,
-  removePopup,
-  toggleWalletModal,
-  toggleSettingsMenu,
   updateBlockNumber,
-} from './actions';
+  toggleStatusModal,
+  updateTransactionHash,
+  toggleStatus
+} from './actions'
 
-type PopupList = Array<{
-  key: string;
-  show: boolean;
-  content: PopupContent;
-  removeAfterMs: number | null;
-}>;
 
 export interface ApplicationState {
-  blockNumber: { [chainId: number]: number };
-  popupList: PopupList;
-  walletModalOpen: boolean;
-  settingsMenuOpen: boolean;
+  blockNumber: { [chainId: number]: number }
+  walletModalOpen: boolean
 }
 
 const initialState: ApplicationState = {
   blockNumber: {},
-  popupList: [],
-  walletModalOpen: false,
-  settingsMenuOpen: false,
-};
+  statusModalOpen: false,
+  status: 1,
+  transactionHash:''
+}
 
-export default createReducer(initialState, (builder) =>
+export default createReducer(initialState, builder =>
   builder
     .addCase(updateBlockNumber, (state, action) => {
-      const { chainId, blockNumber } = action.payload;
+      const { chainId, blockNumber } = action.payload
       if (typeof state.blockNumber[chainId] !== 'number') {
-        state.blockNumber[chainId] = blockNumber;
+        state.blockNumber[chainId] = blockNumber
       } else {
-        state.blockNumber[chainId] = Math.max(blockNumber, state.blockNumber[chainId]);
+        state.blockNumber[chainId] = Math.max(blockNumber, state.blockNumber[chainId])
       }
     })
-    .addCase(toggleWalletModal, (state) => {
-      state.walletModalOpen = !state.walletModalOpen;
+
+    .addCase(toggleStatusModal, (state, action) => {
+      state.statusModalOpen =
+        action.payload.statusModalOpen !== undefined ? action.payload.statusModalOpen : !state.statusModalOpen
     })
-    .addCase(toggleSettingsMenu, (state) => {
-      state.settingsMenuOpen = !state.settingsMenuOpen;
+    .addCase(toggleStatus, (state, action) => {
+      state.status = action.payload.status !== undefined ? action.payload.status : 1
     })
-    .addCase(addPopup, (state, { payload: { content, key, removeAfterMs = 15000 } }) => {
-      state.popupList = (key
-        ? state.popupList.filter((popup) => popup.key !== key)
-        : state.popupList
-      ).concat([
-        {
-          key: key || nanoid(),
-          show: true,
-          content,
-          removeAfterMs,
-        },
-      ]);
+    .addCase(updateTransactionHash, (state, action) => {
+      state.transactionHash =
+        action.payload.transactionHash !== undefined ? action.payload.transactionHash : ''
     })
-    .addCase(removePopup, (state, { payload: { key } }) => {
-      state.popupList.forEach((p) => {
-        if (p.key === key) {
-          p.show = false;
-        }
-      });
-    }),
-);
+  
+   
+)

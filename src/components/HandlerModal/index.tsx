@@ -10,19 +10,23 @@ import Label from "../Label";
 import Button from "../Button";
 import Input from "../Input";
 
-export default function HandlerModal({ title, label, balanceTxt, columns }) {
+export default function HandlerModal({
+  isOpen,
+  onDismiss,
+  onConfirm,
+  title,
+  label,
+  balanceTxt,
+  columns,
+  disabled
+}) {
   const { t } = useTranslation();
-
-  const [isOpen, setOpen] = useState(true);
 
   return (
     <>
       <Modal
         isOpen={isOpen}
-        onDismiss={() => {
-          setOpen(false);
-        }}
-        // width="340px"
+        onDismiss={onDismiss}
         showHeader={true}
         title={title}
       >
@@ -43,12 +47,12 @@ export default function HandlerModal({ title, label, balanceTxt, columns }) {
             <div className="flex-jc-start font-size-12">
               <div className="flex-jc-start margin-right-10">
                 <img
-                  src={require(`../../assets/img/USDT_icon.png`)}
+                  src={require(`../../assets/img/USDT.png`)}
                   width="25"
                   height="25"
                 />
                 <img
-                  src={require(`../../assets/img/PUSDT_icon.png`)}
+                  src={require(`../../assets/img/PUSD.png`)}
                   width="25"
                   height="25"
                   className="margin-left-minus-10"
@@ -59,22 +63,22 @@ export default function HandlerModal({ title, label, balanceTxt, columns }) {
             <Input />
           </div>
         </CardButton>
-        {Object.keys(columns).map((key) => {
-          const item = columns[key];
-          return (
-            <React.Fragment key={key}>
-              <Spacer size="mmd" />
-              <Label
-                label={item?.label}
-                value={`${item?.value} ${item?.unit}`}
-              />
-            </React.Fragment>
-          );
-        })}
+        {columns &&
+          Object.keys(columns).map((key) => {
+            const item = columns[key];
+            return (
+              <React.Fragment key={key}>
+                <Spacer size="mmd" />
+                <Label
+                  label={item?.label}
+                  value={`${item?.value} ${item?.unit}`}
+                />
+              </React.Fragment>
+            );
+          })}
 
-      
         <Spacer size="mmd" />
-        <Button variant="secondary" text={t('queren')} />
+        <Button variant="secondary" text={t("queren")} disabled={disabled} onClick={onConfirm}/>
       </Modal>
     </>
   );

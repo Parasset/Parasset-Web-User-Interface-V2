@@ -18,12 +18,12 @@ const Depot: React.FC = ({  }) => {
         <Spacer size="sm" />
         <div className="flex-row-center-center ">
           <img
-            src={require("../../../assets/img/NEST_icon.png")}
+            src={require("../../../assets/img/NEST.png")}
             width="40"
             height="40"
           />
           <img
-            src={require("../../../assets/img/USDT_icon.png")}
+            src={require("../../../assets/img/USDT.png")}
             width="40"
             height="40"
             className="margin-left-minus-10"

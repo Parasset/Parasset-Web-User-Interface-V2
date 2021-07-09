@@ -9,22 +9,18 @@ const useTokenBalance = (token: ERC20) => {
   const basisCash = useBasisCash();
 
   const fetchBalance = useCallback(async () => {
-    if (token.symbol === 'BNB') {
-      setBalance(await basisCash.provider.getBalance(basisCash.myAccount));
-    } else {
-      setBalance(await token.balanceOf(basisCash.myAccount));
-    }
-  }, [basisCash?.isUnlocked, basisCash?.provider, token]);
+    setBalance(await token.balanceOf(basisCash.myAccount));
+  }, [basisCash?.myAccount, basisCash?.provider, token]);
 
   useEffect(() => {
-    if (basisCash?.isUnlocked) {
+    if (basisCash?.myAccount) {
       fetchBalance().catch((err) =>
         console.error(`Failed to fetch token balance: ${err.stack}`),
       );
       let refreshInterval = setInterval(fetchBalance, config.refreshInterval);
       return () => clearInterval(refreshInterval);
     }
-  }, [basisCash?.isUnlocked, token]);
+  }, [basisCash?.myAccount, token]);
 
   return balance;
 };

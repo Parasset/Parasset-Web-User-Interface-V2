@@ -1,21 +1,30 @@
-import React from 'react'
+//@ts-nocheck
+import React, { useMemo } from "react";
+import BigNumber from "bignumber.js";
 
-import styled from 'styled-components'
-
-interface ValueProps {
-  value: string,
-}
-
-const Value: React.FC<ValueProps> = ({ value }) => {
+export default function FormatValue({
+  value,
+  decimals = 3,
+  placeholder,
+  showAll,
+  prefix,
+  suffix,
+}) {
+  const formatValue = useMemo(() => {
+    return parseFloat(value)
+      ? showAll
+        ? new BigNumber(value).toFormat()
+        : new BigNumber(value).toFormat(decimals)
+      : placeholder
+      ? "-"
+      : value;
+  }, [value, decimals, placeholder]);
   return (
-    <StyledValue>{value}</StyledValue>
-  )
+    <>
+      {" "}
+      {prefix}
+      {formatValue}
+      {suffix}
+    </>
+  );
 }
-
-const StyledValue = styled.div`
-  color: ${props => props.theme.color.grey[200]};
-  font-size: 36px;
-  
-`
-
-export default Value

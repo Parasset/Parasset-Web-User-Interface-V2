@@ -14,7 +14,7 @@ const Datum: React.FC = () => {
       <div className="flex-jc-center">
         <div className="flex-jc-start">
           <img
-            src={require(`../../../assets/img/PETH_icon.png`)}
+            src={require(`../../../assets/img/PETH.png`)}
             width="25"
             height="25"
             className="margin-right-10"
@@ -39,13 +39,13 @@ const Datum: React.FC = () => {
       <div className="flex-jc-center">
         <div className="flex-jc-start">
           <img
-            src={require(`../../../assets/img/PUSDT_icon.png`)}
+            src={require(`../../../assets/img/PUSD.png`)}
             width="25"
             height="25"
             className="margin-right-10"
           />
           <div>
-            <div>PUSDT</div>
+            <div>PUSD</div>
             <Spacer size="ssm" />
             <div className="flex-jc-start color-grey">
               <div>0x78…0550 </div>
@@ -66,32 +66,12 @@ const Datum: React.FC = () => {
         <div className="flex-jc-start">
           <div className="flex-jc-center">
             <img
-              src={require("../../../assets/img/ETH_icon.png")}
+              src={require("../../../assets/img/ETH.png")}
               width="25"
               height="25"
             />
             <img
-              src={require("../../../assets/img/USDT_icon.png")}
-              width="25"
-              height="25"
-              className="margin-left-minus-10"
-            />
-          </div>
-          <div className="margin-left-10">
-            <div>1,200.45</div>
-            <div>ETH/USDT</div>
-          </div>
-        </div>
-        <Spacer size="mmd" />
-        <div className="flex-jc-start">
-          <div className="flex-jc-center">
-            <img
-              src={require("../../../assets/img/NEST_icon.png")}
-              width="25"
-              height="25"
-            />
-            <img
-              src={require("../../../assets/img/USDT_icon.png")}
+              src={require("../../../assets/img/USDT.png")}
               width="25"
               height="25"
               className="margin-left-minus-10"
@@ -106,12 +86,32 @@ const Datum: React.FC = () => {
         <div className="flex-jc-start">
           <div className="flex-jc-center">
             <img
-              src={require("../../../assets/img/NEST_icon.png")}
+              src={require("../../../assets/img/NEST.png")}
               width="25"
               height="25"
             />
             <img
-              src={require("../../../assets/img/ETH_icon.png")}
+              src={require("../../../assets/img/USDT.png")}
+              width="25"
+              height="25"
+              className="margin-left-minus-10"
+            />
+          </div>
+          <div className="margin-left-10">
+            <div>1,200.45</div>
+            <div>ETH/USDT</div>
+          </div>
+        </div>
+        <Spacer size="mmd" />
+        <div className="flex-jc-start">
+          <div className="flex-jc-center">
+            <img
+              src={require("../../../assets/img/NEST.png")}
+              width="25"
+              height="25"
+            />
+            <img
+              src={require("../../../assets/img/ETH.png")}
               width="25"
               height="25"
               className="margin-left-minus-10"
@@ -130,7 +130,7 @@ const Datum: React.FC = () => {
         <div className="flex-jc-start">
           <div className="flex-jc-center">
             <img
-              src={require("../../../assets/img/PETH_icon.png")}
+              src={require("../../../assets/img/PETH.png")}
               width="25"
               height="25"
             />
@@ -144,7 +144,7 @@ const Datum: React.FC = () => {
         <div className="flex-jc-start">
           <div className="flex-jc-center">
             <img
-              src={require("../../../assets/img/PUSDT_icon.png")}
+              src={require("../../../assets/img/PUSD.png")}
               width="25"
               height="25"
             />

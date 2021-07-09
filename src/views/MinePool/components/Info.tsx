@@ -4,11 +4,10 @@ import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
-import CardButton from "../../../components/CardButton";
-import Button from "../../../components/Button";
+import Value from "../../../components/Value";
 import Label from "../../../components/Label";
 import useIsMobile from "../../../hooks/useIsMobile";
-const Info: React.FC = ({}) => {
+const Info: React.FC = ({ mine, mineInfo }) => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
   return (
@@ -21,27 +20,27 @@ const Info: React.FC = ({}) => {
           <div className={` ${isMobile ? "" : "flex-jc-center"} `}>
             <Label
               label={`${t("dys")} ( LP-USD )`}
-              value="564,564.68"
+              value={<Value value={mineInfo.info.totalSupply} />}
               className={` ${isMobile ? "" : "width-47"} `}
             />
             {isMobile ? <Spacer size="mmd" /> : null}
             <Label
-              label={`${t("rcl")} ( ASET )`}
-              value="253"
+              label={`${t("rcl")} ( ${mine.earnTokenName} )`}
+              value={<Value value={mineInfo.info.rewardRate} />}
               className={` ${isMobile ? "" : "width-47"} `}
             />
           </div>
-          {isMobile ? <Spacer size="mmd"/> : null}
+          <Spacer size="mmd" />
           <div className={` ${isMobile ? "" : "flex-jc-center"} `}>
             <Label
               label="TVL"
-              value="$ 564,564.68"
+              value={<Value value={0} prefix="$" />}
               className={` ${isMobile ? "" : "width-47"} `}
             />
             {isMobile ? <Spacer size="mmd" /> : null}
             <Label
               label="APY"
-              value="102.47%"
+              value={<Value value={0} suffix="%" />}
               className={` ${isMobile ? "" : "width-47"} `}
             />
           </div>

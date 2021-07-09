@@ -103,7 +103,7 @@ export default function WalletModal({ isOpen, onDismiss }) {
               <div className="flex-jc-center">
                 <div className="flex-jc-start">
                   <img
-                    src={require(`../../assets/img/PETH_icon.png`)}
+                    src={require(`../../assets/img/PETH.png`)}
                     width="35"
                     height="35"
                     className="margin-right-10"
@@ -128,7 +128,7 @@ export default function WalletModal({ isOpen, onDismiss }) {
               <div className="flex-jc-center">
                 <div className="flex-jc-start">
                   <img
-                    src={require(`../../assets/img/PUSDT_icon.png`)}
+                    src={require(`../../assets/img/PUSD.png`)}
                     width="35"
                     height="35"
                     className="margin-right-10"

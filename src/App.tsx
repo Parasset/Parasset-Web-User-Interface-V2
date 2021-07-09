@@ -20,7 +20,7 @@ import store from "./state";
 import theme from "./theme";
 import config from "./config";
 import Updaters from "./state/Updaters";
-
+import StatusModal from "./components/StatusModal";
 const App: React.FC = () => {
   return (
     <Providers>
@@ -33,28 +33,28 @@ const App: React.FC = () => {
             <Route path="/coin" exact>
               <Coin />
             </Route>
-            <Route path="/mine" exact>
-              <Mine />
-            </Route>
-            <Route path="/mine/pool" exact>
-              <MinePool />
+            <Route path="/barn/detail" exact>
+              <Barn />
             </Route>
             <Route path="/exchange" exact>
               <Exchange />
             </Route>
-            <Route path="/barn/detail" exact>
-              <Barn />
+            <Route path="/mine" exact>
+              <Mine />
             </Route>
+            <Route path="/mine/pool/:mineId" exact>
+              <MinePool />
+            </Route>
+
             <Route path="/itank" exact>
               <ITank />
             </Route>
-            <Route path="/itank/detail" exact>
+            <Route path="/itank/detail/:itankId" exact>
               <ITankDetail />
             </Route>
-        
-            
           </Page>
         </Switch>
+        <StatusModal />
       </Router>
     </Providers>
   );

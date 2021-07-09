@@ -5,8 +5,8 @@ export interface CardProps {
   className?: string;
   children?: any;
 }
-const Card: React.FC<CardProps> = ({ className, children }) => (
-  <StyledCard className={`wing-blank ${className}`}>{children}</StyledCard>
+const Card: React.FC<CardProps> = ({ className, children,onClick }) => (
+  <StyledCard className={`wing-blank ${className}`} onClick={onClick}>{children}</StyledCard>
 );
 
 const StyledCard = styled.div`

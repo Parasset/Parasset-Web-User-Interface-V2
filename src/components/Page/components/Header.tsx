@@ -6,10 +6,11 @@ import Logo from "../../Logo";
 import Tab from "../../Tab";
 import Spacer from "../../Spacer";
 import Datum from "./Datum";
-
+import WalletModal from "../../WalletModal";
 import Nav from "./Nav";
 
 const Header: React.FC = () => {
+  const [isOpen, setOpen] = useState(false);
   const [tabs, setTabs] = useState([
     {
       text: "caidan",
@@ -32,7 +33,7 @@ const Header: React.FC = () => {
     <>
       <StyledHeaderPc className="bd-bottom color-grey wing-blank-lg flex-jc-start">
         <StyledHeaderText>
-         <div>{t('dypxzc')}</div>
+          <div>{t("dypxzc")}</div>
         </StyledHeaderText>
       </StyledHeaderPc>
       <StyledHeaderMobile className="bd-bottom color-grey wing-blank-lg flex-jc-center">
@@ -53,11 +54,26 @@ const Header: React.FC = () => {
       <StyledSidebar style={{ left: show ? 0 : "-220px" }}>
         <div className="wing-blank-lg">
           <Spacer size="mmd" />
-          <Tab tabs={tabs} tab={tab} onChangeTab={() => {}} />
+          <Tab tabs={tabs} tab={tab} onChangeTab={setTab} />
           <Spacer size="mmd" />
-          {tab === 2 ? <Datum /> : <Nav />}
+          {tab === 2 ? (
+            <Datum />
+          ) : (
+            <Nav
+              onShowWallet={() => {
+                toggleShow();
+                setOpen(true);
+              }}
+            />
+          )}
         </div>
       </StyledSidebar>
+      <WalletModal
+        isOpen={isOpen}
+        onDismiss={() => {
+          setOpen(false);
+        }}
+      />
     </>
   );
 };

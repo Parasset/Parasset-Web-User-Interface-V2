@@ -1,29 +1,21 @@
-import { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-import useBasisCash from './useBasisCash';
-import { Mine } from '../basis-cash';
-import useHandleTransactionReceipt from './useHandleTransactionReceipt';
-import { parseUnits } from 'ethers/lib/utils';
+import { useCallback } from 'react'
 
-const useStake = (mine: Mine) => {
-  const basisCash = useBasisCash();
-  const handleTransactionReceipt = useHandleTransactionReceipt();
-  const { t } = useTranslation();
+import useBasisCash from './useBasisCash'
+import useHandleTransactionReceipt from './useHandleTransactionReceipt'
+import { parseUnits } from 'ethers/lib/utils'
+const useStake = (poolName: any, pid: number) => {
+  const basisCash = useBasisCash()
+  const handleTransactionReceipt = useHandleTransactionReceipt()
+
   const handleStake = useCallback(
-    (amount: string) => {
-      const amountBn = parseUnits(amount, mine.depositToken.decimal);
-      handleTransactionReceipt(
-        basisCash.stake(mine.contract, amountBn,mine),
-        t('diyamou', {
-          label: amount,
-          label1: mine.depositTokenName,
-          label2: mine.contract,
-        }),
-      );
+    amount => {
+      const amountBn = parseUnits(amount, 18)
+      console.log(amountBn, amount)
+      return handleTransactionReceipt(basisCash.stake, [amountBn, poolName,pid, ])
     },
-    [mine, basisCash],
-  );
-  return { onStake: handleStake };
-};
+    [basisCash, poolName, pid]
+  )
+  return { onStake: handleStake }
+}
 
-export default useStake;
+export default useStake

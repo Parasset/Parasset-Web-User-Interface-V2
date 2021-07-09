@@ -6,20 +6,33 @@ import { useTranslation } from "react-i18next";
 import Modal from "../Modal";
 import Spacer from "../Spacer";
 import Button from "../Button";
-
+import {
+  useWaitModal,
+  useStatusModalToggle,
+  useStatus,
+  useTransactionHash,
+} from "../../state/application/hooks";
+import config from "../../config";
 export default function StatusModal({}) {
   const { t } = useTranslation();
+  const isOpen = useWaitModal();
+  const onDismiss = useStatusModalToggle();
+  const status = useStatus();
+  const tx = useTransactionHash();
 
-  const [isOpen, setOpen] = useState(false);
-  const textList = ['qrz', 'jygbz', 'jycg', 'jysb', 'jyqx']
-  const imgList = ['icon_loading', 'icon_broadcast', 'icon_success', 'icon_fail', 'icon_warning']
+  const textList = ["qrz", "jygbz", "jycg", "jysb", "jyqx"];
+  const imgList = [
+    "icon_loading",
+    "icon_broadcast",
+    "icon_success",
+    "icon_fail",
+    "icon_warning",
+  ];
   return (
     <>
       <Modal
         isOpen={isOpen}
-        onDismiss={() => {
-          setOpen(false);
-        }}
+        onDismiss={onDismiss}
         width="300px"
       >
         <StyledModalHeader className="flex-jc-center">
@@ -28,22 +41,30 @@ export default function StatusModal({}) {
             width="15"
             height="15"
             onClick={() => {
-              setOpen(false);
+              onDismiss(false);
             }}
           />
         </StyledModalHeader>
 
         <div className="text-center">
           <img
-            src={require("../../assets/img/icon_warning.png")}
+            src={require(`../../assets/img/${imgList[status - 1]}.png`)}
             width="48"
             height="48"
           />
           <Spacer size="ssm" />
-          <div>{t('jyqx')}</div>
+          <div>{t(textList[status - 1])}</div>
         </div>
         <Spacer size="mmd" />
-        <Button variant="tertiary" text={t('ckjy')} width="100px" className="center-block"/>
+        {status === 3 ? (
+          <Button
+            variant="tertiary"
+            text={t("ckjy")}
+            width="100px"
+            href={`${config.etherscanUrl}${tx}`}
+            className="center-block"
+          />
+        ) : null}
       </Modal>
     </>
   );
@@ -51,7 +72,7 @@ export default function StatusModal({}) {
 
 const StyledModalHeader = styled.div`
   height: 40px;
-  margin-top:-20px;
+  margin-top: -20px;
   justify-content: flex-end !important;
 `;
 

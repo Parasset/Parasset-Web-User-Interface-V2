@@ -1,14 +1,24 @@
 //@ts-nocheck
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
+import TokenSymbol from "../../../components/TokenSymbol";
 import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
 import Button from "../../../components/Button";
+import Value from "../../../components/Value";
 import useIsMobile from "../../../hooks/useIsMobile";
-const Stake: React.FC = ({}) => {
+import useApprove from "../../../hooks/useApprove";
+import useBasisCash from "../../../hooks/useBasisCash";
+const Stake: React.FC = ({ mine, staked, onSelect, onOpenModal }) => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
+  const basisCash = useBasisCash();
+  const [pendingTx, setPendingTx] = useState(false);
+  const [approveStatus, approve] = useApprove(
+    mine?.depositToken,
+    basisCash?.contracts.Mine?.address
+  );
   return (
     <>
       <StyledWrapBox className={`wing-blank-lg ${isMobile ? "" : "width-47"} `}>
@@ -17,28 +27,51 @@ const Stake: React.FC = ({}) => {
         <Spacer />
         <div className="wing-blank-llg  text-center">
           <div className="flex-row-center-center">
-            <img
-              src={require("../../../assets/img/USDT_icon.png")}
-              width="40"
-              height="40"
-            />
-            <img
-              src={require("../../../assets/img/PUSDT_icon.png")}
-              width="40"
-              height="40"
-              className="margin-left-minus-10"
-            />
+            <TokenSymbol symbol={mine.icon1} size={40} />
+            <TokenSymbol symbol={mine.icon2} size={40} isRight={true} />
           </div>
 
           <Spacer size="sm" />
-          <div className="font-size-24 bold-600">10,000</div>
-          <Spacer size="sm" />
-          <div className="color-grey">{t("ydy")} ( LP-USD )</div>
-          <Spacer />
-          <div className="flex-jc-center">
-            <Button text={t("sq")}  variant="secondary" width="47%" />
-            <Button text={t("shuhui")}variant="tertiary" width="47%" />
+          <div className="font-size-24 bold-600">
+            <Value value={staked} />
           </div>
+          <Spacer size="sm" />
+          <div className="color-grey">
+            {t("ydy")} ( {mine.depositTokenName} )
+          </div>
+          <Spacer />
+          {approveStatus ? (
+            <>
+              <div className="flex-row-center-center">
+                <Button
+                  text={t("sq")}
+                  variant="secondary"
+                  width="47%"
+                  disabled={pendingTx}
+                  onClick={async () => {
+                    setPendingTx(true);
+                    await approve();
+                    setPendingTx(false);
+                  }}
+                />
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="flex-jc-center">
+                <Button
+                  text={` ${t("diya")} ${mine.depositTokenName} `}
+                  variant="secondary"
+                  width="47%"
+                  onClick={() => {
+                    onSelect(1);
+                    onOpenModal();
+                  }}
+                />
+                <Button text={t("shuhui")} variant="tertiary" width="47%" />
+              </div>
+            </>
+          )}
         </div>
 
         <Spacer size="mmd" />

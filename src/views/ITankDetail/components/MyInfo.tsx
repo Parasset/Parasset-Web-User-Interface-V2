@@ -21,13 +21,13 @@ const MyInfo: React.FC = ({  }) => {
           </div>
           <Spacer size="mmd" />
           <Account
-            icon={require("../../../assets/img/USDT_icon.png")}
+            icon={require("../../../assets/img/USDT.png")}
             currency="USDT"
           />
 
           <Spacer />
           <Account
-            icon={require("../../../assets/img/PUSDT_icon.png")}
+            icon={require("../../../assets/img/PUSD.png")}
             currency="PUSD"
           />
           <Spacer />
