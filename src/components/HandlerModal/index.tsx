@@ -9,16 +9,26 @@ import CardButton from "../CardButton";
 import Label from "../Label";
 import Button from "../Button";
 import Input from "../Input";
+import TokenSymbol from "../TokenSymbol";
 
 export default function HandlerModal({
   isOpen,
   onDismiss,
-  onConfirm,
   title,
   label,
   balanceTxt,
   columns,
-  disabled
+  disabled,
+  icon1,
+  icon2,
+  tokenName,
+  max,
+  handleChange,
+  onSelectMax,
+  onConfirm,
+  val,
+  type,
+  placeholder
 }) {
   const { t } = useTranslation();
 
@@ -35,7 +45,7 @@ export default function HandlerModal({
           <div className="color-grey">{label}</div>
           <div>
             <span className="color-grey"> {balanceTxt}：</span>
-            <span className="text-underline ">23.3333</span>
+            <span className="text-underline cursor-pointer " onClick={onSelectMax}>{max}</span>
           </div>
         </div>
         <Spacer size="mmd" />
@@ -46,21 +56,12 @@ export default function HandlerModal({
           <div className="flex-jc-center">
             <div className="flex-jc-start font-size-12">
               <div className="flex-jc-start margin-right-10">
-                <img
-                  src={require(`../../assets/img/USDT.png`)}
-                  width="25"
-                  height="25"
-                />
-                <img
-                  src={require(`../../assets/img/PUSD.png`)}
-                  width="25"
-                  height="25"
-                  className="margin-left-minus-10"
-                />
+                <TokenSymbol size="25" symbol={icon1} />
+                <TokenSymbol size="25" symbol={icon2} isRight={true} />
               </div>
-              <span>LP-USD</span>
+              <span>{tokenName}</span>
             </div>
-            <Input />
+            <Input  placeholder={placeholder} type={type} value={val} onChange={handleChange}/>
           </div>
         </CardButton>
         {columns &&
@@ -78,7 +79,12 @@ export default function HandlerModal({
           })}
 
         <Spacer size="mmd" />
-        <Button variant="secondary" text={t("queren")} disabled={disabled} onClick={onConfirm}/>
+        <Button
+          variant="secondary"
+          text={t("queren")}
+          disabled={disabled}
+          onClick={onConfirm}
+        />
       </Modal>
     </>
   );

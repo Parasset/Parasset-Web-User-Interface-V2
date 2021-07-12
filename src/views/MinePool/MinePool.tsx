@@ -16,6 +16,7 @@ import BtnLink from "../../components/BtnLink";
 import Spacer from "../../components/Spacer";
 import useMine from "../../hooks/useMine";
 import useMineInfo from "../../hooks/useMineInfo";
+import useTokenBalance from "../../hooks/useTokenBalance";
 import OperatModal from "./components/OperatModal";
 const Mine: React.FC = () => {
   const [select, setSelect] = useState(1);
@@ -31,6 +32,9 @@ const Mine: React.FC = () => {
   const displayStakeBalance1 = useMemo(() => getNumberToAll(mineInfo.staked), [
     mineInfo.staked,
   ]);
+
+  const depositTokenBalance = useTokenBalance(mine?.depositToken)
+  const depositBalance = useMemo(() => getNumberToAll(depositTokenBalance), [depositTokenBalance])
 
   return (
     <>
@@ -66,7 +70,7 @@ const Mine: React.FC = () => {
         select={select}
         key={select + isOpen}
        
-        // depositBalance={depositBalance}
+        depositBalance={depositBalance}
         stakeBalance={displayStakeBalance1}
       />
     </>

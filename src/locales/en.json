@@ -108,6 +108,10 @@
   "hq": "Get",
   "wyljqzfx": "I understand the risks",
   "tip3":"According to the stability fee designed based on the mortgage rate, each debt warehouse should pay the stability fee according to the difference between the liquidation line and the current price and the time cycle when increasing / reducing the mortgage, casting new currency / repaying the debt and clearing.",
-  "diya": "Stake"
+  "diya": "Stake",
+  "qsrdysl": "Please enter the mortgage amount",
+  "qsrshsl": "Please enter the redemption amount",
+  "yebz": "Insufficient balance",
+  "zdsrws": "Enter up to 14 digits"
   
 }

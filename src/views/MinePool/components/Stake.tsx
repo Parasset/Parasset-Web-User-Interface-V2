@@ -68,7 +68,10 @@ const Stake: React.FC = ({ mine, staked, onSelect, onOpenModal }) => {
                     onOpenModal();
                   }}
                 />
-                <Button text={t("shuhui")} variant="tertiary" width="47%" />
+                <Button text={t("shuhui")} variant="tertiary" width="47%"    onClick={() => {
+                onSelect(2)
+                onOpenModal()
+              }}/>
               </div>
             </>
           )}

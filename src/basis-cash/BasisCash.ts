@@ -83,7 +83,7 @@ export class BasisCash {
   async getStaked(address, account = this.myAccount) {
     try {
       const { Mine } = this.contracts;
-      
+
       let staked = await Mine.getBalance(address, account);
       return staked;
     } catch (error) {
@@ -93,7 +93,7 @@ export class BasisCash {
   async getEarned(address, account = this.myAccount) {
     try {
       const { Mine } = this.contracts;
-    
+
       let earned = await Mine.getAccountReward(address, account);
       return getTonumber(earned);
     } catch (error) {
@@ -103,7 +103,7 @@ export class BasisCash {
   async getChannelInfo(address, block) {
     try {
       const { Mine } = this.contracts;
-      
+
       let info = await Mine.getChannelInfo(address);
       const endBlock = info.endBlock.toNumber();
       return {
@@ -115,31 +115,32 @@ export class BasisCash {
     }
   }
 
-  async stake(amount, poolName, pid) {
+  async stake(amount, address) {
     try {
-      const pool = this.contracts[poolName];
-      return await pool.deposit(pid, amount, this.gasOptions());
+      const { Mine } = this.contracts;
+      return await Mine.stake(amount, address, this.gasOptions());
     } catch (error) {
       console.log(
-        "🚀 ~ file: BasisCash.ts ~ line 126 ~ BasisCash ~ stake ~ error",
-        error,
-        amount,
-        poolName,
-        pid
+        "🚀 ~ file: BasisCash.ts ~ line 123 ~ BasisCash ~ stake ~ error",
+        error
       );
     }
   }
 
-  async unstake(amount, poolName, pid) {
-    const pool = this.contracts[poolName];
-    console.log(
-      "🚀 ~ file: BasisCash.ts ~ line 91 ~ BasisCash ~ unstake ~ amount",
-      amount
-    );
-    return await pool.withdraw(pid, amount, this.gasOptions());
+  async unstake(amount, address) {
+    try {
+      const { Mine } = this.contracts;
+
+      return await Mine.withdraw(amount, address, this.gasOptions());
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: BasisCash.ts ~ line 136 ~ BasisCash ~ unstake ~ error",
+        error
+      );
+    }
   }
 
-  async harvest(address, ) {
+  async harvest(address) {
     const { Mine } = this.contracts;
     return await Mine.getReward(address, this.gasOptions());
   }
