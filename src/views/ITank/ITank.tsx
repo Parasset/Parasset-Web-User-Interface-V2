@@ -1,19 +1,20 @@
 //@ts-nocheck
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import styled from "styled-components";
 import useIsMobile from "../../hooks/useIsMobile";
-
+import Value from "../../components/Value";
 import BigValue from "../../components/BigValue";
 import List from "./components/List";
-import StatusModal from "../../components/StatusModal";
 import RiskModal from "../../components/RiskModal";
-import WalletModal from "../../components/WalletModal";
-import HandlerModal from "../../components/HandlerModal";
-
+import useItanks from "../../hooks/useItanks";
 const Mine: React.FC = () => {
   const isMobile = useIsMobile();
-  const { t } = useTranslation()
+  const { t } = useTranslation();
+  const itanks = useItanks();
+  const [messages] = useState(["risk_msg1", "risk_msg2", "risk_msg3"]);
+
+  const [isOpen, setOpen] = useState(false);
+
   // const [title] = useState("赎回 LP-USD");
   // const [title] = useState("增加抵押");
   // const [title] = useState("提取资产");
@@ -131,19 +132,29 @@ const Mine: React.FC = () => {
     },
   });
 
+  useEffect(() => {
+    if (!localStorage.getItem("isItankMsg")) {
+      setOpen(true);
+      localStorage.setItem("isItankMsg", "isItankMsg");
+    }
+  }, []);
   return (
     <>
-      <BigValue text={`${t("bxc")} TVL`} />
+      <BigValue
+        text={`${t("bxc")} TVL`}
+        color="#77A89A"
+        value={<Value value={0} />}
+      />
 
-      <List />
-      {/* <StatusModal /> */}
-      {/* <RiskModal /> */}
-      {/* <WalletModal /> */}
-      <HandlerModal
-        title={title}
-        label={label}
-        balanceTxt={balanceTxt}
-        columns={columns}
+      <List itanks={itanks} />
+      <RiskModal
+        messages={messages}
+        isOpen={isOpen}
+        onDismiss={() => {
+          console.log('?????');
+          
+          setOpen(false);
+        }}
       />
     </>
   );

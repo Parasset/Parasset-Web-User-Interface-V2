@@ -1,9 +1,11 @@
+//@ts-nocheck
 import React from "react";
 import { Provider } from "react-redux";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { UseWalletProvider } from "use-wallet";
 import MinesProvider from "./contexts/Mines";
+import ItanksProvider from "./contexts/ITanks";
 import BasisCashProvider from "./contexts/BasisCashProvider";
 import Page from "./components/Page";
 
@@ -67,9 +69,11 @@ const Providers: React.FC = ({ children }) => {
         <Provider store={store}>
           <Updaters />
           <BasisCashProvider>
-            <MinesProvider>
-              <>{children}</>
-            </MinesProvider>
+            <ItanksProvider>
+              <MinesProvider>
+                <>{children}</>
+              </MinesProvider>
+            </ItanksProvider>
           </BasisCashProvider>
         </Provider>
       </UseWalletProvider>

@@ -5,7 +5,6 @@ import { useHistory } from 'react-router-dom'
 import { useTranslation } from "react-i18next";
 import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
-import CardButton from "../../../components/CardButton";
 import Button from "../../../components/Button";
 import Label from "../../../components/Label";
 import TokenSymbol from "../../../components/TokenSymbol";

@@ -14,8 +14,11 @@ const configurations: { [env: string]: Configuration } = {
     deployments: require("./basis-cash/deployments/deployments.mainnet.json"),
     externalTokens: {
       ASET: ["0xc27AaDec435E161f45833CB72c1d22813f4374BB", 18],
+      USDT: ["0x3b9c324b529b900519d79497Aa18D9cb2728d88F", 6],
+      NEST: ["0x123c1A3430Fc20BF521EcD6A1B0910323C61F18F", 18],
+      PUSD: ["0x6fd00A9b0cA9e46729CaCC602aee73BBc63dd445", 18],
+      PETH: ["0xC480aFA97B1e9ad458Ef8A8D33C5481615475683", 18],
     },
-
     refreshInterval: 1000,
   },
   production: {
@@ -26,8 +29,11 @@ const configurations: { [env: string]: Configuration } = {
     deployments: require("./basis-cash/deployments/deployments.mainnet.json"),
     externalTokens: {
       ASET: ["0xc27AaDec435E161f45833CB72c1d22813f4374BB", 18],
+      USDT: ["0x3b9c324b529b900519d79497Aa18D9cb2728d88F", 6],
+      NEST: ["0x123c1A3430Fc20BF521EcD6A1B0910323C61F18F", 18],
+      PUSD: ["0x6fd00A9b0cA9e46729CaCC602aee73BBc63dd445", 18],
+      PETH: ["0xC480aFA97B1e9ad458Ef8A8D33C5481615475683", 18],
     },
-
     refreshInterval: 1000,
   },
 };
@@ -50,6 +56,25 @@ export const mineDefinitions: { [contractName: string]: MineInfo } = {
     depositTokenName: "LP-ETH",
     depositContract: "PETHInsPool",
     earnTokenName: "ASET",
+  },
+};
+
+export const itankDefinitions = {
+  USDTPUSDPool: {
+    name: "USDT-PUSD",
+    icon1: "USDT",
+    icon2: "PUSD",
+    contract: "PUSDInsPool",
+    depositTokenName: "USDT",
+    earnTokenName: "PUSD",
+  },
+  ETHPETHPool: {
+    name: "ETH-PETH",
+    icon1: "ETH",
+    icon2: "PETH",
+    contract: "PETHInsPool",
+    depositTokenName: "ETH",
+    earnTokenName: "PETH",
   },
 };
 
