@@ -1,8 +1,8 @@
 //@ts-nocheck
 import { useCallback, useEffect, useState } from "react";
 import BigNumber1 from "bignumber.js";
-import useBasisCash from "./useBasisCash";
-import { useBlockNumber } from "../state/application/hooks";
+import useBasisCash from "../useBasisCash";
+import { useBlockNumber } from "../../state/application/hooks";
 
 const useMineInfo = (mine) => {
   const [staked, setStaked] = useState(0);

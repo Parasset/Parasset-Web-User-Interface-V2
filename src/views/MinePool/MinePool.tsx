@@ -14,8 +14,8 @@ import Harvest from "./components/Harvest";
 import Stake from "./components/Stake";
 import BtnLink from "../../components/BtnLink";
 import Spacer from "../../components/Spacer";
-import useMine from "../../hooks/useMine";
-import useMineInfo from "../../hooks/useMineInfo";
+import useMine from "../../hooks/mine/useMine";
+import useMineInfo from "../../hooks/mine/useMineInfo";
 import useTokenBalance from "../../hooks/useTokenBalance";
 import OperatModal from "./components/OperatModal";
 const Mine: React.FC = () => {

@@ -2,8 +2,8 @@
 
 import { useCallback } from 'react';
 
-import useBasisCash from './useBasisCash';
-import useHandleTransactionReceipt from './useHandleTransactionReceipt';
+import useBasisCash from '../useBasisCash';
+import useHandleTransactionReceipt from '../useHandleTransactionReceipt';
 import { parseUnits } from 'ethers/lib/utils';
 const useWithdraw = (address:any) => {
   const basisCash = useBasisCash();

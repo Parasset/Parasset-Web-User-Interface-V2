@@ -100,6 +100,15 @@ export class BasisCash {
       return "0";
     }
   }
+  async getFundBalance(token, address) {
+    try {
+      let balance = await token.balanceOf(address);
+      return getTonumber(balance, token.decimal);
+    } catch (error) {
+      return "0";
+    }
+  }
+
   async getChannelInfo(address, block) {
     try {
       const { Mine } = this.contracts;

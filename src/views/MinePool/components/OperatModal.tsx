@@ -4,8 +4,8 @@ import { useTranslation } from "react-i18next";
 
 import HandlerModal from "../../../components/HandlerModal";
 import { getDep } from "../../../utils/utils";
-import useStake from "../../../hooks/useStake";
-import useWithdraw from "../../../hooks/useWithdraw";
+import useStake from "../../../hooks/mine/useStake";
+import useWithdraw from "../../../hooks/mine/useWithdraw";
 const Mine: React.FC = ({
   isOpen,
   onDismiss,

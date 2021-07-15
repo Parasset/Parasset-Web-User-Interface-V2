@@ -7,7 +7,7 @@ import useIsMobile from "../../hooks/useIsMobile";
 import BigValue from "../../components/BigValue";
 import Value from "../../components/Value";
 import List from "./components/List";
-import useMines from "../../hooks/useMines";
+import useMines from "../../hooks/mine/useMines";
 const Mine: React.FC = () => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();

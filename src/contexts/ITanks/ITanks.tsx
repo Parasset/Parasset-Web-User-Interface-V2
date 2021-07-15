@@ -16,6 +16,7 @@ const ITanks: React.FC = ({ children }) => {
       itanks.push({
         ...itankInfo,
         address: config.deployments[itankInfo.contract].address,
+        itankContract: basisCash.contracts[itankInfo.contract],
         depositToken: basisCash.externalTokens[itankInfo.depositTokenName],
         earnToken: basisCash.externalTokens[itankInfo.earnTokenName],
       });

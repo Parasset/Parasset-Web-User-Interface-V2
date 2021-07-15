@@ -6,7 +6,7 @@ import Value from "../../components/Value";
 import BigValue from "../../components/BigValue";
 import List from "./components/List";
 import RiskModal from "../../components/RiskModal";
-import useItanks from "../../hooks/useItanks";
+import useItanks from "../../hooks/itank/useItanks";
 const Mine: React.FC = () => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();

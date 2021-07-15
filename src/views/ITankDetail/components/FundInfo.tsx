@@ -1,17 +1,14 @@
 //@ts-nocheck
 import React from "react";
-import styled from "styled-components";
+
 import { useTranslation } from "react-i18next";
 import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
-import CardButton from "../../../components/CardButton";
-import Label from "../../../components/Label";
-import Button from "../../../components/Button";
 import Account from "./Account";
 import useIsMobile from "../../../hooks/useIsMobile";
-const FundInfo: React.FC = ({}) => {
+const FundInfo: React.FC = ({ itank, itankInfo }) => {
   const isMobile = useIsMobile();
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <>
       <Card className={` ${isMobile ? "wing-blank" : "wing-blank-lg"} `}>
@@ -21,21 +18,23 @@ const FundInfo: React.FC = ({}) => {
             <div className="flex-jc-center">
               <div className="color-grey">{t("bxjjzh")}</div>
               <div>
-                <span className="color-grey">{t("dqjz")}</span>
+                <span className="color-grey">{t("dqjz")}:</span>
                 <span className="text-underline">1.023846</span>
               </div>
             </div>
           </div>
           <Spacer size="mmd" />
           <Account
-            icon={require("../../../assets/img/USDT.png")}
-            currency="USDT"
+            currency={itank.depositTokenName}
+            value={itankInfo.depositFundValue}
+            dollarValue={itankInfo.depositFundBalance}
           />
 
           <Spacer />
           <Account
-            icon={require("../../../assets/img/PUSD.png")}
-            currency="PUSD"
+            currency={itank.earnTokenName}
+            value={itankInfo.earnFundBalance}
+            dollarValue={itankInfo.earnFundValue}
           />
         </div>
 

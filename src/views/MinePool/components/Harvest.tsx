@@ -8,7 +8,7 @@ import Card from "../../../components/Card";
 import Button from "../../../components/Button";
 import Value from "../../../components/Value";
 import useIsMobile from "../../../hooks/useIsMobile";
-import useHarvest from "../../../hooks/useHarvest";
+import useHarvest from "../../../hooks/mine/useHarvest";
 const Harvest: React.FC = ({ mine, mineInfo }) => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
