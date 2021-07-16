@@ -67,6 +67,7 @@ export const itankDefinitions = {
     contract: "PUSDInsPool",
     depositTokenName: "USDT",
     earnTokenName: "PUSD",
+    LPTokenName: "LP-USD",
   },
   ETHPETHPool: {
     name: "ETH-PETH",
@@ -75,6 +76,7 @@ export const itankDefinitions = {
     contract: "PETHInsPool",
     depositTokenName: "ETH",
     earnTokenName: "PETH",
+    LPTokenName: "LP-ETH",
   },
 };
 

@@ -2,6 +2,7 @@
 
 import { Configuration } from "./config";
 import { Contract, ethers, Overrides } from "ethers";
+import BigNumber from "bignumber.js";
 import {
   getDisplayNumber,
   getToBignumber,
@@ -108,6 +109,88 @@ export class BasisCash {
       return "0";
     }
   }
+  async getTotalSupply(token) {
+    try {
+      let totalSupply = await token.totalSupply();
+      return getTonumber(totalSupply, token.decimal);
+    } catch (error) {
+      return "0";
+    }
+  }
+
+  async getAvgPrice() {
+    try {
+      const { NestQuery } = this.contracts;
+      const { USDT } = this.externalTokens;
+      let { avgPrice } = await NestQuery.triggeredPriceInfo(USDT.address);
+      return getTonumber(avgPrice, USDT.decimal);
+    } catch (error) {
+      return "0";
+    }
+  }
+
+  async getFundAsset(itank) {
+    try {
+  
+
+      const {
+        depositToken,
+        earnToken,
+        depositTokenName,
+        itankContract,
+        address,
+      } = itank;
+      let depositFundBalance = 0;
+
+      if (depositTokenName !== "ETH") {
+        depositFundBalance = await this.getFundBalance(depositToken, address);
+      } else {
+        depositFundBalance = await this.provider.getBalance(this.myAccount);
+        depositFundBalance = getTonumber(depositFundBalance);
+      }
+      let earnFundBalance = await this.getFundBalance(earnToken, address);
+      let negative = await itankContract._insNegative();
+      earnFundBalance = new BigNumber(earnFundBalance)
+        .minus(getTonumber(negative))
+        .toNumber();
+
+      let avgPrice = await this.getAvgPrice();
+
+      let depositFundValue =
+        itank.depositTokenName === "USDT"
+          ? depositFundBalance * 1
+          : new BigNumber(depositFundBalance).times(avgPrice).toNumber();
+      let earnFundValue =
+        itank.depositTokenName === "USDT"
+          ? earnFundBalance * 1
+          : new BigNumber(earnFundBalance).times(avgPrice).toNumber();
+      const totalSupply = await this.getTotalSupply(itankContract);
+      let totalAssets = new BigNumber(depositFundBalance).plus(earnFundBalance);
+      let perShare = totalAssets.div(totalSupply).toNumber();
+      totalAssets = totalAssets.toNumber();
+      return {
+        depositFundBalance,
+        earnFundBalance,
+        depositFundValue,
+        earnFundValue,
+        perShare,
+        totalSupply,
+        totalAssets,
+        avgPrice,
+      };
+    } catch (error) {
+      return {
+        depositFundBalance: 0,
+        earnFundBalance: 0,
+        depositFundValue: 0,
+        earnFundValue: 0,
+        perShare: 0,
+        totalSupply: 0,
+        totalAssets: 0,
+        avgPrice: 0,
+      };
+    }
+  }
 
   async getChannelInfo(address, block) {
     try {
@@ -129,10 +212,6 @@ export class BasisCash {
       const { Mine } = this.contracts;
       return await Mine.stake(amount, address, this.gasOptions());
     } catch (error) {
-      console.log(
-        "🚀 ~ file: BasisCash.ts ~ line 123 ~ BasisCash ~ stake ~ error",
-        error
-      );
     }
   }
 
@@ -142,10 +221,6 @@ export class BasisCash {
 
       return await Mine.withdraw(amount, address, this.gasOptions());
     } catch (error) {
-      console.log(
-        "🚀 ~ file: BasisCash.ts ~ line 136 ~ BasisCash ~ unstake ~ error",
-        error
-      );
     }
   }
 

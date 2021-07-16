@@ -3,14 +3,17 @@ import { BigNumber } from "ethers";
 import ERC20 from "../basis-cash/ERC20";
 import useBasisCash from "./useBasisCash";
 import config from "../config";
-
+import {
+  getTonumber,
+} from "./../utils/formatBalance";
 const useTokenBalance = (token: ERC20) => {
-  const [balance, setBalance] = useState(BigNumber.from(0));
+  const [balance, setBalance] = useState(0);
   const basisCash = useBasisCash();
 
   const fetchBalance = useCallback(async () => {
     if (token) {
-      setBalance(await token.balanceOf(basisCash.myAccount));
+      const balance=await token.balanceOf(basisCash.myAccount)
+      setBalance(getTonumber(balance));
     }
   }, [basisCash?.myAccount, basisCash?.provider, token]);
 

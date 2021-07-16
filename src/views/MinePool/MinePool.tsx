@@ -1,12 +1,11 @@
 //@ts-nocheck
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import useIsMobile from "../../hooks/useIsMobile";
 import {
   getNumberToMax,
   getNumberToAll,
-  getDisplayNumber,
 } from "../../utils/formatBalance";
 import Back from "../../components/Back";
 import Info from "./components/Info";
@@ -33,8 +32,8 @@ const Mine: React.FC = () => {
     mineInfo.staked,
   ]);
 
-  const depositTokenBalance = useTokenBalance(mine?.depositToken)
-  const depositBalance = useMemo(() => getNumberToAll(depositTokenBalance), [depositTokenBalance])
+  const depositBalance = useTokenBalance(mine?.depositToken)
+
 
   return (
     <>
