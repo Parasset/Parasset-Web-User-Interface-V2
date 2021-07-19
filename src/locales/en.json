@@ -85,8 +85,8 @@
   "dqjz": "Current per share",
   "yjfe": "Expected share",
   "zjtqr": "Last Withdrawable date",
-  "yjtqusdt": "Expected Withdrawable USDT",
-  "yjtqpusd": "Expected Withdrawable PUSD",
+  "yjtqusdt": "Expected Withdrawable",
+  "yjtqpusd": "Expected Withdrawable",
   "sypusd": "Remaining PUSD",
   "wdbxzh": "Your Insurance",
   "bxjjzh": "Insurance Pool",
@@ -109,9 +109,13 @@
   "wyljqzfx": "I understand the risks",
   "tip3":"According to the stability fee designed based on the mortgage rate, each debt warehouse should pay the stability fee according to the difference between the liquidation line and the current price and the time cycle when increasing / reducing the mortgage, casting new currency / repaying the debt and clearing.",
   "diya": "Stake",
-  "qsrdysl": "Please enter the mortgage amount",
-  "qsrshsl": "Please enter the redemption amount",
+  "qsrdysl": "Please enter the stake amount",
+  "qsrshsl": "Please enter the withdraw amount",
   "yebz": "Insufficient balance",
-  "zdsrws": "Enter up to 14 digits"
+  "zdsrws": "Enter up to 14 digits",
+  "zhuru": "Deposit",
+  "qsrzrsl": "Please enter the stake amount",
+  "qsrtqsl": "Please enter the withdraw amount",
+  "ketiqu": "Redeemable"
   
 }

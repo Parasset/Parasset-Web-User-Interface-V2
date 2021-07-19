@@ -31,6 +31,7 @@ function useHandleTransactionReceipt() {
           return "0";
         }
       } catch (e) {
+        console.log("🚀 ~ file: useHandleTransactionReceipt.ts ~ line 34 ~ e", e)
         toggleStatus(5);
         return "0";
       }

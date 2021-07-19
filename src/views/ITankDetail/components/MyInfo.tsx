@@ -11,7 +11,13 @@ import Value from "../../../components/Value";
 import Account from "./Account";
 import useIsMobile from "../../../hooks/useIsMobile";
 import useApprove from "../../../hooks/useApprove";
-const MyInfo: React.FC = ({ itank, itankInfo, myShare }) => {
+const MyInfo: React.FC = ({
+  itank,
+  itankInfo,
+  myShare,
+  onOpenDepositModal,
+  onOpenWithdrawModal,
+}) => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
   const history = useHistory();
@@ -137,13 +143,19 @@ const MyInfo: React.FC = ({ itank, itankInfo, myShare }) => {
               <>
                 <Button
                   variant="secondary"
-                  text={`${t("sq")} USDT`}
+                  text={`${t("zhuru")} ${itank.depositTokenName}`}
                   width="47%"
+                  onClick={onOpenDepositModal}
                 />
               </>
             )}
 
-            <Button variant="tertiary" text={t("tq")} width="47%" />
+            <Button
+              variant="tertiary"
+              text={t("tq")}
+              width="47%"
+              onClick={onOpenWithdrawModal}
+            />
           </div>
           <Spacer />
           <div className="text-center">

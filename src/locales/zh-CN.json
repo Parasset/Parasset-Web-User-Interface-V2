@@ -85,8 +85,8 @@
   "dqjz": "当前净值",
   "yjfe": "预计份额",
   "zjtqr": "最近提取日",
-  "yjtqusdt": "预计提取USDT",
-  "yjtqpusd": "预计提取PUSD",
+  "yjtqusdt": "预计提取",
+  "yjtqpusd": "预计提取",
   "sypusd": "剩余PUSD",
   "wdbxzh": "我的保险账户",
   "bxjjzh": "保险基金账户",
@@ -112,5 +112,9 @@
   "qsrdysl": "请输入抵押数量",
   "qsrshsl": "请输入赎回数量",
   "yebz": "余额不足",
-  "zdsrws": "最多输入14位"
+  "zdsrws": "最多输入14位",
+  "zhuru": "注入",
+  "qsrzrsl": "请输入注入数量",
+  "qsrtqsl": "请输入提取数量",
+  "ketiqu": "可提取"
 }

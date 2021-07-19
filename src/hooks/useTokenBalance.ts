@@ -13,7 +13,7 @@ const useTokenBalance = (token: ERC20) => {
   const fetchBalance = useCallback(async () => {
     if (token) {
       const balance=await token.balanceOf(basisCash.myAccount)
-      setBalance(getTonumber(balance));
+      setBalance(getTonumber(balance,token.decimal));
     }
   }, [basisCash?.myAccount, basisCash?.provider, token]);
 

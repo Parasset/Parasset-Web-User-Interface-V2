@@ -23,6 +23,7 @@ import theme from "./theme";
 import config from "./config";
 import Updaters from "./state/Updaters";
 import StatusModal from "./components/StatusModal";
+
 const App: React.FC = () => {
   return (
     <Providers>

@@ -15,6 +15,18 @@ const useItankInfo = (itank) => {
     avgPrice: 0,
   });
 
+  const [lastDate, setLastDate] = useState({
+    nextStartTime: "",
+    nextEndTime: "",
+    preStartTime: "",
+    preEndTime: "",
+    nextStartTimeNum: 0,
+    nextEndTimeNum: 0,
+    preStartTimeNum: 0,
+    preEndTimeNum: 0,
+  });
+  const [redeemAmount, setRedeemAmount] = useState(0);
+
   const basisCash = useBasisCash();
   const block = useBlockNumber();
 
@@ -23,8 +35,32 @@ const useItankInfo = (itank) => {
     setItankInfo(itankInfo);
   }, [basisCash?.myAccount, itank]);
 
+  const fetchLastDate = useCallback(async () => {
+    let lastDate = await basisCash.getLastDate(itank);
+    console.log(
+      "🚀 ~ file: useItankInfo.ts ~ line 36 ~ fetchLastDate ~ lastDate",
+      lastDate
+    );
+
+    setLastDate(lastDate);
+  }, [basisCash?.myAccount, itank]);
+
+  const fetchRedeemAmount = useCallback(
+    async (address = basisCash?.myAccount) => {
+      let redeemAmount = await basisCash.getRedemptionAmount(
+        itank.itankContract,
+        itank?.itankContract?.decimal,
+        address
+      );
+      setRedeemAmount(redeemAmount);
+    },
+    [basisCash?.myAccount, itank]
+  );
+
   const fetchInfo = useCallback(async () => {
     fetchFundBalance();
+    fetchRedeemAmount();
+    fetchLastDate();
   }, [basisCash?.myAccount, itank, block]);
 
   useEffect(() => {
@@ -33,7 +69,7 @@ const useItankInfo = (itank) => {
     }
   }, [basisCash?.myAccount, block, itank]);
 
-  return { itankInfo };
+  return { itankInfo ,lastDate,redeemAmount};
 };
 
 export default useItankInfo;

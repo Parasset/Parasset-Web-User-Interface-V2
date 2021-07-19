@@ -28,7 +28,7 @@ export default function HandlerModal({
   onConfirm,
   val,
   type,
-  placeholder
+  placeholder,
 }) {
   const { t } = useTranslation();
 
@@ -45,7 +45,12 @@ export default function HandlerModal({
           <div className="color-grey">{label}</div>
           <div>
             <span className="color-grey"> {balanceTxt}：</span>
-            <span className="text-underline cursor-pointer " onClick={onSelectMax}>{max}</span>
+            <span
+              className="text-underline cursor-pointer "
+              onClick={onSelectMax}
+            >
+              {max}
+            </span>
           </div>
         </div>
         <Spacer size="mmd" />
@@ -57,11 +62,18 @@ export default function HandlerModal({
             <div className="flex-jc-start font-size-12">
               <div className="flex-jc-start margin-right-10">
                 <TokenSymbol size="25" symbol={icon1} />
-                <TokenSymbol size="25" symbol={icon2} isRight={true} />
+                {icon2 ? (
+                  <TokenSymbol size="25" symbol={icon2} isRight={true} />
+                ) : null}
               </div>
               <span>{tokenName}</span>
             </div>
-            <Input  placeholder={placeholder} type={type} value={val} onChange={handleChange}/>
+            <Input
+              placeholder={placeholder}
+              type={type}
+              value={val}
+              onChange={handleChange}
+            />
           </div>
         </CardButton>
         {columns &&
@@ -71,8 +83,15 @@ export default function HandlerModal({
               <React.Fragment key={key}>
                 <Spacer size="mmd" />
                 <Label
-                  label={item?.label}
-                  value={`${item?.value} ${item?.unit}`}
+                  label={
+                    t(item?.label) + (item?.labelUnit ? item?.labelUnit : "")
+                  }
+                  value={
+                    <div className="flex-jc-end">
+                      {item?.value}
+                      {item?.unit}
+                    </div>
+                  }
                 />
               </React.Fragment>
             );

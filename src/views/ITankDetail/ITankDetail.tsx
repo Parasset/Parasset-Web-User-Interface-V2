@@ -14,13 +14,17 @@ import FundInfo from "./components/FundInfo";
 import useItank from "../../hooks/itank/useItank";
 import useItankInfo from "../../hooks/itank/useItankInfo";
 import useTokenBalance from "../../hooks/useTokenBalance";
+import DepositModal from "./components/DepositModal";
+import WithdrawModal from "./components/WithdrawModal";
 const Mine: React.FC = () => {
-  const isMobile = useIsMobile();
+  const [isDepositOpen, setIsDepositOpen] = useState(false);
+  const [isWithdrawOpen, setIsWithdrawOpen] = useState(false);
   const { t } = useTranslation();
   const { itankId } = useParams();
   const itank = useItank(itankId);
-  const { itankInfo } = useItankInfo(itank);
+  const { itankInfo, lastDate, redeemAmount } = useItankInfo(itank);
   const myShare = useTokenBalance(itank?.itankContract);
+  const depositBalance = useTokenBalance(itank?.depositToken);
   return (
     <>
       <Back
@@ -29,9 +33,32 @@ const Mine: React.FC = () => {
         img1={itank.icon2}
       />
       <div className="wing-blank-xl">
-        <MyInfo itankInfo={itankInfo} itank={itank} myShare={myShare} />
+        <MyInfo
+          itankInfo={itankInfo}
+          itank={itank}
+          myShare={myShare}
+          onOpenDepositModal={() => setIsDepositOpen(true)}
+          onOpenWithdrawModal={() => setIsWithdrawOpen(true)}
+        />
         <FundInfo itankInfo={itankInfo} itank={itank} />
       </div>
+      <DepositModal
+        isOpen={isDepositOpen}
+        itank={itank}
+        itankInfo={itankInfo}
+        onDismiss={() => setIsDepositOpen(false)}
+        key={isDepositOpen+'isDepositOpen'}
+        depositBalance={depositBalance}
+      />
+      <WithdrawModal
+        isOpen={isWithdrawOpen}
+        itank={itank}
+        itankInfo={itankInfo}
+        onDismiss={() => setIsWithdrawOpen(false)}
+        key={isWithdrawOpen+'isWithdrawOpen'}
+        redeemAmount={redeemAmount}
+        lastDate={lastDate}
+      />
     </>
   );
 };

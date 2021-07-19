@@ -1,7 +1,7 @@
 //@ts-nocheck
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-
+import Toast from 'light-toast'
 import HandlerModal from "../../../components/HandlerModal";
 import { getDep } from "../../../utils/utils";
 import useStake from "../../../hooks/mine/useStake";

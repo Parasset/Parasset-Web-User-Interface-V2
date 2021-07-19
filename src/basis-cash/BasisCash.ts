@@ -8,6 +8,8 @@ import {
   getToBignumber,
   getTonumber,
 } from "../utils/formatBalance";
+import { formatDate } from "../utils/utils";
+
 import { getDefaultProvider } from "../utils/provider";
 import ERC20 from "./ERC20";
 /**
@@ -131,8 +133,6 @@ export class BasisCash {
 
   async getFundAsset(itank) {
     try {
-  
-
       const {
         depositToken,
         earnToken,
@@ -192,6 +192,65 @@ export class BasisCash {
     }
   }
 
+  async getLastDate({ itankContract }) {
+    try {
+      let {
+        startTime: nextStartTime,
+        endTime: nextEndTime,
+      } = await itankContract.getRedemptionTime();
+      let {
+        startTime: preStartTime,
+        endTime: preEndTime,
+      } = await itankContract.getRedemptionTimeFront();
+      // .substr(0,10)
+      return {
+        nextStartTime: formatDate(nextStartTime.toNumber()),
+        nextEndTime: formatDate(nextEndTime.toNumber()),
+        preStartTime: formatDate(preStartTime.toNumber()),
+        preEndTime: formatDate(preEndTime.toNumber()),
+        nextStartTimeNum: nextStartTime.toNumber(),
+        nextEndTimeNum: nextEndTime.toNumber(),
+        preStartTimeNum: preStartTime.toNumber(),
+        preEndTimeNum: preEndTime.toNumber(),
+      };
+    } catch (error) {}
+  }
+
+  async getRedemptionAmount(itankContract, decimal, address) {
+    try {
+      let amount = await itankContract.getRedemptionAmount(address);
+      return getTonumber(amount, decimal);
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: BasisCash.ts ~ line 246 ~ BasisCash ~ getRedemptionAmount ~ error",
+        itankContract,
+        error
+      );
+      return "0";
+    }
+  }
+  async itankStake(itankContract, amount) {
+    try {
+      return await itankContract.subscribeIns(amount, this.gasOptions());
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: BasisCash.ts ~ line 221 ~ BasisCash ~ itankStake ~ error",
+        itankContract,
+        amount,
+        error
+      );
+    }
+  }
+  async itankUnstake(itankContract, amount, address) {
+    try {
+      return await itankContract.redemptionIns(
+        amount,
+        address,
+        this.gasOptions()
+      );
+    } catch (error) {}
+  }
+
   async getChannelInfo(address, block) {
     try {
       const { Mine } = this.contracts;
@@ -211,8 +270,7 @@ export class BasisCash {
     try {
       const { Mine } = this.contracts;
       return await Mine.stake(amount, address, this.gasOptions());
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 
   async unstake(amount, address) {
@@ -220,8 +278,7 @@ export class BasisCash {
       const { Mine } = this.contracts;
 
       return await Mine.withdraw(amount, address, this.gasOptions());
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 
   async harvest(address) {
