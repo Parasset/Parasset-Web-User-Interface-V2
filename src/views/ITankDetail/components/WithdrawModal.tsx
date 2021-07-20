@@ -1,5 +1,5 @@
 //@ts-nocheck
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import BigNumber from "bignumber.js";
 import Toast from "light-toast";
@@ -20,7 +20,7 @@ const DepositModal: React.FC = ({
   myAssets,
 }) => {
   const { t } = useTranslation();
-  const [val, setVal] = useState("");
+  const [val, setVal] = useState(0);
   const [pendingTx, setPendingTx] = useState(false);
 
   const { onWithdraw } = useWithdraw(

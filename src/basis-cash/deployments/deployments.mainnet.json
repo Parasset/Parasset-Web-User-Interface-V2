@@ -1225,7 +1225,7 @@
     ]
   },
   "PETHInsPool": {
-    "address": "0x94895a98e0ed9e83741a257ce2Aa05240eB06756",
+    "address": "0x08c54E500BD89D4Ac1b0c6F2D6d06d737d33a1E1",
     "abi": [
       {
         "anonymous": false,
