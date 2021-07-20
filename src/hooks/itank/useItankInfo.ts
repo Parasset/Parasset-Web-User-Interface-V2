@@ -37,11 +37,6 @@ const useItankInfo = (itank) => {
 
   const fetchLastDate = useCallback(async () => {
     let lastDate = await basisCash.getLastDate(itank);
-    console.log(
-      "🚀 ~ file: useItankInfo.ts ~ line 36 ~ fetchLastDate ~ lastDate",
-      lastDate
-    );
-
     setLastDate(lastDate);
   }, [basisCash?.myAccount, itank]);
 

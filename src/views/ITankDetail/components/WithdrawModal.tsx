@@ -3,9 +3,10 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import BigNumber from "bignumber.js";
 import Toast from "light-toast";
+import Value from "../../../components/Value";
 import HandlerModal from "../../../components/HandlerModal";
 import { getDep, $isFiniteNumber } from "../../../utils/utils";
-import useStake from "../../../hooks/itank/useStake";
+import useWithdraw from "../../../hooks/itank/useWithdraw";
 const DepositModal: React.FC = ({
   isOpen,
   onDismiss,
@@ -13,14 +14,18 @@ const DepositModal: React.FC = ({
   itankInfo,
   redeemAmount,
   lastDate,
+  myShare,
+  myRatio,
+  totalFund,
+  myAssets,
 }) => {
   const { t } = useTranslation();
   const [val, setVal] = useState("");
   const [pendingTx, setPendingTx] = useState(false);
 
-  const { onStake } = useStake(
+  const { onWithdraw } = useWithdraw(
     itank?.itankContract,
-    itank?.depositToken?.decimal
+    itank?.itankContract?.decimal
   );
 
   const canBuyAmount = useMemo(() => {
@@ -38,14 +43,57 @@ const DepositModal: React.FC = ({
     return isTime ? redeemAmount : 0;
   }, [redeemAmount, lastDate]);
 
+  const recentDate = useMemo(() => {
+    const currentTime = new Date().getTime() / 1000;
+    const {
+      nextStartTime,
+      nextEndTime,
+      preStartTime,
+      preEndTime,
+      nextStartTimeNum,
+      nextEndTimeNum,
+      preStartTimeNum,
+      preEndTimeNum,
+    } = lastDate;
+
+    if (currentTime >= preStartTimeNum && currentTime <= preEndTimeNum) {
+      return {
+        startTime: preStartTime,
+        endTime: preEndTime,
+      };
+    } else if (
+      currentTime >= nextStartTimeNum &&
+      currentTime <= nextEndTimeNum
+    ) {
+      return {
+        startTime: nextStartTime,
+        endTime: nextEndTime,
+      };
+    } else {
+      return {
+        startTime: nextStartTime,
+        endTime: nextEndTime,
+      };
+    }
+  }, [redeemAmount, lastDate]);
 
   const estimateWithdrawDepositToken = useMemo(() => {
+    // 预计赎回的USDT数量=(提取LP-USD数量输入值/持有的LP-USDT数量)*我的保险中USDT的数量
+    let amount = new BigNumber(val).div(myShare).times(myAssets?.depositAssets);
+    return $isFiniteNumber(amount.toNumber());
+  }, [val, myShare, myAssets]);
 
-  }, [val, itankInfo]);
+  const estimateWithdrawEarnToken = useMemo(() => {
+    // 预计赎回的PUSD数量=(提取LP-USD数量输入值/持有的LP-USDT数量)*我的保险中PUSD的数量
+    let amount = new BigNumber(val).div(myShare).times(myAssets?.earnAssets);
+    return $isFiniteNumber(amount.toNumber());
+  }, [val, myShare, myAssets]);
 
-  const estimateWithdrawEarnTokenName = useMemo(() => {
-   
-  }, [val, itankInfo]);
+  const remainingShare = useMemo(() => {
+    // 持有的LP-提取LP-USD数量输入值
+    let amount = new BigNumber(myShare).minus(val);
+    return $isFiniteNumber(amount.toNumber());
+  }, [val, myShare]);
 
   const onConfirm = useCallback(async () => {
     if (!parseFloat(val)) {
@@ -57,7 +105,7 @@ const DepositModal: React.FC = ({
     } else {
       setPendingTx(true);
 
-      const result = await onStake(val + "");
+      const result = await onWithdraw(val + "");
       setPendingTx(false);
       if (result !== "0") {
         setTimeout(() => {
@@ -66,7 +114,7 @@ const DepositModal: React.FC = ({
         }, 1000);
       }
     }
-  }, [onStake, val, canBuyAmount]);
+  }, [onWithdraw, val, canBuyAmount]);
 
   const handleSelectMax = useCallback(() => {
     setVal(canBuyAmount);
@@ -104,7 +152,7 @@ const DepositModal: React.FC = ({
         icon2={itank.icon2}
         tokenName={itank.LPTokenName}
         placeholder={t("qsrtqsl")}
-        max={redeemAmount}
+        max={canBuyAmount}
         handleChange={handleChange}
         onSelectMax={handleSelectMax}
         onConfirm={onConfirm}
@@ -113,24 +161,29 @@ const DepositModal: React.FC = ({
         columns={{
           recentDay: {
             label: "zjtqr",
-            value: "2021/02/22~2021/02/23",
+            value: (
+              <div>
+                <div>{recentDate.startTime}</div>
+                <div>{recentDate.endTime}</div>
+              </div>
+            ),
             unit: "",
           },
           estimateWithdrawDepositToken: {
             label: "yjtqusdt",
-            value: "1.00",
+            value: <Value value={estimateWithdrawDepositToken} decimals={4} />,
             unit: "",
             labelUnit: itank.depositTokenName,
           },
-          estimateWithdrawEarnTokenName: {
+          estimateWithdrawEarnToken: {
             label: "yjtqpusd",
-            value: "2.12",
+            value: <Value value={estimateWithdrawEarnToken} decimals={4} />,
             unit: "",
             labelUnit: itank.earnTokenName,
           },
           remaining: {
             label: "sypusd",
-            value: "40",
+            value: <Value value={remainingShare} decimals={4} />,
             unit: "",
           },
         }}

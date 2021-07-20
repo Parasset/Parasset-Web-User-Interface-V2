@@ -1,8 +1,8 @@
 //@ts-nocheck
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import Value from "../../../components/Value";
 import Toast from "light-toast";
+import Value from "../../../components/Value";
 import HandlerModal from "../../../components/HandlerModal";
 import { getDep, $isFiniteNumber } from "../../../utils/utils";
 import useStake from "../../../hooks/itank/useStake";

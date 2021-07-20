@@ -241,14 +241,17 @@ export class BasisCash {
       );
     }
   }
-  async itankUnstake(itankContract, amount, address) {
+  async itankUnstake(itankContract, amount) {
     try {
-      return await itankContract.redemptionIns(
+      return await itankContract.redemptionIns(amount, this.gasOptions());
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: BasisCash.ts ~ line 221 ~ BasisCash ~ itankStake ~ error",
+        itankContract,
         amount,
-        address,
-        this.gasOptions()
+        error
       );
-    } catch (error) {}
+    }
   }
 
   async getChannelInfo(address, block) {

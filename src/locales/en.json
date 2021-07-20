@@ -92,7 +92,7 @@
   "bxjjzh": "Insurance Pool",
   "sq": "Approve",
   "tq": "Withdraw",
-  "zywa": "Stake LP-USD Earn ASET",
+  "zywa": "Stake {{lpToken}} Earn {{token}}",
   "shuoming": "Note: After deposit, Yourr assets can only be redeemed within the specified date range, and the redemption window period is 2 days",
   "cunzhuan": "Stake {{lpToken}} Earn {{token}}",
   "wdzy": "Your Staked",

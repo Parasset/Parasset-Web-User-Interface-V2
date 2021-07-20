@@ -9,6 +9,7 @@ import CardButton from "../CardButton";
 import Label from "../Label";
 import Button from "../Button";
 import Input from "../Input";
+import Value from "../Value";
 import TokenSymbol from "../TokenSymbol";
 
 export default function HandlerModal({
@@ -49,7 +50,7 @@ export default function HandlerModal({
               className="text-underline cursor-pointer "
               onClick={onSelectMax}
             >
-              {max}
+              <Value decimals={6} value={max} />
             </span>
           </div>
         </div>

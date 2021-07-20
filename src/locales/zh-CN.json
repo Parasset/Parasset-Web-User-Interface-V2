@@ -92,7 +92,7 @@
   "bxjjzh": "保险基金账户",
   "sq": "授权",
   "tq": "提取",
-  "zywa": "质押 LP-USD 挖 ASET",
+  "zywa": "质押 {{lpToken}} 挖 {{token}}",
   "shuoming": "说明：注入保险后，在指定日期范围内方可赎回，赎回窗口期为 2 天",
   "cunzhuan": "存 {{lpToken}} 赚 {{token}}",
   "wdzy": "我的质押",
