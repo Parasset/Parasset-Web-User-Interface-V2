@@ -38,3 +38,6 @@ export const $isPositiveNumber = (val) => {
   val = parseFloat(val);
   return val > 0 ? val : 0;
 };
+export const getEncryptAddress = (address) => {
+ return address? address.replace(/(\w{4})\w*(\w{4})/, '$1******$2'):''
+};

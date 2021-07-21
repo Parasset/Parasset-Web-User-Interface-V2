@@ -49,7 +49,7 @@
   "tip2": "Your need to pay the oracle price usage fee to the NEST protocol in order to provide accurate market price data for the use of smart contracts.",
   "yyjdyf": "Oracle Fee",
   "dyl": "Coll. Ratio",
-  "heyue": "PUSD Contract",
+  "heyue": "{{label}} Contract",
   "wdzc": "Your Debt",
   "cong": "From",
   "dao": "To",

@@ -179,7 +179,7 @@ const Specie: React.FC = ({}) => {
       : new BigNumber(inputValue).times(avgPrice).toNumber();
 
     return $isFiniteNumber(amount);
-  }, [inputValue, avgPrice, !isETH]);
+  }, [inputValue, avgPrice, isETH]);
 
   const outputCurrencyValue = useMemo(() => {
     let amount = !isETH
