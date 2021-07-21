@@ -2,6 +2,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
+import BigNumber from "bignumber.js";
 import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
 import Select from "../../../components/Select";
@@ -223,8 +224,9 @@ const Specie: React.FC = ({}) => {
           handleChange={handleChangeTopValue}
         />
         <Spacer size="sm" />
-        {/* bottomCurrencyValue topCurrencyValue */}
-        <div className="text-right color-grey wing-blank-lg">≈ ＄0.01</div>
+        <div className="text-right color-grey wing-blank-lg">
+          ≈ <Value value={topCurrencyValue} prefix="$" />
+        </div>
         <Spacer size="sm" />
         <StyledExchangeImg className="text-center">
           <img
@@ -261,7 +263,9 @@ const Specie: React.FC = ({}) => {
           handleChange={handleChangeBottomValue}
         />
         <Spacer size="sm" />
-        <div className="text-right color-grey wing-blank-lg">≈ ＄0.01</div>
+        <div className="text-right color-grey wing-blank-lg">
+          ≈ <Value value={bottomCurrencyValue} prefix="$" />
+        </div>
         <Spacer size="sm" />
         <Label
           label={t("dhbl")}
