@@ -10,10 +10,7 @@ import Select from "../../../components/Select";
 import Button from "../../../components/Button";
 import Label from "../../../components/Label";
 import Value from "../../../components/Value";
-import useTokenBalance from "../../../hooks/useTokenBalance";
-import useBasisCash from "../../../hooks/useBasisCash";
-import useAvgPrice from "../../../hooks/useAvgPrice";
-import useBlur from "../../../hooks/useBlur";
+
 import {
   getDep,
   $isFiniteNumber,
@@ -23,6 +20,10 @@ import useItank from "../../../hooks/itank/useItank";
 import useItankInfo from "../../../hooks/itank/useItankInfo";
 import useExchange from "../../../hooks/itank/useExchange";
 import useApprove from "../../../hooks/useApprove";
+import useTokenBalance from "../../../hooks/useTokenBalance";
+import useBasisCash from "../../../hooks/useBasisCash";
+import useAvgPrice from "../../../hooks/useAvgPrice";
+import useBlur from "../../../hooks/useBlur";
 const Specie: React.FC = ({}) => {
   const { t } = useTranslation();
   const basisCash = useBasisCash();
