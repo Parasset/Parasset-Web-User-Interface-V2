@@ -30,6 +30,7 @@ export default function HandlerModal({
   val,
   type,
   placeholder,
+  onBlur
 }) {
   const { t } = useTranslation();
 
@@ -74,6 +75,7 @@ export default function HandlerModal({
               type={type}
               value={val}
               onChange={handleChange}
+              onBlur={onBlur}
             />
           </div>
         </CardButton>

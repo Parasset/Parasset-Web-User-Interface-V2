@@ -14,6 +14,7 @@ const Select: React.FC = ({
   isInputCurrencySelect,
   value,
   handleChange,
+  onBlur
 }) => {
   const selectItem = useMemo(() => {
     let item = list.filter((item) => {
@@ -41,7 +42,11 @@ const Select: React.FC = ({
             />
             {selectItem?.name}
             <img
-              src={require("../../assets/img/arrow_bottom_icon.png")}
+              src={
+                showSelect
+                  ? require("../../assets/img/icon_arrow_top.png")
+                  : require("../../assets/img/arrow_bottom_icon.png")
+              }
               width="8"
               height="5"
               className="margin-left-10"
@@ -53,7 +58,7 @@ const Select: React.FC = ({
               e.stopPropagation();
             }}
           >
-            <Input value={value} onChange={handleChange} type="number" />
+            <Input value={value} onChange={handleChange} type="number" onBlur={onBlur}/>
           </div>
         </div>
         {showSelect ? (

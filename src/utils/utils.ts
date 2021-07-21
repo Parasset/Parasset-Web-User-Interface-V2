@@ -31,8 +31,10 @@ export const getQueryParam = (name, search) => {
 };
 
 export const $isFiniteNumber = (val) => {
+  val = parseFloat(val);
   return !Number.isFinite(val) ? 0 : val;
 };
 export const $isPositiveNumber = (val) => {
+  val = parseFloat(val);
   return val > 0 ? val : 0;
 };

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from "react";
 import styled from "styled-components";
 
@@ -12,6 +13,7 @@ export interface InputProps {
 
 const Input: React.FC<InputProps> = ({
   onChange,
+  onBlur,
   placeholder,
   value,
   type,
@@ -22,6 +24,9 @@ const Input: React.FC<InputProps> = ({
       value={value}
       onChange={onChange}
       type={type}
+      onBlur={(e)=>{
+        onBlur&&onBlur(e)
+      }}
     />
   );
 };

@@ -25,11 +25,11 @@ const Specie: React.FC = ({}) => {
           </div>
         </div>
         <Spacer size="sm" />
-        <Select />
+        {/* <Select /> */}
         <Spacer size="sm" />
         <div className="text-right color-grey wing-blank-lg">≈ ＄0.01</div>
         <Spacer size="sm" />
-        <Select />
+        {/* <Select /> */}
         <Spacer size="mmd" />
         <Label label={t("dyl")} value="70%" className="wing-blank-lg" />
         <Spacer size="mmd" />

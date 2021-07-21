@@ -256,7 +256,7 @@ export class BasisCash {
   async getExchangeFee(itankContract) {
     try {
       const fee = await itankContract._feeRate();
-      return fee.toNumber()/1000;
+      return fee.toNumber() / 1000;
     } catch (error) {
       console.log(
         "🚀 ~ file: BasisCash.ts ~ line 272 ~ BasisCash ~ itankUnstake ~ error",
@@ -298,5 +298,32 @@ export class BasisCash {
   async harvest(address) {
     const { Mine } = this.contracts;
     return await Mine.getReward(address, this.gasOptions());
+  }
+  async exchangePTokenToUnderlying(itankContract, amount) {
+    try {
+      return await itankContract.exchangePTokenToUnderlying(
+        amount,
+        this.gasOptions()
+      );
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: BasisCash.ts ~ line 309 ~ BasisCash ~ exchangePTokenToUnderlying ~ error",
+        error
+      );
+    }
+  }
+
+  async exchangeUnderlyingToPToken(itankContract, amount) {
+    try {
+      return await itankContract.exchangeUnderlyingToPToken(
+        amount,
+        this.gasOptions()
+      );
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: BasisCash.ts ~ line 321 ~ BasisCash ~ exchangeUnderlyingToPToken ~ error",
+        error
+      );
+    }
   }
 }

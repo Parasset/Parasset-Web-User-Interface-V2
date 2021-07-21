@@ -7,6 +7,7 @@ import Value from "../../../components/Value";
 import HandlerModal from "../../../components/HandlerModal";
 import { getDep, $isFiniteNumber } from "../../../utils/utils";
 import useWithdraw from "../../../hooks/itank/useWithdraw";
+import useBlur from "../../../hooks/useBlur";
 const DepositModal: React.FC = ({
   isOpen,
   onDismiss,
@@ -22,7 +23,7 @@ const DepositModal: React.FC = ({
   const { t } = useTranslation();
   const [val, setVal] = useState(0);
   const [pendingTx, setPendingTx] = useState(false);
-
+  const { onBlur } = useBlur();
   const { onWithdraw } = useWithdraw(
     itank?.itankContract,
     itank?.itankContract?.decimal
@@ -158,6 +159,9 @@ const DepositModal: React.FC = ({
         onConfirm={onConfirm}
         disabled={pendingTx}
         val={val}
+        onBlur={(e) => {
+          onBlur(e, setVal);
+        }}
         columns={{
           recentDay: {
             label: "zjtqr",

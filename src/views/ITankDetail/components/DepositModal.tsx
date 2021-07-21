@@ -7,6 +7,7 @@ import HandlerModal from "../../../components/HandlerModal";
 import BigNumber from "bignumber.js";
 import { getDep, $isFiniteNumber } from "../../../utils/utils";
 import useStake from "../../../hooks/itank/useStake";
+import useBlur from "../../../hooks/useBlur";
 const DepositModal: React.FC = ({
   isOpen,
   onDismiss,
@@ -17,7 +18,7 @@ const DepositModal: React.FC = ({
   const { t } = useTranslation();
   const [val, setVal] = useState(0);
   const [pendingTx, setPendingTx] = useState(false);
-
+  const { onBlur } = useBlur();
   const { onStake } = useStake(
     itank?.itankContract,
     itank?.depositToken?.decimal
@@ -100,6 +101,9 @@ const DepositModal: React.FC = ({
         onConfirm={onConfirm}
         disabled={pendingTx}
         val={val}
+        onBlur={(e) => {
+          onBlur(e, setVal);
+        }}
         columns={{
           currentValue: {
             label: "dqjz",
