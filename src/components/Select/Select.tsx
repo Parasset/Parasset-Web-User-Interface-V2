@@ -11,7 +11,7 @@ const Select: React.FC = ({
   toggleShow,
   onChangeSelect,
 
-  isTopCurrencySelect,
+  isInputCurrencySelect,
   value,
   handleChange,
 }) => {
@@ -24,15 +24,14 @@ const Select: React.FC = ({
 
   return (
     <div className="position-relative">
-      <CardButton
-        className="wing-blank-lg "
-        size="lg"
-        onClick={(e) => {
-          e.stopPropagation();
-          toggleShow();
-        }}
-      >
-        <div className="flex-jc-center cursor-pointer">
+      <CardButton className="wing-blank-lg " size="lg">
+        <div
+          className="flex-jc-center cursor-pointer"
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleShow();
+          }}
+        >
           <div className="flex-jc-center">
             <img
               src={require(`../../assets/img/${selectItem?.name}.png`)}
@@ -75,7 +74,7 @@ const Select: React.FC = ({
                   key={item.name}
                   onClick={(e) => {
                     e.stopPropagation();
-                    onChangeSelect(item);
+                    onChangeSelect(item, i);
                     toggleShow();
                   }}
                 >
@@ -89,7 +88,7 @@ const Select: React.FC = ({
                     {item.name}
                   </div>
                   <div>
-                    {isTopCurrencySelect
+                    {isInputCurrencySelect
                       ? item.walletBalance
                       : item.itankBalance}
                   </div>

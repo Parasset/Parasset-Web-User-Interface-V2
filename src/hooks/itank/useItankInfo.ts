@@ -26,6 +26,7 @@ const useItankInfo = (itank) => {
     preEndTimeNum: 0,
   });
   const [redeemAmount, setRedeemAmount] = useState(0);
+  const [fee, setFee] = useState(0);
 
   const basisCash = useBasisCash();
   const block = useBlockNumber();
@@ -52,10 +53,18 @@ const useItankInfo = (itank) => {
     [basisCash?.myAccount, itank]
   );
 
+  const fetchFee = useCallback(
+    async () => {
+      let fee = await basisCash.getExchangeFee(itank.itankContract);
+      setFee(fee);
+    },
+    [basisCash?.myAccount, itank]
+  );
   const fetchInfo = useCallback(async () => {
     fetchFundBalance();
     fetchRedeemAmount();
     fetchLastDate();
+    fetchFee();
   }, [basisCash?.myAccount, itank, block]);
 
   useEffect(() => {
@@ -64,7 +73,7 @@ const useItankInfo = (itank) => {
     }
   }, [basisCash?.myAccount, block, itank]);
 
-  return { itankInfo ,lastDate,redeemAmount};
+  return { itankInfo, lastDate,fee, redeemAmount };
 };
 
 export default useItankInfo;

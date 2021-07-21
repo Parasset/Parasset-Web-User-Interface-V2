@@ -12,24 +12,26 @@ import Value from "../../../components/Value";
 import useTokenBalance from "../../../hooks/useTokenBalance";
 import useBasisCash from "../../../hooks/useBasisCash";
 import useAvgPrice from "../../../hooks/useAvgPrice";
-import { $isFiniteNumber } from "../../../utils/utils";
+import { $isFiniteNumber, $isPositiveNumber } from "../../../utils/utils";
+import useItank from "../../../hooks/itank/useItank";
+import useItankInfo from "../../../hooks/itank/useItankInfo";
 const Specie: React.FC = ({}) => {
   const { t } = useTranslation();
   const basisCash = useBasisCash();
   const avgPrice = useAvgPrice();
 
   const [isTransform, setIsTransform] = useState(true);
-  const [topValue, setTopValue] = useState(0);
-  const [bottomValue, setBottomValue] = useState(0);
+  const [inputValue, setInputValue] = useState(0);
+  const [outputValue, setOutputValue] = useState(0);
 
-  const [showTopCurrencySelect, setShowTopCurrencySelect] = useState(false);
+  const [showInputCurrencySelect, setShowInputCurrencySelect] = useState(false);
 
-  const [selectTopCurrency, setSelectTopCurrency] = useState("ETH");
+  const [selectInputCurrency, setSelectInputCurrency] = useState("ETH");
 
-  const [showBottomCurrencySelect, setShowBottomCurrencySelect] = useState(
+  const [showOutputCurrencySelect, setShowOutputCurrencySelect] = useState(
     false
   );
-  const [selectBottomCurrency, setSelectBottomCurrency] = useState("PETH");
+  const [selectOutputCurrency, setSelectOutputCurrency] = useState("PETH");
 
   const ETHWalletBalance = useTokenBalance(basisCash?.externalTokens["ETH"]);
   const USDTWalletBalance = useTokenBalance(basisCash?.externalTokens["USDT"]);
@@ -37,8 +39,13 @@ const Specie: React.FC = ({}) => {
   const PUSDWalletBalance = useTokenBalance(basisCash?.externalTokens["PUSD"]);
   const PUSDItankBalance = useTokenBalance(basisCash?.contracts["PUSDInsPool"]);
   const PETHItankBalance = useTokenBalance(basisCash?.contracts["PETHInsPool"]);
+  const itankPUSD = useItank("PUSDInsPool");
+  const itankPETH = useItank("PETHInsPool");
+  const { fee: itankPUSDFee } = useItankInfo(itankPUSD);
+  const { fee: itankPETHFee } = useItankInfo(itankPETH);
 
-  const topCurrencyList = useMemo(() => {
+
+  const inputCurrencyList = useMemo(() => {
     return [
       {
         name: "ETH",
@@ -62,7 +69,7 @@ const Specie: React.FC = ({}) => {
     PETHItankBalance,
   ]);
 
-  const bottomCurrencyList = useMemo(() => {
+  const outputCurrencyList = useMemo(() => {
     return [
       {
         name: "PETH",
@@ -86,103 +93,121 @@ const Specie: React.FC = ({}) => {
     PETHItankBalance,
   ]);
 
-  const currencyListTop = useMemo(() => {
-    return isTransform ? topCurrencyList : bottomCurrencyList;
-  }, [topCurrencyList, bottomCurrencyList, isTransform]);
+  const currencyListInput = useMemo(() => {
+    return isTransform ? inputCurrencyList : outputCurrencyList;
+  }, [inputCurrencyList, outputCurrencyList, isTransform]);
 
-  const currencyListBottom = useMemo(() => {
-    return isTransform ? bottomCurrencyList : topCurrencyList;
-  }, [topCurrencyList, bottomCurrencyList, isTransform]);
+  const currencyListOutput = useMemo(() => {
+    return isTransform ? outputCurrencyList : inputCurrencyList;
+  }, [inputCurrencyList, outputCurrencyList, isTransform]);
 
-  const topCurrencyBalance = useMemo(() => {
-    let item = currencyListTop.filter((item) => {
-      return item.id === selectTopCurrency;
+  const inputCurrencyBalance = useMemo(() => {
+    let item = currencyListInput.filter((item) => {
+      return item.id === selectInputCurrency;
     });
     return item[0].walletBalance;
-  }, [currencyListTop, selectTopCurrency]);
+  }, [currencyListInput, selectInputCurrency]);
 
-  const bottomCurrencyBalance = useMemo(() => {
-    let item = currencyListBottom.filter((item) => {
-      return item.id === selectBottomCurrency;
+  const outputCurrencyBalance = useMemo(() => {
+    let item = currencyListOutput.filter((item) => {
+      return item.id === selectOutputCurrency;
     });
     return item[0].itankBalance;
-  }, [currencyListBottom, selectBottomCurrency]);
+  }, [currencyListOutput, selectOutputCurrency]);
 
-  const isUSDT = useMemo(() => {
-    return selectTopCurrency === "USDT" || setSelectBottomCurrency === "USDT";
-  }, [selectTopCurrency, setSelectBottomCurrency]);
+  const isETH = useMemo(() => {
+    return selectInputCurrency === "ETH" || setSelectOutputCurrency === "ETH";
+  }, [selectInputCurrency, setSelectOutputCurrency]);
 
-  const topCurrencyValue = useMemo(() => {
-    let amount = isUSDT
-      ? topValue
-      : new BigNumber(topValue).times(avgPrice).toNumber();
+  const fee = useMemo(() => {
+    const feeRatio = !isETH ? itankPUSDFee : itankPETHFee;
+    const fee = new BigNumber(inputValue)
+    .minus(new BigNumber(inputValue).times(feeRatio))
+    .toNumber();
+    console.log("🚀 ~ file: Specie.tsx ~ line 125 ~ fee ~ fee",feeRatio, $isPositiveNumber($isFiniteNumber(fee)))
+    return $isPositiveNumber($isFiniteNumber(fee));
+  }, [!isETH, itankPUSDFee, itankPETHFee, inputValue]);
+
+  const inputCurrencyValue = useMemo(() => {
+    let amount = !isETH
+      ? inputValue
+      : new BigNumber(inputValue).times(avgPrice).toNumber();
     return $isFiniteNumber(amount);
-  }, [topValue, avgPrice, isUSDT]);
+  }, [inputValue, avgPrice, !isETH]);
 
-  const bottomCurrencyValue = useMemo(() => {
-    let amount = isUSDT
-      ? bottomValue
-      : new BigNumber(bottomValue).times(avgPrice).toNumber();
+  const outputCurrencyValue = useMemo(() => {
+    let amount = !isETH
+      ? outputValue
+      : new BigNumber(outputValue).times(avgPrice).toNumber();
     return $isFiniteNumber(amount);
-  }, [bottomValue, avgPrice, isUSDT]);
+  }, [outputValue, avgPrice, !isETH]);
 
-  const handleChangeTopValue = useCallback(
+  const limitValue = useCallback((value, canBuyAmount) => {
+    const minLimit = 0;
+    var value1 = parseFloat(value);
+    var canBuyAmount1 = parseFloat(canBuyAmount);
+    value =
+      value1 > canBuyAmount1
+        ? canBuyAmount
+        : value !== "" && value1 <= minLimit
+        ? minLimit
+        : value !== "" && !Number.isFinite(value1)
+        ? minLimit
+        : value;
+    return value;
+  }, []);
+
+  const handleChangeInputValue = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
-      const minLimit = 0;
-      var { value } = e.currentTarget;
-      var value1 = parseFloat(value);
-      const canBuyAmount = topCurrencyBalance;
-      var canBuyAmount1 = parseFloat(canBuyAmount);
-      value =
-        value1 > canBuyAmount1
-          ? canBuyAmount
-          : value !== "" && value1 <= minLimit
-          ? minLimit
-          : value !== "" && !Number.isFinite(value1)
-          ? minLimit
-          : value;
-      setTopValue(value);
+      const value = limitValue(e.currentTarget.value, inputCurrencyBalance);
+      setInputValue(value);
     },
-    [setTopValue, topCurrencyBalance]
+    [setInputValue, inputCurrencyBalance]
   );
 
-  const handleChangeBottomValue = useCallback(
+  const handleChangeOutputValue = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
-      const minLimit = 0;
-      var { value } = e.currentTarget;
-      var value1 = parseFloat(value);
-      const canBuyAmount = bottomCurrencyBalance;
-      var canBuyAmount1 = parseFloat(canBuyAmount);
-      value =
-        value1 > canBuyAmount1
-          ? canBuyAmount
-          : value !== "" && value1 <= minLimit
-          ? minLimit
-          : value !== "" && !Number.isFinite(value1)
-          ? minLimit
-          : value;
-      setBottomValue(value);
+      const value = limitValue(e.currentTarget.value, outputCurrencyBalance);
+      setOutputValue(value);
     },
-    [setBottomValue, bottomCurrencyBalance]
+    [setOutputValue, outputCurrencyBalance]
+  );
+
+  const onChangeInputCurrencySelect = useCallback(
+    ({ id }, index) => {
+      setSelectInputCurrency(id);
+      setSelectOutputCurrency(currencyListOutput[index].id);
+    },
+    [currencyListOutput]
+  );
+
+  const onChangeOutputCurrencySelect = useCallback(
+    ({ id }, index) => {
+      setSelectOutputCurrency(id);
+      setSelectInputCurrency(currencyListInput[index].id);
+    },
+    [currencyListInput]
   );
 
   const onTransformCurrency = useCallback(() => {
     setIsTransform(!isTransform);
-    setSelectTopCurrency(selectBottomCurrency);
-    setSelectBottomCurrency(selectTopCurrency);
-    setTopValue(bottomValue);
-    setBottomValue(topValue);
+    setSelectInputCurrency(selectOutputCurrency);
+    setSelectOutputCurrency(selectInputCurrency);
+    setInputValue(outputValue);
+    setOutputValue(inputValue);
   }, [
     isTransform,
-    topValue,
-    bottomValue,
-    selectTopCurrency,
-    selectBottomCurrency,
+    inputValue,
+    outputValue,
+    selectInputCurrency,
+    selectOutputCurrency,
+    inputCurrencyBalance,
+    outputCurrencyBalance,
   ]);
 
   const handleDocumentClick = useCallback(() => {
-    setShowTopCurrencySelect(false);
-    setShowBottomCurrencySelect(false);
+    setShowInputCurrencySelect(false);
+    setShowOutputCurrencySelect(false);
   }, []);
 
   useEffect(() => {
@@ -204,28 +229,26 @@ const Specie: React.FC = ({}) => {
             {t("yue")}
             <span className="color-dark text-underline">
               {" "}
-              <Value value={topCurrencyBalance} decimals={6} />
+              <Value value={inputCurrencyBalance} decimals={6} />
             </span>
           </div>
         </div>
         <Spacer size="sm" />
         <Select
-          showSelect={showTopCurrencySelect}
-          list={currencyListTop}
-          active={selectTopCurrency}
+          showSelect={showInputCurrencySelect}
+          list={currencyListInput}
+          active={selectInputCurrency}
           toggleShow={() => {
-            setShowTopCurrencySelect(!showTopCurrencySelect);
+            setShowInputCurrencySelect(!showInputCurrencySelect);
           }}
-          onChangeSelect={({ id }) => {
-            setSelectTopCurrency(id);
-          }}
-          isTopCurrencySelect={true}
-          value={topValue}
-          handleChange={handleChangeTopValue}
+          onChangeSelect={onChangeInputCurrencySelect}
+          isInputCurrencySelect={true}
+          value={inputValue}
+          handleChange={handleChangeInputValue}
         />
         <Spacer size="sm" />
         <div className="text-right color-grey wing-blank-lg">
-          ≈ <Value value={topCurrencyValue} prefix="$" />
+          ≈ <Value value={inputCurrencyValue} prefix="$" />
         </div>
         <Spacer size="sm" />
         <StyledExchangeImg className="text-center">
@@ -242,39 +265,36 @@ const Specie: React.FC = ({}) => {
           <div>
             {t("bxjjye")}
             <span className="color-dark text-underline">
-              <Value value={bottomCurrencyBalance} decimals={6} />
+              <Value value={outputCurrencyBalance} decimals={6} />
             </span>
           </div>
         </div>
         <Spacer size="sm" />
 
         <Select
-          showSelect={showBottomCurrencySelect}
-          list={currencyListBottom}
-          active={selectBottomCurrency}
+          showSelect={showOutputCurrencySelect}
+          list={currencyListOutput}
+          active={selectOutputCurrency}
           toggleShow={() => {
-            setShowBottomCurrencySelect(!showBottomCurrencySelect);
+            setShowOutputCurrencySelect(!showOutputCurrencySelect);
           }}
-          onChangeSelect={({ id }) => {
-            setSelectBottomCurrency(id);
-          }}
-          isTopCurrencySelect={false}
-          value={bottomValue}
-          handleChange={handleChangeBottomValue}
+          onChangeSelect={onChangeOutputCurrencySelect}
+          isInputCurrencySelect={false}
+          value={outputValue}
+          handleChange={handleChangeOutputValue}
         />
         <Spacer size="sm" />
         <div className="text-right color-grey wing-blank-lg">
-          ≈ <Value value={bottomCurrencyValue} prefix="$" />
+          ≈ <Value value={outputCurrencyValue} prefix="$" />
         </div>
         <Spacer size="sm" />
         <Label
           label={t("dhbl")}
-          value="1 ETH = 1200 PUSD"
+          value={!isETH?'1 ETH =1 ETH':'ETH'}
           className="wing-blank-lg"
         />
         <Spacer size="mmd" />
-        <Label label={t("sxf")} value="0.01 PETH" className="wing-blank-lg" />
-
+        <Label label={t("sxf")} value={ <Value value={fee} suffix={!isETH?'USDT':'ETH'}  />}  className="wing-blank-lg" />
         <Spacer />
         <Button text={t("duihuan")} variant="secondary" />
         <Spacer />

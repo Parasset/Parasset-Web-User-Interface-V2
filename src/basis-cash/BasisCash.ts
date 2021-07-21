@@ -253,6 +253,17 @@ export class BasisCash {
       );
     }
   }
+  async getExchangeFee(itankContract) {
+    try {
+      const fee = await itankContract._feeRate();
+      return fee.toNumber()/1000;
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: BasisCash.ts ~ line 272 ~ BasisCash ~ itankUnstake ~ error",
+        error
+      );
+    }
+  }
 
   async getChannelInfo(address, block) {
     try {

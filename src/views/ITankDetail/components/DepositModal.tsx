@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import Toast from "light-toast";
 import Value from "../../../components/Value";
 import HandlerModal from "../../../components/HandlerModal";
+import BigNumber from "bignumber.js";
 import { getDep, $isFiniteNumber } from "../../../utils/utils";
 import useStake from "../../../hooks/itank/useStake";
 const DepositModal: React.FC = ({
@@ -53,7 +54,12 @@ const DepositModal: React.FC = ({
   }, [onStake, val, canBuyAmount]);
 
   const handleSelectMax = useCallback(() => {
-    setVal(canBuyAmount);
+    if (itank.depositTokenName === "ETH") {
+      let val = new BigNumber(canBuyAmount).minus(0.01).toNumber();
+      setVal(val < 0 ? 0 : val);
+    } else {
+      setVal(canBuyAmount);
+    }
   }, [canBuyAmount, setVal]);
 
   const handleChange = useCallback(
