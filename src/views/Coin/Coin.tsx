@@ -6,9 +6,11 @@ import Tab from "../../components/Tab";
 import Specie from "./components/Specie";
 import Debt from "./components/Debt";
 import RiskModal from "../../components/RiskModal";
+import { parseUnits,formatUnits } from "ethers/lib/utils";
+import { decimalToBalance } from "../../basis-cash/ether-utils";
 const Coin: React.FC = () => {
   const isMobile = useIsMobile();
-  const [messages] = useState(["risk_msg4", ]);
+  const [messages] = useState(["risk_msg4"]);
 
   const [isOpen, setOpen] = useState(false);
   const [tabs, setTabs] = useState([
@@ -21,6 +23,7 @@ const Coin: React.FC = () => {
       id: 2,
     },
   ]);
+  console.log(decimalToBalance("1", 18),formatUnits('1000000000000000000'));
 
   const [tab, setTab] = useState(1);
 
@@ -39,8 +42,8 @@ const Coin: React.FC = () => {
         messages={messages}
         isOpen={isOpen}
         onDismiss={() => {
-          console.log('?????');
-          
+          console.log("?????");
+
           setOpen(false);
         }}
       />

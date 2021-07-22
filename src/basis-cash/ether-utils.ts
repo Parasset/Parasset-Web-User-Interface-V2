@@ -1,3 +1,4 @@
+//@ts-nocheck
 import Web3 from 'web3';
 import { defaultEthereumConfig, EthereumConfig } from './config';
 import { formatUnits, parseUnits } from 'ethers/lib/utils';
@@ -20,5 +21,5 @@ export function balanceToDecimal(s: string): string {
 }
 
 export function decimalToBalance(d: string | number, decimals = 18): BigNumber {
-  return parseUnits(String(d), decimals);
+  return parseUnits(String(d), decimals).toString();
 }

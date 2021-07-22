@@ -1,6 +1,5 @@
 //@ts-nocheck
 import BigNumber from "bignumber.js";
-import { parseUnits } from "ethers/lib/utils";
 export const formatDate = (datetime: any) => {
   datetime = new Date(datetime * 1000);
   // 获取年月日时分秒值  slice(-2)过滤掉大于10日期前面的0

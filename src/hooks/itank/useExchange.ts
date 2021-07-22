@@ -2,7 +2,7 @@ import { useCallback } from "react";
 
 import useBasisCash from "../useBasisCash";
 import useHandleTransactionReceipt from "../useHandleTransactionReceipt";
-import { parseUnits } from "ethers/lib/utils";
+import { decimalToBalance } from "../../basis-cash/ether-utils";
 const useExchange = () => {
   const basisCash = useBasisCash();
   const handleTransactionReceipt = useHandleTransactionReceipt();
@@ -10,7 +10,7 @@ const useExchange = () => {
   const handleExchange = useCallback(
     (itankContract, amount, decimal, isTransform) => {
       try {
-        const amountBn = parseUnits(String(amount), decimal);
+        const amountBn = decimalToBalance(String(amount), decimal);
         return handleTransactionReceipt(
           !isTransform
             ? basisCash.exchangeUnderlyingToPToken
@@ -20,7 +20,7 @@ const useExchange = () => {
       } catch (error) {
         console.log(
           "🚀 ~ file: useExchange.ts ~ line 21 ~ useExchange ~ error",
-          // parseUnits(amount, decimal),
+          // decimalToBalance(amount, decimal),
           amount,
           error
         );

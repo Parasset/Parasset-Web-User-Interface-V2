@@ -178,7 +178,7 @@ export class BasisCash {
       let maxRateNum = await mortgagePoolContract.getMaxRate(
         mortgageTokenAddress
       );
-      
+
       let { fee } = await mortgagePoolContract.getInfoRealTime(
         mortgageTokenAddress,
         mortgageToken.symbol === "ETH"
@@ -188,7 +188,7 @@ export class BasisCash {
         maxRateNum,
         address
       );
-      
+
       return getTonumber(fee);
     } catch (err) {
       console.log(err, "err");
@@ -429,15 +429,16 @@ export class BasisCash {
     }
   }
 
-  async coin(mortgagePoolContract, mortgageToken, amount, ratio,value) {
+  async coin(mortgagePoolContract, mortgageToken, amount, ratio, value) {
+    console.log(mortgageToken.address, amount, ratio,value);
     try {
       return await mortgagePoolContract.coin(
         mortgageToken.address,
         amount,
         ratio,
         {
-          // gasLimit: 300000000,
-          value,
+         value
+         ,
           from: this.myAccount,
         }
       );
