@@ -125,8 +125,110 @@ export class BasisCash {
       const { NestQuery } = this.contracts;
       const { USDT } = this.externalTokens;
       let { avgPrice } = await NestQuery.triggeredPriceInfo(USDT.address);
+
       return getTonumber(avgPrice, USDT.decimal);
     } catch (error) {
+      return "0";
+    }
+  }
+
+  async getMaxRatio(mortgagePoolContract, mortgageToken) {
+    try {
+      let maxRatio = await mortgagePoolContract.getMaxRate(
+        mortgageToken.symbol === "ETH"
+          ? "0x0000000000000000000000000000000000000000"
+          : mortgageToken.address
+      );
+      return maxRatio.toNumber() / 100000;
+    } catch (err) {
+      console.log(err, "err");
+      return "0";
+    }
+  }
+
+  async getStableFee(mortgagePoolContract, mortgageToken, uToken, address) {
+    try {
+      // mortgageToken	抵押资产地址
+      // tokenPrice	抵押资产相对于ETH的价格数量
+      // uTokenPrice	标的资产相对于ETH的价格数量（将从nest获取的数据直接传入，不需要做精度转换）
+      // maxRateNum	最大抵押率限制
+      // owner	债仓所有人地址
+      const { NestQuery } = this.contracts;
+
+      let { avgPrice: tokenPrice } = await NestQuery.triggeredPriceInfo(
+        mortgageToken.address
+      );
+
+      let { avgPrice: avgPriceUToken } = await NestQuery.triggeredPriceInfo(
+        uToken.address
+      );
+
+      let uTokenPrice = "";
+      if (uToken.symbol === "PETH") {
+        uTokenPrice = "1000000000000000000";
+      } else {
+        uTokenPrice = avgPriceUToken.toString();
+      }
+
+      const mortgageTokenAddress =
+        mortgageToken.symbol === "ETH"
+          ? "0x0000000000000000000000000000000000000000"
+          : mortgageToken.address;
+
+      let maxRateNum = await mortgagePoolContract.getMaxRate(
+        mortgageTokenAddress
+      );
+      
+      let { fee } = await mortgagePoolContract.getInfoRealTime(
+        mortgageTokenAddress,
+        mortgageToken.symbol === "ETH"
+          ? "1000000000000000000"
+          : tokenPrice.toString(),
+        uTokenPrice.toString(),
+        maxRateNum,
+        address
+      );
+      
+      return getTonumber(fee);
+    } catch (err) {
+      console.log(err, "err");
+      return "0";
+    }
+  }
+
+  async getNESTToUSDTPrice() {
+    try {
+      const { NestQuery } = this.contracts;
+      const { USDT, NEST } = this.externalTokens;
+      let { avgPrice: avgPriceUSDT } = await NestQuery.triggeredPriceInfo(
+        USDT.address
+      );
+      let { avgPrice: avgPriceNEST } = await NestQuery.triggeredPriceInfo(
+        NEST.address
+      );
+      // avgPrice2/avgPrice1=NEST对u的价格
+      return new BigNumber(getTonumber(avgPriceUSDT, USDT.decimal))
+        .div(getTonumber(avgPriceNEST, NEST.decimal))
+        .toNumber();
+    } catch (error) {
+      return "0";
+    }
+  }
+
+  async getNESTToETHPrice() {
+    try {
+      const { NestQuery } = this.contracts;
+      const { NEST } = this.externalTokens;
+      let { avgPrice } = await NestQuery.triggeredPriceInfo(NEST.address);
+      // nest对ETH的价格  1/avgPrice2
+      return new BigNumber(1)
+        .div(getTonumber(avgPrice, NEST.decimal))
+        .toNumber();
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: BasisCash.ts ~ line 172 ~ BasisCash ~ getNESTToETHPrice ~ error",
+        error
+      );
       return "0";
     }
   }
@@ -202,7 +304,7 @@ export class BasisCash {
         startTime: preStartTime,
         endTime: preEndTime,
       } = await itankContract.getRedemptionTimeFront();
-      // .substr(0,10)
+
       return {
         nextStartTime: formatDate(nextStartTime.toNumber()),
         nextEndTime: formatDate(nextEndTime.toNumber()),
@@ -322,6 +424,26 @@ export class BasisCash {
     } catch (error) {
       console.log(
         "🚀 ~ file: BasisCash.ts ~ line 321 ~ BasisCash ~ exchangeUnderlyingToPToken ~ error",
+        error
+      );
+    }
+  }
+
+  async coin(mortgagePoolContract, mortgageToken, amount, ratio,value) {
+    try {
+      return await mortgagePoolContract.coin(
+        mortgageToken.address,
+        amount,
+        ratio,
+        {
+          // gasLimit: 300000000,
+          value,
+          from: this.myAccount,
+        }
+      );
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: BasisCash.ts ~ line 443 ~ BasisCash ~ coin ~ error",
         error
       );
     }

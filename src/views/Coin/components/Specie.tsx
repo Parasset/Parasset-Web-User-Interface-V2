@@ -2,6 +2,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Tooltip } from "antd";
 import BigNumber from "bignumber.js";
+import Toast from "light-toast";
 import { useTranslation } from "react-i18next";
 import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
@@ -15,6 +16,10 @@ import useApprove from "../../../hooks/useApprove";
 import useTokenBalance from "../../../hooks/useTokenBalance";
 import useBasisCash from "../../../hooks/useBasisCash";
 import useAvgPrice from "../../../hooks/useAvgPrice";
+import usePrice from "../../../hooks/coin/usePrice";
+import useMaxRatio from "../../../hooks/coin/useMaxRatio";
+import useFee from "../../../hooks/coin/useFee";
+import useCoin from "../../../hooks/coin/useCoin";
 
 import {
   getDep,
@@ -22,13 +27,18 @@ import {
   $isPositiveNumber,
   getEncryptAddress,
 } from "../../../utils/utils";
+import { divide } from "numeral";
 const Specie: React.FC = ({}) => {
   const { t } = useTranslation();
   const basisCash = useBasisCash();
   const avgPrice = useAvgPrice();
+  const { onCoin } = useCoin();
+  const { NESTToUSDTPrice, NESTToETHPrice, ETHAvgPrice } = usePrice();
+
   const [inputValue, setInputValue] = useState(0);
   const [outputValue, setOutputValue] = useState(0);
   const [pendingTx, setPendingTx] = useState(false);
+
   const [showInputCurrencySelect, setShowInputCurrencySelect] = useState(false);
 
   const [selectInputCurrency, setSelectInputCurrency] = useState("ETH");
@@ -39,6 +49,34 @@ const Specie: React.FC = ({}) => {
   const [selectOutputCurrency, setSelectOutputCurrency] = useState("PUSD");
 
   const { onBlur } = useBlur();
+  const maxRatioETHPUSD = useMaxRatio(
+    basisCash?.contracts["PUSDMorPool"],
+    basisCash?.externalTokens["ETH"]
+  );
+  const maxRatioNESTPUSD = useMaxRatio(
+    basisCash?.contracts["PUSDMorPool"],
+    basisCash?.externalTokens["NEST"]
+  );
+  const maxRatioNESTPETH = useMaxRatio(
+    basisCash?.contracts["PETHMorPool"],
+    basisCash?.externalTokens["NEST"]
+  );
+
+  const feeETHPUSD = useFee(
+    basisCash?.contracts["PUSDMorPool"],
+    basisCash?.externalTokens["ETH"],
+    basisCash?.externalTokens["USDT"]
+  );
+  const feeNESTPUSD = useFee(
+    basisCash?.contracts["PUSDMorPool"],
+    basisCash?.externalTokens["NEST"],
+    basisCash?.externalTokens["USDT"]
+  );
+  const feeNESTPETH = useFee(
+    basisCash?.contracts["PETHMorPool"],
+    basisCash?.externalTokens["NEST"],
+    basisCash?.externalTokens["PETH "]
+  );
 
   const isETH = useMemo(() => {
     return selectInputCurrency === "ETH" || setSelectOutputCurrency === "ETH";
@@ -48,11 +86,29 @@ const Specie: React.FC = ({}) => {
   const NESTWalletBalance = useTokenBalance(basisCash?.externalTokens["NEST"]);
   const PETHWalletBalance = useTokenBalance(basisCash?.externalTokens["PETH"]);
   const PUSDWalletBalance = useTokenBalance(basisCash?.externalTokens["PUSD"]);
-  const [approveStatusNEST, approveNEST] = useApprove(
+  const [approveStatusPUSD, approvePUSD] = useApprove(
     basisCash?.externalTokens["NEST"],
-    basisCash?.contracts["PETHInsPool"]?.address
+    basisCash?.contracts["PUSDMorPool"]?.address
   );
-//换地址
+
+  const [approveStatusPETH, approvePETH] = useApprove(
+    basisCash?.externalTokens["NEST"],
+    basisCash?.contracts["PETHMorPool"]?.address
+  );
+
+  const approveList = useMemo(() => {
+    return {
+      PETH: {
+        status: approveStatusPETH,
+        approve: approvePETH,
+      },
+
+      PUSD: {
+        status: approveStatusPUSD,
+        approve: approvePUSD,
+      },
+    };
+  }, [approveStatusPETH, approveStatusPUSD, approvePETH, approvePUSD]);
 
   const currencyListInput = useMemo(() => {
     return [
@@ -97,6 +153,13 @@ const Specie: React.FC = ({}) => {
         ];
   }, [selectInputCurrency, PETHWalletBalance, PUSDWalletBalance]);
 
+  const maxList = useMemo(() => {
+    return {
+      ETH: new BigNumber(ETHWalletBalance).minus(0.02).toNumber(),
+      NEST: NESTWalletBalance,
+    };
+  }, [ETHWalletBalance, NESTWalletBalance]);
+
   const inputCurrencyBalance = useMemo(() => {
     let item = currencyListInput.filter((item) => {
       return item.id === selectInputCurrency;
@@ -107,23 +170,88 @@ const Specie: React.FC = ({}) => {
   const inputCurrencyValue = useMemo(() => {
     let amount = !isETH
       ? inputValue
-      : new BigNumber(inputValue).times(avgPrice).toNumber();
+      : new BigNumber(inputValue).times(NESTToUSDTPrice).toNumber();
 
     return $isFiniteNumber(amount);
-  }, [inputValue, avgPrice, !isETH]);
+  }, [inputValue, NESTToUSDTPrice, isETH]);
+
+  const inputMax = useMemo(() => {
+    var max = new BigNumber(inputCurrencyBalance).minus(0.02).toNumber();
+    var canBuyAmount = isETH ? max : inputCurrencyBalance;
+    return parseFloat(canBuyAmount);
+  }, [inputCurrencyBalance, isETH]);
+
   const cointAddress = useMemo(() => {
     return getEncryptAddress(
       basisCash?.externalTokens[selectOutputCurrency].address
     );
   }, [selectOutputCurrency, basisCash?.externalTokens]);
 
+  const dataList = useMemo(() => {
+    return {
+      ETHPUSD: {
+        maxRatio: maxRatioETHPUSD,
+        price: ETHAvgPrice,
+        fee: feeETHPUSD,
+        mortgagePoolContract: basisCash?.contracts["PUSDMorPool"],
+        mortgageToken: basisCash?.externalTokens["ETH"],
+      },
+      NESTPUSD: {
+        maxRatio: maxRatioNESTPUSD,
+        price: NESTToUSDTPrice,
+        fee: feeNESTPUSD,
+        mortgagePoolContract: basisCash?.contracts["PUSDMorPool"],
+        mortgageToken: basisCash?.externalTokens["NEST"],
+      },
+      NESTPETH: {
+        maxRatio: maxRatioNESTPETH,
+        price: NESTToETHPrice,
+        fee: feeNESTPETH,
+        mortgagePoolContract: basisCash?.contracts["PETHMorPool"],
+        mortgageToken: basisCash?.externalTokens["NEST"],
+      },
+    };
+  }, [
+    NESTToUSDTPrice,
+    NESTToETHPrice,
+    ETHAvgPrice,
+    maxRatioETHPUSD,
+    maxRatioNESTPUSD,
+    maxRatioNESTPETH,
+    selectInputCurrency,
+    selectOutputCurrency,
+  ]);
+
+  const calcRatio = useMemo(() => {
+    if (parseFloat(inputValue) && parseFloat(outputValue)) {
+      // NESTToUSDTPrice, NESTToETHPrice, ETHAvgPrice
+      // X=输入的PUSD数量/(输入的ETH数量*ETH-USDT预言机价格) ETH铸币PUSD
+      // X=输入的PUSD数量/(输入的NEST数量*NEST-USDT预言机价格) NEST铸币PUSD
+      // X=输入的PETH数量/(输入的NEST数量*NEST-PETH预言机价格)  NEST铸币PETH
+      // 若X大于NEST的最高抵押率（合约返回值），则红色显示前端计算的抵押率结果；铸币按钮灰色不可点击；若X小于等于NEST的最高抵押率，则可正常铸币
+      const price = dataList[selectInputCurrency + selectOutputCurrency].price;
+      const ratio = new BigNumber(outputValue)
+        .div(new BigNumber(inputValue).times(price))
+        .toNumber();
+      return $isPositiveNumber($isFiniteNumber(ratio));
+    }
+  }, [inputValue, outputValue, dataList]);
+
+  const isExceeds = useMemo(() => {
+    const { maxRatio } = dataList[selectInputCurrency + selectOutputCurrency];
+    return new BigNumber(calcRatio).gt(maxRatio);
+  }, [calcRatio, dataList, selectInputCurrency, selectOutputCurrency]);
+
   const onChangeInputCurrencySelect = useCallback(
     ({ id }, index) => {
       setSelectInputCurrency(id);
       //默认输出PUSD
       setSelectOutputCurrency(currencyListOutput[0].id);
+      const max = maxList[id];
+      console.log(inputValue, max);
+      setInputValue(parseFloat(inputValue) > max ? max : inputValue);
     },
-    [isETH, currencyListOutput]
+    [isETH, currencyListOutput, inputMax, maxList, inputValue]
   );
 
   const onChangeOutputCurrencySelect = useCallback(
@@ -132,101 +260,82 @@ const Specie: React.FC = ({}) => {
     },
     [currencyListInput]
   );
-  const calcAmount = useCallback(
-    ({ value, isInput }) => {
-      // if (isInput) {
-      //   const val =
-      //     value === "" ? value : $isPositiveNumber($isFiniteNumber(value));
-      //   setInputValue(val);
-      //   const feeRatio = !isETH ? itankPUSDFee : itankPETHFee;
-      //   const amount = new BigNumber(val)
-      //     .minus(new BigNumber(val).times(feeRatio))
-      //     .toNumber();
-      //   const outputAmount = $isPositiveNumber($isFiniteNumber(amount));
-      //   setOutputValue(outputAmount);
-      // } else {
-      //   const val =
-      //     value === "" ? value : $isPositiveNumber($isFiniteNumber(value));
-      //   setOutputValue(val);
-      //   const feeRatio = !isETH ? itankPUSDFee : itankPETHFee;
-      //   const amount = new BigNumber(val)
-      //     .div(new BigNumber(1).minus(feeRatio))
-      //     .toNumber();
-      //   const inputAmount = $isPositiveNumber($isFiniteNumber(amount));
-      //   setInputValue(inputAmount);
-      // }
-    },
-    [
-      // inputCurrencyBalance,
-      // isETH,
-      // outputCurrencyBalance,
-      // isTransform,
-      // itankPUSDFee,
-      // itankPETHFee,
-    ]
-  );
+
   const handleChangeInputValue = useCallback(
     (e) => {
-      const { value } = e.currentTarget;
-      // calcAmount({
-      //   value,
-      //   isInput: true,
-      // });
+      const minLimit = 0;
+      var { value } = e.currentTarget;
+      var value1 = parseFloat(value);
+      const canBuyAmount = inputMax;
+      var canBuyAmount1 = parseFloat(canBuyAmount);
+
+      value =
+        value1 > canBuyAmount1
+          ? canBuyAmount
+          : value !== "" && value1 <= minLimit
+          ? minLimit
+          : value !== "" && !Number.isFinite(value1)
+          ? minLimit
+          : value;
       setInputValue(value);
     },
-    [
-      // inputCurrencyBalance,
-      // isETH,
-      // outputCurrencyBalance,
-      // isTransform,
-      // itankPUSDFee,
-      // itankPETHFee,
-    ]
+    [inputMax]
   );
 
-  const handleChangeOutputValue = useCallback(
-    (e) => {
-      const { value } = e.currentTarget;
-
-      calcAmount({
-        value,
-        isInput: false,
-      });
-    },
-    [
-      // inputCurrencyBalance,
-      // isETH,
-      // outputCurrencyBalance,
-      // isTransform,
-      // itankPUSDFee,
-      // itankPETHFee,
-    ]
-  );
+  const handleChangeOutputValue = useCallback((e) => {
+    const { value } = e.currentTarget;
+    setOutputValue(
+      value === "" ? value : $isPositiveNumber($isFiniteNumber(value))
+    );
+  }, []);
 
   const onConfirm = useCallback(async () => {
-    // if (!parseFloat(inputValue)) {
-    //   Toast.info(t("qsrbdzcdhsl"), 1000);
-    // } else if (parseFloat(inputValue) > parseFloat(inputMax)) {
-    //   Toast.info(t("qbbdzcyebz"), 1000);
-    // } else if (getDep(inputValue) > 14) {
-    //   Toast.info(t("zdsrws"), 1000);
-    // } else {
-    //   setPendingTx(true);
-   
-    //   const result = await onExchange(
-    //     itankContract,
-    //     inputValue,
-    //     token.decimal,
-    //     isTransform
-    //   );
-    //   setPendingTx(false);
-    //   if (result !== "0") {
-    //     setInputValue("");
-    //     setOutputValue("");
-    //   }
-    // }
+    const { mortgagePoolContract, mortgageToken, fee, maxRatio } = dataList[
+      selectInputCurrency + selectOutputCurrency
+    ];
+    console.log(getDep(inputValue) > 14)
+    if (!parseFloat(inputValue)) {
+      Toast.info(t("qsrdyyszc"), 1000);
+    } else if (parseFloat(inputValue) > parseFloat(inputMax)) {
+      Toast.info(t("qbkydyzcyebz"), 1000);
+    } else if (!parseFloat(outputValue)) {
+      Toast.info(t("qsrzbsl"), 1000);
+    } else if (getDep(inputValue) > 14 || getDep(outputValue) > 14) {
+      Toast.info(t("zdsrws"), 1000);
+    } else if (parseFloat(outputValue) < parseFloat(fee)) {
+      Toast.info(t("qbyebzjnwdf"), 1000);
+    } else if (calcRatio <= 0 || isExceeds) {
+      Toast.info(
+        t("cgzddyl", {
+          label: maxRatio,
+        }),
+        1000
+      );
+    } else {
+      setPendingTx(true);
+
+      const result = await onCoin(
+        mortgagePoolContract,
+        mortgageToken,
+        inputValue,
+        calcRatio
+      );
+      setPendingTx(false);
+      if (result !== "0") {
+        setInputValue("");
+        setOutputValue("");
+      }
+    }
   }, [
-   
+    inputValue,
+    outputValue,
+    inputMax,
+    dataList,
+    selectInputCurrency,
+    selectOutputCurrency,
+    calcRatio,
+    isExceeds,
+    onCoin,
   ]);
   const handleDocumentClick = useCallback(() => {
     setShowInputCurrencySelect(false);
@@ -250,15 +359,11 @@ const Specie: React.FC = ({}) => {
           <div>
             {t("yue")}
             <span
-              className="color-dark text-underline"
+              className="color-dark text-underline cursor-pointer"
               onClick={() => {
-                calcAmount({
-                  value: inputMax,
-                  isInput: true,
-                });
+                setInputValue(inputMax);
               }}
             >
-              {" "}
               <Value value={inputCurrencyBalance} decimals={6} />
             </span>
           </div>
@@ -300,7 +405,20 @@ const Specie: React.FC = ({}) => {
           }}
         />
         <Spacer size="mmd" />
-        <Label label={t("dyl")} value="70%" className="wing-blank-lg" />
+        <Label
+          label={t("dyl")}
+          value={
+            <div className={isExceeds ? "color-red" : ""}>
+              <Value
+                value={calcRatio * 100}
+                suffix="%"
+                placeholder={true}
+                showAll={true}
+              />
+            </div>
+          }
+          className="wing-blank-lg"
+        />
         <Spacer size="mmd" />
         <Label
           label={t("heyue", {
@@ -311,7 +429,7 @@ const Specie: React.FC = ({}) => {
         />
 
         <Spacer size="mmd" />
-        {/* <Label
+        <Label
           label={
             <Tooltip title={t("tip2")}>
               <div className="text-underline">{t("yyjdyf")}</div>
@@ -319,9 +437,7 @@ const Specie: React.FC = ({}) => {
           }
           value="0.01 ETH"
           className="wing-blank-lg"
-        /> */}
-
-        
+        />
 
         <Spacer size="mmd" />
         <Label label={t("wdf")} value="0.01 PUSD" className="wing-blank-lg" />
@@ -331,17 +447,17 @@ const Specie: React.FC = ({}) => {
           <Button
             text={t("zhubi")}
             variant="secondary"
-            disabled={pendingTx}
+            disabled={pendingTx || calcRatio <= 0 || isExceeds}
             onClick={onConfirm}
           />
-        ) : approveStatusNEST ? (
+        ) : approveList[selectOutputCurrency].status ? (
           <Button
             text={`${t("sq")} ${selectInputCurrency}`}
             variant="secondary"
             disabled={pendingTx}
             onClick={async () => {
               setPendingTx(true);
-              await approveNEST();
+              await approveList[selectOutputCurrency].approve();
               setPendingTx(false);
             }}
           />
@@ -349,10 +465,11 @@ const Specie: React.FC = ({}) => {
           <Button
             text={t("zhubi")}
             variant="secondary"
-            disabled={pendingTx}
+            disabled={pendingTx || calcRatio <= 0 || isExceeds}
             onClick={onConfirm}
           />
         )}
+
         <Spacer />
       </Card>
       <Spacer size="sm" />

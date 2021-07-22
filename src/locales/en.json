@@ -118,7 +118,10 @@
   "qsrtqsl": "Please enter the withdraw amount",
   "ketiqu": "Redeemable",
   "bxjjye": "Insurance Fund Balance：",
-  "qsrbdzcdhsl": "Enter the amount of the underlying asset",
-   "qbbdzcyebz": "Insufficient balance of underlying assets"
+  "qsrdyyszc": "Please input the amount of stake assets",
+   "qbkydyzcyebz": "The staked assets exceed the available balance of the wallet",
+   "qsrzbsl": "Please input the amount of parallel assets",
+   "qbyebzjnwdf": "The wallet balance is insufficient to pay the stability fee",
+   "cgzddyl": "The mortgage rate should be greater than 0 and less than the maximum mortgage rate{{{{label}}}}"
   
 }

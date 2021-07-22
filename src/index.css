@@ -202,6 +202,9 @@ input[type="number"]{
 .color-light-green {
   color: #0cc69d !important;
 }
+.color-red{
+  color: red;
+}
 
 #root .color-grey {
   color: #878787;

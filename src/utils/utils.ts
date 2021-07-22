@@ -1,6 +1,6 @@
 //@ts-nocheck
 import BigNumber from "bignumber.js";
-
+import { parseUnits } from "ethers/lib/utils";
 export const formatDate = (datetime: any) => {
   datetime = new Date(datetime * 1000);
   // 获取年月日时分秒值  slice(-2)过滤掉大于10日期前面的0
@@ -41,3 +41,4 @@ export const $isPositiveNumber = (val) => {
 export const getEncryptAddress = (address) => {
  return address? address.replace(/(\w{4})\w*(\w{4})/, '$1******$2'):''
 };
+

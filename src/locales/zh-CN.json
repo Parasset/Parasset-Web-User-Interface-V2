@@ -119,5 +119,10 @@
   "ketiqu": "可提取",
   "bxjjye": "保险基金余额：",
   "qsrbdzcdhsl": "请输入标的资产兑换数量",
-  "qbbdzcyebz": "钱包可用标的资产余额不足"
+  "qbbdzcyebz": "钱包可用标的资产余额不足",
+  "qsrdyyszc": "请输入抵押资产数量",
+  "qbkydyzcyebz": "钱包可用抵押资产余额不足",
+  "qsrzbsl": "请输入铸币数量",
+  "qbyebzjnwdf": "钱包余额不足缴纳稳定费",
+  "cgzddyl": "抵押率应大于0小于最大抵押率{{label}}"
 }
