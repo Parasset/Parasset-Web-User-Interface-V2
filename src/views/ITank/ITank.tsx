@@ -151,7 +151,6 @@ const Mine: React.FC = () => {
         messages={messages}
         isOpen={isOpen}
         onDismiss={() => {
-          console.log('?????');
           
           setOpen(false);
         }}

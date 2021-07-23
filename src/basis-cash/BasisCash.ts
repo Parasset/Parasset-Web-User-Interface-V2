@@ -82,6 +82,11 @@ export class BasisCash {
       from: this.myAccount,
     };
   }
+  gasETHAddress(token) {
+    return token.symbol === "ETH"
+      ? "0x0000000000000000000000000000000000000000"
+      : token.address;
+  }
 
   async getStaked(address, account = this.myAccount) {
     try {
@@ -134,11 +139,8 @@ export class BasisCash {
 
   async getMaxRatio(mortgagePoolContract, mortgageToken) {
     try {
-      let maxRatio = await mortgagePoolContract.getMaxRate(
-        mortgageToken.symbol === "ETH"
-          ? "0x0000000000000000000000000000000000000000"
-          : mortgageToken.address
-      );
+      const address = this.gasETHAddress(mortgageToken);
+      let maxRatio = await mortgagePoolContract.getMaxRate(address);
       return maxRatio.toNumber() / 100000;
     } catch (err) {
       console.log(err, "err");
@@ -146,7 +148,7 @@ export class BasisCash {
     }
   }
 
-  async getStableFee(mortgagePoolContract, mortgageToken, uToken, address) {
+  async getInfoRealTime(mortgagePoolContract, mortgageToken, uToken, address) {
     try {
       // mortgageToken	抵押资产地址
       // tokenPrice	抵押资产相对于ETH的价格数量
@@ -154,13 +156,13 @@ export class BasisCash {
       // maxRateNum	最大抵押率限制
       // owner	债仓所有人地址
       const { NestQuery } = this.contracts;
-
+      const { USDT } = this.externalTokens;
       let { avgPrice: tokenPrice } = await NestQuery.triggeredPriceInfo(
         mortgageToken.address
       );
 
       let { avgPrice: avgPriceUToken } = await NestQuery.triggeredPriceInfo(
-        uToken.address
+        USDT.address
       );
 
       let uTokenPrice = "";
@@ -170,26 +172,107 @@ export class BasisCash {
         uTokenPrice = avgPriceUToken.toString();
       }
 
-      const mortgageTokenAddress =
-        mortgageToken.symbol === "ETH"
-          ? "0x0000000000000000000000000000000000000000"
-          : mortgageToken.address;
+      const mortgageTokenAddress = this.gasETHAddress(mortgageToken);
 
       let maxRateNum = await mortgagePoolContract.getMaxRate(
         mortgageTokenAddress
       );
+      maxRateNum = maxRateNum.toString();
 
-      let { fee } = await mortgagePoolContract.getInfoRealTime(
+      let info = await mortgagePoolContract.getInfoRealTime(
         mortgageTokenAddress,
         mortgageToken.symbol === "ETH"
           ? "1000000000000000000"
           : tokenPrice.toString(),
-        uTokenPrice.toString(),
+        uTokenPrice,
         maxRateNum,
         address
       );
 
-      return getTonumber(fee);
+      return info;
+    } catch (err) {
+      console.log(err, "err");
+      return "0";
+    }
+  }
+  async getStableFee(mortgagePoolContract, mortgageToken, uToken, address) {
+    let { fee } = await this.getInfoRealTime(
+      mortgagePoolContract,
+      mortgageToken,
+      uToken,
+      address
+    );
+    return getTonumber(fee);
+  }
+
+  async getDebt(mortgagePoolContract, mortgageToken, address, uToken, key) {
+    try {
+      const info = await mortgagePoolContract.getLedger(
+        this.gasETHAddress(mortgageToken),
+        address
+      );
+      const fee = await this.getStableFee(
+        mortgagePoolContract,
+        mortgageToken,
+        uToken,
+        address
+      );
+      const ETHAvgPrice = await this.getAvgPrice();
+      const NESTToUSDTPrice = await this.getNESTToUSDTPrice();
+      let { maxSubM, maxAddP } = await this.getInfoRealTime(
+        mortgagePoolContract,
+        mortgageToken,
+        uToken,
+        address
+      );
+      maxSubM = getTonumber(maxSubM, mortgageToken.decimal);
+      maxAddP = getTonumber(maxAddP, uToken.decimal);
+      const priceList = {
+        ETHPUSD: {
+          mortgagePrice: ETHAvgPrice,
+          parassetPrice: 1,
+        },
+        NESTPUSD: {
+          mortgagePrice: NESTToUSDTPrice,
+          parassetPrice: 1,
+        },
+        NESTPETH: {
+          mortgagePrice: NESTToUSDTPrice,
+          parassetPrice: ETHAvgPrice,
+        },
+      };
+      const mortgagePrice = priceList[key].mortgagePrice;
+      const parassetPrice = priceList[key].parassetPrice;
+      const mortgageAssets = getTonumber(
+        info.mortgageAssets,
+        mortgageToken.decimal
+      );
+      const parassetAssets = getTonumber(info.parassetAssets, uToken.decimal);
+      return {
+        ...info,
+        mortgageAssets,
+        parassetAssets,
+        rate: info.rate.toNumber() / 1000,
+        fee,
+
+        mortgagePrice,
+        parassetPrice,
+        mortgageValue: new BigNumber(mortgageAssets)
+          .times(mortgagePrice)
+          .toNumber(),
+        parassetValue: new BigNumber(parassetAssets)
+          .times(parassetPrice)
+          .toNumber(),
+        feeValue: new BigNumber(fee).times(parassetPrice).toNumber(),
+        maxSubM,
+        maxAddP,
+        maxSubMValue: new BigNumber(maxSubM)
+        .times(mortgagePrice)
+        .toNumber(),
+        maxAddPValue: new BigNumber(maxAddP)
+        .times(parassetPrice)
+        .toNumber(),
+      };
     } catch (err) {
       console.log(err, "err");
       return "0";
@@ -430,15 +513,14 @@ export class BasisCash {
   }
 
   async coin(mortgagePoolContract, mortgageToken, amount, ratio, value) {
-    console.log(mortgageToken.address, amount, ratio,value);
+    console.log(this.gasETHAddress(mortgageToken), amount, ratio, value);
     try {
       return await mortgagePoolContract.coin(
-        mortgageToken.address,
+        this.gasETHAddress(mortgageToken),
         amount,
         ratio,
         {
-         value
-         ,
+          value,
           from: this.myAccount,
         }
       );

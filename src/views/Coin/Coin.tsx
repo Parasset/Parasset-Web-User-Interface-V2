@@ -6,8 +6,6 @@ import Tab from "../../components/Tab";
 import Specie from "./components/Specie";
 import Debt from "./components/Debt";
 import RiskModal from "../../components/RiskModal";
-import { parseUnits,formatUnits } from "ethers/lib/utils";
-import { decimalToBalance } from "../../basis-cash/ether-utils";
 const Coin: React.FC = () => {
   const isMobile = useIsMobile();
   const [messages] = useState(["risk_msg4"]);
@@ -23,9 +21,8 @@ const Coin: React.FC = () => {
       id: 2,
     },
   ]);
-  console.log(decimalToBalance("1", 18),formatUnits('1000000000000000000'));
 
-  const [tab, setTab] = useState(1);
+  const [tab, setTab] = useState(2);
 
   useEffect(() => {
     if (!localStorage.getItem("isCoinMsg")) {
@@ -35,9 +32,15 @@ const Coin: React.FC = () => {
   }, []);
   return (
     <div className="wing-blank-xl">
-      <Tab tabs={tabs} tab={tab} onChangeTab={() => {}} />
-      <Specie />
-      {/* <Debt /> */}
+      <Tab
+        tabs={tabs}
+        tab={tab}
+        onChangeTab={(tab) => {
+          setTab(tab);
+        }}
+      />
+      {tab === 1 ? <Specie /> : <Debt />}
+
       <RiskModal
         messages={messages}
         isOpen={isOpen}

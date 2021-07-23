@@ -122,6 +122,10 @@
    "qbkydyzcyebz": "The staked assets exceed the available balance of the wallet",
    "qsrzbsl": "Please input the amount of parallel assets",
    "qbyebzjnwdf": "The wallet balance is insufficient to pay the stability fee",
-   "cgzddyl": "The mortgage rate should be greater than 0 and less than the maximum mortgage rate{{{{label}}}}"
+   "cgzddyl": "The mortgage rate should be greater than 0 and less than the maximum mortgage rate{{label}}",
+   "zwzc": "No coins, no debt warehouse",
+   "jzz": "Loading",
+   "changhuan": "Repay",
+   "qsrchsl": "Please enter the repay amount"
   
 }

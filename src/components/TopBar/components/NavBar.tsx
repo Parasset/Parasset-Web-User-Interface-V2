@@ -38,13 +38,13 @@ const Nav: React.FC = () => {
             to="/coin"
             isActive={(match, { pathname }) => {
               return (
-                pathname.includes("/coin") || pathname.includes("/barn/detail")
+                pathname.includes("/coin") || pathname.includes("/debt/detail")
               );
             }}
           >
             <img
               src={
-                pathname.includes("/coin") || pathname.includes("/barn/detail")
+                pathname.includes("/coin") || pathname.includes("/debt/detail")
                   ? require("../../../assets/img/coin_icon1.png")
                   : require("../../../assets/img/coin_icon.png")
               }

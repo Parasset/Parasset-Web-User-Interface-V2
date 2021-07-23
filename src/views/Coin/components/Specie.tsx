@@ -1,6 +1,7 @@
 //@ts-nocheck
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Tooltip } from "antd";
+import styled from "styled-components";
 import BigNumber from "bignumber.js";
 import Toast from "light-toast";
 import { useTranslation } from "react-i18next";
@@ -168,12 +169,12 @@ const Specie: React.FC = ({}) => {
   }, [currencyListInput, selectInputCurrency]);
 
   const inputCurrencyValue = useMemo(() => {
-    let amount = !isETH
-      ? inputValue
-      : new BigNumber(inputValue).times(NESTToUSDTPrice).toNumber();
+    let amount = isETH
+      ? new BigNumber(inputValue).times(ETHAvgPrice).toNumber()
+      :new BigNumber(inputValue).times(NESTToUSDTPrice).toNumber()  ;
 
     return $isFiniteNumber(amount);
-  }, [inputValue, NESTToUSDTPrice, isETH]);
+  }, [inputValue, NESTToUSDTPrice,ETHAvgPrice, isETH]);
 
   const inputMax = useMemo(() => {
     var max = new BigNumber(inputCurrencyBalance).minus(0.02).toNumber();
@@ -388,7 +389,15 @@ const Specie: React.FC = ({}) => {
         <div className="text-right color-grey wing-blank-lg">
           ≈ <Value value={inputCurrencyValue} prefix="$" />
         </div>
-        <Spacer size="sm" />
+        <StyledExchangeImg className="text-center">
+          <img
+            src={require("../../../assets/img/change_icon.png")}
+            width="50"
+            height="50"
+            className="center-block cursor-pointer"
+          />
+        </StyledExchangeImg>
+        <Spacer  />
         <Select
           showSelect={showOutputCurrencySelect}
           list={currencyListOutput}
@@ -477,5 +486,8 @@ const Specie: React.FC = ({}) => {
     </>
   );
 };
-
+const StyledExchangeImg = styled.div`
+  margin-top: -10px;
+  margin-bottom: -10px;
+`;
 export default Specie;

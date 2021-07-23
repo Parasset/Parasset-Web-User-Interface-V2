@@ -1,25 +1,25 @@
-
 //@ts-nocheck
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import styled from "styled-components";
+import { useParams } from "react-router-dom";
 import useIsMobile from "../../hooks/useIsMobile";
-
-import BigValue from "../../components/BigValue";
 import Back from "../../components/Back";
 import Info from "./components/Info";
 import Handler from "./components/Handler";
-
+import useDebt from "../../hooks/debt/useDebt";
+import useDebtInfo from "../../hooks/debt/useDebtInfo";
 
 const Mine: React.FC = () => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
+  const { debtId } = useParams();
+  const debt = useDebt(debtId);
+  const { info: debtInfo } = useDebtInfo(debt);
   return (
     <>
-      <Back text={`USDT-PUSD LP ${t('kuangchi')}`} img="USDT" img1="PUSD" />
+      <Back text={`USDT-PUSD LP ${t("kuangchi")}`} img="USDT" img1="PUSD" />
       <Info />
-      <Handler />
-     
+      <Handler debt={debt} debtInfo={debtInfo}/>
     </>
   );
 };

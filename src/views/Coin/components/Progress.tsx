@@ -3,29 +3,29 @@ import React from "react";
 import styled from "styled-components";
 import { Tooltip } from "antd";
 import { useTranslation } from "react-i18next";
-import Spacer from "../../../components/Spacer";
-import Card from "../../../components/Card";
+import Value from "../../../components/Value";
 
-const Progress: React.FC = ({}) => {
+const Progress: React.FC = ({ ratio }) => {
   const { t } = useTranslation();
   return (
     <>
       <StyledWrapBox>
-        <div className="color-grey flex1 text-right margin-right-10">1%</div>
+        <div className="color-grey flex1 text-right margin-right-10">0%</div>
         <StyledProgress className="text-center" id="tip-box">
           <StyledProgressLine />
           <StyledProgressGrey />
 
-          <div className="color-light-pink bold-600 font-size-32">35%</div>
-          <Tooltip
-            title={t('tip1')}
-          >
+          <div className="color-light-pink bold-600 font-size-32">
+            {" "}
+            <Value value={ratio} decimals={2} />%
+          </div>
+          <Tooltip title={t("tip1")}>
             <StyledRatio className="color-grey text-underline">
-              {t('dqdyl')}
+              {t("dqdyl")}
             </StyledRatio>
           </Tooltip>
         </StyledProgress>
-        <div className="color-grey flex1 text-left margin-left-10">70%</div>
+        <div className="color-grey flex1 text-left margin-left-10">100%</div>
       </StyledWrapBox>
     </>
   );

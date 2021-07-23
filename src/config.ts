@@ -82,4 +82,36 @@ export const itankDefinitions = {
   },
 };
 
+
+export const debtDefinitions = {
+  ETHPUSD: {
+    name: "ETH-PUSD",
+    key:'ETHPUSD',
+    icon1: "ETH",
+    icon2: "PUSD",
+    contract: "PUSDMorPool",
+    depositTokenName: "ETH",
+    earnTokenName: "PUSD",
+  },
+  NESTPUSD: {
+    name: "NEST-PUSD",
+    key:'NESTPUSD',
+    icon1: "NEST",
+    icon2: "PUSD",
+    contract: "PUSDMorPool",
+    depositTokenName: "NEST",
+    earnTokenName: "PUSD",
+  },
+
+  NESTPETH: {
+    name: "NEST-PETH",
+    key:'NESTPETH',
+    icon1: "NEST",
+    icon2: "PETH",
+    contract: "PETHMorPool",
+    depositTokenName: "NEST",
+    earnTokenName: "PETH",
+  },
+};
+
 export default configurations[process.env.NODE_ENV || "development"];

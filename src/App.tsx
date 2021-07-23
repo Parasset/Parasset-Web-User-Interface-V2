@@ -6,6 +6,7 @@ import { ThemeProvider } from "styled-components";
 import { UseWalletProvider } from "use-wallet";
 import MinesProvider from "./contexts/Mines";
 import ItanksProvider from "./contexts/ITanks";
+import DebtsProvider from "./contexts/Debts";
 import BasisCashProvider from "./contexts/BasisCashProvider";
 import Page from "./components/Page";
 
@@ -16,7 +17,7 @@ import MinePool from "./views/MinePool";
 import ITankDetail from "./views/ITankDetail";
 import ITank from "./views/ITank";
 import Exchange from "./views/Exchange";
-import Barn from "./views/Barn";
+import DebtDetail from "./views/DebtDetail";
 
 import store from "./state";
 import theme from "./theme";
@@ -36,8 +37,8 @@ const App: React.FC = () => {
             <Route path="/coin" exact>
               <Coin />
             </Route>
-            <Route path="/barn/detail" exact>
-              <Barn />
+            <Route path="/debt/detail/:debtId" exact>
+              <DebtDetail />
             </Route>
             <Route path="/exchange" exact>
               <Exchange />
@@ -72,7 +73,9 @@ const Providers: React.FC = ({ children }) => {
           <BasisCashProvider>
             <ItanksProvider>
               <MinesProvider>
-                <>{children}</>
+                <DebtsProvider>
+                  <>{children}</>
+                </DebtsProvider>
               </MinesProvider>
             </ItanksProvider>
           </BasisCashProvider>
