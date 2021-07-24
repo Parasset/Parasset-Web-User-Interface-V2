@@ -126,6 +126,12 @@
    "zwzc": "No coins, no debt warehouse",
    "jzz": "Loading",
    "changhuan": "Repay",
-   "qsrchsl": "Please enter the repay amount"
+   "qsrchsl": "Please enter the repay amount",
+   "qbkyethbz": "The wallet has insufficient available ETH",
+   "qbzckyyebz": "The available balance of wallet assets is insufficient",
+   "cgzdktqsl": "Exceeded the maximum extractable quantity",
+   "cgzdkzbsl": "Exceeded the maximum number of coins that can be minted",
+   "cgzdkchsl": "Exceeded the maximum repayable amount",
+   "zhaicang": "debt"
   
 }

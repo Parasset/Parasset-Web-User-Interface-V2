@@ -1,6 +1,7 @@
 //@ts-nocheck
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Tooltip } from "antd";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import BigNumber from "bignumber.js";
 import Toast from "light-toast";
@@ -34,12 +35,13 @@ const Specie: React.FC = ({}) => {
   const basisCash = useBasisCash();
   const avgPrice = useAvgPrice();
   const { onCoin } = useCoin();
+  const { selectInputCurrency:inputCurrency,selectOutputCurrency:outputCurrency } = useParams();
   const { NESTToUSDTPrice, NESTToETHPrice, ETHAvgPrice } = usePrice();
 
   const [inputValue, setInputValue] = useState(0);
   const [outputValue, setOutputValue] = useState(0);
   const [pendingTx, setPendingTx] = useState(false);
-
+  
   const [showInputCurrencySelect, setShowInputCurrencySelect] = useState(false);
 
   const [selectInputCurrency, setSelectInputCurrency] = useState("ETH");
@@ -299,7 +301,9 @@ const Specie: React.FC = ({}) => {
       Toast.info(t("qsrdyyszc"), 1000);
     } else if (parseFloat(inputValue) > parseFloat(inputMax)) {
       Toast.info(t("qbkydyzcyebz"), 1000);
-    } else if (!parseFloat(outputValue)) {
+    }else if ( parseFloat(ETHWalletBalance)<0.01) {
+      Toast.info(t("qbkyethbz"), 1000);
+    }  else if (!parseFloat(outputValue)) {
       Toast.info(t("qsrzbsl"), 1000);
     } else if (getDep(inputValue) > 14 || getDep(outputValue) > 14) {
       Toast.info(t("zdsrws"), 1000);
@@ -332,6 +336,7 @@ const Specie: React.FC = ({}) => {
     outputValue,
     inputMax,
     dataList,
+    ETHWalletBalance,
     selectInputCurrency,
     selectOutputCurrency,
     calcRatio,
@@ -349,6 +354,17 @@ const Specie: React.FC = ({}) => {
       window.removeEventListener("click", handleDocumentClick);
     };
   }, []);
+  // inputCurrency,outputCurrency
+  // setSelectInputCurrency,setSelectOutputCurrency
+  useEffect(() => {
+  
+  if(inputCurrency){
+    setSelectInputCurrency(inputCurrency)
+  }
+  if(outputCurrency){
+    setSelectOutputCurrency(outputCurrency)
+  }
+  }, [inputCurrency,outputCurrency]);
   return (
     <>
       <Spacer size="sm" />

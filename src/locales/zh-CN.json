@@ -128,5 +128,11 @@
   "zwzc": "未铸币，暂无债仓",
   "jzz": "加载中",
   "changhuan": "偿还",
-  "qsrchsl": "请输入偿还数量"
+  "qsrchsl": "请输入偿还数量",
+  "qbkyethbz": "钱包可用ETH不足",
+  "qbzckyyebz": "钱包资产可用余额不足",
+  "cgzdktqsl": "超过最大可提取数量",
+  "cgzdkzbsl": "超过最大可铸币数量",
+  "cgzdkchsl": "超过最大可偿还数量",
+  "zhaicang": "债仓"
 }

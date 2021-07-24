@@ -4,6 +4,7 @@ import styled from "styled-components";
 import BigNumber from "bignumber.js";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { $isFiniteNumber, $isPositiveNumber } from "../../../utils/utils";
 import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
 import TokenSymbol from "../../../components/TokenSymbol";
@@ -27,6 +28,16 @@ const Item: React.FC = ({ item }) => {
       .toNumber();
     return !Number.isFinite(ratio) ? 0 : ratio;
   }, [myShare, itankInfo.totalSupply]);
+
+
+  const tvl = useMemo(() => {
+    //我的LP余额除总供应
+    const tvl = new BigNumber(itankInfo.depositFundBalance)
+      .plus(itankInfo.earnFundValue)
+      .toNumber();
+    return $isPositiveNumber($isFiniteNumber(tvl));
+  }, [itankInfo.depositFundBalance,itankInfo.earnFundValue]);
+
   return (
     <>
       <StyledWrapBox className={`wing-blank-lg ${isMobile ? "" : "width-47"} `}>
@@ -39,7 +50,7 @@ const Item: React.FC = ({ item }) => {
         <div className="font-size-16 text-center">{item.name}</div>
 
         <Spacer size="mmd" />
-        <Label label="TVL" value={<Value value={0} prefix="$" />} />
+        <Label label="TVL" value={<Value value={tvl} prefix="$" />} />
 
         <Spacer size="mmd" />
         <Label

@@ -14,13 +14,10 @@ const useCoin = () => {
         mortgageToken.symbol === "ETH" ? String(amount + 0.01) : String(amount),
         mortgageToken.decimal
       );
-      // console.log(
-      //   mortgagePoolContract,
-      //   mortgageToken,
-      //   amountBn,
-      //   ratio * 100,
-      //   value
-      // );
+      console.log(
+    
+        ratio * 100,
+      );
       return handleTransactionReceipt(basisCash.coin, [
         mortgagePoolContract,
         mortgageToken,

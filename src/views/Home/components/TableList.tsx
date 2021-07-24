@@ -1,31 +1,76 @@
 //@ts-nocheck
-import React from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
 import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
 import Button from "../../../components/Button";
 import Label from "../../../components/Label";
-const TableList: React.FC = ({  }) => {
+import TokenSymbol from "../../../components/TokenSymbol";
+import Value from "../../../components/Value";
+import SelectToken from "../../../components/SelectToken";
+const Item: React.FC = ({ item }) => {
   const { t } = useTranslation();
+
+  const [showSelect, setShowSelect] = useState(false);
+  const history = useHistory();
+
+  const handleDocumentClick = useCallback(() => {
+    setShowSelect(false);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("click", handleDocumentClick);
+    return () => {
+      window.removeEventListener("click", handleDocumentClick);
+    };
+  }, []);
+
   return (
     <>
       <StyledPcItem>
         <Card className=" flex-jc-center ">
           <div className="flex1 flex-jc-start">
-            <img
-              src={require("../../../assets/img/ETH.png")}
-              width="25"
-              height="25"
+            <TokenSymbol
+              symbol={item.name}
+              size={25}
               className="margin-right-5"
             />
-            ETH
+            {item.name}
           </div>
-          <div className="flex1">＄14,032.23</div>
-          <div className="flex1">70%</div>
+          <div className="flex1">
+            <Value value={item.TVL} suffix="%" />
+          </div>
+          <div className="flex1">
+            <Value value={item.maxRatio} suffix="%" />
+          </div>
           <div className="flex1 flex-jc-center">
-            <span>84%</span>
-            <Button text={t('zhubi')} variant="secondary" width="80px" />
+            <span>
+              <Value value={item.liqRatio} suffix="%" />
+            </span>
+            <div className="position-relative">
+              <Button
+                text={t("zhubi")}
+                variant="secondary"
+                width="80px"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowSelect(!showSelect);
+                }}
+              />
+              <SelectToken
+                showSelect={showSelect}
+                list={item.selectList}
+                active={item.active}
+                toggleShow={() => {
+                  setShowSelect(!showSelect);
+                }}
+                onChangeSelect={(select) => {
+                  history.push(`/coin/${item.name}/${select.name}`);
+                }}
+              />
+            </div>
           </div>
         </Card>
         <Spacer size="sm" />
@@ -34,33 +79,72 @@ const TableList: React.FC = ({  }) => {
       <StyledMobileItem>
         <Card className="wing-blank-lg">
           <Spacer size="mmd" />
-          <div className="color-grey">{t('dyzc')}</div>
+          <div className="color-grey">{t("dyzc")}</div>
           <Spacer size="mmd" />
           <div className="flex-row-center-center">
-            <img
-              src={require("../../../assets/img/ETH.png")}
-              width="40"
-              height="40"
-            />
+            <TokenSymbol symbol={item.name} size={40} />
           </div>
           <Spacer size="sm" />
-          <div className="font-size-16 text-center width-100">ETH</div>
+          <div className="font-size-16 text-center width-100"> {item.name}</div>
 
           <Spacer size="mmd" />
 
-          <Label label="TVL" value="$ 1,234.45" />
+          <Label label="TVL" value={<Value value={item.TVL} suffix="%" />} />
 
           <Spacer size="mmd" />
-          <Label label={t('zddyl')} value="123.45%" />
+          <Label
+            label={t("zddyl")}
+            value={<Value value={item.maxRatio} suffix="%" />}
+          />
 
           <Spacer size="mmd" />
-          <Label label={t('qsdyl')} value="1,234.45" />
+          <Label
+            label={t("qsdyl")}
+            value={<Value value={item.liqRatio} suffix="%" />}
+          />
 
           <Spacer />
-          <Button text={t('zhubi')} variant="secondary" />
+
+          <div className="position-relative">
+            <Button
+              text={t("zhubi")}
+              variant="secondary"
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowSelect(!showSelect);
+              }}
+            />
+            <SelectToken
+              showSelect={showSelect}
+              list={item.selectList}
+              active={item.active}
+              toggleShow={() => {
+                setShowSelect(!showSelect);
+              }}
+              onChangeSelect={(select) => {
+                history.push(`/coin/${item.name}/${select.name}`);
+              }}
+            />
+          </div>
+
           <Spacer size="mmd" />
         </Card>
       </StyledMobileItem>
+    </>
+  );
+};
+const TableList: React.FC = ({ list }) => {
+  return (
+    <>
+      {list && list.length
+        ? list.map((item) => {
+            return (
+              <React.Fragment key={item.name}>
+                <Item item={item} />
+              </React.Fragment>
+            );
+          })
+        : null}
     </>
   );
 };

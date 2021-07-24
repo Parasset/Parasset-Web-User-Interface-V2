@@ -1,1 +1,0 @@
-(this["webpackJsonpbasis.cash"]=this["webpackJsonpbasis.cash"]||[]).push([[11],{721:function(s,a){}}]);

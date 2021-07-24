@@ -4,51 +4,63 @@ import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 import Spacer from "../../Spacer";
 
-
+import TokenSymbol from "../../TokenSymbol";
+import Value from "../../Value";
+import useEncryptAddress from "../../../hooks/useEncryptAddress";
+import useBasisCash from "../../../hooks/useBasisCash";
+import useTotalSupply from "../../../hooks/useTokenTotalSupply";
+import useTokenBalance from "../../../hooks/useTokenBalance";
+import usePrice from "../../../hooks/coin/usePrice";
 const Datum: React.FC = () => {
   const { t } = useTranslation();
+  const basisCash = useBasisCash();
+  const PUSDToken=basisCash?.externalTokens["PUSD"]
+  const PETHToken=basisCash?.externalTokens["PETH"]
+  const PUSDTotalSupply = useTotalSupply(PUSDToken);
+  const PETHTotalSupply = useTotalSupply(PETHToken);
+  const PETHTokenBalance = useTokenBalance(PETHToken);
+  const PUSDTokenBalance = useTokenBalance(PUSDToken);
 
+  const { NESTToUSDTPrice, NESTToETHPrice, ETHAvgPrice } = usePrice();
+  const PETHAddress = useEncryptAddress(PETHToken?.address);
+  const PUSDAddress = useEncryptAddress(PUSDToken?.address);
+ 
   return (
     <div>
-      <StyledLabel>{t('wdpxzc')}</StyledLabel>
+      <StyledLabel>{t("wdpxzc")}</StyledLabel>
       <div className="flex-jc-center">
         <div className="flex-jc-start">
-          <img
-            src={require(`../../../assets/img/PETH.png`)}
-            width="25"
-            height="25"
-            className="margin-right-10"
-          />
-          <div>
+          <TokenSymbol symbol="PETH" size={25} />
+          <div className="margin-left-10">
             <div>PETH</div>
             <Spacer size="ssm" />
             <div className="flex-jc-start color-grey">
-              <div>0x78…0550 </div>
+              <div>{PETHAddress}</div>
               <img
                 src={require("../../../assets/img/copy_icon.png")}
                 width="16"
                 height="16"
                 className="margin-left-10"
               />
+               {/* PETHAddress
+  PUSDAddress */}
             </div>
-            <div>20.4756</div>
+            <div>
+              {" "}
+              <Value value={PETHTokenBalance} />
+            </div>
           </div>
         </div>
       </div>
       <Spacer size="mmd" />
       <div className="flex-jc-center">
         <div className="flex-jc-start">
-          <img
-            src={require(`../../../assets/img/PUSD.png`)}
-            width="25"
-            height="25"
-            className="margin-right-10"
-          />
-          <div>
+          <TokenSymbol symbol="PUSD" size={25} />
+          <div className="margin-left-10">
             <div>PUSD</div>
             <Spacer size="ssm" />
             <div className="flex-jc-start color-grey">
-              <div>0x78…0550 </div>
+              <div>{PUSDAddress}</div>
               <img
                 src={require("../../../assets/img/copy_icon.png")}
                 width="16"
@@ -56,102 +68,81 @@ const Datum: React.FC = () => {
                 className="margin-left-10"
               />
             </div>
-            <div>20.4756</div>
+            <div>
+              {" "}
+              <Value value={PUSDTokenBalance} />
+            </div>
           </div>
         </div>
       </div>
       <Spacer size="mmd" />
       <div>
-        <StyledLabel>{t('jiage')}</StyledLabel>
+        <StyledLabel>{t("jiage")}</StyledLabel>
         <div className="flex-jc-start">
           <div className="flex-jc-center">
-            <img
-              src={require("../../../assets/img/ETH.png")}
-              width="25"
-              height="25"
-            />
-            <img
-              src={require("../../../assets/img/USDT.png")}
-              width="25"
-              height="25"
-              className="margin-left-minus-10"
-            />
+            <TokenSymbol symbol="ETH" size={25} />
+            <TokenSymbol symbol="USDT" size={25} isRight={true} />
           </div>
           <div className="margin-left-10">
-            <div>1,200.45</div>
+            <div>
+              <Value value={ETHAvgPrice} />
+            </div>
             <div>ETH/USDT</div>
           </div>
         </div>
         <Spacer size="mmd" />
         <div className="flex-jc-start">
           <div className="flex-jc-center">
-            <img
-              src={require("../../../assets/img/NEST.png")}
-              width="25"
-              height="25"
-            />
-            <img
-              src={require("../../../assets/img/USDT.png")}
-              width="25"
-              height="25"
-              className="margin-left-minus-10"
-            />
+            <TokenSymbol symbol="NEST" size={25} />
+            <TokenSymbol symbol="USDT" size={25} isRight={true} />
           </div>
           <div className="margin-left-10">
-            <div>1,200.45</div>
-            <div>ETH/USDT</div>
+            <div>
+              <Value value={NESTToUSDTPrice} />
+            </div>
+            <div>NEST/USDT</div>
           </div>
         </div>
         <Spacer size="mmd" />
         <div className="flex-jc-start">
           <div className="flex-jc-center">
-            <img
-              src={require("../../../assets/img/NEST.png")}
-              width="25"
-              height="25"
-            />
-            <img
-              src={require("../../../assets/img/ETH.png")}
-              width="25"
-              height="25"
-              className="margin-left-minus-10"
-            />
+            <TokenSymbol symbol="NEST" size={25} />
+            <TokenSymbol symbol="ETH" size={25} isRight={true} />
           </div>
           <div className="margin-left-10">
-            <div>1,200.45</div>
-            <div>ETH/USDT</div>
+            <div>
+              <Value value={NESTToETHPrice} />
+            </div>
+            <div>NEST/ETH</div>
           </div>
         </div>
         <Spacer size="mmd" />
       </div>
 
       <div className="">
-        <StyledLabel>{t('ltl')}</StyledLabel>
+        <StyledLabel>{t("ltl")}</StyledLabel>
         <div className="flex-jc-start">
           <div className="flex-jc-center">
-            <img
-              src={require("../../../assets/img/PETH.png")}
-              width="25"
-              height="25"
-            />
+            <TokenSymbol symbol="PUSD" size={25} />
           </div>
+
           <div className="margin-left-10">
-            <div>1,200.45</div>
-            <div>PETH</div>
+            <div>
+              <Value value={PUSDTotalSupply} />{" "}
+            </div>
+            <div>PUSD</div>
           </div>
         </div>
         <Spacer size="mmd" />
         <div className="flex-jc-start">
           <div className="flex-jc-center">
-            <img
-              src={require("../../../assets/img/PUSD.png")}
-              width="25"
-              height="25"
-            />
+            <TokenSymbol symbol="PETH" size={25} />
           </div>
           <div className="margin-left-10">
-            <div>1,200.45</div>
-            <div>PUSD</div>
+            <div>
+              <Value value={PETHTotalSupply} />{" "}
+            </div>
+            <div>PETH</div>
           </div>
         </div>
       </div>

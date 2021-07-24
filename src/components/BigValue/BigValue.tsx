@@ -1,6 +1,5 @@
 //@ts-nocheck
 import React from "react";
-import styled from "styled-components";
 import Spacer from "../Spacer";
 import Card from "../Card";
 

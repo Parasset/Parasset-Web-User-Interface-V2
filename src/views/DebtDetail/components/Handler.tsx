@@ -9,13 +9,18 @@ import Value from "../../../components/Value";
 import Button from "../../../components/Button";
 import OperatModal from "./OperatModal";
 import useIsMobile from "../../../hooks/useIsMobile";
+import useTokenBalance from "../../../hooks/useTokenBalance";
 
 const Handler: React.FC = ({ debt, debtInfo }) => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
   const [isOpen, setOpen] = useState(false);
-  const [select, setSelect] = useState("");
-  const openModal = useCallback((select) => {
+  const [max, setMax] = useState(0);
+  const [select, setSelect] = useState("Stake");
+  const mortgageBalance = useTokenBalance(debt?.mortgageToken)
+  const parassetBalance = useTokenBalance(debt?.uToken)
+  const openModal = useCallback((select,max) => {
+    setMax(max)
     setSelect(select);
     setOpen(true);
   }, []);
@@ -53,7 +58,7 @@ const Handler: React.FC = ({ debt, debtInfo }) => {
                   text={t("diya")}
                   variant="secondary"
                   onClick={() => {
-                    openModal("Stake");
+                    openModal("Stake",mortgageBalance);
                   }}
                 />
                 <Spacer size={isMobile ? "mmd" : "md"} />
@@ -80,7 +85,9 @@ const Handler: React.FC = ({ debt, debtInfo }) => {
                   />
                 </div>
                 <Spacer size={isMobile ? "mmd" : "md"} />
-                <Button text={t("changhuan")} variant="secondary" />
+                <Button text={t("changhuan")} variant="secondary"  onClick={() => {
+                    openModal("Repay",parassetBalance);
+                  }} />
                 <Spacer size={isMobile ? "mmd" : "md"} />
               </div>
             </div>
@@ -113,7 +120,9 @@ const Handler: React.FC = ({ debt, debtInfo }) => {
                   />
                 </div>
                 <Spacer size={isMobile ? "mmd" : "md"} />
-                <Button text={t("shuhui")} variant="secondary" />
+                <Button text={t("shuhui")} variant="secondary"  onClick={() => {
+                    openModal("Redeem",debtInfo.maxSubM);
+                  }} />
                 <Spacer size={isMobile ? "mmd" : "md"} />
               </div>
             </div>
@@ -138,7 +147,9 @@ const Handler: React.FC = ({ debt, debtInfo }) => {
                   />
                 </div>
                 <Spacer size={isMobile ? "mmd" : "md"} />
-                <Button text={t("zhubi")} variant="secondary" />
+                <Button text={t("zhubi")} variant="secondary"   onClick={() => {
+                    openModal("Mint",debtInfo.maxAddP);
+                  }}/>
                 <Spacer size={isMobile ? "mmd" : "md"} />
               </div>
             </div>
@@ -151,7 +162,9 @@ const Handler: React.FC = ({ debt, debtInfo }) => {
       <OperatModal
         isOpen={isOpen}
         debt={debt}
+        select={select}
         debtInfo={debtInfo}
+        max={max}
         onDismiss={() => {
           setOpen(false);
         }}

@@ -88,6 +88,7 @@ const Mine: React.FC = () => {
     itankInfo.earnAssets,
     itankInfo.avgPrice,
   ]);
+  
   return (
     <>
       <Back

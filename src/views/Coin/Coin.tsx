@@ -22,7 +22,7 @@ const Coin: React.FC = () => {
     },
   ]);
 
-  const [tab, setTab] = useState(2);
+  const [tab, setTab] = useState(1);
 
   useEffect(() => {
     if (!localStorage.getItem("isCoinMsg")) {

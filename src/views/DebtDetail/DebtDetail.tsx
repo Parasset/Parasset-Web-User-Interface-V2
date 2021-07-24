@@ -17,9 +17,13 @@ const Mine: React.FC = () => {
   const { info: debtInfo } = useDebtInfo(debt);
   return (
     <>
-      <Back text={`USDT-PUSD LP ${t("kuangchi")}`} img="USDT" img1="PUSD" />
-      <Info />
-      <Handler debt={debt} debtInfo={debtInfo}/>
+      <Back
+        text={`${debt?.name} ${t('zhaicang')} `}
+        img={debt.icon1}
+        img1={debt.icon2}
+      />
+      <Info debt={debt} debtInfo={debtInfo} />
+      <Handler debt={debt} debtInfo={debtInfo} />
     </>
   );
 };

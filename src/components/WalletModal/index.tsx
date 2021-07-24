@@ -1,17 +1,27 @@
 //@ts-nocheck
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useWallet } from "use-wallet";
-import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 import Modal from "../Modal";
 import Spacer from "../Spacer";
-import Button from "../Button";
 import CardButton from "../CardButton";
-
+import TokenSymbol from "../TokenSymbol";
+import config from "../../config";
+import useBasisCash from "./../../hooks/useBasisCash";
+import useTokenBalance from "./../../hooks/useTokenBalance";
+import useEncryptAddress from "./../../hooks/useEncryptAddress";
 export default function WalletModal({ isOpen, onDismiss }) {
   const { t } = useTranslation();
   const { account, connect } = useWallet();
+  const basisCash = useBasisCash();
+  const PUSDToken = basisCash?.externalTokens["PUSD"];
+  const PETHToken = basisCash?.externalTokens["PETH"];
 
+  const PETHTokenBalance = useTokenBalance(PETHToken);
+  const PUSDTokenBalance = useTokenBalance(PUSDToken);
+  const PETHAddress = useEncryptAddress(PETHToken?.address);
+  const PUSDAddress = useEncryptAddress(PUSDToken?.address);
+  const newAccount = useEncryptAddress(account);
   return (
     <>
       <Modal
@@ -30,7 +40,7 @@ export default function WalletModal({ isOpen, onDismiss }) {
               size="lg"
               onClick={() => {
                 connect("injected");
-                onDismiss()
+                onDismiss();
               }}
             >
               <div className="flex-jc-start width-100">
@@ -58,7 +68,7 @@ export default function WalletModal({ isOpen, onDismiss }) {
                   />
                   MetaMask
                 </div>
-                <div className="flex-jc-end ">
+                {/* <div className="flex-jc-end ">
                   <Button
                     variant="secondary"
                     text={t("genggai")}
@@ -66,7 +76,7 @@ export default function WalletModal({ isOpen, onDismiss }) {
                     className="margin-right-10"
                   />
                   <Button variant="tertiary" text={t("duankai")} width="60px" />
-                </div>
+                </div> */}
               </div>
               <Spacer size="mmd" />
               <div className="flex-jc-start">
@@ -76,7 +86,7 @@ export default function WalletModal({ isOpen, onDismiss }) {
                   height="25"
                   className="margin-right-10"
                 />
-                <span>0x1119A6bf…8c8Ea144ef</span>
+                <span>{newAccount}</span>
                 <img
                   src={require("../../assets/img/copy_icon.png")}
                   width="16"
@@ -92,7 +102,7 @@ export default function WalletModal({ isOpen, onDismiss }) {
                   height="25"
                   className="margin-right-10"
                 />
-                <span className="color-light-blue">{t("zethsck")}</span>
+                <a className="color-light-blue"   href={`${config.etherscanUrl}`} target="__blank">{t("zethsck")}</a>
               </div>
               <Spacer size="mmd" />
             </div>
@@ -102,17 +112,12 @@ export default function WalletModal({ isOpen, onDismiss }) {
               <Spacer size="mmd" />
               <div className="flex-jc-center">
                 <div className="flex-jc-start">
-                  <img
-                    src={require(`../../assets/img/PETH.png`)}
-                    width="35"
-                    height="35"
-                    className="margin-right-10"
-                  />
-                  <div>
+                  <TokenSymbol symbol="PETH" size={35} />
+                  <div className="margin-left-10">
                     <div>PETH</div>
                     <Spacer size="ssm" />
                     <div className="flex-jc-start color-grey">
-                      <div>0x53f878…055Fbb0</div>
+                      <div>{PETHAddress}</div>
                       <img
                         src={require("../../assets/img/copy_icon.png")}
                         width="16"
@@ -122,22 +127,18 @@ export default function WalletModal({ isOpen, onDismiss }) {
                     </div>
                   </div>
                 </div>
-                20.4756
+
+                {PETHTokenBalance}
               </div>
               <Spacer size="mmd" />
               <div className="flex-jc-center">
                 <div className="flex-jc-start">
-                  <img
-                    src={require(`../../assets/img/PUSD.png`)}
-                    width="35"
-                    height="35"
-                    className="margin-right-10"
-                  />
-                  <div>
+                  <TokenSymbol symbol="PUSD" size={35} />
+                  <div className="margin-left-10">
                     <div>PUSD</div>
                     <Spacer size="ssm" />
                     <div className="flex-jc-start color-grey">
-                      <div>0x53f878…055Fbb0</div>
+                      <div>{PUSDAddress}</div>
                       <img
                         src={require("../../assets/img/copy_icon.png")}
                         width="16"
@@ -147,7 +148,7 @@ export default function WalletModal({ isOpen, onDismiss }) {
                     </div>
                   </div>
                 </div>
-                20.4756
+                {PUSDTokenBalance}
               </div>
             </div>
           </>

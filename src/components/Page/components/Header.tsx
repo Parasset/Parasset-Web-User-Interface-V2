@@ -86,6 +86,12 @@ const StyledHeaderPc = styled.div`
 `;
 const StyledHeaderMobile = styled.div`
   height: 50px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+  background-color: #fff;
   @media (min-width: 1024px) {
     display: none !important;
   }

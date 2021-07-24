@@ -204,8 +204,14 @@ export class BasisCash {
     );
     return getTonumber(fee);
   }
+  async getLiqRatio(mortgagePoolContract, mortgageToken) {
+    const address = this.gasETHAddress(mortgageToken);
+    const k = await mortgagePoolContract.getK(address);
+    return 100000 / k.toNumber();
+  }
 
   async getDebt(mortgagePoolContract, mortgageToken, address, uToken, key) {
+   
     try {
       const info = await mortgagePoolContract.getLedger(
         this.gasETHAddress(mortgageToken),
@@ -219,6 +225,8 @@ export class BasisCash {
       );
       const ETHAvgPrice = await this.getAvgPrice();
       const NESTToUSDTPrice = await this.getNESTToUSDTPrice();
+      const NESTToETHPrice = await this.getNESTToETHPrice();
+     
       let { maxSubM, maxAddP } = await this.getInfoRealTime(
         mortgagePoolContract,
         mortgageToken,
@@ -227,36 +235,50 @@ export class BasisCash {
       );
       maxSubM = getTonumber(maxSubM, mortgageToken.decimal);
       maxAddP = getTonumber(maxAddP, uToken.decimal);
+     
       const priceList = {
         ETHPUSD: {
           mortgagePrice: ETHAvgPrice,
           parassetPrice: 1,
+          mortgageToParassetPrice: ETHAvgPrice,
         },
         NESTPUSD: {
           mortgagePrice: NESTToUSDTPrice,
           parassetPrice: 1,
+          mortgageToParassetPrice: NESTToUSDTPrice,
         },
         NESTPETH: {
           mortgagePrice: NESTToUSDTPrice,
           parassetPrice: ETHAvgPrice,
+          mortgageToParassetPrice: NESTToETHPrice,
         },
       };
       const mortgagePrice = priceList[key].mortgagePrice;
       const parassetPrice = priceList[key].parassetPrice;
+      const mortgageToParassetPrice = priceList[key].mortgageToParassetPrice;
       const mortgageAssets = getTonumber(
         info.mortgageAssets,
         mortgageToken.decimal
       );
       const parassetAssets = getTonumber(info.parassetAssets, uToken.decimal);
+
+      const liqRatio = await this.getLiqRatio(
+        mortgagePoolContract,
+        mortgageToken
+      );
+      const liqPrice=new BigNumber(parassetAssets).plus(fee).div(new BigNumber(liqRatio).times(mortgageAssets)).toNumber()
       return {
         ...info,
         mortgageAssets,
         parassetAssets,
         rate: info.rate.toNumber() / 1000,
         fee,
+        liqRatio,
+        liqPrice,
 
         mortgagePrice,
         parassetPrice,
+        mortgageToParassetPrice,
         mortgageValue: new BigNumber(mortgageAssets)
           .times(mortgagePrice)
           .toNumber(),
@@ -266,12 +288,8 @@ export class BasisCash {
         feeValue: new BigNumber(fee).times(parassetPrice).toNumber(),
         maxSubM,
         maxAddP,
-        maxSubMValue: new BigNumber(maxSubM)
-        .times(mortgagePrice)
-        .toNumber(),
-        maxAddPValue: new BigNumber(maxAddP)
-        .times(parassetPrice)
-        .toNumber(),
+        maxSubMValue: new BigNumber(maxSubM).times(mortgagePrice).toNumber(),
+        maxAddPValue: new BigNumber(maxAddP).times(parassetPrice).toNumber(),
       };
     } catch (err) {
       console.log(err, "err");
@@ -491,10 +509,8 @@ export class BasisCash {
         this.gasOptions()
       );
     } catch (error) {
-      console.log(
-        "🚀 ~ file: BasisCash.ts ~ line 309 ~ BasisCash ~ exchangePTokenToUnderlying ~ error",
-        error
-      );
+      console.log(error);
+      return "0";
     }
   }
 
@@ -505,10 +521,8 @@ export class BasisCash {
         this.gasOptions()
       );
     } catch (error) {
-      console.log(
-        "🚀 ~ file: BasisCash.ts ~ line 321 ~ BasisCash ~ exchangeUnderlyingToPToken ~ error",
-        error
-      );
+      console.log(error);
+      return "0";
     }
   }
 
@@ -525,10 +539,34 @@ export class BasisCash {
         }
       );
     } catch (error) {
-      console.log(
-        "🚀 ~ file: BasisCash.ts ~ line 443 ~ BasisCash ~ coin ~ error",
-        error
-      );
+      console.log(error);
+      return "0";
+    }
+  }
+
+  async handlerDebt(
+    mortgagePoolContract,
+    mortgageToken,
+    amount,
+    select,
+    value
+  ) {
+    const funcList = {
+      Stake: "supplement",
+      Redeem: "decrease",
+      Mint: "increaseCoinage",
+      Repay: "reducedCoinage",
+    };
+    const func = funcList[select];
+    try {
+      const address = this.gasETHAddress(mortgageToken);
+      return await mortgagePoolContract[func](address, amount, {
+        value,
+        from: this.myAccount,
+      });
+    } catch (error) {
+      console.log(error);
+      return "0";
     }
   }
 }

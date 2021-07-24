@@ -92,6 +92,7 @@ export const debtDefinitions = {
     contract: "PUSDMorPool",
     depositTokenName: "ETH",
     earnTokenName: "PUSD",
+    liqUnit:'USDT'
   },
   NESTPUSD: {
     name: "NEST-PUSD",
@@ -101,6 +102,7 @@ export const debtDefinitions = {
     contract: "PUSDMorPool",
     depositTokenName: "NEST",
     earnTokenName: "PUSD",
+    liqUnit:'USDT'
   },
 
   NESTPETH: {
@@ -111,6 +113,7 @@ export const debtDefinitions = {
     contract: "PETHMorPool",
     depositTokenName: "NEST",
     earnTokenName: "PETH",
+    liqUnit:'ETH'
   },
 };
 

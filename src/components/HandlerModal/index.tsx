@@ -1,7 +1,6 @@
 //@ts-nocheck
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-
-import styled from "styled-components";
+import { Tooltip } from "antd";
 import { useTranslation } from "react-i18next";
 import Modal from "../Modal";
 import Spacer from "../Spacer";
@@ -30,7 +29,11 @@ export default function HandlerModal({
   val,
   type,
   placeholder,
-  onBlur
+  onBlur,
+  showApprove,
+  approveStatus,
+  approve ,
+  approveTokenName
 }) {
   const { t } = useTranslation();
 
@@ -87,7 +90,13 @@ export default function HandlerModal({
                 <Spacer size="mmd" />
                 <Label
                   label={
-                    t(item?.label) + (item?.labelUnit ? item?.labelUnit : "")
+                    item.isTooltip ? (
+                      <Tooltip title={t(item.tip)}>
+                        <div className="text-underline"> {t(item?.label)}</div>
+                      </Tooltip>
+                    ) : (
+                      t(item?.label) + (item?.labelUnit ? item?.labelUnit : "")
+                    )
                   }
                   value={
                     <div className="flex-jc-end">
@@ -101,12 +110,21 @@ export default function HandlerModal({
           })}
 
         <Spacer size="mmd" />
-        <Button
-          variant="secondary"
-          text={t("queren")}
-          disabled={disabled}
-          onClick={onConfirm}
-        />
+        {showApprove && approveStatus ? (
+          <Button
+            text={t("sq")+approveTokenName}
+            variant="secondary"
+            disabled={disabled}
+            onClick={approve}
+          />
+        ) : (
+          <Button
+            variant="secondary"
+            text={t("queren")}
+            disabled={disabled}
+            onClick={onConfirm}
+          />
+        )}
       </Modal>
     </>
   );

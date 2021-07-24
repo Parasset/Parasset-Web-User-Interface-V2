@@ -53,13 +53,10 @@ const useItankInfo = (itank) => {
     [basisCash?.myAccount, itank]
   );
 
-  const fetchFee = useCallback(
-    async () => {
-      let fee = await basisCash.getExchangeFee(itank.itankContract);
-      setFee(fee);
-    },
-    [basisCash?.myAccount, itank]
-  );
+  const fetchFee = useCallback(async () => {
+    let fee = await basisCash.getExchangeFee(itank.itankContract);
+    setFee(fee);
+  }, [basisCash?.myAccount, itank]);
   const fetchInfo = useCallback(async () => {
     fetchFundBalance();
     fetchRedeemAmount();
@@ -68,12 +65,12 @@ const useItankInfo = (itank) => {
   }, [basisCash?.myAccount, itank, block]);
 
   useEffect(() => {
-    if (basisCash?.myAccount && itank.itankContract) {
+    if (basisCash?.myAccount && itank && itank.itankContract) {
       fetchInfo();
     }
   }, [basisCash?.myAccount, block, itank]);
 
-  return { itankInfo, lastDate,fee, redeemAmount };
+  return { itankInfo, lastDate, fee, redeemAmount };
 };
 
 export default useItankInfo;

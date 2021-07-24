@@ -25,5 +25,8 @@ const StyledMain = styled.div`
   align-content: center;
 
   align-items: stretch;
+  @media (max-width: 768px) {
+    padding-top: 50px;
+  }
 `;
 export default Main;

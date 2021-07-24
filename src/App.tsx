@@ -34,7 +34,7 @@ const App: React.FC = () => {
             <Route path="/" exact>
               <Home />
             </Route>
-            <Route path="/coin" exact>
+            <Route path="/coin/:selectInputCurrency?/:selectOutputCurrency?" exact>
               <Coin />
             </Route>
             <Route path="/debt/detail/:debtId" exact>
