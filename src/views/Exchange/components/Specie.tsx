@@ -28,7 +28,7 @@ const Specie: React.FC = ({}) => {
   const { t } = useTranslation();
   const basisCash = useBasisCash();
   const avgPrice = useAvgPrice();
-  console.log("🚀 ~ file: Specie.tsx ~ line 31 ~ avgPrice", avgPrice)
+ 
   const { onExchange } = useExchange();
   const [pendingTx, setPendingTx] = useState(false);
   const [isTransform, setIsTransform] = useState(false);

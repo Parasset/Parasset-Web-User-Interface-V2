@@ -564,10 +564,14 @@ export class BasisCash {
   }
 
   async exchangeUnderlyingToPToken(itankContract, amount) {
+    console.log(amount);
+    
     try {
       return await itankContract.exchangeUnderlyingToPToken(
         amount,
-        this.gasOptions()
+        {
+          from: this.myAccount,
+        }
       );
     } catch (error) {
       console.log(error);
