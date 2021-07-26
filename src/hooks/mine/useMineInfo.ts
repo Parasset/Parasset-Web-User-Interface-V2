@@ -49,17 +49,16 @@ const useMineInfo = (mine, itank) => {
   const fetchTvl = useCallback(async () => {
     if (itank?.itankContract && mine?.depositToken) {
       const { depositToken } = mine;
-      const {tvl,rewardRate} = await basisCash.getMineTvl(
+      const { tvl, rewardRate } = await basisCash.getMineTvl(
         depositToken,
         depositToken.address,
         block,
         itank
       );
       setTvl($isPositiveNumber($isFiniteNumber(tvl)));
-  
-      const apy = await basisCash.getMineApy( tvl,rewardRate);
-       
-    
+
+      const apy = await basisCash.getMineApy(tvl, rewardRate);
+
       setApy($isPositiveNumber($isFiniteNumber(apy)));
     }
   }, [basisCash?.myAccount, mine, block, itank]);

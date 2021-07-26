@@ -14,7 +14,7 @@ const Mine: React.FC = () => {
   const { t } = useTranslation();
   const mines = useMines();
   const {totalTvl} = useMineTotalTvl(mines);
-  console.log(totalTvl,'totalTvl');
+
   
   return (
     <>

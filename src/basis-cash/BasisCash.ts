@@ -511,8 +511,13 @@ export class BasisCash {
   async getMineApy(tvl, rewardRate) {
     try {
       const { asetPrice } = this.config;
-   
-
+      console.log(tvl, rewardRate,asetPrice,new BigNumber(rewardRate)
+      .times(5760)
+      .times(365)
+      .times(asetPrice)
+      .div(tvl)
+      .times(100)
+      .toNumber(),'asetPrice');
       return new BigNumber(rewardRate)
         .times(5760)
         .times(365)
