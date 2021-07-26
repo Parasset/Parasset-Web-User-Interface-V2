@@ -177,17 +177,17 @@ const Home: React.FC = () => {
       <BigValue
         text={t("dyzcsdsz")}
         color="#DD8751"
-        value={<Value value={totalmortgageAssetValue} />}
+        value={<Value value={totalmortgageAssetValue} prefix="$" />}
       />
       <BigValue
         text={t("pxzcltsz")}
         color="#77A89A"
-        value={<Value value={totalParassetValue} />}
+        value={<Value value={totalParassetValue} prefix="$" />}
       />
       <BigValue
         text={t("bxcldxzsz")}
         color="#5DB3D3"
-        value={<Value value={totalItankValue} />}
+        value={<Value value={totalItankValue} prefix="$" />}
       />
       <TableTitle />
       <TableList list={list} />

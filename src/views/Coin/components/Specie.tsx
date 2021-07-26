@@ -8,6 +8,7 @@ import Toast from "light-toast";
 import { useTranslation } from "react-i18next";
 import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
+import Copy from "../../../components/Copy";
 
 import Select from "../../../components/Select";
 import Button from "../../../components/Button";
@@ -188,9 +189,15 @@ const Specie: React.FC = ({}) => {
   }, [inputCurrencyBalance, isETH]);
 
   const cointAddress = useMemo(() => {
-    return getEncryptAddress(
-      basisCash?.externalTokens[selectOutputCurrency].address
-    );
+   
+    return  {
+      encryptAddress:getEncryptAddress(
+        basisCash?.externalTokens[selectOutputCurrency].address
+      ),
+      address: basisCash?.externalTokens[selectOutputCurrency].address
+      
+    };
+    
   }, [selectOutputCurrency, basisCash?.externalTokens]);
   const dataList = useMemo(() => {
     return {
@@ -413,7 +420,7 @@ const Specie: React.FC = ({}) => {
         </div>
         <StyledExchangeImg className="text-center">
           <img
-            src={require("../../../assets/img/change_icon.png")}
+            src={require("../../../assets/img/icon_arrow_bottom.png")}
             width="50"
             height="50"
             className="center-block cursor-pointer"
@@ -455,10 +462,11 @@ const Specie: React.FC = ({}) => {
           label={t("heyue", {
             label: selectOutputCurrency,
           })}
-          value={cointAddress}
+          value={<div>{ cointAddress?.encryptAddress} <Copy toCopy={cointAddress.address}/></div> }
           className="wing-blank-lg"
         />
 
+    
         <Spacer size="mmd" />
         <Label
           label={

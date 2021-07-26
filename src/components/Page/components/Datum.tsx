@@ -1,11 +1,13 @@
 //@ts-nocheck
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
+import Toast from "light-toast";
 import { useTranslation } from "react-i18next";
 import Spacer from "../../Spacer";
 
 import TokenSymbol from "../../TokenSymbol";
 import Value from "../../Value";
+import Copy from "../../Copy";
 import useEncryptAddress from "../../../hooks/useEncryptAddress";
 import useBasisCash from "../../../hooks/useBasisCash";
 import useTotalSupply from "../../../hooks/useTokenTotalSupply";
@@ -36,17 +38,9 @@ const Datum: React.FC = () => {
             <Spacer size="ssm" />
             <div className="flex-jc-start color-grey">
               <div>{PETHAddress}</div>
-              <img
-                src={require("../../../assets/img/copy_icon.png")}
-                width="16"
-                height="16"
-                className="margin-left-10"
-              />
-               {/* PETHAddress
-  PUSDAddress */}
+              <Copy toCopy={PETHToken?.address} />
             </div>
             <div>
-              {" "}
               <Value value={PETHTokenBalance} />
             </div>
           </div>
@@ -61,12 +55,7 @@ const Datum: React.FC = () => {
             <Spacer size="ssm" />
             <div className="flex-jc-start color-grey">
               <div>{PUSDAddress}</div>
-              <img
-                src={require("../../../assets/img/copy_icon.png")}
-                width="16"
-                height="16"
-                className="margin-left-10"
-              />
+              <Copy toCopy={PUSDToken?.address} />
             </div>
             <div>
               {" "}

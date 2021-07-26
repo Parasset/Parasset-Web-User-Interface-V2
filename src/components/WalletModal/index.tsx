@@ -6,6 +6,7 @@ import Modal from "../Modal";
 import Spacer from "../Spacer";
 import CardButton from "../CardButton";
 import TokenSymbol from "../TokenSymbol";
+import Copy from "../Copy";
 import config from "../../config";
 import useBasisCash from "./../../hooks/useBasisCash";
 import useTokenBalance from "./../../hooks/useTokenBalance";
@@ -86,13 +87,10 @@ export default function WalletModal({ isOpen, onDismiss }) {
                   height="25"
                   className="margin-right-10"
                 />
+
                 <span>{newAccount}</span>
-                <img
-                  src={require("../../assets/img/copy_icon.png")}
-                  width="16"
-                  height="16"
-                  className="margin-left-10"
-                />
+
+                <Copy toCopy={account} />
               </div>
               <Spacer size="mmd" />
               <div className="flex-jc-start">
@@ -102,7 +100,13 @@ export default function WalletModal({ isOpen, onDismiss }) {
                   height="25"
                   className="margin-right-10"
                 />
-                <a className="color-light-blue"   href={`${config.etherscanUrl}`} target="__blank">{t("zethsck")}</a>
+                <a
+                  className="color-light-blue"
+                  href={`${config.etherscanUrl}`}
+                  target="__blank"
+                >
+                  {t("zethsck")}
+                </a>
               </div>
               <Spacer size="mmd" />
             </div>
@@ -118,12 +122,8 @@ export default function WalletModal({ isOpen, onDismiss }) {
                     <Spacer size="ssm" />
                     <div className="flex-jc-start color-grey">
                       <div>{PETHAddress}</div>
-                      <img
-                        src={require("../../assets/img/copy_icon.png")}
-                        width="16"
-                        height="16"
-                        className="margin-left-10"
-                      />
+
+                      <Copy toCopy={PETHToken?.address} />
                     </div>
                   </div>
                 </div>
@@ -139,12 +139,8 @@ export default function WalletModal({ isOpen, onDismiss }) {
                     <Spacer size="ssm" />
                     <div className="flex-jc-start color-grey">
                       <div>{PUSDAddress}</div>
-                      <img
-                        src={require("../../assets/img/copy_icon.png")}
-                        width="16"
-                        height="16"
-                        className="margin-left-10"
-                      />
+
+                      <Copy toCopy={PUSDToken?.address} />
                     </div>
                   </div>
                 </div>
