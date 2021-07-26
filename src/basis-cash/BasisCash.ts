@@ -211,7 +211,6 @@ export class BasisCash {
   }
 
   async getDebt(mortgagePoolContract, mortgageToken, address, uToken, key) {
-   
     try {
       const info = await mortgagePoolContract.getLedger(
         this.gasETHAddress(mortgageToken),
@@ -226,7 +225,7 @@ export class BasisCash {
       const ETHAvgPrice = await this.getAvgPrice();
       const NESTToUSDTPrice = await this.getNESTToUSDTPrice();
       const NESTToETHPrice = await this.getNESTToETHPrice();
-     
+
       let { maxSubM, maxAddP } = await this.getInfoRealTime(
         mortgagePoolContract,
         mortgageToken,
@@ -235,7 +234,7 @@ export class BasisCash {
       );
       maxSubM = getTonumber(maxSubM, mortgageToken.decimal);
       maxAddP = getTonumber(maxAddP, uToken.decimal);
-     
+
       const priceList = {
         ETHPUSD: {
           mortgagePrice: ETHAvgPrice,
@@ -266,7 +265,10 @@ export class BasisCash {
         mortgagePoolContract,
         mortgageToken
       );
-      const liqPrice=new BigNumber(parassetAssets).plus(fee).div(new BigNumber(liqRatio).times(mortgageAssets)).toNumber()
+      const liqPrice = new BigNumber(parassetAssets)
+        .plus(fee)
+        .div(new BigNumber(liqRatio).times(mortgageAssets))
+        .toNumber();
       return {
         ...info,
         mortgageAssets,
@@ -471,7 +473,6 @@ export class BasisCash {
   async getChannelInfo(address, block) {
     try {
       const { Mine } = this.contracts;
-
       let info = await Mine.getChannelInfo(address);
       const endBlock = info.endBlock.toNumber();
       return {
@@ -479,6 +480,49 @@ export class BasisCash {
         totalSupply: getTonumber(info.totalSupply),
       };
     } catch (error) {
+      return "0";
+    }
+  }
+
+  async getMineTvl(depositToken, address, block, itank) {
+    try {
+      let {
+        totalSupply: stakeTotalSupply,
+        rewardRate,
+      } = await this.getChannelInfo(address, block);
+        
+      const totalSupply = await depositToken.totalSupply();
+      const ratio = new BigNumber(stakeTotalSupply)
+        .div(getTonumber(totalSupply))
+        .toNumber();
+      let itankInfo = await this.getFundAsset(itank);
+      const totalValue = new BigNumber(itankInfo.depositFundValue).plus(
+        itankInfo.earnFundValue
+      );
+      return {
+        tvl: new BigNumber(ratio).times(totalValue).toNumber(),
+        rewardRate,
+      };
+    } catch (error) {
+      console.log(error);
+      return "0";
+    }
+  }
+  async getMineApy(tvl, rewardRate) {
+    try {
+      const { asetPrice } = this.config;
+   
+
+      return new BigNumber(rewardRate)
+        .times(5760)
+        .times(365)
+        .times(asetPrice)
+        .div(tvl)
+        .times(100)
+        .toNumber();
+    } catch (error) {
+      console.log(error);
+
       return "0";
     }
   }

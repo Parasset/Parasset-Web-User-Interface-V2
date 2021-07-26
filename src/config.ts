@@ -21,6 +21,7 @@ const configurations: { [env: string]: Configuration } = {
       ETH: ["0xC480aFA97B1e9ad458Ef8A8D33C5481615475683", 18],
     },
     refreshInterval: 1000,
+    asetPrice:2
   },
   production: {
     chainId: ChainId.RINKEBY,
@@ -37,6 +38,7 @@ const configurations: { [env: string]: Configuration } = {
       ETH: ["0xC480aFA97B1e9ad458Ef8A8D33C5481615475683", 18],
     },
     refreshInterval: 1000,
+    asetPrice:2
   },
 };
 

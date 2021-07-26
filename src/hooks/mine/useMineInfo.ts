@@ -1,12 +1,13 @@
 //@ts-nocheck
 import { useCallback, useEffect, useState } from "react";
-import BigNumber1 from "bignumber.js";
 import useBasisCash from "../useBasisCash";
 import { useBlockNumber } from "../../state/application/hooks";
-
-const useMineInfo = (mine) => {
+import { $isFiniteNumber, $isPositiveNumber } from "./../../utils/utils";
+const useMineInfo = (mine, itank) => {
   const [staked, setStaked] = useState(0);
   const [earned, setEarned] = useState(0);
+  const [apy, setApy] = useState(0);
+  const [tvl, setTvl] = useState(0);
   const [info, setInfo] = useState({
     rewardRate: 0,
     totalSupply: 0,
@@ -16,7 +17,10 @@ const useMineInfo = (mine) => {
 
   const fetchStaked = useCallback(
     async (address = basisCash?.myAccount) => {
-      const staked = await basisCash.getStaked(mine?.depositToken?.address, address);
+      const staked = await basisCash.getStaked(
+        mine?.depositToken?.address,
+        address
+      );
       setStaked(staked);
       return staked;
     },
@@ -24,31 +28,56 @@ const useMineInfo = (mine) => {
   );
   const fetchEarned = useCallback(
     async (address = basisCash?.myAccount) => {
-      const earned = await basisCash.getEarned(mine?.depositToken?.address, address);
+      const earned = await basisCash.getEarned(
+        mine?.depositToken?.address,
+        address
+      );
       setEarned(earned);
       return earned;
     },
     [basisCash?.myAccount, mine]
   );
   const fetchChannelInfo = useCallback(async () => {
-    const info = await basisCash.getChannelInfo(mine?.depositToken?.address, block);
+    const info = await basisCash.getChannelInfo(
+      mine?.depositToken?.address,
+      block
+    );
 
     setInfo(info);
   }, [basisCash?.myAccount, mine, block]);
+
+  const fetchTvl = useCallback(async () => {
+    if (itank?.itankContract && mine?.depositToken) {
+      const { depositToken } = mine;
+      const {tvl,rewardRate} = await basisCash.getMineTvl(
+        depositToken,
+        depositToken.address,
+        block,
+        itank
+      );
+      setTvl($isPositiveNumber($isFiniteNumber(tvl)));
+  
+      const apy = await basisCash.getMineApy( tvl,rewardRate);
+       
+    
+      setApy($isPositiveNumber($isFiniteNumber(apy)));
+    }
+  }, [basisCash?.myAccount, mine, block, itank]);
 
   const fetchInfo = useCallback(async () => {
     fetchStaked();
     fetchEarned();
     fetchChannelInfo();
-  }, [basisCash?.myAccount, mine, block]);
+    fetchTvl();
+  }, [basisCash?.myAccount, mine, block, itank]);
 
   useEffect(() => {
-    if (basisCash?.myAccount) {
+    if (basisCash?.myAccount && mine?.depositToken) {
       fetchInfo();
     }
-  }, [basisCash?.myAccount, block, mine]);
+  }, [basisCash?.myAccount, block, mine, itank]);
 
-  return { staked, earned,info };
+  return { staked, earned, info, tvl, apy };
 };
 
 export default useMineInfo;

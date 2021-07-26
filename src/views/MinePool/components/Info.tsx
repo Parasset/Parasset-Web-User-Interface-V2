@@ -34,13 +34,14 @@ const Info: React.FC = ({ mine, mineInfo }) => {
           <div className={` ${isMobile ? "" : "flex-jc-center"} `}>
             <Label
               label="TVL"
-              value={<Value value={0} prefix="$" />}
+              // tvl, apy
+              value={<Value value={mineInfo.tvl} prefix="$" />}
               className={` ${isMobile ? "" : "width-47"} `}
             />
             {isMobile ? <Spacer size="mmd" /> : null}
             <Label
               label="APY"
-              value={<Value value={0} suffix="%" />}
+              value={<Value value={mineInfo.apy} suffix="%" />}
               className={` ${isMobile ? "" : "width-47"} `}
             />
           </div>

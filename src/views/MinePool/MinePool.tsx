@@ -15,6 +15,7 @@ import BtnLink from "../../components/BtnLink";
 import Spacer from "../../components/Spacer";
 import useMine from "../../hooks/mine/useMine";
 import useMineInfo from "../../hooks/mine/useMineInfo";
+import useItank from "../../hooks/itank/useItank";
 import useTokenBalance from "../../hooks/useTokenBalance";
 import OperatModal from "./components/OperatModal";
 const Mine: React.FC = () => {
@@ -24,7 +25,8 @@ const Mine: React.FC = () => {
   const { t } = useTranslation();
   const { mineId } = useParams();
   const mine = useMine(mineId);
-  const mineInfo = useMineInfo(mine);
+  const itank = useItank(mineId);
+  const mineInfo = useMineInfo(mine,itank);
   const displayStakeBalance = useMemo(() => getNumberToMax(mineInfo.staked), [
     mineInfo.staked,
   ]);
@@ -33,6 +35,10 @@ const Mine: React.FC = () => {
   ]);
 
   const depositBalance = useTokenBalance(mine?.depositToken)
+
+
+
+
 
 
   return (

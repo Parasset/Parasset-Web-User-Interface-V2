@@ -1,5 +1,5 @@
 //@ts-nocheck
-import React from "react";
+import React, {useMemo, useState } from "react";
 import styled from "styled-components";
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from "react-i18next";
@@ -10,10 +10,22 @@ import Label from "../../../components/Label";
 import TokenSymbol from "../../../components/TokenSymbol";
 import Value from "../../../components/Value";
 import useIsMobile from "../../../hooks/useIsMobile";
+import useMineInfo from "../../../hooks/mine/useMineInfo";
+import useItank from "../../../hooks/itank/useItank";
+import {
+  getNumberToMax,
+} from "../../../utils/formatBalance";
 const Item: React.FC = ({ item }) => {
   const isMobile = useIsMobile();
   const history = useHistory()
   const { t } = useTranslation();
+  const itank = useItank(item.depositContract);
+  
+  const mineInfo = useMineInfo(item,itank);
+
+  const staked = useMemo(() => getNumberToMax(mineInfo.staked), [
+    mineInfo.staked,
+  ]);
   return (
     <>
       <StyledWrapBox className={`wing-blank-lg ${isMobile ? "" : "width-47"} `}>
@@ -34,16 +46,15 @@ const Item: React.FC = ({ item }) => {
         </div>
         <Spacer size="mmd" />
 
-        <Label label="TVL" value="$0" />
+        <Label label="TVL"    value={<Value value={mineInfo.tvl} prefix="$" />} />
         <Spacer size="mmd" />
-        <Label label="APY" value="0%" />
+        <Label label="APY"   value={<Value value={mineInfo.apy} suffix="%" />} />
 
         <Spacer size="mmd" />
-        <Label label={`${t("wdzy")} ${item.depositTokenName}`} value={<Value value={0} /> } />
+        <Label label={`${t("wdzy")} (${item.depositTokenName})`}  value={<Value value={staked} />} />
 
         <Spacer size="mmd" />
-        <Label label={`${t("dlqsy")} (${item.earnTokenName})`} value={<Value value={0} /> } />
-
+        <Label label={`${t("dlqsy")} (${item.earnTokenName})`}  value={<Value value={mineInfo.earned} />} />
         <Spacer />
         <Button text={t("xuanze")} variant="secondary"  onClick={
           ()=>{
