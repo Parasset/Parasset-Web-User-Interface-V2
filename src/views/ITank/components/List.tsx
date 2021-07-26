@@ -32,11 +32,11 @@ const Item: React.FC = ({ item }) => {
 
   const tvl = useMemo(() => {
     //我的LP余额除总供应
-    const tvl = new BigNumber(itankInfo.depositFundBalance)
+    const tvl = new BigNumber(itankInfo.depositFundValue)
       .plus(itankInfo.earnFundValue)
       .toNumber();
     return $isPositiveNumber($isFiniteNumber(tvl));
-  }, [itankInfo.depositFundBalance,itankInfo.earnFundValue]);
+  }, [itankInfo.depositFundValue,itankInfo.earnFundValue]);
 
   return (
     <>

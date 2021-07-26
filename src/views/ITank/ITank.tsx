@@ -25,18 +25,18 @@ const Mine: React.FC = () => {
   );
   const totalItankValue = useMemo(() => {
     //保险池内资产两种币的总和换成USDT
-    const tvl1 = new BigNumber(itankInfo1.depositFundBalance).plus(
+    const tvl1 = new BigNumber(itankInfo1.depositFundValue).plus(
       itankInfo1.earnFundValue
     );
 
-    const tvl2 = new BigNumber(itankInfo2.depositFundBalance).plus(
+    const tvl2 = new BigNumber(itankInfo2.depositFundValue).plus(
       itankInfo2.earnFundValue
     );
     return $isPositiveNumber($isFiniteNumber(tvl1.plus(tvl2).toNumber()));
   }, [
-    itankInfo1.depositFundBalance,
+    itankInfo1.depositFundValue,
     itankInfo1.earnFundValue,
-    itankInfo2.depositFundBalance,
+    itankInfo2.depositFundValue,
     itankInfo2.earnFundValue,
   ]);
 

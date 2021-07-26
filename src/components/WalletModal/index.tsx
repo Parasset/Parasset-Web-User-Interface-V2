@@ -13,7 +13,7 @@ import useTokenBalance from "./../../hooks/useTokenBalance";
 import useEncryptAddress from "./../../hooks/useEncryptAddress";
 export default function WalletModal({ isOpen, onDismiss }) {
   const { t } = useTranslation();
-  const { account, connect } = useWallet();
+  const { account, connect, connector } = useWallet();
   const basisCash = useBasisCash();
   const PUSDToken = basisCash?.externalTokens["PUSD"];
   const PETHToken = basisCash?.externalTokens["PETH"];
@@ -34,7 +34,6 @@ export default function WalletModal({ isOpen, onDismiss }) {
       >
         {!account ? (
           <>
-            {" "}
             <Spacer size="mmd" />
             <CardButton
               className="width-100 wing-blank-lg cursor-pointer"
@@ -54,6 +53,25 @@ export default function WalletModal({ isOpen, onDismiss }) {
                 MetaMask
               </div>
             </CardButton>
+            <Spacer size="mmd" />
+            <CardButton
+              className="width-100 wing-blank-lg cursor-pointer"
+              size="lg"
+              onClick={() => {
+                connect("walletconnect");
+                onDismiss();
+              }}
+            >
+              <div className="flex-jc-start width-100">
+                <img
+                  src={require("../../assets/img/walletconnect.png")}
+                  width="35"
+                  height="35"
+                  className="margin-right-10"
+                />
+                WalletConnect
+              </div>
+            </CardButton>
           </>
         ) : (
           <>
@@ -61,13 +79,18 @@ export default function WalletModal({ isOpen, onDismiss }) {
               <Spacer size="mmd" />
               <div className="flex-jc-center">
                 <div className="flex-jc-start ">
+                  {/* injected  */}
                   <img
-                    src={require("../../assets/img/metamask.png")}
+                    src={
+                      connector === "injected"
+                        ? require("../../assets/img/metamask.png")
+                        : require("../../assets/img/walletconnect.png")
+                    }
                     width="25"
                     height="25"
                     className="margin-right-10"
                   />
-                  MetaMask
+                  {connector === "injected" ? "MetaMask" : "WalletConnect"}
                 </div>
                 {/* <div className="flex-jc-end ">
                   <Button

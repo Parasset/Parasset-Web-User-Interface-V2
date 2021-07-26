@@ -189,15 +189,12 @@ const Specie: React.FC = ({}) => {
   }, [inputCurrencyBalance, isETH]);
 
   const cointAddress = useMemo(() => {
-   
-    return  {
-      encryptAddress:getEncryptAddress(
+    return {
+      encryptAddress: getEncryptAddress(
         basisCash?.externalTokens[selectOutputCurrency].address
       ),
-      address: basisCash?.externalTokens[selectOutputCurrency].address
-      
+      address: basisCash?.externalTokens[selectOutputCurrency].address,
     };
-    
   }, [selectOutputCurrency, basisCash?.externalTokens]);
   const dataList = useMemo(() => {
     return {
@@ -253,6 +250,12 @@ const Specie: React.FC = ({}) => {
     const { maxRatio } = dataList[selectInputCurrency + selectOutputCurrency];
     return new BigNumber(calcRatio).gt(maxRatio);
   }, [calcRatio, dataList, selectInputCurrency, selectOutputCurrency]);
+
+  const ratio = useMemo(() => {
+    return $isPositiveNumber(
+      $isFiniteNumber(new BigNumber(calcRatio).times(100).toNumber())
+    );
+  }, [calcRatio]);
 
   const fee = useMemo(() => {
     const fee = dataList[selectInputCurrency + selectOutputCurrency].fee;
@@ -368,8 +371,7 @@ const Specie: React.FC = ({}) => {
       window.removeEventListener("click", handleDocumentClick);
     };
   }, []);
-  // inputCurrency,outputCurrency
-  // setSelectInputCurrency,setSelectOutputCurrency
+
   useEffect(() => {
     if (inputCurrency) {
       setSelectInputCurrency(inputCurrency);
@@ -448,7 +450,7 @@ const Specie: React.FC = ({}) => {
           value={
             <div className={isExceeds ? "color-red" : ""}>
               <Value
-                value={calcRatio * 100}
+                value={ratio}
                 suffix="%"
                 placeholder={true}
                 showAll={true}
@@ -462,11 +464,15 @@ const Specie: React.FC = ({}) => {
           label={t("heyue", {
             label: selectOutputCurrency,
           })}
-          value={<div>{ cointAddress?.encryptAddress} <Copy toCopy={cointAddress.address}/></div> }
+          value={
+            <div>
+              {cointAddress?.encryptAddress}{" "}
+              <Copy toCopy={cointAddress.address} />
+            </div>
+          }
           className="wing-blank-lg"
         />
 
-    
         <Spacer size="mmd" />
         <Label
           label={
@@ -482,7 +488,9 @@ const Specie: React.FC = ({}) => {
         <Label
           label={t("wdf")}
           className="wing-blank-lg"
-          value={<Value value={fee} suffix={selectOutputCurrency} showAll={true}/>}
+          value={
+            <Value value={fee} suffix={selectOutputCurrency} showAll={true} />
+          }
         />
         <Spacer />
 

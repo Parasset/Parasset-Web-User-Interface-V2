@@ -1,5 +1,6 @@
+//@ts-nocheck
 import { useCallback } from "react";
-
+import BigNumber from "bignumber.js";
 import useBasisCash from "../useBasisCash";
 import useHandleTransactionReceipt from "../useHandleTransactionReceipt";
 import { decimalToBalance } from "../../basis-cash/ether-utils";
@@ -14,15 +15,14 @@ const useCoin = () => {
         mortgageToken.symbol === "ETH" ? String(amount + 0.01) : String(amount),
         mortgageToken.decimal
       );
-      console.log(
-    
-        ratio * 100,
-      );
+      ratio=new BigNumber(ratio).times(100).toNumber()
+     
+      
       return handleTransactionReceipt(basisCash.coin, [
         mortgagePoolContract,
         mortgageToken,
         amountBn,
-        ratio * 100,
+        ratio,
         value,
       ]);
     },
