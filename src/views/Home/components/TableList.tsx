@@ -40,7 +40,7 @@ const Item: React.FC = ({ item }) => {
             {item.name}
           </div>
           <div className="flex1">
-            <Value value={item.TVL} suffix="%" />
+            <Value value={item.TVL} />
           </div>
           <div className="flex1">
             <Value value={item.maxRatio} suffix="%" />
@@ -89,7 +89,7 @@ const Item: React.FC = ({ item }) => {
 
           <Spacer size="mmd" />
 
-          <Label label="TVL" value={<Value value={item.TVL} suffix="%" />} />
+          <Label label="TVL" value={<Value value={item.TVL}  />} />
 
           <Spacer size="mmd" />
           <Label

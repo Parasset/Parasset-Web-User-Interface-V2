@@ -19,7 +19,6 @@ const Specie: React.FC = ({}) => {
     <>
       <Spacer size="sm" />
       <Spacer size="sm" />
-
       <BigValue
         text={t("dasz")}
         color="#DD8751"

@@ -35,13 +35,16 @@ const Specie: React.FC = ({}) => {
   const basisCash = useBasisCash();
   const avgPrice = useAvgPrice();
   const { onCoin } = useCoin();
-  const { selectInputCurrency:inputCurrency,selectOutputCurrency:outputCurrency } = useParams();
+  const {
+    selectInputCurrency: inputCurrency,
+    selectOutputCurrency: outputCurrency,
+  } = useParams();
   const { NESTToUSDTPrice, NESTToETHPrice, ETHAvgPrice } = usePrice();
 
   const [inputValue, setInputValue] = useState(0);
   const [outputValue, setOutputValue] = useState(0);
   const [pendingTx, setPendingTx] = useState(false);
-  
+
   const [showInputCurrencySelect, setShowInputCurrencySelect] = useState(false);
 
   const [selectInputCurrency, setSelectInputCurrency] = useState("ETH");
@@ -173,10 +176,10 @@ const Specie: React.FC = ({}) => {
   const inputCurrencyValue = useMemo(() => {
     let amount = isETH
       ? new BigNumber(inputValue).times(ETHAvgPrice).toNumber()
-      :new BigNumber(inputValue).times(NESTToUSDTPrice).toNumber()  ;
+      : new BigNumber(inputValue).times(NESTToUSDTPrice).toNumber();
 
     return $isFiniteNumber(amount);
-  }, [inputValue, NESTToUSDTPrice,ETHAvgPrice, isETH]);
+  }, [inputValue, NESTToUSDTPrice, ETHAvgPrice, isETH]);
 
   const inputMax = useMemo(() => {
     var max = new BigNumber(inputCurrencyBalance).minus(0.02).toNumber();
@@ -189,7 +192,6 @@ const Specie: React.FC = ({}) => {
       basisCash?.externalTokens[selectOutputCurrency].address
     );
   }, [selectOutputCurrency, basisCash?.externalTokens]);
-
   const dataList = useMemo(() => {
     return {
       ETHPUSD: {
@@ -245,6 +247,11 @@ const Specie: React.FC = ({}) => {
     return new BigNumber(calcRatio).gt(maxRatio);
   }, [calcRatio, dataList, selectInputCurrency, selectOutputCurrency]);
 
+  const fee = useMemo(() => {
+    const fee = dataList[selectInputCurrency + selectOutputCurrency].fee;
+    return fee;
+  }, [dataList, selectInputCurrency, selectOutputCurrency]);
+
   const onChangeInputCurrencySelect = useCallback(
     ({ id }, index) => {
       setSelectInputCurrency(id);
@@ -296,14 +303,14 @@ const Specie: React.FC = ({}) => {
     const { mortgagePoolContract, mortgageToken, fee, maxRatio } = dataList[
       selectInputCurrency + selectOutputCurrency
     ];
-    console.log(getDep(inputValue) > 14)
+    console.log(getDep(inputValue) > 14);
     if (!parseFloat(inputValue)) {
       Toast.info(t("qsrdyyszc"), 1000);
     } else if (parseFloat(inputValue) > parseFloat(inputMax)) {
       Toast.info(t("qbkydyzcyebz"), 1000);
-    }else if ( parseFloat(ETHWalletBalance)<0.01) {
+    } else if (parseFloat(ETHWalletBalance) < 0.01) {
       Toast.info(t("qbkyethbz"), 1000);
-    }  else if (!parseFloat(outputValue)) {
+    } else if (!parseFloat(outputValue)) {
       Toast.info(t("qsrzbsl"), 1000);
     } else if (getDep(inputValue) > 14 || getDep(outputValue) > 14) {
       Toast.info(t("zdsrws"), 1000);
@@ -357,14 +364,13 @@ const Specie: React.FC = ({}) => {
   // inputCurrency,outputCurrency
   // setSelectInputCurrency,setSelectOutputCurrency
   useEffect(() => {
-  
-  if(inputCurrency){
-    setSelectInputCurrency(inputCurrency)
-  }
-  if(outputCurrency){
-    setSelectOutputCurrency(outputCurrency)
-  }
-  }, [inputCurrency,outputCurrency]);
+    if (inputCurrency) {
+      setSelectInputCurrency(inputCurrency);
+    }
+    if (outputCurrency) {
+      setSelectOutputCurrency(outputCurrency);
+    }
+  }, [inputCurrency, outputCurrency]);
   return (
     <>
       <Spacer size="sm" />
@@ -413,7 +419,7 @@ const Specie: React.FC = ({}) => {
             className="center-block cursor-pointer"
           />
         </StyledExchangeImg>
-        <Spacer  />
+        <Spacer />
         <Select
           showSelect={showOutputCurrencySelect}
           list={currencyListOutput}
@@ -465,7 +471,11 @@ const Specie: React.FC = ({}) => {
         />
 
         <Spacer size="mmd" />
-        <Label label={t("wdf")} value="0.01 PUSD" className="wing-blank-lg" />
+        <Label
+          label={t("wdf")}
+          className="wing-blank-lg"
+          value={<Value value={fee} suffix={selectOutputCurrency} showAll={true}/>}
+        />
         <Spacer />
 
         {selectInputCurrency === "ETH" ? (

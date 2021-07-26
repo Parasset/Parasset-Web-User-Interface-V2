@@ -24,8 +24,13 @@ const Home: React.FC = () => {
   const { t } = useTranslation();
   const basisCash = useBasisCash();
   const itanks = useItanks();
-  const { itankInfo: itankInfo1 } = useItankInfo(itanks.length ? itanks[0] : null);
-  const { itankInfo: itankInfo2 } = useItankInfo(itanks.length ? itanks[1] : null);
+  //两个保险池相加
+  const { itankInfo: itankInfo1 } = useItankInfo(
+    itanks.length ? itanks[0] : null
+  );
+  const { itankInfo: itankInfo2 } = useItankInfo(
+    itanks.length ? itanks[1] : null
+  );
   const ETHDebt = useDebt("ETHPUSD");
   const NESTPUSDDebt = useDebt("NESTPUSD");
   const NESTPETHDebt = useDebt("NESTPETH");
@@ -74,11 +79,17 @@ const Home: React.FC = () => {
       {
         name: "ETH",
         TVL: ETHTVL,
-        maxRatio: maxRatioETH,
+        maxRatio: $isPositiveNumber(
+          $isFiniteNumber(new BigNumber(maxRatioETH).times(100).toNumber())
+        ),
 
-        liqRatio: ETHDebtInfo.liqRatio,
+        liqRatio: $isPositiveNumber(
+          $isFiniteNumber(
+            new BigNumber(ETHDebtInfo.liqRatio).times(100).toNumber()
+          )
+        ),
         balance: "",
-        active:'PUSD',
+        active: "PUSD",
         selectList: [
           {
             name: "PUSD",
@@ -89,10 +100,16 @@ const Home: React.FC = () => {
       {
         name: "NEST",
         TVL: NESTTVL,
-        maxRatio: maxRatioNEST,
-        liqRatio: NESTPUSDDebtInfo.liqRatio,
+        maxRatio: $isPositiveNumber(
+          $isFiniteNumber(new BigNumber(maxRatioNEST).times(100).toNumber())
+        ),
+        liqRatio: $isPositiveNumber(
+          $isFiniteNumber(
+            new BigNumber(NESTPUSDDebtInfo.liqRatio).times(100).toNumber()
+          )
+        ),
         balance: "",
-        active:'PUSD',
+        active: "PUSD",
         selectList: [
           {
             name: "PUSD",
@@ -123,7 +140,7 @@ const Home: React.FC = () => {
   const totalParassetValue = useMemo(() => {
     //两个平行资产总供应*对U价值
     const PUSDValue = new BigNumber(PUSDTotalSupply).times(
-      NESTPUSDDebtInfo?.mortgagePrice
+      1
     );
     const PETHValue = new BigNumber(PETHTotalSupply).times(
       NESTPETHDebtfo?.mortgagePrice
@@ -140,12 +157,14 @@ const Home: React.FC = () => {
 
   const totalItankValue = useMemo(() => {
     //保险池内资产两种币的总和换成USDT
-    const tvl1 = new BigNumber(itankInfo1.depositFundBalance)
-      .plus(itankInfo1.earnFundValue)
-      
-      const tvl2 = new BigNumber(itankInfo2.depositFundBalance)
-      .plus(itankInfo2.earnFundValue)
-  return $isPositiveNumber($isFiniteNumber(tvl1.plus(tvl2).toNumber()));
+    const tvl1 = new BigNumber(itankInfo1.depositFundBalance).plus(
+      itankInfo1.earnFundValue
+    );
+
+    const tvl2 = new BigNumber(itankInfo2.depositFundBalance).plus(
+      itankInfo2.earnFundValue
+    );
+    return $isPositiveNumber($isFiniteNumber(tvl1.plus(tvl2).toNumber()));
   }, [
     itankInfo1.depositFundBalance,
     itankInfo1.earnFundValue,
@@ -165,7 +184,11 @@ const Home: React.FC = () => {
         color="#77A89A"
         value={<Value value={totalParassetValue} />}
       />
-      <BigValue text={t("bxcldxzsz")} color="#5DB3D3"    value={<Value value={totalItankValue} />}/>
+      <BigValue
+        text={t("bxcldxzsz")}
+        color="#5DB3D3"
+        value={<Value value={totalItankValue} />}
+      />
       <TableTitle />
       <TableList list={list} />
       <Footer />

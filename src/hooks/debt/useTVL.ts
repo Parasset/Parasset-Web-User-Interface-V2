@@ -14,7 +14,7 @@ const useTVL = (mortgagePoolContract, token, price) => {
         const balance = await await basisCash.provider.getBalance(
           mortgagePoolContract.address
         );
-        setTvl(getTonumber(balance, token.decimal));
+        setTvl(  new BigNumber(getTonumber(balance, token.decimal)).times(price).toNumber());
       } else if (token.symbol === "NEST") {
         const balance = await token.balanceOf(mortgagePoolContract.address);
         

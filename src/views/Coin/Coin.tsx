@@ -35,9 +35,7 @@ const Coin: React.FC = () => {
       <Tab
         tabs={tabs}
         tab={tab}
-        onChangeTab={(tab) => {
-          setTab(tab);
-        }}
+        onChangeTab={setTab}
       />
       {tab === 1 ? <Specie /> : <Debt />}
 

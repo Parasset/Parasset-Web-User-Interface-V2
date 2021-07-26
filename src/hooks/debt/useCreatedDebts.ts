@@ -36,8 +36,8 @@ const useCreatedDebts = () => {
             .plus(item.parassetValue)
             .plus(item.feeValue);
         });
-        setTotalMortgageValue(totalMortgageValue);
-        setTotalParassetValue(totalParassetValue);
+        setTotalMortgageValue(totalMortgageValue.toNumber());
+        setTotalParassetValue(totalParassetValue.toNumber());
         setList(list);
         setLoading(false);
         return list;
