@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { useCallback } from "react";
 
 import useBasisCash from "../useBasisCash";
@@ -8,12 +9,13 @@ const useStake = (itankContract: any, decimal: any) => {
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleStake = useCallback(
-    (amount) => {
+    (amount,isPayETH) => {
       const amountBn = decimalToBalance(amount, decimal);
-      console.log(amountBn, amount);
+      const value=isPayETH?{value: decimalToBalance(String(parseFloat(amount)), 18)}:{}
       return handleTransactionReceipt(basisCash.itankStake, [
         itankContract,
         amountBn,
+        value
       ]);
     },
     [basisCash, itankContract, decimal]

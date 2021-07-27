@@ -434,9 +434,12 @@ export class BasisCash {
       return "0";
     }
   }
-  async itankStake(itankContract, amount) {
+  async itankStake(itankContract, amount,value) {
     try {
-      return await itankContract.subscribeIns(amount, this.gasOptions());
+      return await itankContract.subscribeIns(amount, {
+        from: this.myAccount,
+        ...value
+      });
     } catch (error) {
       console.log(
         "🚀 ~ file: BasisCash.ts ~ line 221 ~ BasisCash ~ itankStake ~ error",
@@ -551,11 +554,14 @@ export class BasisCash {
     const { Mine } = this.contracts;
     return await Mine.getReward(address, this.gasOptions());
   }
-  async exchangePTokenToUnderlying(itankContract, amount) {
+  async exchangePTokenToUnderlying(itankContract, amount,value) {
     try {
       return await itankContract.exchangePTokenToUnderlying(
         amount,
-        this.gasOptions()
+        {
+          from: this.myAccount,
+          ...value
+        }
       );
     } catch (error) {
       console.log(error);
@@ -563,14 +569,18 @@ export class BasisCash {
     }
   }
 
-  async exchangeUnderlyingToPToken(itankContract, amount) {
-    console.log(amount);
+  async exchangeUnderlyingToPToken(itankContract, amount,value) {
+    console.log( {
+      from: this.myAccount,
+      ...value
+    });
     
     try {
       return await itankContract.exchangeUnderlyingToPToken(
         amount,
         {
           from: this.myAccount,
+          ...value
         }
       );
     } catch (error) {

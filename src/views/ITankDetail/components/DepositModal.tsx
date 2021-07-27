@@ -43,7 +43,7 @@ const DepositModal: React.FC = ({
     } else {
       setPendingTx(true);
 
-      const result = await onStake(val + "");
+      const result = await onStake(val + "",itank.depositTokenName === "ETH");
       setPendingTx(false);
       if (result !== "0") {
         setTimeout(() => {
@@ -52,7 +52,7 @@ const DepositModal: React.FC = ({
         }, 1000);
       }
     }
-  }, [onStake, val, canBuyAmount]);
+  }, [onStake, val, canBuyAmount,itank.depositTokenName]);
 
   const handleSelectMax = useCallback(() => {
     if (itank.depositTokenName === "ETH") {

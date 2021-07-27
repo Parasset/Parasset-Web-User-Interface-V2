@@ -12,7 +12,7 @@ const useCoin = () => {
     (mortgagePoolContract, mortgageToken, amount, ratio) => {
       const amountBn = decimalToBalance(String(amount), mortgageToken.decimal);
       const value = decimalToBalance(
-        mortgageToken.symbol === "ETH" ? String(amount + 0.01) : String(amount),
+        mortgageToken.symbol === "ETH" ? String(amount + 0.01) : String(0.01),
         mortgageToken.decimal
       );
       ratio=new BigNumber(ratio).times(100).toNumber()

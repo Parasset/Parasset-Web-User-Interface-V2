@@ -335,7 +335,8 @@ const Specie: React.FC = ({}) => {
         itankContract,
         inputValue,
         token.decimal,
-        isTransform
+        isTransform,
+        selectInputCurrency === "ETH"
       );
       setPendingTx(false);
       if (result !== "0") {
