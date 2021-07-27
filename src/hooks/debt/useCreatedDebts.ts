@@ -47,9 +47,13 @@ const useCreatedDebts = () => {
   );
 
   useEffect(() => {
-    if (basisCash?.myAccount) {
+    let refreshInterval = true;
+    if (basisCash?.myAccount && refreshInterval) {
       fetchList();
     }
+    return () => {
+      refreshInterval = false;
+    };
   }, [basisCash?.myAccount, debts, block]);
 
   return { list, loading, totalMortgageValue, totalParassetValue };

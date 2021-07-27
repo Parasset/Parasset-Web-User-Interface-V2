@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import useBasisCash from "../useBasisCash";
 import useHandleTransactionReceipt from "../useHandleTransactionReceipt";
 import { decimalToBalance } from "../../basis-cash/ether-utils";
-const useStake = (address:any) => {
+const useStake = (address: any) => {
   const basisCash = useBasisCash();
   const handleTransactionReceipt = useHandleTransactionReceipt();
 

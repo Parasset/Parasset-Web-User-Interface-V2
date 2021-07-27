@@ -70,8 +70,8 @@ const Mine: React.FC = ({ isOpen, onDismiss, debt, select, debtInfo, max }) => {
               new BigNumber(debtInfo.mortgageAssets)
                 .plus(val)
                 .times(debtInfo.mortgageToParassetPrice)
-                
-            ).times(100)
+            )
+            .times(100)
             .toNumber()
         )
       );
@@ -83,7 +83,8 @@ const Mine: React.FC = ({ isOpen, onDismiss, debt, select, debtInfo, max }) => {
               new BigNumber(debtInfo.mortgageAssets)
                 .minus(val)
                 .times(debtInfo.mortgageToParassetPrice)
-            ).times(100)
+            )
+            .times(100)
 
             .toNumber()
         )
@@ -97,7 +98,8 @@ const Mine: React.FC = ({ isOpen, onDismiss, debt, select, debtInfo, max }) => {
               new BigNumber(debtInfo.mortgageAssets).times(
                 debtInfo.mortgageToParassetPrice
               )
-            ).times(100)
+            )
+            .times(100)
             .toNumber()
         )
       );
@@ -110,7 +112,8 @@ const Mine: React.FC = ({ isOpen, onDismiss, debt, select, debtInfo, max }) => {
               new BigNumber(debtInfo.mortgageAssets).times(
                 debtInfo.mortgageToParassetPrice
               )
-            ).times(100)
+            )
+            .times(100)
             .toNumber()
         )
       );
@@ -122,8 +125,12 @@ const Mine: React.FC = ({ isOpen, onDismiss, debt, select, debtInfo, max }) => {
       return $isPositiveNumber(
         $isFiniteNumber(
           new BigNumber(debtInfo.parassetAssets)
-            .div(new BigNumber(debtInfo.mortgageAssets).plus(val))
-            .times(debtInfo.liqRatio)
+            .div(
+              new BigNumber(debtInfo.mortgageAssets)
+                .plus(val)
+                .times(debtInfo.liqRatio)
+            )
+
             .toNumber()
         )
       );
@@ -131,8 +138,8 @@ const Mine: React.FC = ({ isOpen, onDismiss, debt, select, debtInfo, max }) => {
       $isPositiveNumber(
         $isFiniteNumber(
           new BigNumber(debtInfo.parassetAssets)
-            .div(new BigNumber(debtInfo.mortgageAssets).minus(val))
-            .times(debtInfo?.liqRatio)
+            .div((new BigNumber(debtInfo.mortgageAssets).minus(val).times(debtInfo?.liqRatio)))
+            
             .toNumber()
         )
       );

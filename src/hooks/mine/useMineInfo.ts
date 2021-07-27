@@ -71,9 +71,13 @@ const useMineInfo = (mine, itank) => {
   }, [basisCash?.myAccount, mine, block, itank]);
 
   useEffect(() => {
-    if (basisCash?.myAccount && mine?.depositToken) {
+    let refreshInterval = true;
+    if (basisCash?.myAccount && mine?.depositToken && refreshInterval) {
       fetchInfo();
     }
+    return () => {
+      refreshInterval = false;
+    };
   }, [basisCash?.myAccount, block, mine, itank]);
 
   return { staked, earned, info, tvl, apy };

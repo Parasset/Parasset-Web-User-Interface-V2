@@ -17,13 +17,15 @@ const useTotalSupply = (token: ERC20) => {
   }, [basisCash?.myAccount, basisCash?.provider, token]);
 
   useEffect(() => {
-    if (basisCash?.myAccount) {
-      fetchTotalSupply().catch((err) =>
-        console.error(`Failed to fetch token totalSupply: ${err.stack}`)
-      );
-      let refreshInterval = setInterval(fetchTotalSupply, config.refreshInterval);
-      return () => clearInterval(refreshInterval);
-    }
+ 
+    const refreshInterval = setInterval(() => {
+      if (basisCash?.myAccount) {
+        fetchTotalSupply().catch((err) =>
+          console.error(`Failed to fetch token totalSupply: ${err.stack}`)
+        );
+      }
+    }, 1000);
+    return () => clearInterval(refreshInterval);
   }, [basisCash?.myAccount, token]);
 
   return totalSupply;

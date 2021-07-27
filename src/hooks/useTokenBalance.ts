@@ -23,13 +23,14 @@ const useTokenBalance = (token: ERC20) => {
   }, [basisCash?.myAccount, basisCash?.provider, token]);
 
   useEffect(() => {
-    if (basisCash?.myAccount) {
-      fetchBalance().catch((err) =>
-        console.error(`Failed to fetch token balance: ${err.stack}`)
-      );
-      let refreshInterval = setInterval(fetchBalance, config.refreshInterval);
-      return () => clearInterval(refreshInterval);
-    }
+    const refreshInterval = setInterval(() => {
+      if (basisCash?.myAccount) {
+        fetchBalance().catch((err) =>
+          console.error(`Failed to fetch token balance: ${err.stack}`)
+        );
+      }
+    }, 1000);
+    return () => clearInterval(refreshInterval);
   }, [basisCash?.myAccount, token]);
 
   return balance;

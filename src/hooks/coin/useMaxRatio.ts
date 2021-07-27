@@ -14,9 +14,18 @@ const useMaxRatio = (mortgagePoolContract, mortgageToken) => {
   }, [basisCash, mortgageToken]);
 
   useEffect(() => {
-    if (basisCash?.myAccount && mortgagePoolContract && mortgageToken) {
+    let refreshInterval = true;
+    if (
+      basisCash?.myAccount &&
+      mortgagePoolContract &&
+      mortgageToken &&
+      refreshInterval
+    ) {
       fetchMaxRatio();
     }
+    return () => {
+      refreshInterval = false;
+    };
   }, [basisCash?.myAccount, block, mortgagePoolContract, mortgageToken]);
   return maxRatio;
 };

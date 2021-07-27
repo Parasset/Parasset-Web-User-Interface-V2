@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useWallet } from 'use-wallet';
@@ -51,7 +52,7 @@ export default function Updater(): null {
     return () => provider.removeListener('block', blockNumberCallback);
   }, [dispatch, chainId, ethereum, blockNumberCallback, windowVisible]);
 
-  const debouncedState = useDebounce(state, 100);
+  const debouncedState = useDebounce(state, 1000);
 
   useEffect(() => {
     if (!debouncedState.chainId || !debouncedState.blockNumber || !windowVisible) return;

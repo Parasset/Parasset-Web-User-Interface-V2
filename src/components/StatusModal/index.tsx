@@ -63,6 +63,7 @@ export default function StatusModal({}) {
             width="100px"
             href={`${config.etherscanUrl}/tx/${tx}`}
             className="center-block"
+            target="_self"
           />
         ) : null}
       </Modal>

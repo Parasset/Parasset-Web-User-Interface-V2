@@ -175,8 +175,8 @@ const Specie: React.FC = ({}) => {
   }, [currencyListOutput, selectOutputCurrency]);
 
   const isETH = useMemo(() => {
-    return selectInputCurrency === "ETH" || setSelectOutputCurrency === "ETH";
-  }, [selectInputCurrency, setSelectOutputCurrency]);
+    return selectInputCurrency === "ETH" || selectOutputCurrency === "ETH";
+  }, [selectInputCurrency, selectOutputCurrency]);
 
   const fee = useMemo(() => {
     const feeRatio = !isETH ? itankPUSDFee : itankPETHFee;
@@ -472,7 +472,7 @@ const Specie: React.FC = ({}) => {
         <Spacer size="sm" />
         <Label
           label={t("dhbl")}
-          value={!isETH ? "1 USDT=1 PUSD" : "1 ETH=1 PETH"}
+          value={isETH ? "1 ETH=1 PETH" : "1 USDT=1 PUSD"}
           className="wing-blank-lg"
         />
         <Spacer size="mmd" />
@@ -520,6 +520,6 @@ const Specie: React.FC = ({}) => {
 };
 const StyledExchangeImg = styled.div`
   margin-top: -10px;
-  margin-bottom: -10px;
+  margin-bottom: 10px;
 `;
 export default Specie;

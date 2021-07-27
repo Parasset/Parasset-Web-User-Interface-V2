@@ -65,9 +65,18 @@ const useItankInfo = (itank) => {
   }, [basisCash?.myAccount, itank, block]);
 
   useEffect(() => {
-    if (basisCash?.myAccount && itank && itank.itankContract) {
+    let refreshInterval = true;
+    if (
+      basisCash?.myAccount &&
+      itank &&
+      itank.itankContract &&
+      refreshInterval
+    ) {
       fetchInfo();
     }
+    return () => {
+      refreshInterval = false;
+    };
   }, [basisCash?.myAccount, block, itank]);
 
   return { itankInfo, lastDate, fee, redeemAmount };

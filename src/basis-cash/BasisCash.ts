@@ -189,18 +189,6 @@ export class BasisCash {
         address
       );
 
-      // console.log(
-      //   mortgageTokenAddress,
-      //   mortgageToken.symbol === "ETH"
-      //     ? "1000000000000000000"
-      //     : tokenPrice.toString(),
-      //   uTokenPrice,
-      //   maxRateNum,
-      //   address,
-      //   mortgageToken.symbol ,
-      //   info.fee
-      // );
-
       return info;
     } catch (err) {
       console.log(err, "err");
@@ -368,6 +356,7 @@ export class BasisCash {
       }
       let earnFundBalance = await this.getFundBalance(earnToken, address);
       let negative = await itankContract._insNegative();
+      
       earnFundBalance = new BigNumber(earnFundBalance)
         .minus(getTonumber(negative))
         .toNumber();

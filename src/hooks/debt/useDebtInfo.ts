@@ -23,9 +23,18 @@ const useDebtInfo = (debt) => {
   );
 
   useEffect(() => {
-    if (basisCash?.myAccount && debt && debt.mortgagePoolContract) {
+    let refreshInterval = true;
+    if (
+      basisCash?.myAccount &&
+      debt &&
+      debt.mortgagePoolContract &&
+      refreshInterval
+    ) {
       fetchInfo();
     }
+    return () => {
+      refreshInterval = false;
+    };
   }, [basisCash?.myAccount, debt, block]);
 
   return { info };

@@ -30,7 +30,6 @@ import {
   $isPositiveNumber,
   getEncryptAddress,
 } from "../../../utils/utils";
-import { divide } from "numeral";
 const Specie: React.FC = ({}) => {
   const { t } = useTranslation();
   const basisCash = useBasisCash();

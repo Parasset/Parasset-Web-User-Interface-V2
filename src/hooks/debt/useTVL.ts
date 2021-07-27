@@ -14,22 +14,44 @@ const useTVL = (mortgagePoolContract, token, price) => {
         const balance = await await basisCash.provider.getBalance(
           mortgagePoolContract.address
         );
-        setTvl(  new BigNumber(getTonumber(balance, token.decimal)).times(price).toNumber());
+        setTvl(
+          new BigNumber(getTonumber(balance, token.decimal))
+            .times(price)
+            .toNumber()
+        );
       } else if (token.symbol === "NEST") {
         const balance = await token.balanceOf(mortgagePoolContract.address);
-        
+
         setTvl(
-          new BigNumber(getTonumber(balance, token.decimal)).times(price).toNumber()
+          new BigNumber(getTonumber(balance, token.decimal))
+            .times(price)
+            .toNumber()
         );
       }
     }
-  }, [basisCash?.myAccount, basisCash?.provider, mortgagePoolContract, token,price]);
+  }, [
+    basisCash?.myAccount,
+    basisCash?.provider,
+    mortgagePoolContract,
+    token,
+    price,
+  ]);
 
   useEffect(() => {
-    if (basisCash?.myAccount && mortgagePoolContract && token&&price) {
+    let refreshInterval = true;
+    if (
+      basisCash?.myAccount &&
+      mortgagePoolContract &&
+      token &&
+      price &&
+      refreshInterval
+    ) {
       fetchTvl();
     }
-  }, [basisCash?.myAccount, mortgagePoolContract, block, token,price]);
+    return () => {
+      refreshInterval = false;
+    };
+  }, [basisCash?.myAccount, mortgagePoolContract, block, token, price]);
 
   return tvl;
 };

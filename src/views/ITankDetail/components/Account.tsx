@@ -20,7 +20,7 @@ const Info: React.FC = ({ currency, value, dollarValue }) => {
           </div>
           <div className="text-right">
             <div className="font-size-14">
-              <Value value={value} />
+              <Value value={value}  decimals={6}/>
             </div>
             <div className="color-grey font-size-10">
               <Value value={dollarValue} prefix="$" />

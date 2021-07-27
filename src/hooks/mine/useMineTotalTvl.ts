@@ -22,7 +22,7 @@ const useMineTotalTvl = (mines) => {
           block,
           itank
         );
-       
+
         return $isPositiveNumber($isFiniteNumber(tvl));
       })
     );
@@ -35,9 +35,18 @@ const useMineTotalTvl = (mines) => {
   }, [mines, itanks, block]);
 
   useEffect(() => {
-    if (basisCash?.myAccount && mines?.length && itanks?.length) {
+    let refreshInterval = true;
+    if (
+      basisCash?.myAccount &&
+      mines?.length &&
+      itanks?.length &&
+      refreshInterval
+    ) {
       fetchTvl();
     }
+    return () => {
+      refreshInterval = false;
+    };
   }, [basisCash?.myAccount, block, mines, itanks]);
 
   return { totalTvl };

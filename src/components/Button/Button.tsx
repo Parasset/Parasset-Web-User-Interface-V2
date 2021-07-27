@@ -1,3 +1,4 @@
+
 import React, { useContext, useMemo } from 'react';
 import styled, { ThemeContext } from 'styled-components';
 
@@ -13,6 +14,7 @@ interface ButtonProps {
   to?: string;
   className?: string;
   width?: number | string;
+  target?:  string;
   variant?: 'default' | 'secondary' | 'tertiary' | 'fourthly';
 }
 
@@ -27,6 +29,7 @@ const Button: React.FC<ButtonProps> = ({
   variant,
   className,
   width,
+  target='__blank'
 }) => {
   const { color, spacing } = useContext(ThemeContext);
 
@@ -67,7 +70,7 @@ const Button: React.FC<ButtonProps> = ({
       return <StyledLink to={to}>{text}</StyledLink>;
     } else if (href) {
       return (
-        <StyledExternalLink href={href} target="__blank">
+        <StyledExternalLink href={href} target={target}>
           {text}
         </StyledExternalLink>
       );

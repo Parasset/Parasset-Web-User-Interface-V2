@@ -22,14 +22,19 @@ const useFee = (mortgagePoolContract, mortgageToken, uToken) => {
   );
 
   useEffect(() => {
+    let refreshInterval = true;
     if (
       basisCash?.myAccount &&
       mortgagePoolContract &&
       mortgageToken &&
-      uToken
+      uToken &&
+      refreshInterval
     ) {
       fetchFee();
     }
+    return () => {
+      refreshInterval = false;
+    };
   }, [
     basisCash?.myAccount,
     block,

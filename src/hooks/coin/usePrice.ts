@@ -12,7 +12,7 @@ const usePrice = () => {
   const fetchETHAvgPrice = useCallback(async () => {
     setETHAvgPrice(await basisCash.getAvgPrice());
   }, [basisCash]);
-  
+
   const fetchNESTToUSDTPrice = useCallback(async () => {
     setNESTToUSDTPrice(await basisCash.getNESTToUSDTPrice());
   }, [basisCash]);
@@ -28,9 +28,13 @@ const usePrice = () => {
   }, [basisCash?.myAccount]);
 
   useEffect(() => {
-    if (basisCash?.myAccount) {
+    let refreshInterval = true;
+    if (basisCash?.myAccount && refreshInterval) {
       fetchInfo();
     }
+    return () => {
+      refreshInterval = false;
+    };
   }, [basisCash?.myAccount, block]);
   return { NESTToUSDTPrice, NESTToETHPrice, ETHAvgPrice };
 };
