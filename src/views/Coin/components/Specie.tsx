@@ -505,7 +505,7 @@ const Specie: React.FC = ({}) => {
         />
         <Spacer />
 
-        {selectInputCurrency === "ETH" || !fee ? (
+        {!fee ? (
           <Button
             text={t("zhubi")}
             variant="secondary"
@@ -514,7 +514,7 @@ const Specie: React.FC = ({}) => {
           />
         ) : approveList[selectOutputCurrency].status ? (
           <Button
-            text={`${t("sq")} ${selectInputCurrency}`}
+            text={`${t("sq")} ${selectOutputCurrency}`}
             variant="secondary"
             disabled={pendingTx}
             onClick={async () => {
