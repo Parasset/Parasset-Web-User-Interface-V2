@@ -363,7 +363,7 @@ export class BasisCash {
       if (depositTokenName !== "ETH") {
         depositFundBalance = await this.getFundBalance(depositToken, address);
       } else {
-        depositFundBalance = await this.provider.getBalance(this.myAccount);
+        depositFundBalance = await this.provider.getBalance(address);
         depositFundBalance = getTonumber(depositFundBalance);
       }
       let earnFundBalance = await this.getFundBalance(earnToken, address);
