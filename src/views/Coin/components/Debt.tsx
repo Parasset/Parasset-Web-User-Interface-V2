@@ -22,12 +22,12 @@ const Specie: React.FC = ({}) => {
       <BigValue
         text={t("dasz")}
         color="#DD8751"
-        value={<Value value={totalMortgageValue} />}
+        value={<Value value={totalMortgageValue} prefix="$"/>}
       />
       <BigValue
         text={t("zwsz")}
         color="#77A89A"
-        value={<Value value={totalParassetValue} />}
+        value={<Value value={totalParassetValue} prefix="$"/>}
       />
       <Spacer size="sm" />
       <Depot list={list} loading={loading} />

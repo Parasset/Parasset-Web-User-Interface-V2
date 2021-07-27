@@ -14,7 +14,7 @@ const Version: React.FC = () => {
           target="__blank"
         >
           {" "}
-          <CardButton>V1</CardButton>
+          <CardButton>Parasset V1</CardButton>
         </a>
 
         <div className="space-white-lg"></div>

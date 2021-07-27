@@ -29,6 +29,7 @@ const Mine: React.FC = ({ isOpen, onDismiss, debt, select, debtInfo, max }) => {
     debt?.uToken,
     debt?.mortgagePoolContract?.address
   );
+
   const canBuyAmount = useMemo(() => {
     return max;
   }, [max]);
@@ -138,8 +139,12 @@ const Mine: React.FC = ({ isOpen, onDismiss, debt, select, debtInfo, max }) => {
       $isPositiveNumber(
         $isFiniteNumber(
           new BigNumber(debtInfo.parassetAssets)
-            .div((new BigNumber(debtInfo.mortgageAssets).minus(val).times(debtInfo?.liqRatio)))
-            
+            .div(
+              new BigNumber(debtInfo.mortgageAssets)
+                .minus(val)
+                .times(debtInfo?.liqRatio)
+            )
+
             .toNumber()
         )
       );

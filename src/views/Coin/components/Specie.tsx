@@ -84,7 +84,6 @@ const Specie: React.FC = ({}) => {
     basisCash?.externalTokens["NEST"],
     basisCash?.externalTokens["PETH "]
   );
-  
 
   const isETH = useMemo(() => {
     return selectInputCurrency === "ETH" || setSelectOutputCurrency === "ETH";
@@ -102,6 +101,14 @@ const Specie: React.FC = ({}) => {
   const [approveStatusPETH, approvePETH] = useApprove(
     basisCash?.externalTokens["PETH"],
     basisCash?.contracts["PETHMorPool"]?.address
+  );
+  console.log(
+    approveStatusPUSD,
+    approveStatusPETH,
+    basisCash?.externalTokens["PUSD"]?.address,
+    basisCash?.contracts["PUSDMorPool"]?.address,
+    basisCash?.externalTokens["PETH"]?.address,
+    basisCash?.contracts["PETHMorPool"]?.address,
   );
 
   const approveList = useMemo(() => {
@@ -497,8 +504,8 @@ const Specie: React.FC = ({}) => {
           }
         />
         <Spacer />
-       
-        {  !!fee  ? (
+
+        {!!fee ? (
           <Button
             text={t("zhubi")}
             variant="secondary"
