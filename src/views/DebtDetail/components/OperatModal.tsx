@@ -289,7 +289,7 @@ const Mine: React.FC = ({ isOpen, onDismiss, debt, select, debtInfo, max }) => {
       Toast.info(t(dataInfo[select].exceededTip), 1000);
     } else if (parseFloat(ETHWalletBalance) < 0.01) {
       Toast.info(t("qbkyethbz"), 1000);
-    } else if (getDep(val) > 14) {
+    } else if (getDep(val) > 18) {
       Toast.info(t("zdsrws"), 1000);
     } else {
       setPendingTx(true);

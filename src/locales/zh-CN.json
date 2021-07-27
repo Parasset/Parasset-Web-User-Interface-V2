@@ -87,13 +87,13 @@
   "zjtqr": "最近提取日",
   "yjtqusdt": "预计提取",
   "yjtqpusd": "预计提取",
-  "sypusd": "剩余PUSD",
+  "sypusd": "剩余",
   "wdbxzh": "我的保险账户",
   "bxjjzh": "保险基金账户",
   "sq": "授权",
   "tq": "提取",
   "zywa": "质押 {{lpToken}} 挖 {{token}}",
-  "shuoming": "说明：注入保险后，在指定日期范围内方可赎回，赎回窗口期为 2 天",
+  "shuoming": "说明：注入保险后，最少锁仓7天，并在指定的赎回窗口期方可提取，每个赎回窗口期为2天。",
   "cunzhuan": "存 {{lpToken}} 赚 {{token}}",
   "wdzy": "我的质押",
   "dlsy": "待领收益",
@@ -112,7 +112,7 @@
   "qsrdysl": "请输入抵押数量",
   "qsrshsl": "请输入赎回数量",
   "yebz": "余额不足",
-  "zdsrws": "最多输入14位",
+  "zdsrws": "最多输入18位",
   "zhuru": "注入",
   "qsrzrsl": "请输入注入数量",
   "qsrtqsl": "请输入提取数量",
@@ -135,6 +135,7 @@
   "cgzdkzbsl": "超过最大可铸币数量",
   "cgzdkchsl": "超过最大可偿还数量",
   "zhaicang": "债仓",
-  "fzcg": "复制成功"
+  "fzcg": "复制成功",
+  "qbkypxzcyebz": "钱包可用平行资产余额不足"
 
 }

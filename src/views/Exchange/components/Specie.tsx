@@ -10,7 +10,7 @@ import Select from "../../../components/Select";
 import Button from "../../../components/Button";
 import Label from "../../../components/Label";
 import Value from "../../../components/Value";
-
+import BtnLink from "../../../components/BtnLink";
 import {
   getDep,
   $isFiniteNumber,
@@ -328,8 +328,8 @@ const Specie: React.FC = ({}) => {
     if (!parseFloat(inputValue)) {
       Toast.info(t("qsrbdzcdhsl"), 1000);
     } else if (parseFloat(inputValue) > parseFloat(inputMax)) {
-      Toast.info(t("qbbdzcyebz"), 1000);
-    } else if (getDep(inputValue) > 14) {
+      Toast.info(t(!isTransform?"qbbdzcyebz":'qbkypxzcyebz'), 1000);
+    } else if (getDep(inputValue) > 18) {
       Toast.info(t("zdsrws"), 1000);
     } else {
       setPendingTx(true);
@@ -337,10 +337,7 @@ const Specie: React.FC = ({}) => {
         ? basisCash?.contracts["PETHInsPool"]
         : basisCash?.contracts["PUSDInsPool"];
       const token = basisCash?.externalTokens[selectInputCurrency];
-      console.log(
-        "🚀 ~ file: Specie.tsx ~ line 328 ~ onConfirm ~ token",
-        token.decimal
-      );
+   
       const result = await onExchange(
         itankContract,
         inputValue,
@@ -515,6 +512,10 @@ const Specie: React.FC = ({}) => {
       </Card>
       <Spacer size="sm" />
       <Spacer size="sm" />
+      <BtnLink
+        text={t("wbxctgldx")}
+        path={`/itank/detail/${isETH ? "PETHInsPool" : "PUSDInsPool"}`}
+      />
     </>
   );
 };

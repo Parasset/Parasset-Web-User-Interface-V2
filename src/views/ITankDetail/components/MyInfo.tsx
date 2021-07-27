@@ -110,8 +110,8 @@ const MyInfo: React.FC = ({
               className="color-light-blue"
             >
               {t("zywa", {
-                lpToken: itank.depositTokenName,
-                token: itank.earnTokenName,
+                lpToken: itank.LPTokenName,
+                token: itank.earnName,
               })}
             </div>
           </div>

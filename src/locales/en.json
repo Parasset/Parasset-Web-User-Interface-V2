@@ -87,13 +87,13 @@
   "zjtqr": "Last Withdrawable date",
   "yjtqusdt": "Expected Withdrawable",
   "yjtqpusd": "Expected Withdrawable",
-  "sypusd": "Remaining PUSD",
+  "sypusd": "Remaining",
   "wdbxzh": "Your Insurance",
   "bxjjzh": "Insurance Pool",
   "sq": "Approve",
   "tq": "Withdraw",
   "zywa": "Stake {{lpToken}} Earn {{token}}",
-  "shuoming": "Note: After deposit, Yourr assets can only be redeemed within the specified date range, and the redemption window period is 2 days",
+  "shuoming": "After deposit, your assets will be locked at least 7 days and can be withdrawn only in the specified redemption window period, Each redemption window period is 2 days.",
   "cunzhuan": "Stake {{lpToken}} Earn {{token}}",
   "wdzy": "Your Staked",
   "dlsy": "Your Earned",
@@ -112,7 +112,7 @@
   "qsrdysl": "Please enter the stake amount",
   "qsrshsl": "Please enter the withdraw amount",
   "yebz": "Insufficient balance",
-  "zdsrws": "Enter up to 14 digits",
+  "zdsrws": "Enter up to 18 digits",
   "zhuru": "Deposit",
   "qsrzrsl": "Please enter the stake amount",
   "qsrtqsl": "Please enter the withdraw amount",
@@ -133,6 +133,7 @@
    "cgzdkzbsl": "Exceeded the maximum number of coins that can be minted",
    "cgzdkchsl": "Exceeded the maximum repayable amount",
    "zhaicang": "debt",
-   "fzcg": "复制成功"
+   "fzcg": "Copy successfully",
+   "qbkypxzcyebz": "The balance of available parallel assets in the wallet is insufficient"
   
 }

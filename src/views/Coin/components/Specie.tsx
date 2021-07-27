@@ -313,7 +313,7 @@ const Specie: React.FC = ({}) => {
     const { mortgagePoolContract, mortgageToken, fee, maxRatio } = dataList[
       selectInputCurrency + selectOutputCurrency
     ];
-    console.log(getDep(inputValue) > 14);
+
     if (!parseFloat(inputValue)) {
       Toast.info(t("qsrdyyszc"), 1000);
     } else if (parseFloat(inputValue) > parseFloat(inputMax)) {
@@ -322,7 +322,7 @@ const Specie: React.FC = ({}) => {
       Toast.info(t("qbkyethbz"), 1000);
     } else if (!parseFloat(outputValue)) {
       Toast.info(t("qsrzbsl"), 1000);
-    } else if (getDep(inputValue) > 14 || getDep(outputValue) > 14) {
+    } else if (getDep(inputValue) > 18 || getDep(outputValue) > 18) {
       Toast.info(t("zdsrws"), 1000);
     } else if (parseFloat(outputValue) < parseFloat(fee)) {
       Toast.info(t("qbyebzjnwdf"), 1000);
@@ -380,6 +380,7 @@ const Specie: React.FC = ({}) => {
       setSelectOutputCurrency(outputCurrency);
     }
   }, [inputCurrency, outputCurrency]);
+  console.log(approveList);
   return (
     <>
       <Spacer size="sm" />
@@ -493,8 +494,8 @@ const Specie: React.FC = ({}) => {
           }
         />
         <Spacer />
-
-        {selectInputCurrency === "ETH" ? (
+       
+        {  !!fee  ? (
           <Button
             text={t("zhubi")}
             variant="secondary"

@@ -9,7 +9,7 @@ const BtnLink: React.FC = ({ text, path }) => {
     <>
       <Spacer size="mmd" />
       <Card
-        className="wing-blank-lg width-100 text-center"
+        className="wing-blank-lg width-100 text-center cursor-pointer"
         onClick={() => {
           console.log(path);
 

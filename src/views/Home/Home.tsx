@@ -139,21 +139,15 @@ const Home: React.FC = () => {
 
   const totalParassetValue = useMemo(() => {
     //两个平行资产总供应*对U价值
-    const PUSDValue = new BigNumber(PUSDTotalSupply).times(
-      1
-    );
+    const PUSDValue = new BigNumber(PUSDTotalSupply).times(1);
+
     const PETHValue = new BigNumber(PETHTotalSupply).times(
-      NESTPETHDebtfo?.mortgagePrice
+      ETHDebtInfo?.mortgagePrice
     );
     return $isPositiveNumber(
       $isFiniteNumber(PUSDValue.plus(PETHValue).toNumber())
     );
-  }, [
-    PUSDTotalSupply,
-    PETHTotalSupply,
-    NESTPUSDDebtInfo?.mortgagePrice,
-    NESTPETHDebtfo?.mortgagePrice,
-  ]);
+  }, [PUSDTotalSupply, PETHTotalSupply, ETHDebtInfo?.mortgagePrice]);
 
   const totalItankValue = useMemo(() => {
     //保险池内资产两种币的总和换成USDT

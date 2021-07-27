@@ -38,7 +38,7 @@ const DepositModal: React.FC = ({
       Toast.info(t("qsrzrsl"), 1000);
     } else if (parseFloat(val) > parseFloat(canBuyAmount)) {
       Toast.info(t("yebz"), 1000);
-    } else if (getDep(val) > 14) {
+    } else if (getDep(val) > 18) {
       Toast.info(t("zdsrws"), 1000);
     } else {
       setPendingTx(true);

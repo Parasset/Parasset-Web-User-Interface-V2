@@ -72,6 +72,7 @@ export const itankDefinitions = {
     depositTokenName: "USDT",
     earnTokenName: "PUSD",
     LPTokenName: "LP-USD",
+    earnName: "ASET",
   },
   ETHPETHPool: {
     name: "ETH-PETH",
@@ -81,6 +82,7 @@ export const itankDefinitions = {
     depositTokenName: "ETH",
     earnTokenName: "PETH",
     LPTokenName: "LP-ETH",
+    earnName: "ASET",
   },
 };
 
