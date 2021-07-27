@@ -73,6 +73,7 @@ const Specie: React.FC = ({}) => {
     basisCash?.externalTokens["ETH"],
     basisCash?.externalTokens["USDT"]
   );
+
   const feeNESTPUSD = useFee(
     basisCash?.contracts["PUSDMorPool"],
     basisCash?.externalTokens["NEST"],
@@ -94,12 +95,12 @@ const Specie: React.FC = ({}) => {
   const PETHWalletBalance = useTokenBalance(basisCash?.externalTokens["PETH"]);
   const PUSDWalletBalance = useTokenBalance(basisCash?.externalTokens["PUSD"]);
   const [approveStatusPUSD, approvePUSD] = useApprove(
-    basisCash?.externalTokens["NEST"],
+    basisCash?.externalTokens["PUSD"],
     basisCash?.contracts["PUSDMorPool"]?.address
   );
 
   const [approveStatusPETH, approvePETH] = useApprove(
-    basisCash?.externalTokens["NEST"],
+    basisCash?.externalTokens["PETH"],
     basisCash?.contracts["PETHMorPool"]?.address
   );
 
@@ -224,6 +225,9 @@ const Specie: React.FC = ({}) => {
     NESTToUSDTPrice,
     NESTToETHPrice,
     ETHAvgPrice,
+    feeETHPUSD,
+    feeNESTPUSD,
+    feeNESTPETH,
     maxRatioETHPUSD,
     maxRatioNESTPUSD,
     maxRatioNESTPETH,
@@ -380,7 +384,6 @@ const Specie: React.FC = ({}) => {
       setSelectOutputCurrency(outputCurrency);
     }
   }, [inputCurrency, outputCurrency]);
-  console.log(approveList);
   return (
     <>
       <Spacer size="sm" />
