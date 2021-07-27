@@ -102,14 +102,6 @@ const Specie: React.FC = ({}) => {
     basisCash?.externalTokens["PETH"],
     basisCash?.contracts["PETHMorPool"]?.address
   );
-  console.log(
-    approveStatusPUSD,
-    approveStatusPETH,
-    basisCash?.externalTokens["PUSD"]?.address,
-    basisCash?.contracts["PUSDMorPool"]?.address,
-    basisCash?.externalTokens["PETH"]?.address,
-    basisCash?.contracts["PETHMorPool"]?.address
-  );
 
   const approveList = useMemo(() => {
     return {
