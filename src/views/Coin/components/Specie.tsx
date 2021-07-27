@@ -108,7 +108,7 @@ const Specie: React.FC = ({}) => {
     basisCash?.externalTokens["PUSD"]?.address,
     basisCash?.contracts["PUSDMorPool"]?.address,
     basisCash?.externalTokens["PETH"]?.address,
-    basisCash?.contracts["PETHMorPool"]?.address,
+    basisCash?.contracts["PETHMorPool"]?.address
   );
 
   const approveList = useMemo(() => {
@@ -505,7 +505,7 @@ const Specie: React.FC = ({}) => {
         />
         <Spacer />
 
-        {!!fee ? (
+        {selectInputCurrency === "ETH" || !fee ? (
           <Button
             text={t("zhubi")}
             variant="secondary"
