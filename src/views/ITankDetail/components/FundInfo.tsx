@@ -29,7 +29,7 @@ const FundInfo: React.FC = ({ itank, itankInfo }) => {
           <Spacer size="mmd" />
           <Account
             currency={itank.depositTokenName}
-            value={itankInfo.depositFundValue}
+            value={itankInfo.depositFundBalance}
             dollarValue={itankInfo.depositFundValue}
           />
 

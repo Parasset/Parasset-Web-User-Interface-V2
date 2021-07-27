@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 
-import CardButton from "../CardButton";
+import TokenSymbol from "../TokenSymbol";
 const Select: React.FC = ({
   showSelect,
   list,
@@ -18,9 +18,8 @@ const Select: React.FC = ({
   }, [list, active]);
 
   return (
-    < >
+    <>
       <div className="wing-blank">
-
         {showSelect ? (
           <StyledSelectBox
             className="form-select-content  "
@@ -43,16 +42,10 @@ const Select: React.FC = ({
                     toggleShow();
                   }}
                 >
-                  <div className="flex-jc-start">
-                    <img
-                      src={require(`../../assets/img/${item.name}.png`)}
-                      width="35"
-                      height="35"
-                      className="margin-right-10"
-                    />
-                    {item.name}
+                  <div className=" flex-jc-center width-100">
+                    <TokenSymbol size={25} symbol={item.name} />
+                    <span className="font-size-12"> {item.name}</span>
                   </div>
-                  
                 </StyledSelectItem>
               );
             })}
@@ -65,20 +58,18 @@ const Select: React.FC = ({
 
 const StyledSelectBox = styled.div`
   position: absolute;
-  width: 140px;
+  width: 100px;
   left: 0;
   border-radius: 10px;
   padding: 5px 0;
   top: 120%;
   z-index: 99;
   background: #fff;
+
   box-shadow: 0px 0px 10px ${(props) => props.theme.color.grey[200]};
 `;
 const StyledSelectItem = styled.div`
-  height: 40px;
-  &.active {
-    background-color: ${(props) => props.theme.color.grey[500]};
-  }
+  height: 30px;
 `;
 
 export default Select;

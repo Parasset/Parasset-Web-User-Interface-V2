@@ -70,8 +70,8 @@ const Mine: React.FC = ({ isOpen, onDismiss, debt, select, debtInfo, max }) => {
               new BigNumber(debtInfo.mortgageAssets)
                 .plus(val)
                 .times(debtInfo.mortgageToParassetPrice)
+                // .times(100)
             )
-
             .toNumber()
         )
       );

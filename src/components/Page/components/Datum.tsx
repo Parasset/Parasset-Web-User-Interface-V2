@@ -29,7 +29,7 @@ const Datum: React.FC = () => {
  
   return (
     <div>
-      <StyledLabel>{t("wdpxzc")}</StyledLabel>
+      {/* <StyledLabel>{t("wdpxzc")}</StyledLabel>
       <div className="flex-jc-center">
         <div className="flex-jc-start">
           <TokenSymbol symbol="PETH" size={25} />
@@ -64,7 +64,7 @@ const Datum: React.FC = () => {
           </div>
         </div>
       </div>
-      <Spacer size="mmd" />
+      <Spacer size="mmd" /> */}
       <div>
         <StyledLabel>{t("jiage")}</StyledLabel>
         <div className="flex-jc-start">

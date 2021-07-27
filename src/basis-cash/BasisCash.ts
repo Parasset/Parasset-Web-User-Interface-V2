@@ -189,6 +189,18 @@ export class BasisCash {
         address
       );
 
+      // console.log(
+      //   mortgageTokenAddress,
+      //   mortgageToken.symbol === "ETH"
+      //     ? "1000000000000000000"
+      //     : tokenPrice.toString(),
+      //   uTokenPrice,
+      //   maxRateNum,
+      //   address,
+      //   mortgageToken.symbol ,
+      //   info.fee
+      // );
+
       return info;
     } catch (err) {
       console.log(err, "err");
@@ -202,6 +214,7 @@ export class BasisCash {
       uToken,
       address
     );
+
     return getTonumber(fee);
   }
   async getLiqRatio(mortgagePoolContract, mortgageToken) {
@@ -434,11 +447,11 @@ export class BasisCash {
       return "0";
     }
   }
-  async itankStake(itankContract, amount,value) {
+  async itankStake(itankContract, amount, value) {
     try {
       return await itankContract.subscribeIns(amount, {
         from: this.myAccount,
-        ...value
+        ...value,
       });
     } catch (error) {
       console.log(
@@ -493,7 +506,7 @@ export class BasisCash {
         totalSupply: stakeTotalSupply,
         rewardRate,
       } = await this.getChannelInfo(address, block);
-        
+
       const totalSupply = await depositToken.totalSupply();
       const ratio = new BigNumber(stakeTotalSupply)
         .div(getTonumber(totalSupply))
@@ -514,13 +527,19 @@ export class BasisCash {
   async getMineApy(tvl, rewardRate) {
     try {
       const { asetPrice } = this.config;
-      console.log(tvl, rewardRate,asetPrice,new BigNumber(rewardRate)
-      .times(5760)
-      .times(365)
-      .times(asetPrice)
-      .div(tvl)
-      .times(100)
-      .toNumber(),'asetPrice');
+      console.log(
+        tvl,
+        rewardRate,
+        asetPrice,
+        new BigNumber(rewardRate)
+          .times(5760)
+          .times(365)
+          .times(asetPrice)
+          .div(tvl)
+          .times(100)
+          .toNumber(),
+        "asetPrice"
+      );
       return new BigNumber(rewardRate)
         .times(5760)
         .times(365)
@@ -554,35 +573,29 @@ export class BasisCash {
     const { Mine } = this.contracts;
     return await Mine.getReward(address, this.gasOptions());
   }
-  async exchangePTokenToUnderlying(itankContract, amount,value) {
+  async exchangePTokenToUnderlying(itankContract, amount, value) {
     try {
-      return await itankContract.exchangePTokenToUnderlying(
-        amount,
-        {
-          from: this.myAccount,
-          ...value
-        }
-      );
+      return await itankContract.exchangePTokenToUnderlying(amount, {
+        from: this.myAccount,
+        ...value,
+      });
     } catch (error) {
       console.log(error);
       return "0";
     }
   }
 
-  async exchangeUnderlyingToPToken(itankContract, amount,value) {
-    console.log( {
+  async exchangeUnderlyingToPToken(itankContract, amount, value) {
+    console.log({
       from: this.myAccount,
-      ...value
+      ...value,
     });
-    
+
     try {
-      return await itankContract.exchangeUnderlyingToPToken(
-        amount,
-        {
-          from: this.myAccount,
-          ...value
-        }
-      );
+      return await itankContract.exchangeUnderlyingToPToken(amount, {
+        from: this.myAccount,
+        ...value,
+      });
     } catch (error) {
       console.log(error);
       return "0";
