@@ -125,7 +125,7 @@ export default function WalletModal({ isOpen, onDismiss }) {
                 />
                 <a
                   className="color-light-blue"
-                  href={`${config.etherscanUrl}`}
+                  href={`${config.etherscanUrl}address/${account}`}
                   target="__blank"
                 >
                   {t("zethsck")}

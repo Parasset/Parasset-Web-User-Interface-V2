@@ -7,7 +7,7 @@ import Modal from "../Modal";
 import Spacer from "../Spacer";
 import Button from "../Button";
 
-export default function RiskModal({ isOpen, onDismiss, messages, href }) {
+export default function RiskModal({ isOpen, onDismiss, messages,  }) {
   const { t } = useTranslation();
 
   return (
@@ -38,7 +38,7 @@ export default function RiskModal({ isOpen, onDismiss, messages, href }) {
             onClick={onDismiss}
           />
           <Spacer size="mmd" />
-          <a href={href} className="color-light-blue">
+          <a href={'https://www.parasset.top/file/Parasset_WhitePaper.pdf'} className="color-light-blue">
             {t("ljgd")}
           </a>
         </div>

@@ -28,7 +28,7 @@ const Specie: React.FC = ({}) => {
   const { t } = useTranslation();
   const basisCash = useBasisCash();
   const avgPrice = useAvgPrice();
- 
+
   const { onExchange } = useExchange();
   const [pendingTx, setPendingTx] = useState(false);
   const [isTransform, setIsTransform] = useState(false);
@@ -49,13 +49,23 @@ const Specie: React.FC = ({}) => {
   const USDTWalletBalance = useTokenBalance(basisCash?.externalTokens["USDT"]);
   const PETHWalletBalance = useTokenBalance(basisCash?.externalTokens["PETH"]);
   const PUSDWalletBalance = useTokenBalance(basisCash?.externalTokens["PUSD"]);
-  const PUSDItankBalance = useTokenBalance(basisCash?.contracts["PUSDInsPool"]);
-  const PETHItankBalance = useTokenBalance(basisCash?.contracts["PETHInsPool"]);
+
   const itankPUSD = useItank("PUSDInsPool");
   const itankPETH = useItank("PETHInsPool");
-  const { fee: itankPUSDFee } = useItankInfo(itankPUSD);
-  const { fee: itankPETHFee } = useItankInfo(itankPETH);
-
+  const {
+    fee: itankPUSDFee,
+    itankInfo: {
+      earnFundBalance: PUSDItankBalance,
+      depositFundValue: USDTItankBalance,
+    },
+  } = useItankInfo(itankPUSD);
+  const {
+    fee: itankPETHFee,
+    itankInfo: {
+      earnFundBalance: PETHItankBalance,
+      depositFundValue: ETHItankBalance,
+    },
+  } = useItankInfo(itankPETH);
   const [approveStatusPETH, approvePETH] = useApprove(
     basisCash?.externalTokens["PETH"],
     basisCash?.contracts["PETHInsPool"]?.address
@@ -100,13 +110,13 @@ const Specie: React.FC = ({}) => {
         name: "ETH",
         id: "ETH",
         walletBalance: ETHWalletBalance,
-        itankBalance: PETHItankBalance,
+        itankBalance: ETHItankBalance,
       },
       {
         name: "USDT",
         id: "USDT",
         walletBalance: USDTWalletBalance,
-        itankBalance: PUSDItankBalance,
+        itankBalance: USDTItankBalance,
       },
     ];
   }, [
@@ -114,8 +124,8 @@ const Specie: React.FC = ({}) => {
     USDTWalletBalance,
     PETHWalletBalance,
     PUSDWalletBalance,
-    PUSDItankBalance,
-    PETHItankBalance,
+    USDTItankBalance,
+    ETHItankBalance,
   ]);
 
   const outputCurrencyList = useMemo(() => {

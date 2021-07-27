@@ -61,7 +61,7 @@ export default function StatusModal({}) {
             variant="tertiary"
             text={t("ckjy")}
             width="100px"
-            href={`${config.etherscanUrl}${tx}`}
+            href={`${config.etherscanUrl}/tx/${tx}`}
             className="center-block"
           />
         ) : null}
