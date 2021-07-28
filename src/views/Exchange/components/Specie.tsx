@@ -436,7 +436,7 @@ const Specie: React.FC = ({}) => {
         <div className="flex-jc-center color-grey wing-blank-lg">
           <div>{t("dao")}</div>
           <div>
-            {!isTransform ? t("hcxe") : t("bxjjye")}
+            { t("hcxe")}
             <span
               className={`color-dark ${
                 isTransform ? "text-underline cursor-pointer" : ""
