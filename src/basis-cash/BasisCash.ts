@@ -217,6 +217,8 @@ export class BasisCash {
         this.gasETHAddress(mortgageToken),
         address
       );
+  
+      
       const fee = await this.getStableFee(
         mortgagePoolContract,
         mortgageToken,
@@ -374,7 +376,7 @@ export class BasisCash {
       const totalSupply = await this.getTotalSupply(itankContract);
       let totalAssets = new BigNumber(depositFundBalance).plus(earnFundBalance);
       let perShare = totalAssets.div(totalSupply).toNumber();
-      perShare = !Number.isFinite(perShare) ? 0 : perShare;
+      perShare = !Number.isFinite(perShare) ? 1 : perShare;
       totalAssets = totalAssets.toNumber();
       return {
         depositFundBalance,

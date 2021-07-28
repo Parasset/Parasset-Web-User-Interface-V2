@@ -9,14 +9,15 @@ const useFee = (mortgagePoolContract, mortgageToken, uToken) => {
 
   const fetchFee = useCallback(
     async (address = basisCash?.myAccount) => {
-      setFee(
-        await basisCash.getStableFee(
-          mortgagePoolContract,
-          mortgageToken,
-          uToken,
-          address
-        )
+      const fee = await basisCash.getStableFee(
+        mortgagePoolContract,
+        mortgageToken,
+        uToken,
+        address
       );
+      // console.log(mortgagePoolContract, mortgageToken, uToken, address, fee);
+
+      setFee(fee);
     },
     [basisCash?.myAccount, mortgageToken, uToken]
   );

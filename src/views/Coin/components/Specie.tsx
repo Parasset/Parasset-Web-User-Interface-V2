@@ -82,8 +82,9 @@ const Specie: React.FC = ({}) => {
   const feeNESTPETH = useFee(
     basisCash?.contracts["PETHMorPool"],
     basisCash?.externalTokens["NEST"],
-    basisCash?.externalTokens["PETH "]
+    basisCash?.externalTokens["PETH"]
   );
+
 
   const isETH = useMemo(() => {
     return selectInputCurrency === "ETH" || setSelectOutputCurrency === "ETH";
@@ -354,7 +355,6 @@ const Specie: React.FC = ({}) => {
       maxRatio,
       walletBalance,
     } = dataList[selectInputCurrency + selectOutputCurrency];
-    // walletBalance
     if (!parseFloat(inputValue)) {
       Toast.info(t("qsrdyyszc"), 1000);
     } else if (parseFloat(inputValue) > parseFloat(inputMax)) {

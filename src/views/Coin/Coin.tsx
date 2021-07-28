@@ -7,7 +7,6 @@ import Specie from "./components/Specie";
 import Debt from "./components/Debt";
 import RiskModal from "../../components/RiskModal";
 const Coin: React.FC = () => {
-  const isMobile = useIsMobile();
   const [messages] = useState(["risk_msg4"]);
 
   const [isOpen, setOpen] = useState(false);
