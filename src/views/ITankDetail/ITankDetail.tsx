@@ -95,7 +95,7 @@ const Mine: React.FC = () => {
   return (
     <>
       <Back
-        text={`${itank?.name} LP ${t("kuangchi")} `}
+        text={`${itank?.name}  ${t("bxc")} `}
         img={itank.icon1}
         img1={itank.icon2}
       />

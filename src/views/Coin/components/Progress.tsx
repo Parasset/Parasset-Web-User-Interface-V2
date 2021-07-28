@@ -85,6 +85,6 @@ const StyledRatio = styled.div`
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 99;
+  z-index: 999;
 `;
 export default Progress;

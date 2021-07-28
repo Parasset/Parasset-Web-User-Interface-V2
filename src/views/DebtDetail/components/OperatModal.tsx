@@ -16,7 +16,15 @@ import useHandlerDebt from "../../../hooks/debt/useHandlerDebt";
 import useTokenBalance from "../../../hooks/useTokenBalance";
 import useBasisCash from "../../../hooks/useBasisCash";
 import useBlur from "../../../hooks/useBlur";
-const Mine: React.FC = ({ isOpen, onDismiss, debt, select, debtInfo, max }) => {
+const Mine: React.FC = ({
+  isOpen,
+  onDismiss,
+  debt,
+  select,
+  debtInfo,
+  max,
+  parassetBalance,
+}) => {
   const { t } = useTranslation();
   const basisCash = useBasisCash();
   const [val, setVal] = useState("");
@@ -288,6 +296,7 @@ const Mine: React.FC = ({ isOpen, onDismiss, debt, select, debtInfo, max }) => {
   }, [debt, assetChanges, columns]);
 
   const onConfirm = useCallback(async () => {
+    // parassetBalance
     if (!parseFloat(val)) {
       Toast.info(t(dataInfo[select].placeholder), 1000);
     } else if (parseFloat(val) > parseFloat(canBuyAmount)) {
@@ -312,7 +321,7 @@ const Mine: React.FC = ({ isOpen, onDismiss, debt, select, debtInfo, max }) => {
         }, 1000);
       }
     }
-  }, [onHandlerDebt, select, val, ETHWalletBalance, canBuyAmount, dataInfo]);
+  }, [onHandlerDebt, select, val, ETHWalletBalance, canBuyAmount, dataInfo,]);
 
   const handleSelectMax = useCallback(() => {
     setVal(canBuyAmount);

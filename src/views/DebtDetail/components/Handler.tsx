@@ -86,7 +86,7 @@ const Handler: React.FC = ({ debt, debtInfo }) => {
                 </div>
                 <Spacer size={isMobile ? "mmd" : "md"} />
                 <Button text={t("changhuan")} variant="secondary"  onClick={() => {
-                    openModal("Repay",parassetBalance);
+                    openModal("Repay",debtInfo.parassetValue);
                   }} />
                 <Spacer size={isMobile ? "mmd" : "md"} />
               </div>
@@ -164,6 +164,7 @@ const Handler: React.FC = ({ debt, debtInfo }) => {
         debt={debt}
         select={select}
         debtInfo={debtInfo}
+        parassetBalance={parassetBalance}
         max={max}
         onDismiss={() => {
           setOpen(false);
