@@ -132,7 +132,16 @@ const Specie: React.FC = ({}) => {
         approve: approvePUSD,
       },
     };
-  }, [approveStatusPETH, approveStatusPUSD, approvePETH, approvePUSD]);
+  }, [
+    approveStatusPETH,
+    approveStatusPUSD,
+    approvePETH,
+    approvePUSD,
+    approveStatusNESTPETH,
+    approveStatusNESTPUSD,
+    approveNESTPETH,
+    approveNESTPUSD,
+  ]);
 
   const currencyListInput = useMemo(() => {
     return [
@@ -412,6 +421,7 @@ const Specie: React.FC = ({}) => {
       setSelectOutputCurrency(outputCurrency);
     }
   }, [inputCurrency, outputCurrency]);
+
   return (
     <>
       <Spacer size="sm" />
@@ -526,6 +536,7 @@ const Specie: React.FC = ({}) => {
         />
         <Spacer />
         {/* NESTPETH NESTPUSD 如果不是eth，就要授权给nest,然后看fee有没有大于0，大于0就需要授权 */}
+
         {selectInputCurrency !== "ETH" &&
         approveList[selectInputCurrency + selectOutputCurrency].status ? (
           <Button
