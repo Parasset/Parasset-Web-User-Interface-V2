@@ -124,7 +124,7 @@
   "qbkydyzcyebz": "钱包可用抵押资产余额不足",
   "qsrzbsl": "请输入铸币数量",
   "qbyebzjnwdf": "钱包余额不足缴纳稳定费",
-  "cgzddyl": "抵押率应大于0小于最大抵押率{{label}}",
+  "cgzddyl": "抵押率应在1-{{label}}%之间",
   "zwzc": "未铸币，暂无债仓",
   "jzz": "加载中",
   "changhuan": "偿还",

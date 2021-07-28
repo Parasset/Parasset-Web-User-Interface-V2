@@ -251,7 +251,7 @@ const Specie: React.FC = ({}) => {
 
   const isExceeds = useMemo(() => {
     const { maxRatio } = dataList[selectInputCurrency + selectOutputCurrency];
-    return new BigNumber(calcRatio).gt(maxRatio);
+    return new BigNumber(calcRatio).gte(maxRatio);
   }, [calcRatio, dataList, selectInputCurrency, selectOutputCurrency]);
 
   const ratio = useMemo(() => {
@@ -316,7 +316,7 @@ const Specie: React.FC = ({}) => {
     const { mortgagePoolContract, mortgageToken, fee, maxRatio } = dataList[
       selectInputCurrency + selectOutputCurrency
     ];
-
+    console.log(calcRatio * 100 < 1, isExceeds);
     if (!parseFloat(inputValue)) {
       Toast.info(t("qsrdyyszc"), 1000);
     } else if (parseFloat(inputValue) > parseFloat(inputMax)) {
@@ -329,10 +329,10 @@ const Specie: React.FC = ({}) => {
       Toast.info(t("zdsrws"), 1000);
     } else if (parseFloat(outputValue) < parseFloat(fee)) {
       Toast.info(t("qbyebzjnwdf"), 1000);
-    } else if (calcRatio <= 0 || isExceeds) {
+    } else if (new BigNumber(calcRatio).times(100).lt(1) || isExceeds) {
       Toast.info(
         t("cgzddyl", {
-          label: maxRatio,
+          label: new BigNumber(maxRatio).times(100).toNumber(),
         }),
         1000
       );
@@ -501,7 +501,7 @@ const Specie: React.FC = ({}) => {
           <Button
             text={t("zhubi")}
             variant="secondary"
-            disabled={pendingTx || calcRatio <= 0 || isExceeds}
+            disabled={pendingTx || calcRatio <= 0}
             onClick={onConfirm}
           />
         ) : approveList[selectOutputCurrency].status ? (
@@ -519,7 +519,7 @@ const Specie: React.FC = ({}) => {
           <Button
             text={t("zhubi")}
             variant="secondary"
-            disabled={pendingTx || calcRatio <= 0 || isExceeds}
+            disabled={pendingTx || calcRatio <= 0}
             onClick={onConfirm}
           />
         )}

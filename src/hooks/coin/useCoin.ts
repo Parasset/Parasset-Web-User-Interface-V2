@@ -15,14 +15,13 @@ const useCoin = () => {
         mortgageToken.symbol === "ETH" ? String(amount + 0.01) : String(0.01),
         mortgageToken.decimal
       );
-      ratio=new BigNumber(ratio).times(100).toNumber()
-     
-      
+      ratio = new BigNumber(ratio).times(100).toNumber();
+      //取整去掉
       return handleTransactionReceipt(basisCash.coin, [
         mortgagePoolContract,
         mortgageToken,
         amountBn,
-        ratio,
+        parseInt(ratio),
         value,
       ]);
     },
