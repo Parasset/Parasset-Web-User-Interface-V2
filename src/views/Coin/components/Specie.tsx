@@ -204,6 +204,7 @@ const Specie: React.FC = ({}) => {
         fee: feeETHPUSD,
         mortgagePoolContract: basisCash?.contracts["PUSDMorPool"],
         mortgageToken: basisCash?.externalTokens["ETH"],
+        walletBalance: PUSDWalletBalance,
       },
       NESTPUSD: {
         maxRatio: maxRatioNESTPUSD,
@@ -211,6 +212,7 @@ const Specie: React.FC = ({}) => {
         fee: feeNESTPUSD,
         mortgagePoolContract: basisCash?.contracts["PUSDMorPool"],
         mortgageToken: basisCash?.externalTokens["NEST"],
+        walletBalance: PUSDWalletBalance,
       },
       NESTPETH: {
         maxRatio: maxRatioNESTPETH,
@@ -218,6 +220,7 @@ const Specie: React.FC = ({}) => {
         fee: feeNESTPETH,
         mortgagePoolContract: basisCash?.contracts["PETHMorPool"],
         mortgageToken: basisCash?.externalTokens["NEST"],
+        walletBalance: PETHWalletBalance,
       },
     };
   }, [
@@ -232,6 +235,8 @@ const Specie: React.FC = ({}) => {
     maxRatioNESTPETH,
     selectInputCurrency,
     selectOutputCurrency,
+    PUSDWalletBalance,
+    PETHWalletBalance,
   ]);
 
   const calcRatio = useMemo(() => {
@@ -313,10 +318,14 @@ const Specie: React.FC = ({}) => {
   }, []);
 
   const onConfirm = useCallback(async () => {
-    const { mortgagePoolContract, mortgageToken, fee, maxRatio } = dataList[
-      selectInputCurrency + selectOutputCurrency
-    ];
-    console.log(calcRatio * 100 < 1, isExceeds);
+    const {
+      mortgagePoolContract,
+      mortgageToken,
+      fee,
+      maxRatio,
+      walletBalance,
+    } = dataList[selectInputCurrency + selectOutputCurrency];
+    // walletBalance
     if (!parseFloat(inputValue)) {
       Toast.info(t("qsrdyyszc"), 1000);
     } else if (parseFloat(inputValue) > parseFloat(inputMax)) {
@@ -327,7 +336,7 @@ const Specie: React.FC = ({}) => {
       Toast.info(t("qsrzbsl"), 1000);
     } else if (getDep(inputValue) > 18 || getDep(outputValue) > 18) {
       Toast.info(t("zdsrws"), 1000);
-    } else if (parseFloat(outputValue) < parseFloat(fee)) {
+    } else if (new BigNumber(walletBalance).times(100).lt(fee)) {
       Toast.info(t("qbyebzjnwdf"), 1000);
     } else if (new BigNumber(calcRatio).times(100).lt(1) || isExceeds) {
       Toast.info(

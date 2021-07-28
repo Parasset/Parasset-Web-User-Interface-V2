@@ -175,20 +175,21 @@ const DepositModal: React.FC = ({
           },
           estimateWithdrawDepositToken: {
             label: "yjtqusdt",
-            value: <Value value={estimateWithdrawDepositToken} decimals={4} />,
+            value: <Value value={estimateWithdrawDepositToken} decimals={6} />,
             unit: "",
             labelUnit: itank.depositTokenName,
           },
           estimateWithdrawEarnToken: {
             label: "yjtqpusd",
-            value: <Value value={estimateWithdrawEarnToken} decimals={4} />,
+            value: <Value value={estimateWithdrawEarnToken} decimals={6} />,
             unit: "",
             labelUnit: itank.earnTokenName,
           },
           remaining: {
             label: "sypusd",
+            labelUnit: `(${itank.LPTokenName})`,
             value: <Value value={remainingShare} decimals={4} />,
-            unit: itank.LPTokenName,
+            unit: "",
           },
         }}
         type="number"

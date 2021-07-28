@@ -60,6 +60,7 @@ const Header: React.FC = () => {
             <Datum />
           ) : (
             <Nav
+            toggleShow={toggleShow}
               onShowWallet={() => {
                 toggleShow();
                 setOpen(true);

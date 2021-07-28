@@ -5,7 +5,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Spacer from "../../Spacer";
 import useIsMobile from "../../../hooks/useIsMobile";
-const Nav: React.FC = () => {
+const Nav: React.FC = ({toggleShow}) => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
   const { pathname } = useLocation();
@@ -18,6 +18,7 @@ const Nav: React.FC = () => {
             exact
             activeClassName="active"
             to="/"
+            onClick={toggleShow}
           >
             <img
               src={
@@ -36,6 +37,7 @@ const Nav: React.FC = () => {
             exact
             activeClassName="active"
             to="/coin"
+            onClick={toggleShow}
             isActive={(match, { pathname }) => {
               return (
                 pathname.includes("/coin") || pathname.includes("/debt/detail")
@@ -59,6 +61,7 @@ const Nav: React.FC = () => {
             exact
             activeClassName="active"
             to="/exchange"
+            onClick={toggleShow}
           >
             <img
               src={
@@ -80,6 +83,7 @@ const Nav: React.FC = () => {
             isActive={(match, { pathname }) => {
               return pathname.includes("/itank");
             }}
+            onClick={toggleShow}
           >
             <img
               src={
@@ -101,6 +105,7 @@ const Nav: React.FC = () => {
             isActive={(match, { pathname }) => {
               return pathname.includes("/mine");
             }}
+            onClick={toggleShow}
           >
             <img
               src={

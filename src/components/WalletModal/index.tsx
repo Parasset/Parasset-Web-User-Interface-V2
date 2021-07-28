@@ -7,6 +7,7 @@ import Spacer from "../Spacer";
 import CardButton from "../CardButton";
 import TokenSymbol from "../TokenSymbol";
 import Copy from "../Copy";
+import Value from "../Value";
 import config from "../../config";
 import useBasisCash from "./../../hooks/useBasisCash";
 import useTokenBalance from "./../../hooks/useTokenBalance";
@@ -136,7 +137,7 @@ export default function WalletModal({ isOpen, onDismiss }) {
               <Spacer size="mmd" />
               <div className="bold-600">{t("wdpxzc")}</div>
               <Spacer size="mmd" />
-              <div className="flex-jc-center">
+              <div className="flex-al-start">
                 <div className="flex-jc-start">
                   <TokenSymbol symbol="PETH" size={35} />
                   <div className="margin-left-10">
@@ -149,11 +150,11 @@ export default function WalletModal({ isOpen, onDismiss }) {
                     </div>
                   </div>
                 </div>
+                <Value value={PETHTokenBalance}/>
 
-                {PETHTokenBalance}
               </div>
               <Spacer size="mmd" />
-              <div className="flex-jc-center">
+              <div className="flex-al-start">
                 <div className="flex-jc-start">
                   <TokenSymbol symbol="PUSD" size={35} />
                   <div className="margin-left-10">
@@ -166,7 +167,7 @@ export default function WalletModal({ isOpen, onDismiss }) {
                     </div>
                   </div>
                 </div>
-                {PUSDTokenBalance}
+                <Value value={PUSDTokenBalance}/>
               </div>
             </div>
           </>

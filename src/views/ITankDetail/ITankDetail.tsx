@@ -51,14 +51,16 @@ const Mine: React.FC = () => {
     //   可以计算出你可以领取的资金数量x
     // - 如果x<=USDT数量，USDT显示为x，PUSD显示为0
     // - 如果x>USDT数量，USDT显示为保险池中USDT余额，PUSD显示为 x-保险池中USDT余额
+
+    
     let depositAssets =
-      totalFund <= itankInfo.depositFundValue
+      totalFund <= itankInfo.depositFundBalance
         ? totalFund
-        : itankInfo.depositFundValue;
+        : itankInfo.depositFundBalance;
     let earnAssets =
-      totalFund <= itankInfo.depositFundValue
+      totalFund <= itankInfo.depositFundBalance
         ? 0
-        : new BigNumber(totalFund).minus(itankInfo.depositFundValue).toNumber();
+        : new BigNumber(totalFund).minus(itankInfo.depositFundBalance).toNumber();
     depositAssets = !Number.isFinite(depositAssets) ? 0 : depositAssets;
     earnAssets = !Number.isFinite(earnAssets) ? 0 : earnAssets;
     const isUSDT = itank.depositTokenName === "USDT";
@@ -84,7 +86,7 @@ const Mine: React.FC = () => {
   }, [
     itank.depositTokenName,
     totalFund,
-    itankInfo.depositFundValue,
+    itankInfo.depositFundBalance,
     itankInfo.earnAssets,
     itankInfo.avgPrice,
   ]);
