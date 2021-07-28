@@ -85,7 +85,6 @@ const Specie: React.FC = ({}) => {
     basisCash?.externalTokens["PETH"]
   );
 
-
   const isETH = useMemo(() => {
     return selectInputCurrency === "ETH" || setSelectOutputCurrency === "ETH";
   }, [selectInputCurrency, setSelectOutputCurrency]);
@@ -292,7 +291,13 @@ const Specie: React.FC = ({}) => {
 
   const ratio = useMemo(() => {
     return $isPositiveNumber(
-      $isFiniteNumber(new BigNumber(calcRatio).times(100).toNumber())
+      $isFiniteNumber(
+        new BigNumber(
+          parseInt(new BigNumber(calcRatio).times(100000).toNumber())
+        )
+          .div(1000)
+          .toNumber()
+      )
     );
   }, [calcRatio]);
 
