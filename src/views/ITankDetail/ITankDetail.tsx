@@ -7,6 +7,7 @@ import {
   getNumberToAll,
   getDisplayNumber,
 } from "../../utils/formatBalance";
+import { $isFiniteNumber, $isPositiveNumber } from "../../utils/utils";
 import useIsMobile from "../../hooks/useIsMobile";
 import BigNumber from "bignumber.js";
 import Back from "../../components/Back";
@@ -26,7 +27,6 @@ const Mine: React.FC = () => {
   const { itankInfo, lastDate, redeemAmount } = useItankInfo(itank);
   const myShare = useTokenBalance(itank?.itankContract);
   const depositBalance = useTokenBalance(itank?.depositToken);
-
 
   const myRatio = useMemo(() => {
     //我的LP余额除总供应
@@ -52,7 +52,6 @@ const Mine: React.FC = () => {
     // - 如果x<=USDT数量，USDT显示为x，PUSD显示为0
     // - 如果x>USDT数量，USDT显示为保险池中USDT余额，PUSD显示为 x-保险池中USDT余额
 
-    
     let depositAssets =
       totalFund <= itankInfo.depositFundBalance
         ? totalFund
@@ -60,7 +59,9 @@ const Mine: React.FC = () => {
     let earnAssets =
       totalFund <= itankInfo.depositFundBalance
         ? 0
-        : new BigNumber(totalFund).minus(itankInfo.depositFundBalance).toNumber();
+        : new BigNumber(totalFund)
+            .minus(itankInfo.depositFundBalance)
+            .toNumber();
     depositAssets = !Number.isFinite(depositAssets) ? 0 : depositAssets;
     earnAssets = !Number.isFinite(earnAssets) ? 0 : earnAssets;
     const isUSDT = itank.depositTokenName === "USDT";
@@ -71,8 +72,8 @@ const Mine: React.FC = () => {
     let earnAssetsValue = isUSDT
       ? earnAssets * 1
       : new BigNumber(earnAssets).times(avgPrice).toNumber();
-    depositAssets = !Number.isFinite(depositAssets) ? 0 : depositAssets;
-    earnAssets = !Number.isFinite(earnAssets) ? 0 : earnAssets;
+    depositAssets = $isPositiveNumber($isFiniteNumber(depositAssets));
+    earnAssets = $isPositiveNumber($isFiniteNumber(earnAssets));
     depositAssetsValue = !Number.isFinite(depositAssetsValue)
       ? 0
       : depositAssetsValue;
@@ -90,7 +91,7 @@ const Mine: React.FC = () => {
     itankInfo.earnAssets,
     itankInfo.avgPrice,
   ]);
-  
+
   return (
     <>
       <Back
@@ -116,7 +117,7 @@ const Mine: React.FC = () => {
         itank={itank}
         itankInfo={itankInfo}
         onDismiss={() => setIsDepositOpen(false)}
-        key={isDepositOpen+'isDepositOpen'}
+        key={isDepositOpen + "isDepositOpen"}
         depositBalance={depositBalance}
       />
       <WithdrawModal
@@ -124,7 +125,7 @@ const Mine: React.FC = () => {
         itank={itank}
         itankInfo={itankInfo}
         onDismiss={() => setIsWithdrawOpen(false)}
-        key={isWithdrawOpen+'isWithdrawOpen'}
+        key={isWithdrawOpen + "isWithdrawOpen"}
         redeemAmount={redeemAmount}
         lastDate={lastDate}
         myShare={myShare}

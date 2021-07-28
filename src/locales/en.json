@@ -134,6 +134,10 @@
    "cgzdkchsl": "Exceeded the maximum repayable amount",
    "zhaicang": "debt",
    "fzcg": "Copy successfully",
-   "qbkypxzcyebz": "The balance of available parallel assets in the wallet is insufficient"
+   "qbkypxzcyebz": "The balance of available parallel assets in the wallet is insufficient",
+   "hcxe": "Exchange out limit：",
+   "buxian": "Unlimited",
+   "bxcyebz": "Insufficient insurance pool balance",
+   "dqjzxybnzr": "When per share is less than 0, deposit is prohibited"
   
 }

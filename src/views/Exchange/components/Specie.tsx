@@ -56,14 +56,14 @@ const Specie: React.FC = ({}) => {
     fee: itankPUSDFee,
     itankInfo: {
       earnFundBalance: PUSDItankBalance,
-      depositFundValue: USDTItankBalance,
+      depositFundBalance: USDTItankBalance,
     },
   } = useItankInfo(itankPUSD);
   const {
     fee: itankPETHFee,
     itankInfo: {
       earnFundBalance: PETHItankBalance,
-      depositFundValue: ETHItankBalance,
+      depositFundBalance: ETHItankBalance,
     },
   } = useItankInfo(itankPETH);
   const [approveStatusPETH, approvePETH] = useApprove(
@@ -201,15 +201,15 @@ const Specie: React.FC = ({}) => {
 
   const inputMax = useMemo(() => {
     var max = new BigNumber(inputCurrencyBalance).minus(0.01).toNumber();
-    var canBuyAmount = isETH ? max : inputCurrencyBalance;
+    var canBuyAmount = selectInputCurrency === "ETH"  ? max : inputCurrencyBalance;
     return parseFloat(canBuyAmount);
-  }, [inputCurrencyBalance, isETH, outputCurrencyBalance, isTransform]);
+  }, [inputCurrencyBalance, selectInputCurrency, outputCurrencyBalance, isTransform]);
 
-  const outputMax = useMemo(() => {
-    var max = Number.MAX_SAFE_INTEGER;
-    var canBuyAmount = isTransform ? max : outputCurrencyBalance;
-    return parseFloat(canBuyAmount);
-  }, [inputCurrencyBalance, isETH, outputCurrencyBalance, isTransform]);
+  // const outputMax = useMemo(() => {
+  //   var max = Number.MAX_SAFE_INTEGER;
+  //   var canBuyAmount = !isTransform ? max : outputCurrencyBalance;
+  //   return parseFloat(canBuyAmount);
+  // }, [inputCurrencyBalance, isETH, outputCurrencyBalance, isTransform]);
 
   const calcAmount = useCallback(
     ({ value, isInput }) => {
@@ -325,10 +325,13 @@ const Specie: React.FC = ({}) => {
   ]);
 
   const onConfirm = useCallback(async () => {
+    console.log(isTransform,outputValue > parseFloat(outputCurrencyBalance));
     if (!parseFloat(inputValue)) {
       Toast.info(t("qsrbdzcdhsl"), 1000);
     } else if (parseFloat(inputValue) > parseFloat(inputMax)) {
-      Toast.info(t(!isTransform?"qbbdzcyebz":'qbkypxzcyebz'), 1000);
+      Toast.info(t(!isTransform ? "qbbdzcyebz" : "qbkypxzcyebz"), 1000);
+    } else if (isTransform && outputValue > parseFloat(outputCurrencyBalance)) {
+      Toast.info(t("bxcyebz"), 1000);
     } else if (getDep(inputValue) > 18) {
       Toast.info(t("zdsrws"), 1000);
     } else {
@@ -337,7 +340,7 @@ const Specie: React.FC = ({}) => {
         ? basisCash?.contracts["PETHInsPool"]
         : basisCash?.contracts["PUSDInsPool"];
       const token = basisCash?.externalTokens[selectInputCurrency];
-   
+
       const result = await onExchange(
         itankContract,
         inputValue,
@@ -353,7 +356,6 @@ const Specie: React.FC = ({}) => {
     }
   }, [
     inputMax,
-    outputMax,
     inputValue,
     outputValue,
     basisCash?.externalTokens,
@@ -361,6 +363,7 @@ const Specie: React.FC = ({}) => {
     isTransform,
     isETH,
     selectInputCurrency,
+    outputCurrencyBalance,
   ]);
 
   const handleDocumentClick = useCallback(() => {
@@ -428,20 +431,30 @@ const Specie: React.FC = ({}) => {
             onClick={onTransformCurrency}
           />
         </StyledExchangeImg>
+        {/* "hcxe": "换出限额",
+  "buxian": "不限" */}
         <div className="flex-jc-center color-grey wing-blank-lg">
           <div>{t("dao")}</div>
           <div>
-            {t("bxjjye")}
+            {!isTransform ? t("hcxe") : t("bxjjye")}
             <span
-              className="color-dark text-underline cursor-pointer"
+              className={`color-dark ${
+                isTransform ? "text-underline cursor-pointer" : ""
+              }`}
               onClick={() => {
-                calcAmount({
-                  value: outputMax,
-                  isInput: false,
-                });
+                if (isTransform) {
+                  calcAmount({
+                    value: outputCurrencyBalance,
+                    isInput: false,
+                  });
+                }
               }}
             >
-              <Value value={outputCurrencyBalance} decimals={6} />
+              {!isTransform ? (
+                t("buxian")
+              ) : (
+                <Value value={outputCurrencyBalance} decimals={6} />
+              )}
             </span>
           </div>
         </div>

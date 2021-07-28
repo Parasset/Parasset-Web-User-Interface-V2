@@ -494,12 +494,12 @@ export class BasisCash {
   }
 
   async getMineTvl(depositToken, address, block, itank) {
+  
     try {
       let {
         totalSupply: stakeTotalSupply,
         rewardRate,
       } = await this.getChannelInfo(address, block);
-
       const totalSupply = await depositToken.totalSupply();
       const ratio = new BigNumber(stakeTotalSupply)
         .div(getTonumber(totalSupply))
@@ -508,6 +508,7 @@ export class BasisCash {
       const totalValue = new BigNumber(itankInfo.depositFundValue).plus(
         itankInfo.earnFundValue
       );
+    
       return {
         tvl: new BigNumber(ratio).times(totalValue).toNumber(),
         rewardRate,

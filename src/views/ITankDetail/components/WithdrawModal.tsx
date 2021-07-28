@@ -103,9 +103,11 @@ const DepositModal: React.FC = ({
       Toast.info(t("yebz"), 1000);
     } else if (getDep(val) > 18) {
       Toast.info(t("zdsrws"), 1000);
+    } else if (itankInfo.perShare < 0) {
+      Toast.info(t("dqjzxybnzr"), 1000);
     } else {
       setPendingTx(true);
-
+      //
       const result = await onWithdraw(val + "");
       setPendingTx(false);
       if (result !== "0") {
@@ -115,7 +117,7 @@ const DepositModal: React.FC = ({
         }, 1000);
       }
     }
-  }, [onWithdraw, val, canBuyAmount]);
+  }, [onWithdraw, val, itankInfo.perShare, canBuyAmount]);
 
   const handleSelectMax = useCallback(() => {
     setVal(canBuyAmount);

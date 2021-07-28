@@ -136,6 +136,10 @@
   "cgzdkchsl": "超过最大可偿还数量",
   "zhaicang": "债仓",
   "fzcg": "复制成功",
-  "qbkypxzcyebz": "钱包可用平行资产余额不足"
+  "qbkypxzcyebz": "钱包可用平行资产余额不足",
+  "hcxe": "换出限额：",
+  "buxian": "不限",
+  "bxcyebz": "保险池余额不足",
+  "dqjzxybnzr": "当前净值小于0不能注入"
 
 }
