@@ -102,9 +102,26 @@ const Specie: React.FC = ({}) => {
     basisCash?.externalTokens["PETH"],
     basisCash?.contracts["PETHMorPool"]?.address
   );
+  const [approveStatusNESTPETH, approveNESTPETH] = useApprove(
+    basisCash?.externalTokens["NEST"],
+    basisCash?.contracts["PETHMorPool"]?.address
+  );
+  const [approveStatusNESTPUSD, approveNESTPUSD] = useApprove(
+    basisCash?.externalTokens["NEST"],
+    basisCash?.contracts["PUSDMorPool"]?.address
+  );
+  //
 
   const approveList = useMemo(() => {
     return {
+      NESTPETH: {
+        status: approveStatusNESTPETH,
+        approve: approveNESTPETH,
+      },
+      NESTPUSD: {
+        status: approveStatusNESTPUSD,
+        approve: approveNESTPUSD,
+      },
       PETH: {
         status: approveStatusPETH,
         approve: approvePETH,
@@ -162,7 +179,9 @@ const Specie: React.FC = ({}) => {
 
   const maxList = useMemo(() => {
     return {
-      ETH: new BigNumber(ETHWalletBalance).minus(0.02).toNumber(),
+      ETH: ETHWalletBalance
+        ? new BigNumber(ETHWalletBalance).minus(0.02).toNumber()
+        : 0,
       NEST: NESTWalletBalance,
     };
   }, [ETHWalletBalance, NESTWalletBalance]);
@@ -183,7 +202,9 @@ const Specie: React.FC = ({}) => {
   }, [inputValue, NESTToUSDTPrice, ETHAvgPrice, isETH]);
 
   const inputMax = useMemo(() => {
-    var max = new BigNumber(inputCurrencyBalance).minus(0.02).toNumber();
+    var max = ETHWalletBalance
+      ? new BigNumber(ETHWalletBalance).minus(0.02).toNumber()
+      : 0;
     var canBuyAmount = isETH ? max : inputCurrencyBalance;
     return parseFloat(canBuyAmount);
   }, [inputCurrencyBalance, isETH]);
@@ -276,7 +297,6 @@ const Specie: React.FC = ({}) => {
       //默认输出PUSD
       setSelectOutputCurrency(currencyListOutput[0].id);
       const max = maxList[id];
-      console.log(inputValue, max);
       setInputValue(parseFloat(inputValue) > max ? max : inputValue);
     },
     [isETH, currencyListOutput, inputMax, maxList, inputValue]
@@ -505,8 +525,22 @@ const Specie: React.FC = ({}) => {
           }
         />
         <Spacer />
-
-        {!fee ? (
+        {/* NESTPETH NESTPUSD 如果不是eth，就要授权给nest,然后看fee有没有大于0，大于0就需要授权 */}
+        {selectInputCurrency !== "ETH" &&
+        approveList[selectInputCurrency + selectOutputCurrency].status ? (
+          <Button
+            text={`${t("sq")} ${selectInputCurrency}`}
+            variant="secondary"
+            disabled={pendingTx}
+            onClick={async () => {
+              setPendingTx(true);
+              await approveList[
+                selectInputCurrency + selectOutputCurrency
+              ].approve();
+              setPendingTx(false);
+            }}
+          />
+        ) : !fee ? (
           <Button
             text={t("zhubi")}
             variant="secondary"

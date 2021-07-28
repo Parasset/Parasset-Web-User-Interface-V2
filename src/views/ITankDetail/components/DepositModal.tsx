@@ -107,7 +107,7 @@ const DepositModal: React.FC = ({
         columns={{
           currentValue: {
             label: "dqjz",
-            value: <Value value={itankInfo.perShare} decimals={6} />,
+            value: <Value value={itankInfo.perShare} decimals={6} placeholder={true} />,
             unit: "",
           },
           estimateShare: {
