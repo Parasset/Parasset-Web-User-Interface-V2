@@ -8,6 +8,7 @@ import {
   getToBignumber,
   getTonumber,
 } from "../utils/formatBalance";
+import { formatUnits,  } from 'ethers/lib/utils';
 import { formatDate } from "../utils/utils";
 
 import { getDefaultProvider } from "../utils/provider";
@@ -355,6 +356,7 @@ export class BasisCash {
       } else {
         depositFundBalance = await this.provider.getBalance(address);
         depositFundBalance = getTonumber(depositFundBalance);
+     
       }
       let earnFundBalance = await this.getFundBalance(earnToken, address);
       let negative = await itankContract._insNegative();
@@ -564,6 +566,7 @@ export class BasisCash {
         ...value,
       });
     } catch (error) {
+      console.log(itankContract.address, amount, value)
       console.log(error);
       return "0";
     }
@@ -581,6 +584,7 @@ export class BasisCash {
         ...value,
       });
     } catch (error) {
+      console.log(itankContract.address, amount, value)
       console.log(error);
       return "0";
     }

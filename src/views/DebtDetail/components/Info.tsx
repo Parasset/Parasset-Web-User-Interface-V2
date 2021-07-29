@@ -27,7 +27,10 @@ const Info: React.FC = ({ debt, debtInfo }) => {
               <Spacer size={isMobile ? "mmd" : "md"} />
               <div className="flex-jc-center">
                 <Label
-                  label={t("dqjg")}
+                  label={t("dqjg",{
+                    tokenName1:debt.depositTokenName,
+                    tokenName2:debt.liqUnit,
+                  })}
                   value={
                     <Value value={debtInfo?.mortgagePrice} suffix="USDT" />
                   }

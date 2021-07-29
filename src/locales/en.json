@@ -34,7 +34,7 @@
   "ksh": "Redeemable",
   "kzb": "Mintable",
   "qsjg": "Liquidation Price",
-  "dqjg": "Current NEST-USDT Price",
+  "dqjg": "Current {{tokenName1}}-{{tokenName2}} Price",
   "dqdyl": "Current Coll. Ratio",
   "qsdyl": "Liquidation Ratio",
   "kuangchi": "Mining pool",
@@ -112,7 +112,7 @@
   "qsrdysl": "Please enter the stake amount",
   "qsrshsl": "Please enter the withdraw amount",
   "yebz": "Insufficient balance",
-  "zdsrws": "Enter up to 18 digits",
+  "zdsrws": "Enter up to 15 digits",
   "zhuru": "Deposit",
   "qsrzrsl": "Please enter the stake amount",
   "qsrtqsl": "Please enter the withdraw amount",
@@ -138,6 +138,7 @@
    "hcxe": "Exchange out limit：",
    "buxian": "Unlimited",
    "bxcyebz": "Insufficient insurance pool balance",
-   "dqjzxybnzr": "When per share is less than 0, deposit is prohibited"
+   "dqjzxybnzr": "When per share is less than 0, deposit is prohibited",
+   "xch": "Repayable"
   
 }

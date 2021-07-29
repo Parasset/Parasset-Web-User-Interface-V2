@@ -34,7 +34,7 @@
   "ksh": "可赎回",
   "kzb": "可铸币",
   "qsjg": "清算价格",
-  "dqjg": "当前 NEST-USDT 价格",
+  "dqjg": "当前 {{tokenName1}}-{{tokenName2}} 价格",
   "dqdyl": "当前抵押率",
   "qsdyl": "清算抵押率",
   "kuangchi": "矿池",
@@ -112,7 +112,7 @@
   "qsrdysl": "请输入抵押数量",
   "qsrshsl": "请输入赎回数量",
   "yebz": "余额不足",
-  "zdsrws": "最多输入18位",
+  "zdsrws": "最多输入15位",
   "zhuru": "注入",
   "qsrzrsl": "请输入注入数量",
   "qsrtqsl": "请输入提取数量",
@@ -140,6 +140,7 @@
   "hcxe": "换出限额：",
   "buxian": "不限",
   "bxcyebz": "保险池余额不足",
-  "dqjzxybnzr": "当前净值小于0不能注入"
+  "dqjzxybnzr": "当前净值小于0不能注入",
+  "xch": "待偿还"
 
 }

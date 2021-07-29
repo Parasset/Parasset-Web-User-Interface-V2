@@ -205,11 +205,6 @@ const Specie: React.FC = ({}) => {
     return parseFloat(canBuyAmount);
   }, [inputCurrencyBalance, selectInputCurrency, outputCurrencyBalance, isTransform]);
 
-  // const outputMax = useMemo(() => {
-  //   var max = Number.MAX_SAFE_INTEGER;
-  //   var canBuyAmount = !isTransform ? max : outputCurrencyBalance;
-  //   return parseFloat(canBuyAmount);
-  // }, [inputCurrencyBalance, isETH, outputCurrencyBalance, isTransform]);
 
   const calcAmount = useCallback(
     ({ value, isInput }) => {
@@ -325,14 +320,13 @@ const Specie: React.FC = ({}) => {
   ]);
 
   const onConfirm = useCallback(async () => {
-    console.log(isTransform,outputValue > parseFloat(outputCurrencyBalance));
     if (!parseFloat(inputValue)) {
       Toast.info(t("qsrbdzcdhsl"), 1000);
     } else if (parseFloat(inputValue) > parseFloat(inputMax)) {
       Toast.info(t(!isTransform ? "qbbdzcyebz" : "qbkypxzcyebz"), 1000);
     } else if (isTransform && outputValue > parseFloat(outputCurrencyBalance)) {
       Toast.info(t("bxcyebz"), 1000);
-    } else if (getDep(inputValue) > 18) {
+    } else if (getDep(inputValue) > 15) {
       Toast.info(t("zdsrws"), 1000);
     } else {
       setPendingTx(true);

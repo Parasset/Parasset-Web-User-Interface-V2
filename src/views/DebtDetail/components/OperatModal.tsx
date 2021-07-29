@@ -278,7 +278,7 @@ const Mine: React.FC = ({
         icon: debt.icon2,
         depositTokenName: debt.earnTokenName,
         placeholder: "qsrchsl",
-        balanceTxt: "keyong",
+        balanceTxt: "xch",
         exceededTip: "cgzdkchsl",
         columns,
       },
@@ -303,7 +303,7 @@ const Mine: React.FC = ({
       Toast.info(t(dataInfo[select].exceededTip), 1000);
     } else if (parseFloat(ETHWalletBalance) < 0.01) {
       Toast.info(t("qbkyethbz"), 1000);
-    } else if (getDep(val) > 18) {
+    } else if (getDep(val) > 15) {
       Toast.info(t("zdsrws"), 1000);
     } else {
       setPendingTx(true);

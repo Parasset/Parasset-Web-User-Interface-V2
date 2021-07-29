@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { useCallback, useEffect, useState } from "react";
 import useBasisCash from "./useBasisCash";
 import config from "../config";

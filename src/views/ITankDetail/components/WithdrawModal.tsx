@@ -101,7 +101,7 @@ const DepositModal: React.FC = ({
       Toast.info(t("qsrzrsl"), 1000);
     } else if (parseFloat(val) > parseFloat(canBuyAmount)) {
       Toast.info(t("yebz"), 1000);
-    } else if (getDep(val) > 18) {
+    } else if (getDep(val) > 15) {
       Toast.info(t("zdsrws"), 1000);
     } else if (itankInfo.perShare < 0) {
       Toast.info(t("dqjzxybnzr"), 1000);

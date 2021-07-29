@@ -8,16 +8,18 @@ const useExchange = () => {
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleExchange = useCallback(
-    (itankContract, amount, decimal, isTransform,isPayETH) => {
-      
+    (itankContract, amount, decimal, isTransform, isPayETH) => {
       try {
-        const value=isPayETH?{value: decimalToBalance(String(parseFloat(amount)), 18)}:{}
+        const value = isPayETH
+          ? { value: decimalToBalance(String(parseFloat(amount)), 18) }
+          : {};
         const amountBn = decimalToBalance(String(amount), decimal);
+
         return handleTransactionReceipt(
           !isTransform
             ? basisCash.exchangeUnderlyingToPToken
             : basisCash.exchangePTokenToUnderlying,
-          [itankContract, amountBn,value]
+          [itankContract, amountBn, value]
         );
       } catch (error) {
         console.log(
