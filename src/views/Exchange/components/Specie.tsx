@@ -105,6 +105,7 @@ const Specie: React.FC = ({}) => {
     approveUSDT,
     approvePUSD,
   ]);
+
   const inputCurrencyList = useMemo(() => {
     return [
       {
@@ -214,6 +215,7 @@ const Specie: React.FC = ({}) => {
 
   const calcAmount = useCallback(
     ({ value, isInput }) => {
+   
       if (isInput) {
         const val =
           value === "" ? value : $isPositiveNumber($isFiniteNumber(value));
@@ -226,6 +228,7 @@ const Specie: React.FC = ({}) => {
 
         setOutputValue(outputAmount);
       } else {
+        console.log(value,$isPositiveNumber($isFiniteNumber(value)));
         const val =
           value === "" ? value : $isPositiveNumber($isFiniteNumber(value));
         setOutputValue(val);
@@ -431,8 +434,7 @@ const Specie: React.FC = ({}) => {
             onClick={onTransformCurrency}
           />
         </StyledExchangeImg>
-        {/* "hcxe": "换出限额",
-  "buxian": "不限" */}
+  
         <div className="flex-jc-center color-grey wing-blank-lg">
           <div>{t("dao")}</div>
           <div>

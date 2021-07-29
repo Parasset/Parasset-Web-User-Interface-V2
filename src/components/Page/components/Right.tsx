@@ -1,6 +1,7 @@
 //@ts-nocheck
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
+import Toast from "light-toast";
 import { useWallet } from "use-wallet";
 import { useTranslation } from "react-i18next";
 import Button from "../../Button";
@@ -12,9 +13,10 @@ import useEncryptAddress from "../../../hooks/useEncryptAddress";
 import useBasisCash from "../../../hooks/useBasisCash";
 import useTotalSupply from "../../../hooks/useTokenTotalSupply";
 import usePrice from "../../../hooks/coin/usePrice";
+import config from "../../../config";
 const Right: React.FC = () => {
   const { t } = useTranslation();
-  const { account, connect } = useWallet();
+  const { account, connect, chainId } = useWallet();
   const newAccount = useEncryptAddress(account);
   const basisCash = useBasisCash();
   const PUSDTotalSupply = useTotalSupply(basisCash?.externalTokens["PUSD"]);
@@ -23,10 +25,15 @@ const Right: React.FC = () => {
   const [isOpen, setOpen] = useState(false);
   const { NESTToUSDTPrice, NESTToETHPrice, ETHAvgPrice } = usePrice();
   useEffect(() => {
-    if (!account) {
-      connect("injected");
+    if (config.chainId === chainId) {
+      if (!account) {
+        connect("injected");
+      }
+    } else {
+      // console.log('????');
+      // Toast.info(t("fzcg"));
     }
-  }, [account]);
+  }, [account, chainId]);
   return (
     <StyledNavRight>
       <StyledWallet className="flex-row-center-center bd-bottom wing-blank-lg ">
@@ -87,9 +94,12 @@ const Right: React.FC = () => {
             <div className="flex-jc-center">
               <TokenSymbol symbol="PUSD" size={25} />
             </div>
-        
+
             <div className="margin-left-10">
-              <div> <Value value={PUSDTotalSupply} /> </div>
+              <div>
+                {" "}
+                <Value value={PUSDTotalSupply} />{" "}
+              </div>
               <div>PUSD</div>
             </div>
           </div>
@@ -99,7 +109,10 @@ const Right: React.FC = () => {
               <TokenSymbol symbol="PETH" size={25} />
             </div>
             <div className="margin-left-10">
-              <div> <Value value={PETHTotalSupply} /> </div>
+              <div>
+                {" "}
+                <Value value={PETHTotalSupply} />{" "}
+              </div>
               <div>PETH</div>
             </div>
           </div>

@@ -30,14 +30,11 @@ export const getQueryParam = (name, search) => {
 };
 
 export const $isFiniteNumber = (val) => {
-  val = parseFloat(val);
-  return !Number.isFinite(val) ? 0 : val;
+  return !Number.isFinite(parseFloat(val)) ? 0 : val;
 };
 export const $isPositiveNumber = (val) => {
-  val = parseFloat(val);
-  return val > 0 ? val : 0;
+  return new BigNumber(val).gt(0) ? val : 0;
 };
 export const getEncryptAddress = (address) => {
- return address? address.replace(/(\w{4})\w*(\w{4})/, '$1******$2'):''
+  return address ? address.replace(/(\w{4})\w*(\w{4})/, "$1******$2") : "";
 };
-

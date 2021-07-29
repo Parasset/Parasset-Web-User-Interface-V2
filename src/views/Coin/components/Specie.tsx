@@ -110,7 +110,6 @@ const Specie: React.FC = ({}) => {
     basisCash?.externalTokens["NEST"],
     basisCash?.contracts["PUSDMorPool"]?.address
   );
-  //
 
   const approveList = useMemo(() => {
     return {
@@ -426,7 +425,6 @@ const Specie: React.FC = ({}) => {
       setSelectOutputCurrency(outputCurrency);
     }
   }, [inputCurrency, outputCurrency]);
-
   return (
     <>
       <Spacer size="sm" />
@@ -556,7 +554,7 @@ const Specie: React.FC = ({}) => {
               setPendingTx(false);
             }}
           />
-        ) : !fee ? (
+        ) : !parseFloat(fee) ? (
           <Button
             text={t("zhubi")}
             variant="secondary"
