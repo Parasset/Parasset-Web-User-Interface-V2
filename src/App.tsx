@@ -67,9 +67,12 @@ const App: React.FC = () => {
 const Providers: React.FC = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
-      <UseWalletProvider chainId={config.chainId}  connectors={{
+      <UseWalletProvider 
+      chainId={config.chainId}  
+      connectors={{
           walletconnect: { rpcUrl: 'https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161' },
-        }}>
+        }}
+        >
         <Provider store={store}>
           <Updaters />
           <BasisCashProvider>

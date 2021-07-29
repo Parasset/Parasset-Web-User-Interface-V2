@@ -470,7 +470,7 @@ const Specie: React.FC = ({}) => {
             setShowOutputCurrencySelect(!showOutputCurrencySelect);
           }}
           onChangeSelect={onChangeOutputCurrencySelect}
-          isInputCurrencySelect={false}
+          isInputCurrencySelect={true}
           value={outputValue}
           handleChange={handleChangeOutputValue}
           onBlur={(e) => {

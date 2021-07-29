@@ -87,7 +87,7 @@
   "zjtqr": "最近提取日",
   "yjtqusdt": "预计提取",
   "yjtqpusd": "预计提取",
-  "sypusd": "剩余",
+  "sypusd": "剩余可提取",
   "wdbxzh": "我的保险账户",
   "bxjjzh": "保险基金账户",
   "sq": "授权",
@@ -112,7 +112,7 @@
   "qsrdysl": "请输入抵押数量",
   "qsrshsl": "请输入赎回数量",
   "yebz": "余额不足",
-  "zdsrws": "最多输入15位",
+  "zdsrws": "最多输入18位",
   "zhuru": "注入",
   "qsrzrsl": "请输入注入数量",
   "qsrtqsl": "请输入提取数量",
@@ -142,6 +142,9 @@
   "bxcyebz": "保险池余额不足",
   "dqjzxybnzr": "当前净值小于0不能注入",
   "xch": "待偿还",
-  "qbkypxzcbz": "钱包可用平行资产不足"
+  "qbkypxzcbz": "钱包可用平行资产不足",
+  "cswlcw": "网络错误，请连接“以太坊Rinkeby测试网！”",
+  "zwwlcw": "网络错误，请连接“以太坊主网！",
+  "bxcks": "保险池亏损，可提取资金为0"
 
 }

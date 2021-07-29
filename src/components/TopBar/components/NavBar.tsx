@@ -110,8 +110,8 @@ const Nav: React.FC = ({toggleShow}) => {
             <img
               src={
                 pathname.includes("/mine")
-                  ? require("../../../assets/img/pool_icon1.png")
-                  : require("../../../assets/img/pool_icon.png")
+                  ? require("../../../assets/img/mine_icon1.png")
+                  : require("../../../assets/img/mine_icon.png")
               }
               width="35"
               height="35"

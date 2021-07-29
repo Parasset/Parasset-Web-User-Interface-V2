@@ -40,10 +40,12 @@ const DepositModal: React.FC = ({
       Toast.info(t("yebz"), 1000);
     } else if (getDep(val) > 18) {
       Toast.info(t("zdsrws"), 1000);
+    } else if (itankInfo.perShare < 0) {
+      Toast.info(t("dqjzxybnzr"), 1000);
     } else {
       setPendingTx(true);
 
-      const result = await onStake(val + "",itank.depositTokenName === "ETH");
+      const result = await onStake(val + "", itank.depositTokenName === "ETH");
       setPendingTx(false);
       if (result !== "0") {
         setTimeout(() => {
@@ -52,7 +54,7 @@ const DepositModal: React.FC = ({
         }, 1000);
       }
     }
-  }, [onStake, val, canBuyAmount,itank.depositTokenName]);
+  }, [onStake, val, canBuyAmount, itankInfo.perShare, itank.depositTokenName]);
 
   const handleSelectMax = useCallback(() => {
     if (itank.depositTokenName === "ETH") {
@@ -107,7 +109,13 @@ const DepositModal: React.FC = ({
         columns={{
           currentValue: {
             label: "dqjz",
-            value: <Value value={itankInfo.perShare} decimals={6} placeholder={true} />,
+            value: (
+              <Value
+                value={itankInfo.perShare}
+                decimals={6}
+                placeholder={true}
+              />
+            ),
             unit: "",
           },
           estimateShare: {

@@ -16,7 +16,7 @@ import usePrice from "../../../hooks/coin/usePrice";
 import config from "../../../config";
 const Right: React.FC = () => {
   const { t } = useTranslation();
-  const { account, connect, chainId } = useWallet();
+  const { account, connect, status, } = useWallet();
   const newAccount = useEncryptAddress(account);
   const basisCash = useBasisCash();
   const PUSDTotalSupply = useTotalSupply(basisCash?.externalTokens["PUSD"]);
@@ -25,15 +25,13 @@ const Right: React.FC = () => {
   const [isOpen, setOpen] = useState(false);
   const { NESTToUSDTPrice, NESTToETHPrice, ETHAvgPrice } = usePrice();
   useEffect(() => {
-    if (config.chainId === chainId) {
-      if (!account) {
-        connect("injected");
-      }
-    } else {
-      // console.log('????');
-      // Toast.info(t("fzcg"));
+    if (status === "disconnected") {
+      connect("injected");
+    } else if (status === "error") {
+      Toast.info(t("cswlcw"));
     }
-  }, [account, chainId]);
+  }, [status]);
+
   return (
     <StyledNavRight>
       <StyledWallet className="flex-row-center-center bd-bottom wing-blank-lg ">

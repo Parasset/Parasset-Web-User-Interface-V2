@@ -80,8 +80,6 @@ const DepositModal: React.FC = ({
   }, [redeemAmount, lastDate]);
 
   const estimateValue = useMemo(() => {
-    console.log(itankInfo.perShare,'itankInfo.perShare');
-    
     //     提取保险的时候，提取金额X=输入的份额*净值；
     // 1、若X＜0（因为净值可能小于0），则预计可赎回的标的资产和平行资产都为0，点击“确定”时提示“保险池亏损，可提取资金为0” 英文提示：The loss of the insurance pool, and the available capital is 0
     // 2、若0≤X≤保险基金账户的标的资产数量，则预计提取的标的资产数量=X，预计提取的平行资产数量=0；点击“确定”可正常提取
@@ -111,9 +109,9 @@ const DepositModal: React.FC = ({
 
   const remainingShare = useMemo(() => {
     // 持有的LP-提取LP-USD数量输入值
-    let amount = new BigNumber(myShare).minus(val);
+    let amount = new BigNumber(canBuyAmount).minus(val);
     return $isFiniteNumber(amount.toNumber());
-  }, [val, myShare]);
+  }, [val, canBuyAmount]);
 
   const onConfirm = useCallback(async () => {
     if (!parseFloat(val)) {
@@ -123,7 +121,7 @@ const DepositModal: React.FC = ({
     } else if (getDep(val) > 18) {
       Toast.info(t("zdsrws"), 1000);
     } else if (itankInfo.perShare < 0) {
-      Toast.info(t("dqjzxybnzr"), 1000);
+      Toast.info(t("bxcks"), 1000);
     } else {
       setPendingTx(true);
       //

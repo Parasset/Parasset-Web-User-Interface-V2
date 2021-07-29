@@ -44,7 +44,6 @@ const Specie: React.FC = ({}) => {
   const [inputValue, setInputValue] = useState(0);
   const [outputValue, setOutputValue] = useState(0);
   const [pendingTx, setPendingTx] = useState(false);
-
   const [showInputCurrencySelect, setShowInputCurrencySelect] = useState(false);
 
   const [selectInputCurrency, setSelectInputCurrency] = useState("ETH");

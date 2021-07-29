@@ -12,17 +12,19 @@ const useCoin = () => {
     (mortgagePoolContract, mortgageToken, amount, ratio) => {
       const amountBn = decimalToBalance(String(amount), mortgageToken.decimal);
       const value = decimalToBalance(
-        mortgageToken.symbol === "ETH" ? String(amount + 0.01) : String(0.01),
+        mortgageToken.symbol === "ETH"
+          ? new BigNumber(amount).plus(0.01).toFixed()
+          : String(0.01),
         mortgageToken.decimal
       );
-      ratio = new BigNumber(ratio).times(100000).toFixed(0,1);
-      console.log(ratio,Number(ratio) );
+      ratio = new BigNumber(ratio).times(100000).toFixed(0, 1);
+      console.log(ratio, Number(ratio));
       return handleTransactionReceipt(basisCash.coin, [
         mortgagePoolContract,
         mortgageToken,
         amountBn,
         // parseInt(ratio),
-       Number(ratio) ,
+        Number(ratio),
         value,
       ]);
     },
