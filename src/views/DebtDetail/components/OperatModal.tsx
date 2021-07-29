@@ -24,6 +24,7 @@ const Mine: React.FC = ({
   debtInfo,
   max,
   parassetBalance,
+  mortgageBalance,
 }) => {
   const { t } = useTranslation();
   const basisCash = useBasisCash();
@@ -201,7 +202,7 @@ const Mine: React.FC = ({
       },
       payFee: {
         label: "jnwdf",
-        value: <Value value={debtInfo.fee} />,
+        value: <Value value={debtInfo.fee} showAll={true} />,
         unit: debt.earnTokenName,
       },
       oracleFee: {
@@ -230,7 +231,7 @@ const Mine: React.FC = ({
       },
       payFee: {
         label: "jnwdf",
-        value: <Value value={debtInfo.fee} />,
+        value: <Value value={debtInfo.fee} showAll={true} />,
         unit: debt.earnTokenName,
       },
       oracleFee: {
@@ -294,17 +295,25 @@ const Mine: React.FC = ({
       },
     };
   }, [debt, assetChanges, columns]);
-
   const onConfirm = useCallback(async () => {
-    // parassetBalance
     if (!parseFloat(val)) {
       Toast.info(t(dataInfo[select].placeholder), 1000);
     } else if (parseFloat(val) > parseFloat(canBuyAmount)) {
       Toast.info(t(dataInfo[select].exceededTip), 1000);
     } else if (parseFloat(ETHWalletBalance) < 0.01) {
       Toast.info(t("qbkyethbz"), 1000);
-    } else if (getDep(val) > 15) {
+    } else if (getDep(val) > 18) {
       Toast.info(t("zdsrws"), 1000);
+    } else if (
+      select !== "Repay" &&
+      new BigNumber(parassetBalance).lt(new BigNumber(debtInfo.fee))
+    ) {
+      Toast.info(t("qbkypxzcbz"), 1000);
+    } else if (
+      select === "Repay" &&
+      new BigNumber(parassetBalance).lt(new BigNumber(debtInfo.fee).plus(val))
+    ) {
+      Toast.info(t("qbkypxzcbz"), 1000);
     } else {
       setPendingTx(true);
       const result = await onHandlerDebt(
@@ -321,7 +330,7 @@ const Mine: React.FC = ({
         }, 1000);
       }
     }
-  }, [onHandlerDebt, select, val, ETHWalletBalance, canBuyAmount, dataInfo,]);
+  }, [onHandlerDebt, select, val, ETHWalletBalance, canBuyAmount, dataInfo]);
 
   const handleSelectMax = useCallback(() => {
     setVal(canBuyAmount);

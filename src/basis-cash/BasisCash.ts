@@ -218,6 +218,7 @@ export class BasisCash {
         this.gasETHAddress(mortgageToken),
         address
       );
+      const maxRatio= await this.getMaxRatio(mortgagePoolContract, mortgageToken) 
   
       
       const fee = await this.getStableFee(
@@ -281,6 +282,7 @@ export class BasisCash {
         fee,
         liqRatio,
         liqPrice,
+        maxRatio,
 
         mortgagePrice,
         parassetPrice,
@@ -431,6 +433,8 @@ export class BasisCash {
   async getRedemptionAmount(itankContract, decimal, address) {
     try {
       let amount = await itankContract.getRedemptionAmount(address);
+      
+      
       return getTonumber(amount, decimal);
     } catch (error) {
       console.log(
@@ -573,10 +577,6 @@ export class BasisCash {
   }
 
   async exchangeUnderlyingToPToken(itankContract, amount, value) {
-    console.log({
-      from: this.myAccount,
-      ...value,
-    });
 
     try {
       return await itankContract.exchangeUnderlyingToPToken(amount, {

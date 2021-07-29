@@ -44,6 +44,7 @@ const Specie: React.FC = ({}) => {
   );
   const [selectOutputCurrency, setSelectOutputCurrency] = useState("PETH");
 
+  // 10020040080160
   const { onBlur } = useBlur();
   const ETHWalletBalance = useTokenBalance(basisCash?.externalTokens["ETH"]);
   const USDTWalletBalance = useTokenBalance(basisCash?.externalTokens["USDT"]);
@@ -201,10 +202,15 @@ const Specie: React.FC = ({}) => {
 
   const inputMax = useMemo(() => {
     var max = new BigNumber(inputCurrencyBalance).minus(0.01).toNumber();
-    var canBuyAmount = selectInputCurrency === "ETH"  ? max : inputCurrencyBalance;
+    var canBuyAmount =
+      selectInputCurrency === "ETH" ? max : inputCurrencyBalance;
     return parseFloat(canBuyAmount);
-  }, [inputCurrencyBalance, selectInputCurrency, outputCurrencyBalance, isTransform]);
-
+  }, [
+    inputCurrencyBalance,
+    selectInputCurrency,
+    outputCurrencyBalance,
+    isTransform,
+  ]);
 
   const calcAmount = useCallback(
     ({ value, isInput }) => {
@@ -228,7 +234,7 @@ const Specie: React.FC = ({}) => {
           .div(new BigNumber(1).minus(feeRatio))
           .toNumber();
         const inputAmount = $isPositiveNumber($isFiniteNumber(amount));
-        setInputValue(inputAmount);
+        setInputValue(inputAmount); 
       }
     },
     [
@@ -326,7 +332,7 @@ const Specie: React.FC = ({}) => {
       Toast.info(t(!isTransform ? "qbbdzcyebz" : "qbkypxzcyebz"), 1000);
     } else if (isTransform && outputValue > parseFloat(outputCurrencyBalance)) {
       Toast.info(t("bxcyebz"), 1000);
-    } else if (getDep(inputValue) > 15) {
+    } else if (getDep(inputValue) > 18) {
       Toast.info(t("zdsrws"), 1000);
     } else {
       setPendingTx(true);
@@ -430,7 +436,7 @@ const Specie: React.FC = ({}) => {
         <div className="flex-jc-center color-grey wing-blank-lg">
           <div>{t("dao")}</div>
           <div>
-            { t("hcxe")}
+            {t("hcxe")}
             <span
               className={`color-dark ${
                 isTransform ? "text-underline cursor-pointer" : ""

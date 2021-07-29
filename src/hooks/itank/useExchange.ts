@@ -24,8 +24,8 @@ const useExchange = () => {
       } catch (error) {
         console.log(
           "🚀 ~ file: useExchange.ts ~ line 21 ~ useExchange ~ error",
-          // decimalToBalance(amount, decimal),
           amount,
+          decimal,
           error
         );
       }

@@ -8,6 +8,7 @@ import HandlerModal from "../../../components/HandlerModal";
 import { getDep, $isFiniteNumber } from "../../../utils/utils";
 import useWithdraw from "../../../hooks/itank/useWithdraw";
 import useBlur from "../../../hooks/useBlur";
+import { X } from "react-feather";
 const DepositModal: React.FC = ({
   isOpen,
   onDismiss,
@@ -78,17 +79,35 @@ const DepositModal: React.FC = ({
     }
   }, [redeemAmount, lastDate]);
 
+  const estimateValue = useMemo(() => {
+    console.log(itankInfo.perShare,'itankInfo.perShare');
+    
+    //     提取保险的时候，提取金额X=输入的份额*净值；
+    // 1、若X＜0（因为净值可能小于0），则预计可赎回的标的资产和平行资产都为0，点击“确定”时提示“保险池亏损，可提取资金为0” 英文提示：The loss of the insurance pool, and the available capital is 0
+    // 2、若0≤X≤保险基金账户的标的资产数量，则预计提取的标的资产数量=X，预计提取的平行资产数量=0；点击“确定”可正常提取
+    // 3、若X＞保险基金的标的资产数量，则预计提取的标的资产数量=保险基金中标的资产的数量；预计提取的平行资产数量=X-保险基金中标的资产数量；点击“确定”可正常提取
+    const x = new BigNumber(itankInfo.perShare).times(val);
+    return x
+  }, [val, itankInfo]);
+
   const estimateWithdrawDepositToken = useMemo(() => {
-    // 预计赎回的USDT数量=(提取LP-USD数量输入值/持有的LP-USDT数量)*我的保险中USDT的数量
-    let amount = new BigNumber(val).div(myShare).times(myAssets?.depositAssets);
-    return $isFiniteNumber(amount.toNumber());
-  }, [val, myShare, myAssets]);
+    const value = estimateValue.lt(0)
+      ? 0
+      : estimateValue.lte(itankInfo.depositFundBalance)
+      ? estimateValue.toNumber()
+      : itankInfo.depositFundBalance;
+
+    return value;
+  }, [estimateValue, itankInfo.depositFundBalance]);
 
   const estimateWithdrawEarnToken = useMemo(() => {
-    // 预计赎回的PUSD数量=(提取LP-USD数量输入值/持有的LP-USDT数量)*我的保险中PUSD的数量
-    let amount = new BigNumber(val).div(myShare).times(myAssets?.earnAssets);
-    return $isFiniteNumber(amount.toNumber());
-  }, [val, myShare, myAssets]);
+    const value = estimateValue.lt(0)
+      ? 0
+      : estimateValue.lte(itankInfo.depositFundBalance)
+      ? 0
+      : estimateValue.minus(itankInfo.depositFundBalance).toNumber();
+    return value;
+  }, [estimateValue, itankInfo.depositFundBalance]);
 
   const remainingShare = useMemo(() => {
     // 持有的LP-提取LP-USD数量输入值
@@ -101,7 +120,7 @@ const DepositModal: React.FC = ({
       Toast.info(t("qsrzrsl"), 1000);
     } else if (parseFloat(val) > parseFloat(canBuyAmount)) {
       Toast.info(t("yebz"), 1000);
-    } else if (getDep(val) > 15) {
+    } else if (getDep(val) > 18) {
       Toast.info(t("zdsrws"), 1000);
     } else if (itankInfo.perShare < 0) {
       Toast.info(t("dqjzxybnzr"), 1000);
@@ -177,20 +196,20 @@ const DepositModal: React.FC = ({
           },
           estimateWithdrawDepositToken: {
             label: "yjtqusdt",
-            value: <Value value={estimateWithdrawDepositToken} decimals={6} />,
+            value: <Value value={estimateWithdrawDepositToken} showAll={true} />,
             unit: "",
             labelUnit: itank.depositTokenName,
           },
           estimateWithdrawEarnToken: {
             label: "yjtqpusd",
-            value: <Value value={estimateWithdrawEarnToken} decimals={6} />,
+            value: <Value value={estimateWithdrawEarnToken} showAll={true} />,
             unit: "",
             labelUnit: itank.earnTokenName,
           },
           remaining: {
             label: "sypusd",
             labelUnit: `(${itank.LPTokenName})`,
-            value: <Value value={remainingShare} decimals={4} />,
+            value: <Value value={remainingShare} showAll={true} />,
             unit: "",
           },
         }}

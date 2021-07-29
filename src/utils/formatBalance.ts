@@ -34,7 +34,9 @@ export const getDisplayNumber = (
 
 export const getTonumber = (balance: any, decimals = 18) => {
   balance = new BigNumber1(balance.toString());
-  return parseFloat(balance.dividedBy(new BigNumber1(10).pow(decimals)).toFixed(16,1)) ;
+  const displayBalance = balance.dividedBy(new BigNumber1(10).pow(decimals));
+  // return balance.dividedBy(new BigNumber1(10).pow(decimals)).toNumber();
+  return balance.dividedBy(new BigNumber1(10).pow(decimals)).toFixed(displayBalance.dp(), 1);
 };
 export const getToBignumber = (balance: any, decimals = 18) => {
   balance = new BigNumber1(balance.toString());

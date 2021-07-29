@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { useCallback, useEffect, useState } from "react";
 import { BigNumber } from "ethers";
 import ERC20 from "../basis-cash/ERC20";

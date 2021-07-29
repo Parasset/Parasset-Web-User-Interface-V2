@@ -34,7 +34,7 @@ const Mine: React.FC = () => {
       .div(itankInfo.totalSupply)
       .times(100)
       .toNumber();
-    return !Number.isFinite(ratio) ? 0 : ratio;
+    return $isPositiveNumber($isFiniteNumber(ratio));
   }, [myShare, itankInfo.totalSupply]);
 
   const totalFund = useMemo(() => {
@@ -74,10 +74,8 @@ const Mine: React.FC = () => {
       : new BigNumber(earnAssets).times(avgPrice).toNumber();
     depositAssets = $isPositiveNumber($isFiniteNumber(depositAssets));
     earnAssets = $isPositiveNumber($isFiniteNumber(earnAssets));
-    depositAssetsValue = !Number.isFinite(depositAssetsValue)
-      ? 0
-      : depositAssetsValue;
-    earnAssetsValue = !Number.isFinite(earnAssetsValue) ? 0 : earnAssetsValue;
+    depositAssetsValue =  $isPositiveNumber($isFiniteNumber(depositAssetsValue))
+    earnAssetsValue =  $isPositiveNumber($isFiniteNumber(earnAssetsValue))
     return {
       depositAssets,
       earnAssets,

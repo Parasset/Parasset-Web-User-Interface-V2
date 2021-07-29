@@ -25,14 +25,17 @@ const Mine: React.FC = () => {
   );
   const totalItankValue = useMemo(() => {
     //保险池内资产两种币的总和换成USDT
-    const tvl1 = new BigNumber(itankInfo1.depositFundValue).plus(
+    let tvl1 = new BigNumber(itankInfo1.depositFundValue).plus(
       itankInfo1.earnFundValue
     );
-
-    const tvl2 = new BigNumber(itankInfo2.depositFundValue).plus(
+    let tvl2 = new BigNumber(itankInfo2.depositFundValue).plus(
       itankInfo2.earnFundValue
     );
-    return $isPositiveNumber($isFiniteNumber(tvl1.plus(tvl2).toNumber()));
+    tvl1 = $isPositiveNumber($isFiniteNumber(tvl1.toNumber()));
+    tvl2 = $isPositiveNumber($isFiniteNumber(tvl2.toNumber()));
+    return $isPositiveNumber(
+      $isFiniteNumber(new BigNumber(tvl1).plus(tvl2).toNumber())
+    );
   }, [
     itankInfo1.depositFundValue,
     itankInfo1.earnFundValue,
@@ -51,7 +54,7 @@ const Mine: React.FC = () => {
       <BigValue
         text={`${t("bxc")} TVL`}
         color="#77A89A"
-        value={<Value value={totalItankValue} prefix="$"/>}
+        value={<Value value={totalItankValue} prefix="$" />}
       />
 
       <List itanks={itanks} />
@@ -59,7 +62,6 @@ const Mine: React.FC = () => {
         messages={messages}
         isOpen={isOpen}
         onDismiss={() => {
-          
           setOpen(false);
         }}
       />

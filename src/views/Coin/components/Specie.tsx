@@ -368,7 +368,7 @@ const Specie: React.FC = ({}) => {
       Toast.info(t("qbkyethbz"), 1000);
     } else if (!parseFloat(outputValue)) {
       Toast.info(t("qsrzbsl"), 1000);
-    } else if (getDep(inputValue) > 15 || getDep(outputValue) > 15) {
+    } else if (getDep(inputValue) > 18 || getDep(outputValue) > 18) {
       Toast.info(t("zdsrws"), 1000);
     } else if (new BigNumber(walletBalance).times(100).lt(fee)) {
       Toast.info(t("qbyebzjnwdf"), 1000);

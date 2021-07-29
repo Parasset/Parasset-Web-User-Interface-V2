@@ -29,7 +29,7 @@ const Mine: React.FC = ({
       Toast.info(t(select === 1 ? t("qsrdysl") : t("qsrshsl")), 1000);
     } else if (parseFloat(val) > parseFloat(canBuyAmount)) {
       Toast.info(t("yebz"), 1000);
-    } else if (getDep(val) > 15) {
+    } else if (getDep(val) > 18) {
       Toast.info(t("zdsrws"), 1000);
     } else {
       setPendingTx(true);

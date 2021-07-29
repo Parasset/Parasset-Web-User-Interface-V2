@@ -32,7 +32,7 @@ const Info: React.FC = ({ debt, debtInfo }) => {
                     tokenName2:debt.liqUnit,
                   })}
                   value={
-                    <Value value={debtInfo?.mortgagePrice} suffix="USDT" />
+                    <Value value={debtInfo?.mortgageToParassetPrice} suffix="USDT" />
                   }
                 />
               </div>
