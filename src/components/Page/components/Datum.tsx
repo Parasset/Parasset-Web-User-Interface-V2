@@ -110,7 +110,7 @@ const Datum: React.FC = () => {
 
       <div className="">
         <StyledLabel>{t("ltl")}</StyledLabel>
-        <a href={`https://rinkeby.etherscan.io/token/${PUSDToken?.address}`}>
+        <a href={`https://rinkeby.etherscan.io/token/${PETHToken?.address}`}>
           <div className="flex-jc-start">
             <div className="flex-jc-center">
               <TokenSymbol symbol="PUSD" size={25} />

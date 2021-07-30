@@ -105,7 +105,7 @@ const Right: React.FC = () => {
           </a>
 
           <Spacer size="md" />
-          <a href={`https://rinkeby.etherscan.io/token/${PUSDToken?.address}`}>
+          <a href={`https://rinkeby.etherscan.io/token/${PETHToken?.address}`}>
             <div className="flex-jc-start">
               <div className="flex-jc-center">
                 <TokenSymbol symbol="PETH" size={25} />

@@ -117,7 +117,7 @@ const StyledHeaderMobile = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 9999;
+  z-index: 999;
   background-color: #fff;
   @media (min-width: 1024px) {
     display: none !important;
@@ -140,7 +140,7 @@ const StyledSidebar = styled.div`
   top: 51px;
   left: -220px;
   width: 220px;
-  z-index: 9999;
+  z-index: 999;
   transition: all 0.2s ease-in-out;
 `;
 

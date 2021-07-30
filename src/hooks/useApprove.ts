@@ -12,8 +12,8 @@ function useApprove(token: any, spender: string) {
   const handleTransactionReceipt = useHandleTransactionReceipt();
   // check the current approval status
   const approvalState = useMemo(() => {
-    // return !currentAllowance;
-    return currentAllowance;
+    return !currentAllowance;
+    // return currentAllowance;
   }, [currentAllowance]);
 
   const approve = useCallback(async () => {

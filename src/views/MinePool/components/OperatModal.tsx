@@ -17,6 +17,7 @@ const Mine: React.FC = ({
   stakeBalance,
   fetchInfo,
 }) => {
+  console.log(fetchInfo);
   const { t } = useTranslation();
   const [val, setVal] = useState(0);
   const [pendingTx, setPendingTx] = useState(false);
@@ -46,10 +47,11 @@ const Mine: React.FC = ({
       const result = await func(val + "");
       setPendingTx(false);
       if (result !== "0") {
+        fetchInfo();
         setTimeout(() => {
           setVal("");
           onDismiss();
-          fetchInfo();
+     
         }, 1000);
       }
     }

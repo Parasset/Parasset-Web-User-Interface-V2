@@ -18,8 +18,9 @@ const Harvest: React.FC = ({ mine, mineInfo }) => {
   const onConfirm = useCallback(async () => {
     setPendingTx(true);
     const result = await onReward();
+    mineInfo.fetchInfo()
     setPendingTx(false);
-  }, [onReward]);
+  }, [onReward,mineInfo.fetchInfo]);
   return (
     <>
       <StyledWrapBox className={`wing-blank-lg ${isMobile ? "" : "width-47"} `}>

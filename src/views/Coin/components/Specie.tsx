@@ -6,6 +6,7 @@ import styled from "styled-components";
 import BigNumber from "bignumber.js";
 import Toast from "light-toast";
 import { useTranslation } from "react-i18next";
+
 import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
 import Copy from "../../../components/Copy";
@@ -187,11 +188,10 @@ const Specie: React.FC = ({}) => {
   }, [selectInputCurrency, PETHWalletBalance, PUSDWalletBalance]);
 
   const maxList = useMemo(() => {
-
     return {
-      ETH: parseFloat(ETHWalletBalance)
-        ? new BigNumber(ETHWalletBalance).minus(0.02).toNumber()
-        : 0,
+      ETH: $isPositiveNumber(
+        $isFiniteNumber(new BigNumber(ETHWalletBalance).minus(0.02).toNumber())
+      ),
       NEST: NESTWalletBalance,
     };
   }, [ETHWalletBalance, NESTWalletBalance]);
@@ -212,10 +212,10 @@ const Specie: React.FC = ({}) => {
   }, [inputValue, NESTToUSDTPrice, ETHAvgPrice, isETH]);
 
   const inputMax = useMemo(() => {
-    var max = parseFloat(ETHWalletBalance)
-    ? new BigNumber(ETHWalletBalance).minus(0.02).toNumber()
-    : 0;
-    
+    var max = $isPositiveNumber(
+      $isFiniteNumber(new BigNumber(ETHWalletBalance).minus(0.02).toNumber())
+    );
+
     var canBuyAmount = isETH ? max : inputCurrencyBalance;
     return parseFloat(canBuyAmount);
   }, [inputCurrencyBalance, isETH]);
