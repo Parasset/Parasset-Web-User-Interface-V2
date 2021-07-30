@@ -187,9 +187,7 @@ const Specie: React.FC = ({}) => {
   }, [selectInputCurrency, PETHWalletBalance, PUSDWalletBalance]);
 
   const maxList = useMemo(() => {
-    console.log( parseFloat(ETHWalletBalance)
-    ? new BigNumber(ETHWalletBalance).minus(0.02).toNumber()
-    : 0,'maxlist');
+
     return {
       ETH: parseFloat(ETHWalletBalance)
         ? new BigNumber(ETHWalletBalance).minus(0.02).toNumber()
@@ -435,6 +433,7 @@ const Specie: React.FC = ({}) => {
       setSelectOutputCurrency(outputCurrency);
     }
   }, [inputCurrency, outputCurrency]);
+  console.log(approveList);
   return (
     <>
       <Spacer size="sm" />
@@ -559,7 +558,7 @@ const Specie: React.FC = ({}) => {
         />
         <Spacer />
         {/* NESTPETH NESTPUSD 如果不是eth，就要授权给nest,然后看fee有没有大于0，大于0就需要授权 */}
-
+        {/* inputCurrencyBalance */}
         {selectInputCurrency !== "ETH" &&
         approveList[selectInputCurrency + selectOutputCurrency].status ? (
           <Button
