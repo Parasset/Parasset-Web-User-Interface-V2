@@ -433,7 +433,7 @@ const Specie: React.FC = ({}) => {
       setSelectOutputCurrency(outputCurrency);
     }
   }, [inputCurrency, outputCurrency]);
-  console.log(approveList);
+  
   return (
     <>
       <Spacer size="sm" />

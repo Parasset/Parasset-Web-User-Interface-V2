@@ -14,7 +14,7 @@ const useExchange = () => {
           ? { value: decimalToBalance(String(parseFloat(amount)), 18) }
           : {};
         const amountBn = decimalToBalance(String(amount), decimal);
-
+        console.log(amount,amountBn, value)
         return handleTransactionReceipt(
           !isTransform
             ? basisCash.exchangeUnderlyingToPToken

@@ -131,7 +131,7 @@ const StyledMask = styled.div`
   top: 51px;
   left: 0;
   width: 100%;
-  z-index: 8888;
+  z-index: 888;
 `;
 const StyledSidebar = styled.div`
   background: #fff;

@@ -17,7 +17,7 @@ const Mine: React.FC = ({
   stakeBalance,
   fetchInfo,
 }) => {
-  console.log(fetchInfo);
+  
   const { t } = useTranslation();
   const [val, setVal] = useState(0);
   const [pendingTx, setPendingTx] = useState(false);

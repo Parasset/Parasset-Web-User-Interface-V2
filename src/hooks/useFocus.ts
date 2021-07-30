@@ -2,7 +2,10 @@
 import { useCallback } from "react";
 const useFocus = () => {
   const onFocus = useCallback((e, setVal) => {
-    setVal("");
+    var { value } = e.currentTarget;
+    if(!parseFloat(value)){
+      setVal("");
+    }
   }, []);
   return { onFocus };
 };

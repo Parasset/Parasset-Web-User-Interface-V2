@@ -19,5 +19,5 @@ export function web3ProviderFrom(
 }
 
 export function decimalToBalance(d: string | number, decimals = 18): BigNumber {
-  return new BigNumber(d).times(Math.pow(10, decimals)).toFixed();
+  return new BigNumber(d).times(Math.pow(10, decimals)).toFixed(0,1);
 }

@@ -445,6 +445,9 @@ input[type="number"] {
 .text-underline {
   text-decoration: underline;
 }
+.text-nowrap{
+  white-space:nowrap
+}
 @media (max-width: 768px) {
   .font-size-32 {
     font-size: 24px !important;
