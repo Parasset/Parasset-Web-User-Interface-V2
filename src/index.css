@@ -483,3 +483,10 @@ input[type="number"] {
 body a {
   color: inherit;
 }
+@media (min-width: 1024px) {
+  body  {
+    padding-left: 240px;
+    padding-right: 180px;
+    padding-top: 90px;
+  }
+}

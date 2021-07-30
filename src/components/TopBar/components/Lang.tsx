@@ -1,6 +1,7 @@
 import React, { useRef, useContext, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import useIsMobile from "../../../hooks/useIsMobile";
+import styled from "styled-components";
 const Lang: React.FC = () => {
   const isMobile = useIsMobile();
   const { t, i18n } = useTranslation();
@@ -14,7 +15,7 @@ const Lang: React.FC = () => {
   );
   return (
     <div className="wing-blank-lg ">
-      <div className={` ${isMobile ? "" : "bd-bottom width-100"} `}>
+      <StyledLang className={` ${isMobile ? "" : "width-100"} `}>
         <div className="space-white-lg"></div>
         <div
           className={`wing-blank  ${
@@ -51,9 +52,16 @@ const Lang: React.FC = () => {
           </div>
         </div>
         <div className="space-white-lg"></div>
-      </div>
+      </StyledLang>
     </div>
   );
 };
 
+const StyledLang = styled.div`
+  @media (min-width: 1024px) {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+  }
+`;
 export default Lang;

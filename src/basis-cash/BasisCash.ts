@@ -130,7 +130,6 @@ export class BasisCash {
       const { NestQuery } = this.contracts;
       const { USDT } = this.externalTokens;
       let { avgPrice } = await NestQuery.triggeredPriceInfo(USDT.address);
-
       return getTonumber(avgPrice, USDT.decimal);
     } catch (error) {
       return "0";

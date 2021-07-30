@@ -187,6 +187,9 @@ const Specie: React.FC = ({}) => {
   }, [selectInputCurrency, PETHWalletBalance, PUSDWalletBalance]);
 
   const maxList = useMemo(() => {
+    console.log( parseFloat(ETHWalletBalance)
+    ? new BigNumber(ETHWalletBalance).minus(0.02).toNumber()
+    : 0,'maxlist');
     return {
       ETH: parseFloat(ETHWalletBalance)
         ? new BigNumber(ETHWalletBalance).minus(0.02).toNumber()
@@ -211,9 +214,10 @@ const Specie: React.FC = ({}) => {
   }, [inputValue, NESTToUSDTPrice, ETHAvgPrice, isETH]);
 
   const inputMax = useMemo(() => {
-    var max = ETHWalletBalance
-      ? new BigNumber(ETHWalletBalance).minus(0.02).toNumber()
-      : 0;
+    var max = parseFloat(ETHWalletBalance)
+    ? new BigNumber(ETHWalletBalance).minus(0.02).toNumber()
+    : 0;
+    
     var canBuyAmount = isETH ? max : inputCurrencyBalance;
     return parseFloat(canBuyAmount);
   }, [inputCurrencyBalance, isETH]);

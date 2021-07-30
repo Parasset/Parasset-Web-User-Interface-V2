@@ -135,6 +135,10 @@ const StyledNavRight = styled.div`
   border-left: 1px solid ${(props) => props.theme.color.grey[200]};
   min-height: 100vh;
   width: 180px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 10000;
   @media (max-width: 768px) {
     display: none;
   }

@@ -33,18 +33,18 @@ const Header: React.FC = () => {
 
   const title = useMemo(() => {
     if (pathname === "/") {
-      return t("home_title");
+      return "home_title";
     } else if (
       pathname.includes("/coin") ||
       pathname.includes("/debt/detail")
     ) {
-      return t("coin_title");
+      return "coin_title";
     } else if (pathname.includes("/exchange")) {
-      return t("exchange_title");
+      return "exchange_title";
     } else if (pathname.includes("/itank")) {
-      return t("itank_title");
+      return "itank_title";
     } else if (pathname.includes("/mine")) {
-      return t("mine_title");
+      return "mine_title";
     }
   }, [pathname]);
 
@@ -52,7 +52,7 @@ const Header: React.FC = () => {
     <>
       <StyledHeaderPc className="bd-bottom color-grey wing-blank-lg flex-jc-start">
         <StyledHeaderText>
-          <div>{title}</div>
+          <div>{t(title)}</div>
         </StyledHeaderText>
       </StyledHeaderPc>
       <StyledHeaderMobile className="bd-bottom color-grey wing-blank-lg flex-jc-center">
@@ -100,6 +100,13 @@ const Header: React.FC = () => {
 
 const StyledHeaderPc = styled.div`
   height: 90px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-left: 260px;
+  padding-right: 180px;
+  background: white;
+  z-index: 99;
   @media (max-width: 768px) {
     display: none !important;
   }

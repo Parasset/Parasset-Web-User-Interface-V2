@@ -12,9 +12,10 @@ const Nav: React.FC = () => {
     <StyledNav>
       <Logo />
       <NavBar />
-     
+
+
+      <Version /> 
       <Lang />
-      <Version />
     </StyledNav>
   );
 };
@@ -24,6 +25,11 @@ const StyledNav = styled.div`
   border-right: 1px solid ${(props) => props.theme.color.grey[200]};
   min-height: 100vh;
   width: 240px;
+
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10000;
   @media (max-width: 768px) {
     display: none;
   }
