@@ -9,6 +9,7 @@ const useAllowance = (token: any, spender: string) => {
   const fetchAllowance = useCallback(async () => {
     if (token) {
       const allowance = await token.allowance(basisCash?.myAccount, spender);
+      
       setAllowance(parseFloat(getTonumber(allowance)) );
     }
   }, [basisCash?.myAccount, spender, token]);

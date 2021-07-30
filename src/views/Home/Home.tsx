@@ -53,6 +53,7 @@ const Home: React.FC = () => {
     NESTPETHDebt?.mortgageToken,
     NESTPETHDebtfo?.mortgagePrice
   );
+  // console.log(ETHPUSDTVL,NESTPUSDTVL,NESTPETHTVL);
   const maxRatioETH = useMaxRatio(
     ETHDebt?.mortgagePoolContract,
     ETHDebt?.mortgageToken
