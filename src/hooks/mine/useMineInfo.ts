@@ -80,7 +80,7 @@ const useMineInfo = (mine, itank) => {
     };
   }, [basisCash?.myAccount, block, mine, itank]);
 
-  return { staked, earned, info, tvl, apy };
+  return { staked, earned, info, tvl, apy ,fetchInfo};
 };
 
 export default useMineInfo;

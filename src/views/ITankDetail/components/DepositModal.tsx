@@ -8,6 +8,7 @@ import BigNumber from "bignumber.js";
 import { getDep, $isFiniteNumber } from "../../../utils/utils";
 import useStake from "../../../hooks/itank/useStake";
 import useBlur from "../../../hooks/useBlur";
+import useFocus from "../../../hooks/useFocus";
 const DepositModal: React.FC = ({
   isOpen,
   onDismiss,
@@ -19,6 +20,7 @@ const DepositModal: React.FC = ({
   const [val, setVal] = useState(0);
   const [pendingTx, setPendingTx] = useState(false);
   const { onBlur } = useBlur();
+  const { onFocus } = useFocus();
   const { onStake } = useStake(
     itank?.itankContract,
     itank?.depositToken?.decimal
@@ -39,7 +41,9 @@ const DepositModal: React.FC = ({
     } else if (parseFloat(val) > parseFloat(canBuyAmount)) {
       Toast.info(t("yebz"), 1000);
     } else if (getDep(val) > 18) {
-      Toast.info(t("zdsrws"), 1000);
+      Toast.info(      t("zdsrws", {
+        decimal: 18,
+      }), 1000);
     } else if (itankInfo.perShare < 0) {
       Toast.info(t("dqjzxybnzr"), 1000);
     } else {
@@ -105,6 +109,9 @@ const DepositModal: React.FC = ({
         val={val}
         onBlur={(e) => {
           onBlur(e, setVal);
+        }}
+        onFocus={(e) => {
+          onFocus(e, setVal);
         }}
         columns={{
           currentValue: {

@@ -14,7 +14,7 @@ const Mine: React.FC = () => {
   const { t } = useTranslation();
   const { debtId } = useParams();
   const debt = useDebt(debtId);
-  const { info: debtInfo } = useDebtInfo(debt);
+  const { info: debtInfo,fetchInfo } = useDebtInfo(debt);
   return (
     <>
       <Back
@@ -22,7 +22,7 @@ const Mine: React.FC = () => {
         img={debt.icon1}
         img1={debt.icon2}
       />
-      <Info debt={debt} debtInfo={debtInfo} />
+      <Info debt={debt} debtInfo={debtInfo} fetchInfo={fetchInfo} />
       <Handler debt={debt} debtInfo={debtInfo} />
     </>
   );

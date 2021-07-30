@@ -70,13 +70,14 @@ const Mine: React.FC = () => {
       <OperatModal
         isOpen={isOpen}
         mine={mine}
-        mineInfo={mineInfo}
+        mineInfo={mineInfo.fetchInfo}
         onDismiss={() => setIsOpen(false)}
         select={select}
         key={select + isOpen}
        
         depositBalance={depositBalance}
         stakeBalance={displayStakeBalance1}
+        
       />
     </>
   );

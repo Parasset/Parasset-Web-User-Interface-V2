@@ -66,13 +66,13 @@
   "xuanze": "选择",
   "shuhui": "赎回",
   "zjdy": "增加抵押",
-  "tqzc": "提取资产",
+  "tqzc": "赎回资产",
   "chzw": "偿还债务",
   "zrbx": "注入保险",
   "tqbx": "提取保险",
   "shsl": "赎回数量",
   "dysl": "抵押数量",
-  "tqsl": "提取数量",
+  "tqsl": "赎回数量",
   "chsl": "偿还数量",
   "zbsl": "铸币数量",
   "zrsl": "注入数量",
@@ -112,7 +112,7 @@
   "qsrdysl": "请输入抵押数量",
   "qsrshsl": "请输入赎回数量",
   "yebz": "余额不足",
-  "zdsrws": "最多输入18位",
+  "zdsrws": "最多输入{{decimal}}位",
   "zhuru": "注入",
   "qsrzrsl": "请输入注入数量",
   "qsrtqsl": "请输入提取数量",
@@ -145,6 +145,12 @@
   "qbkypxzcbz": "钱包可用平行资产不足",
   "cswlcw": "网络错误，请连接“以太坊Rinkeby测试网！”",
   "zwwlcw": "网络错误，请连接“以太坊主网！",
-  "bxcks": "保险池亏损，可提取资金为0"
+  "bxcks": "保险池亏损，可提取资金为0",
+  "home_title": "平行资产-基于预言机的价值重构",
+  "coin_title": "抵押你的加密资产铸造平行资产",
+  "exchange_title": "标的资产与平行资产互换",
+  "itank_title": "存入标的资产赚取保费",
+  "mine_title": "抵押代币挖ASET"
+  
 
 }

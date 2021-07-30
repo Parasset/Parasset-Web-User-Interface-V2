@@ -405,7 +405,9 @@ input[type="number"] {
 .flex1 {
   flex: 1;
 }
-
+.flex15 {
+  flex: 1.5;
+}
 .cursor-pointer {
   cursor: pointer;
 }
@@ -477,4 +479,7 @@ input[type="number"] {
   body {
     font-size: 12px !important;
   }
+}
+body a {
+  color: inherit;
 }

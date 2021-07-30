@@ -112,7 +112,7 @@
   "qsrdysl": "Please enter the stake amount",
   "qsrshsl": "Please enter the withdraw amount",
   "yebz": "Insufficient balance",
-  "zdsrws": "Enter up to 18 digits",
+  "zdsrws": "Enter up to {{decimal}} digits",
   "zhuru": "Deposit",
   "qsrzrsl": "Please enter the stake amount",
   "qsrtqsl": "Please enter the withdraw amount",
@@ -143,5 +143,11 @@
   "qbkypxzcbz": "The wallet has insufficient parallel assets available",
   "cswlcw": "Network error，Please connect 'Ethereum Rinkeby Testnet'",
   "zwwlcw": "Network error，Please connect 'Ethereum Mainet'",
-  "bxcks": "The loss of the insurance pool, and the available capital is 0"
+  "bxcks": "The loss of the insurance pool, and the available capital is 0",
+  "home_title": "Parasset-Value Reconstruction Based on Oracle",
+  "coin_title": "Stake Your crypto assets to mint parallel assets",
+  "exchange_title": "Exchange of underlying assets and parallel assets",
+  "itank_title": "Deposit in underlying assets to earn premiums",
+  "mine_title": "Stake Token to earn ASET"
+  
 }

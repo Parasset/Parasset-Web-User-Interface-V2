@@ -26,7 +26,7 @@ const Item: React.FC = ({ item }) => {
       .div(itankInfo.totalSupply)
       .times(100)
       .toNumber();
-    return !Number.isFinite(ratio) ? 0 : ratio;
+    return $isFiniteNumber(ratio);
   }, [myShare, itankInfo.totalSupply]);
 
 

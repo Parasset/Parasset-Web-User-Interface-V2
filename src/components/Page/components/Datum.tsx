@@ -16,8 +16,8 @@ import usePrice from "../../../hooks/coin/usePrice";
 const Datum: React.FC = () => {
   const { t } = useTranslation();
   const basisCash = useBasisCash();
-  const PUSDToken=basisCash?.externalTokens["PUSD"]
-  const PETHToken=basisCash?.externalTokens["PETH"]
+  const PUSDToken = basisCash?.externalTokens["PUSD"];
+  const PETHToken = basisCash?.externalTokens["PETH"];
   const PUSDTotalSupply = useTotalSupply(PUSDToken);
   const PETHTotalSupply = useTotalSupply(PETHToken);
   const PETHTokenBalance = useTokenBalance(PETHToken);
@@ -26,7 +26,7 @@ const Datum: React.FC = () => {
   const { NESTToUSDTPrice, NESTToETHPrice, ETHAvgPrice } = usePrice();
   const PETHAddress = useEncryptAddress(PETHToken?.address);
   const PUSDAddress = useEncryptAddress(PUSDToken?.address);
- 
+
   return (
     <div>
       {/* <StyledLabel>{t("wdpxzc")}</StyledLabel>
@@ -110,30 +110,35 @@ const Datum: React.FC = () => {
 
       <div className="">
         <StyledLabel>{t("ltl")}</StyledLabel>
-        <div className="flex-jc-start">
-          <div className="flex-jc-center">
-            <TokenSymbol symbol="PUSD" size={25} />
-          </div>
+        <a href={`https://rinkeby.etherscan.io/token/${PUSDToken?.address}`}>
+          <div className="flex-jc-start">
+            <div className="flex-jc-center">
+              <TokenSymbol symbol="PUSD" size={25} />
+            </div>
 
-          <div className="margin-left-10">
-            <div>
-              <Value value={PUSDTotalSupply} />{" "}
+            <div className="margin-left-10">
+              <div>
+                <Value value={PUSDTotalSupply} />{" "}
+              </div>
+              <div>PUSD</div>
             </div>
-            <div>PUSD</div>
           </div>
-        </div>
+        </a>
+
         <Spacer size="mmd" />
-        <div className="flex-jc-start">
-          <div className="flex-jc-center">
-            <TokenSymbol symbol="PETH" size={25} />
-          </div>
-          <div className="margin-left-10">
-            <div>
-              <Value value={PETHTotalSupply} />{" "}
+        <a href={`https://rinkeby.etherscan.io/token/${PUSDToken?.address}`}>
+          <div className="flex-jc-start">
+            <div className="flex-jc-center">
+              <TokenSymbol symbol="PETH" size={25} />
             </div>
-            <div>PETH</div>
+            <div className="margin-left-10">
+              <div>
+                <Value value={PETHTotalSupply} />{" "}
+              </div>
+              <div>PETH</div>
+            </div>
           </div>
-        </div>
+        </a>
       </div>
     </div>
   );

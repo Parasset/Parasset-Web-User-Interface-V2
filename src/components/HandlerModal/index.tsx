@@ -30,6 +30,7 @@ export default function HandlerModal({
   type,
   placeholder,
   onBlur,
+  onFocus,
   showApprove,
   approveStatus,
   approve ,
@@ -77,8 +78,11 @@ export default function HandlerModal({
               placeholder={placeholder}
               type={type}
               value={val}
+
               onChange={handleChange}
+              className='flex15'
               onBlur={onBlur}
+              onFocus={onFocus}
             />
           </div>
         </CardButton>

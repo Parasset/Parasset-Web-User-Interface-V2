@@ -24,6 +24,7 @@ import useTokenBalance from "../../../hooks/useTokenBalance";
 import useBasisCash from "../../../hooks/useBasisCash";
 import useAvgPrice from "../../../hooks/useAvgPrice";
 import useBlur from "../../../hooks/useBlur";
+import useFocus from "../../../hooks/useFocus";
 const Specie: React.FC = ({}) => {
   const { t } = useTranslation();
   const basisCash = useBasisCash();
@@ -44,8 +45,8 @@ const Specie: React.FC = ({}) => {
   );
   const [selectOutputCurrency, setSelectOutputCurrency] = useState("PETH");
 
-  // 10020040080160
   const { onBlur } = useBlur();
+  const { onFocus } = useFocus();
   const ETHWalletBalance = useTokenBalance(basisCash?.externalTokens["ETH"]);
   const USDTWalletBalance = useTokenBalance(basisCash?.externalTokens["USDT"]);
   const PETHWalletBalance = useTokenBalance(basisCash?.externalTokens["PETH"]);
@@ -202,7 +203,10 @@ const Specie: React.FC = ({}) => {
   }, [outputValue, avgPrice, isETH]);
 
   const inputMax = useMemo(() => {
-    var max = new BigNumber(inputCurrencyBalance).minus(0.01).toNumber();
+    var max = parseFloat(inputCurrencyBalance)
+      ? new BigNumber(inputCurrencyBalance).minus(0.01).toNumber()
+      : 0;
+
     var canBuyAmount =
       selectInputCurrency === "ETH" ? max : inputCurrencyBalance;
     return parseFloat(canBuyAmount);
@@ -215,29 +219,35 @@ const Specie: React.FC = ({}) => {
 
   const calcAmount = useCallback(
     ({ value, isInput }) => {
-   
+      const inputToken = basisCash?.externalTokens[selectInputCurrency];
+      const outputToken = basisCash?.externalTokens[selectOutputCurrency];
+      const updateNumDep = (val, token) => {
+        let dp = getDep(val);
+        dp = dp > token.decimal ? token.decimal : dp;
+        return new BigNumber(val).toFixed(dp, 1);
+      };
       if (isInput) {
         const val =
           value === "" ? value : $isPositiveNumber($isFiniteNumber(value));
-        setInputValue(val);
+        setInputValue(updateNumDep(val, inputToken));
         const feeRatio = !isETH ? itankPUSDFee : itankPETHFee;
         const amount = new BigNumber(val)
           .minus(new BigNumber(val).times(feeRatio))
           .toNumber();
         const outputAmount = $isPositiveNumber($isFiniteNumber(amount));
 
-        setOutputValue(outputAmount);
+        setOutputValue(updateNumDep(outputAmount, outputToken));
       } else {
-        console.log(value,$isPositiveNumber($isFiniteNumber(value)));
         const val =
           value === "" ? value : $isPositiveNumber($isFiniteNumber(value));
-        setOutputValue(val);
+        setOutputValue(updateNumDep(val, outputToken));
         const feeRatio = !isETH ? itankPUSDFee : itankPETHFee;
         const amount = new BigNumber(val)
           .div(new BigNumber(1).minus(feeRatio))
           .toNumber();
         const inputAmount = $isPositiveNumber($isFiniteNumber(amount));
-        setInputValue(inputAmount); 
+
+        setInputValue(updateNumDep(inputAmount, inputToken));
       }
     },
     [
@@ -247,6 +257,9 @@ const Specie: React.FC = ({}) => {
       isTransform,
       itankPUSDFee,
       itankPETHFee,
+      basisCash?.externalTokens,
+      selectInputCurrency,
+      selectOutputCurrency,
     ]
   );
 
@@ -329,20 +342,25 @@ const Specie: React.FC = ({}) => {
   ]);
 
   const onConfirm = useCallback(async () => {
+    const token = basisCash?.externalTokens[selectInputCurrency];
     if (!parseFloat(inputValue)) {
       Toast.info(t("qsrbdzcdhsl"), 1000);
     } else if (parseFloat(inputValue) > parseFloat(inputMax)) {
       Toast.info(t(!isTransform ? "qbbdzcyebz" : "qbkypxzcyebz"), 1000);
     } else if (isTransform && outputValue > parseFloat(outputCurrencyBalance)) {
       Toast.info(t("bxcyebz"), 1000);
-    } else if (getDep(inputValue) > 18) {
-      Toast.info(t("zdsrws"), 1000);
+    } else if (getDep(inputValue) > token.decimal) {
+      Toast.info(
+        t("zdsrws", {
+          decimal: token.decimal,
+        }),
+        1000
+      );
     } else {
       setPendingTx(true);
       const itankContract = isETH
         ? basisCash?.contracts["PETHInsPool"]
         : basisCash?.contracts["PUSDInsPool"];
-      const token = basisCash?.externalTokens[selectInputCurrency];
 
       const result = await onExchange(
         itankContract,
@@ -419,6 +437,9 @@ const Specie: React.FC = ({}) => {
           onBlur={(e) => {
             onBlur(e, setInputValue);
           }}
+          onFocus={(e) => {
+            onFocus(e, setInputValue);
+          }}
         />
         <Spacer size="sm" />
         <div className="text-right color-grey wing-blank-lg">
@@ -434,7 +455,7 @@ const Specie: React.FC = ({}) => {
             onClick={onTransformCurrency}
           />
         </StyledExchangeImg>
-  
+
         <div className="flex-jc-center color-grey wing-blank-lg">
           <div>{t("dao")}</div>
           <div>
@@ -475,6 +496,9 @@ const Specie: React.FC = ({}) => {
           handleChange={handleChangeOutputValue}
           onBlur={(e) => {
             onBlur(e, setOutputValue);
+          }}
+          onFocus={(e) => {
+            onFocus(e, setOutputValue);
           }}
         />
         <Spacer size="sm" />

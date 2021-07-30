@@ -11,7 +11,7 @@ import OperatModal from "./OperatModal";
 import useIsMobile from "../../../hooks/useIsMobile";
 import useTokenBalance from "../../../hooks/useTokenBalance";
 
-const Handler: React.FC = ({ debt, debtInfo }) => {
+const Handler: React.FC = ({ debt, debtInfo,fetchInfo }) => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
   const [isOpen, setOpen] = useState(false);
@@ -166,6 +166,7 @@ const Handler: React.FC = ({ debt, debtInfo }) => {
         debtInfo={debtInfo}
         parassetBalance={parassetBalance}
         mortgageBalance={mortgageBalance}
+        fetchInfo={fetchInfo}
         max={max}
         key={isOpen}
         onDismiss={() => {

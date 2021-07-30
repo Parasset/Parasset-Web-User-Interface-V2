@@ -14,7 +14,8 @@ const Select: React.FC = ({
   isInputCurrencySelect,
   value,
   handleChange,
-  onBlur
+  onBlur,
+  onFocus,
 }) => {
   const selectItem = useMemo(() => {
     let item = list.filter((item) => {
@@ -58,7 +59,13 @@ const Select: React.FC = ({
               e.stopPropagation();
             }}
           >
-            <Input value={value} onChange={handleChange} type="number" onBlur={onBlur}/>
+            <Input
+              value={value}
+              onChange={handleChange}
+              type="number"
+              onBlur={onBlur}
+              onFocus={onFocus}
+            />
           </div>
         </div>
         {showSelect ? (

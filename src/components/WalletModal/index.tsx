@@ -4,6 +4,7 @@ import { useWallet } from "use-wallet";
 import { useTranslation } from "react-i18next";
 import Modal from "../Modal";
 import Spacer from "../Spacer";
+import Button from "../Button";
 import CardButton from "../CardButton";
 import TokenSymbol from "../TokenSymbol";
 import Copy from "../Copy";
@@ -14,7 +15,7 @@ import useTokenBalance from "./../../hooks/useTokenBalance";
 import useEncryptAddress from "./../../hooks/useEncryptAddress";
 export default function WalletModal({ isOpen, onDismiss }) {
   const { t } = useTranslation();
-  const { account, connect, connector } = useWallet();
+  const { account, connect, connector, status, reset } = useWallet();
   const basisCash = useBasisCash();
   const PUSDToken = basisCash?.externalTokens["PUSD"];
   const PETHToken = basisCash?.externalTokens["PETH"];
@@ -31,9 +32,9 @@ export default function WalletModal({ isOpen, onDismiss }) {
         onDismiss={onDismiss}
         width="330px"
         showHeader={true}
-        title={!account ? t("ljqb") : t("zhanghu")}
+        title={status !== "connected" ? t("ljqb") : t("zhanghu")}
       >
-        {!account ? (
+        {status !== "connected" ? (
           <>
             <Spacer size="mmd" />
             <CardButton
@@ -100,7 +101,12 @@ export default function WalletModal({ isOpen, onDismiss }) {
                     width="60px"
                     className="margin-right-10"
                   />
-                  <Button variant="tertiary" text={t("duankai")} width="60px" />
+                  <Button
+                    variant="tertiary"
+                    text={t("duankai")}
+                    width="60px"
+                    // onClick={reset}
+                  />
                 </div> */}
               </div>
               <Spacer size="mmd" />
@@ -150,8 +156,7 @@ export default function WalletModal({ isOpen, onDismiss }) {
                     </div>
                   </div>
                 </div>
-                <Value value={PETHTokenBalance}/>
-
+                <Value value={PETHTokenBalance} />
               </div>
               <Spacer size="mmd" />
               <div className="flex-al-start">
@@ -167,7 +172,7 @@ export default function WalletModal({ isOpen, onDismiss }) {
                     </div>
                   </div>
                 </div>
-                <Value value={PUSDTokenBalance}/>
+                <Value value={PUSDTokenBalance} />
               </div>
             </div>
           </>

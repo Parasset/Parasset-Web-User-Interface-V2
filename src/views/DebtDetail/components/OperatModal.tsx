@@ -16,6 +16,7 @@ import useHandlerDebt from "../../../hooks/debt/useHandlerDebt";
 import useTokenBalance from "../../../hooks/useTokenBalance";
 import useBasisCash from "../../../hooks/useBasisCash";
 import useBlur from "../../../hooks/useBlur";
+import useFocus from "../../../hooks/useFocus";
 const Mine: React.FC = ({
   isOpen,
   onDismiss,
@@ -25,15 +26,17 @@ const Mine: React.FC = ({
   max,
   parassetBalance,
   mortgageBalance,
+  fetchInfo
 }) => {
   const { t } = useTranslation();
   const basisCash = useBasisCash();
-  const [val, setVal] = useState("");
+  const [val, setVal] = useState(0);
 
   const ETHWalletBalance = useTokenBalance(basisCash?.externalTokens["ETH"]);
   const [pendingTx, setPendingTx] = useState(false);
   const { onHandlerDebt } = useHandlerDebt();
   const { onBlur } = useBlur();
+  const { onFocus } = useFocus();
   const [approveStatus, approve] = useApprove(
     debt?.uToken,
     debt?.mortgagePoolContract?.address
@@ -86,7 +89,7 @@ const Mine: React.FC = ({
         )
       );
     } else if (select === "Redeem") {
-      $isPositiveNumber(
+      return $isPositiveNumber(
         $isFiniteNumber(
           new BigNumber(debtInfo.parassetAssets)
             .div(
@@ -145,7 +148,7 @@ const Mine: React.FC = ({
         )
       );
     } else if (select === "Redeem") {
-      $isPositiveNumber(
+      return $isPositiveNumber(
         $isFiniteNumber(
           new BigNumber(debtInfo.parassetAssets)
             .div(
@@ -242,6 +245,7 @@ const Mine: React.FC = ({
         tip: "tip2",
       },
     };
+    
     const columns = {
       Stake: columnsLeft,
       Redeem: columnsLeft,
@@ -269,7 +273,7 @@ const Mine: React.FC = ({
         icon: debt.icon1,
         depositTokenName: debt.depositTokenName,
         placeholder: "qsrshsl",
-        balanceTxt: "ketiqu",
+        balanceTxt: "ksh",
         exceededTip: "cgzdktqsl",
         columns,
       },
@@ -303,7 +307,12 @@ const Mine: React.FC = ({
     } else if (parseFloat(ETHWalletBalance) < 0.01) {
       Toast.info(t("qbkyethbz"), 1000);
     } else if (getDep(val) > 18) {
-      Toast.info(t("zdsrws"), 1000);
+      Toast.info(
+        t("zdsrws", {
+          decimal: 18,
+        }),
+        1000
+      );
     } else if (
       select !== "Repay" &&
       new BigNumber(parassetBalance).lt(new BigNumber(debtInfo.fee))
@@ -324,9 +333,11 @@ const Mine: React.FC = ({
       );
       setPendingTx(false);
       if (result !== "0") {
+        fetchInfo()
         setTimeout(() => {
           setVal("");
           onDismiss();
+        
         }, 1000);
       }
     }
@@ -383,6 +394,9 @@ const Mine: React.FC = ({
         approveTokenName={debt?.earnTokenName}
         onBlur={(e) => {
           onBlur(e, setVal);
+        }}
+        onFocus={(e) => {
+          onFocus(e, setVal);
         }}
       />
     </>

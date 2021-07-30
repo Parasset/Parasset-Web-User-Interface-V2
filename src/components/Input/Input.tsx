@@ -9,14 +9,17 @@ export interface InputProps {
   startAdornment?: React.ReactNode;
   value: string;
   type?: string;
+  className?: string;
 }
 
 const Input: React.FC<InputProps> = ({
   onChange,
   onBlur,
+  onFocus,
   placeholder,
   value,
   type,
+  className
 }) => {
   return (
     <StyledInput
@@ -24,6 +27,10 @@ const Input: React.FC<InputProps> = ({
       value={value}
       onChange={onChange}
       type={type}
+      className={className}
+      onFocus={(e)=>{
+        onFocus&&onFocus(e)
+      }}
       onBlur={(e)=>{
         onBlur&&onBlur(e)
       }}

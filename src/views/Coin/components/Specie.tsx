@@ -15,6 +15,7 @@ import Button from "../../../components/Button";
 import Label from "../../../components/Label";
 import Value from "../../../components/Value";
 import useBlur from "../../../hooks/useBlur";
+import useFocus from "../../../hooks/useFocus";
 import useApprove from "../../../hooks/useApprove";
 import useTokenBalance from "../../../hooks/useTokenBalance";
 import useBasisCash from "../../../hooks/useBasisCash";
@@ -54,6 +55,7 @@ const Specie: React.FC = ({}) => {
   const [selectOutputCurrency, setSelectOutputCurrency] = useState("PUSD");
 
   const { onBlur } = useBlur();
+  const { onFocus } = useFocus();
   const maxRatioETHPUSD = useMaxRatio(
     basisCash?.contracts["PUSDMorPool"],
     basisCash?.externalTokens["ETH"]
@@ -186,7 +188,7 @@ const Specie: React.FC = ({}) => {
 
   const maxList = useMemo(() => {
     return {
-      ETH: ETHWalletBalance
+      ETH: parseFloat(ETHWalletBalance)
         ? new BigNumber(ETHWalletBalance).minus(0.02).toNumber()
         : 0,
       NEST: NESTWalletBalance,
@@ -367,7 +369,12 @@ const Specie: React.FC = ({}) => {
     } else if (!parseFloat(outputValue)) {
       Toast.info(t("qsrzbsl"), 1000);
     } else if (getDep(inputValue) > 18 || getDep(outputValue) > 18) {
-      Toast.info(t("zdsrws"), 1000);
+      Toast.info(
+        t("zdsrws", {
+          decimal: 18,
+        }),
+        1000
+      );
     } else if (new BigNumber(walletBalance).times(100).lt(fee)) {
       Toast.info(t("qbyebzjnwdf"), 1000);
     } else if (new BigNumber(calcRatio).times(100).lt(1) || isExceeds) {
@@ -459,6 +466,9 @@ const Specie: React.FC = ({}) => {
           onBlur={(e) => {
             onBlur(e, setInputValue);
           }}
+          onFocus={(e) => {
+            onFocus(e, setInputValue);
+          }}
         />
         <Spacer size="sm" />
         <div className="text-right color-grey wing-blank-lg">
@@ -473,6 +483,10 @@ const Specie: React.FC = ({}) => {
           />
         </StyledExchangeImg>
         <Spacer />
+        <div className="color-grey wing-blank-lg">
+          <div> {t("zbsl")}</div>
+        </div>
+        <Spacer size="sm" />
         <Select
           showSelect={showOutputCurrencySelect}
           list={currencyListOutput}
@@ -486,6 +500,9 @@ const Specie: React.FC = ({}) => {
           handleChange={handleChangeOutputValue}
           onBlur={(e) => {
             onBlur(e, setOutputValue);
+          }}
+          onFocus={(e) => {
+            onFocus(e, setOutputValue);
           }}
         />
         <Spacer size="mmd" />

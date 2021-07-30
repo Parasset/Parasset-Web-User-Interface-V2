@@ -1,6 +1,7 @@
 //@ts-nocheck
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Logo from "../../Logo";
 import Tab from "../../Tab";
@@ -10,6 +11,7 @@ import WalletModal from "../../WalletModal";
 import Nav from "./Nav";
 
 const Header: React.FC = () => {
+  const { pathname } = useLocation();
   const [isOpen, setOpen] = useState(false);
   const [tabs, setTabs] = useState([
     {
@@ -29,11 +31,28 @@ const Header: React.FC = () => {
     setShow(!show);
   }, [show, setShow]);
 
+  const title = useMemo(() => {
+    if (pathname === "/") {
+      return t("home_title");
+    } else if (
+      pathname.includes("/coin") ||
+      pathname.includes("/debt/detail")
+    ) {
+      return t("coin_title");
+    } else if (pathname.includes("/exchange")) {
+      return t("exchange_title");
+    } else if (pathname.includes("/itank")) {
+      return t("itank_title");
+    } else if (pathname.includes("/mine")) {
+      return t("mine_title");
+    }
+  }, [pathname]);
+
   return (
     <>
       <StyledHeaderPc className="bd-bottom color-grey wing-blank-lg flex-jc-start">
         <StyledHeaderText>
-          <div>{t("dypxzc")}</div>
+          <div>{title}</div>
         </StyledHeaderText>
       </StyledHeaderPc>
       <StyledHeaderMobile className="bd-bottom color-grey wing-blank-lg flex-jc-center">
@@ -60,7 +79,7 @@ const Header: React.FC = () => {
             <Datum />
           ) : (
             <Nav
-            toggleShow={toggleShow}
+              toggleShow={toggleShow}
               onShowWallet={() => {
                 toggleShow();
                 setOpen(true);

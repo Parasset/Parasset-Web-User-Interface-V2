@@ -6,15 +6,14 @@ import BigNumber from "bignumber.js";
 import { useTranslation } from "react-i18next";
 import Value from "../../../components/Value";
 
-const Progress: React.FC = ({ ratio, maxRatio,liqRatio }) => {
+const Progress: React.FC = ({ ratio, maxRatio, liqRatio }) => {
   const { t } = useTranslation();
 
   const progressColor = useMemo(() => {
-   
     const rate = new BigNumber(ratio).div(100);
     const maxRate = new BigNumber(maxRatio);
     const maxRatio70 = maxRate.times(0.7);
-    console.log(rate.toNumber(), maxRatio,liqRatio,'ratio, maxRatio,liqRatio');
+
     if (rate.gte(0) && rate.lt(maxRatio70)) {
       return "#0CC69D";
     } else if (rate.gte(maxRatio70) && rate.lt(maxRate)) {
@@ -24,14 +23,22 @@ const Progress: React.FC = ({ ratio, maxRatio,liqRatio }) => {
     } else if (rate.gte(liqRatio)) {
       return "#EE144C";
     }
-  }, [ratio, maxRatio,liqRatio]);
+  }, [ratio, maxRatio, liqRatio]);
 
+  const percent = useMemo(() => {
+    let rate = new BigNumber(ratio).gt(100)
+      ? new BigNumber(100)
+      : new BigNumber(ratio);
+    let percent = rate.div(100).times(180).minus(135).toNumber();
+
+    return percent;
+  }, [ratio]);
   return (
     <>
       <StyledWrapBox>
         <div className="color-grey flex1 text-right margin-right-10">0%</div>
         <StyledProgress className="text-center" id="tip-box">
-          <StyledProgressLine color={progressColor} />
+          <StyledProgressLine color={progressColor} percent={percent}/>
           <StyledProgressGrey />
 
           <div
@@ -80,7 +87,6 @@ const StyledProgressLine = styled.div`
   border: 2px solid transparent;
   border-left: 2px solid ${({ color }) => color};
   border-top: 2px solid ${({ color }) => color};
-  /* border-right: 2px solid #ee144c; */
   box-sizing: border-box;
   background-color: transparent;
   border-bottom: none;
@@ -88,8 +94,7 @@ const StyledProgressLine = styled.div`
   left: 0;
   top: 0;
   z-index: 2;
-  /* transform : rotate(-135deg); */
-  transform: rotate(-80deg);
+  transform: rotate(${({ percent }) => percent}deg);
 `;
 const StyledProgressGrey = styled.div`
   width: 200px;

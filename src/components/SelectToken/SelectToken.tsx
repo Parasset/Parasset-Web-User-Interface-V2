@@ -42,10 +42,10 @@ const Select: React.FC = ({
                     toggleShow();
                   }}
                 >
-                  <div className=" flex-jc-center width-100">
+                  <StyledSelectItemBox className=" flex-jc-center width-100">
                     <TokenSymbol size={25} symbol={item.name} />
                     <span className="font-size-12"> {item.name}</span>
-                  </div>
+                  </StyledSelectItemBox>
                 </StyledSelectItem>
               );
             })}
@@ -67,9 +67,20 @@ const StyledSelectBox = styled.div`
   background: #fff;
 
   box-shadow: 0px 0px 10px ${(props) => props.theme.color.grey[200]};
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 const StyledSelectItem = styled.div`
-  height: 30px;
+  height: 35px;
+`;
+const StyledSelectItemBox = styled.div`
+  @media (max-width: 768px) {
+    justify-content: flex-start!important;
+    img {
+      margin-right: 5px;
+    }
+  }
 `;
 
 export default Select;

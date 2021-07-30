@@ -30,7 +30,6 @@ const MyInfo: React.FC = ({
     itank?.depositToken,
     itank?.itankContract?.address
   );
-
   return (
     <>
       <Card className={` ${isMobile ? "wing-blank" : "wing-blank-lg"} `}>

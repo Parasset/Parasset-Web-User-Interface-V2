@@ -8,9 +8,8 @@ import {
   getToBignumber,
   getTonumber,
 } from "../utils/formatBalance";
-import { formatUnits,  } from 'ethers/lib/utils';
 import { formatDate } from "../utils/utils";
-
+import { $isFiniteNumber, $isPositiveNumber } from "../utils/utils";
 import { getDefaultProvider } from "../utils/provider";
 import ERC20 from "./ERC20";
 /**
@@ -218,9 +217,11 @@ export class BasisCash {
         this.gasETHAddress(mortgageToken),
         address
       );
-      const maxRatio= await this.getMaxRatio(mortgagePoolContract, mortgageToken) 
-  
-      
+      const maxRatio = await this.getMaxRatio(
+        mortgagePoolContract,
+        mortgageToken
+      );
+
       const fee = await this.getStableFee(
         mortgagePoolContract,
         mortgageToken,
@@ -270,10 +271,11 @@ export class BasisCash {
         mortgagePoolContract,
         mortgageToken
       );
-      const liqPrice = new BigNumber(parassetAssets)
+      let liqPrice = new BigNumber(parassetAssets)
         .plus(fee)
         .div(new BigNumber(liqRatio).times(mortgageAssets))
         .toNumber();
+      liqPrice = $isPositiveNumber($isFiniteNumber(liqPrice));
       return {
         ...info,
         mortgageAssets,
@@ -358,7 +360,6 @@ export class BasisCash {
       } else {
         depositFundBalance = await this.provider.getBalance(address);
         depositFundBalance = getTonumber(depositFundBalance);
-     
       }
       let earnFundBalance = await this.getFundBalance(earnToken, address);
       let negative = await itankContract._insNegative();
@@ -433,8 +434,7 @@ export class BasisCash {
   async getRedemptionAmount(itankContract, decimal, address) {
     try {
       let amount = await itankContract.getRedemptionAmount(address);
-      
-      
+
       return getTonumber(amount, decimal);
     } catch (error) {
       console.log(
@@ -500,7 +500,6 @@ export class BasisCash {
   }
 
   async getMineTvl(depositToken, address, block, itank) {
-  
     try {
       let {
         totalSupply: stakeTotalSupply,
@@ -514,7 +513,7 @@ export class BasisCash {
       const totalValue = new BigNumber(itankInfo.depositFundValue).plus(
         itankInfo.earnFundValue
       );
-    
+
       return {
         tvl: new BigNumber(ratio).times(totalValue).toNumber(),
         rewardRate,
@@ -570,21 +569,20 @@ export class BasisCash {
         ...value,
       });
     } catch (error) {
-      console.log(itankContract.address, amount, value)
+      console.log(itankContract.address, amount, value);
       console.log(error);
       return "0";
     }
   }
 
   async exchangeUnderlyingToPToken(itankContract, amount, value) {
-
     try {
       return await itankContract.exchangeUnderlyingToPToken(amount, {
         from: this.myAccount,
         ...value,
       });
     } catch (error) {
-      console.log(itankContract.address, amount, value)
+      console.log(itankContract.address, amount, value);
       console.log(error);
       return "0";
     }
