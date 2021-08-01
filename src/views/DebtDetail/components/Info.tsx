@@ -27,12 +27,19 @@ const Info: React.FC = ({ debt, debtInfo }) => {
               <Spacer size={isMobile ? "mmd" : "md"} />
               <div className="flex-jc-center">
                 <Label
-                  label={t("dqjg",{
-                    tokenName1:debt.depositTokenName,
-                    tokenName2:debt.liqUnit,
+                  className="debt-header-info"
+                  label={t("dqjg", {
+                    tokenName1: debt.depositTokenName,
+                    tokenName2: debt.liqUnit,
                   })}
                   value={
-                    <Value value={debtInfo?.mortgageToParassetPrice} suffix="USDT" />
+                    <>
+                      <Spacer size="ssm" />
+                      <Value
+                        value={debtInfo?.mortgageToParassetPrice}
+                        suffix="USDT"
+                      />
+                    </>
                   }
                 />
               </div>
@@ -51,14 +58,19 @@ const Info: React.FC = ({ debt, debtInfo }) => {
               <Spacer size={isMobile ? "mmd" : "md"} />
               <div className="flex-jc-center">
                 <Label
+                  className="debt-header-info"
                   label={t("qsdyl")}
+                 
                   value={
-                    <Value
+                    <>
+                      <Spacer size="ssm" />
+                      <Value
                       value={$isPositiveNumber(
                         $isFiniteNumber(debtInfo?.liqRatio * 100)
                       )}
                       suffix="%"
                     />
+                    </>
                   }
                 />
               </div>

@@ -36,9 +36,20 @@ const Progress: React.FC = ({ ratio, maxRatio, liqRatio }) => {
   return (
     <>
       <StyledWrapBox>
+        <StyledTag color={progressColor}>
+          {t(
+            progressColor === "#0CC69D"
+              ? "jiankang"
+              : progressColor === "#0297D8"
+              ? "jiankong"
+              : progressColor === "#EAAC5F"
+              ? "yujing"
+              : "daiqingsuan"
+          )}
+        </StyledTag>
         <div className="color-grey flex1 text-right margin-right-10">0%</div>
         <StyledProgress className="text-center" id="tip-box">
-          <StyledProgressLine color={progressColor} percent={percent}/>
+          <StyledProgressLine color={progressColor} percent={percent} />
           <StyledProgressGrey />
 
           <div
@@ -115,5 +126,19 @@ const StyledRatio = styled.div`
   left: 50%;
   transform: translateX(-50%);
   z-index: 999;
+`;
+const StyledTag = styled.div`
+  position: absolute;
+  left: 0;
+  top: 20px;
+  background: ${({ color }) => color};
+  border-radius: 0px 20px 20px 0px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  padding: 0 8px;
+  font-size: 12px;
 `;
 export default Progress;

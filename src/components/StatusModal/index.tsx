@@ -22,11 +22,12 @@ export default function StatusModal({}) {
 
   const textList = ["qrz", "jygbz", "jycg", "jysb", "jyqx"];
   const imgList = [
-    "icon_loading",
-    "icon_broadcast",
-    "icon_success",
-    "icon_fail",
-    "icon_warning",
+ require(`../../assets/img/loading.gif`),
+ require(`../../assets/img/pending.gif`),
+ require(`../../assets/img/icon_success.png`),
+ require(`../../assets/img/icon_fail.png`),
+ require(`../../assets/img/icon_warning.png`),
+
   ];
   return (
     <>
@@ -48,7 +49,7 @@ export default function StatusModal({}) {
 
         <div className="text-center">
           <img
-            src={require(`../../assets/img/${imgList[status - 1]}.png`)}
+            src={imgList[status - 1]}
             width="48"
             height="48"
           />

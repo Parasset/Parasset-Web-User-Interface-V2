@@ -148,6 +148,12 @@
   "coin_title": "Stake Your crypto assets to mint parallel assets",
   "exchange_title": "Exchange of underlying assets and parallel assets",
   "itank_title": "Deposit in underlying assets to earn premiums",
-  "mine_title": "Stake Token to earn ASET"
+  "mine_title": "Stake Token to earn ASET",
+  "jiankang": "Normal",
+  "jiankong": "Monitor",
+  "yujing": "Warning",
+  "daiqingsuan": "Liquidable",
+  "jxz": "In progress",
+   "yzt": "Paused"
   
 }

@@ -50,7 +50,7 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <StyledHeaderPc className="bd-bottom color-grey wing-blank-lg flex-jc-start">
+      <StyledHeaderPc className=" color-grey wing-blank-lg flex-jc-start">
         <StyledHeaderText>
           <div>{t(title)}</div>
         </StyledHeaderText>
@@ -107,6 +107,7 @@ const StyledHeaderPc = styled.div`
   padding-right: 180px;
   background: white;
   z-index: 99;
+  border-bottom:1px solid  rgba(238,238,238,0.6);
   @media (max-width: 768px) {
     display: none !important;
   }

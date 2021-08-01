@@ -445,8 +445,13 @@ input[type="number"] {
 .text-underline {
   text-decoration: underline;
 }
-.text-nowrap{
-  white-space:nowrap
+.text-nowrap {
+  white-space: nowrap;
+}
+.debt-header-info {
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  padding: 10px 20px;
 }
 @media (max-width: 768px) {
   .font-size-32 {
@@ -487,7 +492,7 @@ body a {
   color: inherit;
 }
 @media (min-width: 1024px) {
-  body  {
+  body {
     padding-left: 240px;
     padding-right: 180px;
     padding-top: 90px;

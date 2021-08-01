@@ -19,13 +19,13 @@ const Lang: React.FC = () => {
         <div className="space-white-lg"></div>
         <div
           className={`wing-blank  ${
-            isMobile ? "flex-row-center-center" : "flex-jc-start  flex-wrap"
+            isMobile ? "flex-jc-start" : "flex-jc-start  flex-wrap"
           } `}
         >
           <div
             className={`${
               i18n.language === "en" ? "" : "opacity-6"
-            } flex-row-center-center width-33 cursor-pointer `}
+            } flex-row-center-center cursor-pointer ${isMobile ? "" : ""} `}
           >
             <img
               src={require("../../../assets/img/EN.png")}
@@ -39,7 +39,7 @@ const Lang: React.FC = () => {
           <div
             className={`${
               i18n.language === "zh" ? "" : "opacity-6"
-            } flex-row-center-center width-33 cursor-pointer `}
+            } flex-row-center-center cursor-pointer   ${isMobile ? "" : " "} `}
           >
             <img
               src={require("../../../assets/img/CN.png")}
@@ -62,6 +62,17 @@ const StyledLang = styled.div`
     position: absolute;
     bottom: 10px;
     left: 0;
+    img {
+      margin-right: 20px;
+    }
+  }
+  @media (max-width: 768px) {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    img {
+      margin-right: 10px;
+    }
   }
 `;
 export default Lang;

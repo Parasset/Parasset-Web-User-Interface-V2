@@ -150,7 +150,13 @@
   "coin_title": "抵押你的加密资产铸造平行资产",
   "exchange_title": "标的资产与平行资产互换",
   "itank_title": "存入标的资产赚取保费",
-  "mine_title": "抵押代币挖ASET"
+  "mine_title": "抵押代币挖ASET",
+  "jiankang": "健康",
+  "jiankong": "监控",
+  "yujing": "预警",
+  "daiqingsuan": "待清算",
+  "jxz": "进行中",
+  "yzt": "已暂停"
   
 
 }

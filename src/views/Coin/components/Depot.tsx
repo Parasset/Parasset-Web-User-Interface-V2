@@ -23,7 +23,7 @@ const Depot: React.FC = ({ list, loading }) => {
               {list.map((item, i) => {
                 return (
                   <div key={item.name}>
-                    <Card className="wing-blank-lg">
+                    <Card className="wing-blank-lg position-relative">
                       <Spacer />
                       <Progress ratio={item.rate} maxRatio={item.maxRatio} liqRatio={item.liqRatio} />
 

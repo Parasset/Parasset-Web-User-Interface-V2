@@ -16,6 +16,7 @@ import useEncryptAddress from "./../../hooks/useEncryptAddress";
 export default function WalletModal({ isOpen, onDismiss }) {
   const { t } = useTranslation();
   const { account, connect, connector, status, reset } = useWallet();
+  const [backWallet, setBackWallet] = useState(false);
   const basisCash = useBasisCash();
   const PUSDToken = basisCash?.externalTokens["PUSD"];
   const PETHToken = basisCash?.externalTokens["PETH"];
@@ -32,9 +33,9 @@ export default function WalletModal({ isOpen, onDismiss }) {
         onDismiss={onDismiss}
         width="330px"
         showHeader={true}
-        title={status !== "connected" ? t("ljqb") : t("zhanghu")}
+        title={status !== "connected"||backWallet ? t("ljqb") : t("zhanghu")}
       >
-        {status !== "connected" ? (
+        {status !== "connected"||backWallet ? (
           <>
             <Spacer size="mmd" />
             <CardButton
@@ -94,20 +95,23 @@ export default function WalletModal({ isOpen, onDismiss }) {
                   />
                   {connector === "injected" ? "MetaMask" : "WalletConnect"}
                 </div>
-                {/* <div className="flex-jc-end ">
+                <div className="flex-jc-end ">
                   <Button
                     variant="secondary"
                     text={t("genggai")}
                     width="60px"
                     className="margin-right-10"
+                    onClick={()=>{
+                      setBackWallet(true)
+                    }}
                   />
-                  <Button
+                  {/* <Button
                     variant="tertiary"
                     text={t("duankai")}
                     width="60px"
                     // onClick={reset}
-                  />
-                </div> */}
+                  /> */}
+                </div>
               </div>
               <Spacer size="mmd" />
               <div className="flex-jc-start">

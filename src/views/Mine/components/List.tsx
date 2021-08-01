@@ -1,7 +1,7 @@
 //@ts-nocheck
-import React, {useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import styled from "styled-components";
-import { useHistory } from 'react-router-dom'
+import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
@@ -12,23 +12,29 @@ import Value from "../../../components/Value";
 import useIsMobile from "../../../hooks/useIsMobile";
 import useMineInfo from "../../../hooks/mine/useMineInfo";
 import useItank from "../../../hooks/itank/useItank";
-import {
-  getNumberToMax,
-} from "../../../utils/formatBalance";
+import { getNumberToMax } from "../../../utils/formatBalance";
 const Item: React.FC = ({ item }) => {
   const isMobile = useIsMobile();
-  const history = useHistory()
+  const history = useHistory();
   const { t } = useTranslation();
   const itank = useItank(item.depositContract);
-  
-  const mineInfo = useMineInfo(item,itank);
+
+  const mineInfo = useMineInfo(item, itank);
 
   const staked = useMemo(() => getNumberToMax(mineInfo.staked), [
     mineInfo.staked,
   ]);
+  const status = useMemo(() => {
+    const rewardRate =  mineInfo.info.rewardRate;
+    return {
+      color: rewardRate > 0 ? "#0CC69D" : "#878787",
+      text: rewardRate > 0 ? "jxz" : "yzt",
+    };
+  }, [mineInfo.info.rewardRate]);
   return (
     <>
       <StyledWrapBox className={`wing-blank-lg ${isMobile ? "" : "width-47"} `}>
+        <StyledTag color={status.color}>{t(status.text)}</StyledTag>
         <Spacer size="mmd" />
         <div className="flex-row-center-center">
           <TokenSymbol symbol={item.icon1} size={40} />
@@ -46,21 +52,29 @@ const Item: React.FC = ({ item }) => {
         </div>
         <Spacer size="mmd" />
 
-        <Label label="TVL"    value={<Value value={mineInfo.tvl} prefix="$" />} />
+        <Label label="TVL" value={<Value value={mineInfo.tvl} prefix="$" />} />
         <Spacer size="mmd" />
-        <Label label="APY"   value={<Value value={mineInfo.apy} suffix="%" />} />
+        <Label label="APY" value={<Value value={mineInfo.apy} suffix="%" />} />
 
         <Spacer size="mmd" />
-        <Label label={`${t("wdzy")} (${item.depositTokenName})`}  value={<Value value={staked} />} />
+        <Label
+          label={`${t("wdzy")} (${item.depositTokenName})`}
+          value={<Value value={staked} />}
+        />
 
         <Spacer size="mmd" />
-        <Label label={`${t("dlqsy")} (${item.earnTokenName})`}  value={<Value value={mineInfo.earned} />} />
+        <Label
+          label={`${t("dlqsy")} (${item.earnTokenName})`}
+          value={<Value value={mineInfo.earned} />}
+        />
         <Spacer />
-        <Button text={t("xuanze")} variant="secondary"  onClick={
-          ()=>{
-            history.push(`/mine/pool/${item.depositContract}`)
-          }
-        }/>
+        <Button
+          text={t("xuanze")}
+          variant="secondary"
+          onClick={() => {
+            history.push(`/mine/pool/${item.depositContract}`);
+          }}
+        />
         <Spacer size="mmd" />
       </StyledWrapBox>
     </>
@@ -82,9 +96,24 @@ const List: React.FC = ({ mines }) => {
 };
 const StyledWrapBox = styled(Card)`
   height: 400px;
+  position: relative;
   @media (max-width: 768px) {
     margin-bottom: 16px;
     height: auto;
   }
+`;
+const StyledTag = styled.div`
+  position: absolute;
+  left: 0;
+  top: 20px;
+  background: ${({ color }) => color};
+  border-radius: 0px 20px 20px 0px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  padding: 0 8px;
+  font-size: 12px;
 `;
 export default List;
