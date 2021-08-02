@@ -204,12 +204,14 @@ const Specie: React.FC = ({}) => {
 
   const inputMax = useMemo(() => {
     var max = parseFloat(inputCurrencyBalance)
-      ? new BigNumber(inputCurrencyBalance).minus(0.01).toNumber()
+      ? new BigNumber(inputCurrencyBalance).minus(0.01).toFixed(18,1)
       : 0;
+      console.log(max,'max');
 
     var canBuyAmount =
       selectInputCurrency === "ETH" ? max : inputCurrencyBalance;
-    return parseFloat(canBuyAmount);
+    const amount = new BigNumber(canBuyAmount);
+    return amount.toFixed(getDep(amount), 1);
   }, [
     inputCurrencyBalance,
     selectInputCurrency,

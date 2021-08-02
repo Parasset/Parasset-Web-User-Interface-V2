@@ -2,7 +2,7 @@
 import Web3 from "web3";
 import { defaultEthereumConfig, EthereumConfig } from "./config";
 import BigNumber from "bignumber.js";
-// import { formatUnits, parseUnits } from 'ethers/lib/utils';
+
 export function web3ProviderFrom(
   endpoint: string,
   config?: EthereumConfig

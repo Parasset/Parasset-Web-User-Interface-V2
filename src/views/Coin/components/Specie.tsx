@@ -213,12 +213,15 @@ const Specie: React.FC = ({}) => {
 
   const inputMax = useMemo(() => {
     var max = $isPositiveNumber(
-      $isFiniteNumber(new BigNumber(ETHWalletBalance).minus(0.02).toNumber())
+      $isFiniteNumber(new BigNumber(ETHWalletBalance).minus(0.02).toFixed(18,1))
     );
+    console.log(max,'max');
 
     var canBuyAmount = isETH ? max : inputCurrencyBalance;
-    return parseFloat(canBuyAmount);
+    const amount = new BigNumber(canBuyAmount);
+    return amount.toFixed(getDep(amount), 1);
   }, [inputCurrencyBalance, isETH]);
+
 
   const cointAddress = useMemo(() => {
     return {
@@ -342,6 +345,7 @@ const Specie: React.FC = ({}) => {
           : value !== "" && !Number.isFinite(value1)
           ? minLimit
           : value;
+    
       setInputValue(value);
     },
     [inputMax]
@@ -433,7 +437,7 @@ const Specie: React.FC = ({}) => {
       setSelectOutputCurrency(outputCurrency);
     }
   }, [inputCurrency, outputCurrency]);
-  
+
   return (
     <>
       <Spacer size="sm" />

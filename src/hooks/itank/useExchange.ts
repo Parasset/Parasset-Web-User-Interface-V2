@@ -11,10 +11,10 @@ const useExchange = () => {
     (itankContract, amount, decimal, isTransform, isPayETH) => {
       try {
         const value = isPayETH
-          ? { value: decimalToBalance(String(parseFloat(amount)), 18) }
+          ? { value: decimalToBalance(String(amount), 18) }
           : {};
         const amountBn = decimalToBalance(String(amount), decimal);
-        console.log(amount,amountBn, value)
+        console.log(amount, amountBn, value);
         return handleTransactionReceipt(
           !isTransform
             ? basisCash.exchangeUnderlyingToPToken

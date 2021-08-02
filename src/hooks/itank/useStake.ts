@@ -9,13 +9,15 @@ const useStake = (itankContract: any, decimal: any) => {
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleStake = useCallback(
-    (amount,isPayETH) => {
+    (amount, isPayETH) => {
       const amountBn = decimalToBalance(amount, decimal);
-      const value=isPayETH?{value: decimalToBalance(String(parseFloat(amount)), 18)}:{}
+      const value = isPayETH
+        ? { value: decimalToBalance(String(amount), 18) }
+        : {};
       return handleTransactionReceipt(basisCash.itankStake, [
         itankContract,
         amountBn,
-        value
+        value,
       ]);
     },
     [basisCash, itankContract, decimal]
