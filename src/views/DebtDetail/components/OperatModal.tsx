@@ -31,14 +31,23 @@ const Mine: React.FC = ({
 
   const [val, setVal] = useState(0);
 
- 
   const [pendingTx, setPendingTx] = useState(false);
   const { onHandlerDebt } = useHandlerDebt();
   const { onBlur } = useBlur();
   const { onFocus } = useFocus();
-  const [approveStatus, approve] = useApprove(
+
+  const [approveMortgageTokenStatus, approveMortgageToken] = useApprove(
+    debt?.mortgageToken,
+    debt?.mortgagePoolContract?.address,
+    val
+  );
+
+  const [approveParassetTokenStatus, approveParassetToken] = useApprove(
     debt?.uToken,
-    debt?.mortgagePoolContract?.address
+    debt?.mortgagePoolContract?.address,
+    select === "Repay"
+      ? new BigNumber(debtInfo.fee).plus(val).toFixed(18, 1)
+      : debtInfo.fee
   );
 
   const canBuyAmount = useMemo(() => {
@@ -298,13 +307,8 @@ const Mine: React.FC = ({
       },
     };
   }, [debt, assetChanges, columns]);
-  
+
   const onConfirm = useCallback(async () => {
-    console.log(
-      ETHWalletBalance,
-      parseFloat(ETHWalletBalance),
-      parseFloat(ETHWalletBalance) < 0.01
-    );
     if (!parseFloat(val)) {
       Toast.info(t(dataInfo[select].placeholder), 1000);
     } else if (parseFloat(val) > parseFloat(canBuyAmount)) {
@@ -388,21 +392,32 @@ const Mine: React.FC = ({
         val={val}
         type="number"
         columns={dataInfo[select].columns}
-
-        // showApprove={true}
-        // approveStatus={approveStatus}
-        // approve={async () => {
-        //   setPendingTx(true);
-        //   await approve();
-        //   setPendingTx(false);
-        // }}
-        // approveTokenName={debt?.earnTokenName}
-        // onBlur={(e) => {
-        //   onBlur(e, setVal);
-        // }}
-        // onFocus={(e) => {
-        //   onFocus(e, setVal);
-        // }}
+        showApprove={true}
+        approveStatus={
+          select === "Stake"
+            ? approveMortgageTokenStatus && approveParassetTokenStatus
+            : approveParassetTokenStatus
+        }
+        approve={async () => {
+          const func =
+            select === "Stake" && approveMortgageTokenStatus
+              ? approveMortgageToken
+              : approveParassetToken;
+          setPendingTx(true);
+          await func();
+          setPendingTx(false);
+        }}
+        approveTokenName={
+          select === "Stake" && approveMortgageTokenStatus
+            ? debt?.depositTokenName
+            : debt?.earnTokenName
+        }
+        onBlur={(e) => {
+          onBlur(e, setVal);
+        }}
+        onFocus={(e) => {
+          onFocus(e, setVal);
+        }}
       />
     </>
   );

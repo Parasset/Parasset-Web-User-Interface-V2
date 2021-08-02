@@ -19,15 +19,16 @@ function useApprove(token: any, spender: string, amount) {
   const approvalState = useMemo(() => {
     const approvalAmount = new BigNumber(currentAllowance);
     const payAmount = $isPositiveNumber($isFiniteNumber(amount));
+    
     if (payAmount) {
-      console.log(approvalAmount.toFixed(18,1),approvalAmount.gte(payAmount))
+ 
       return approvalAmount.gte(payAmount) ? false : true;
     } else if (!parseFloat(payAmount)) {
       return !parseFloat(currentAllowance);
     }
   }, [currentAllowance, amount]);
 
-  // console.log(approvalState,token?.symbol,spender,amount)
+  console.log(currentAllowance,approvalState,token?.symbol,spender,amount)
 
   const approve = useCallback(async () => {
     if (!approvalState) {
