@@ -109,6 +109,9 @@ const DepositModal: React.FC = ({
     return value;
   }, [estimateValue, itankInfo.depositFundBalance]);
 
+
+
+  
   const remainingShare = useMemo(() => {
     // 持有的LP-提取LP-USD数量输入值
     let amount = new BigNumber(canBuyAmount).minus(val);
