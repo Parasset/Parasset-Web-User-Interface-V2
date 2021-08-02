@@ -13,6 +13,7 @@ const Progress: React.FC = ({ ratio, maxRatio, liqRatio }) => {
     const rate = new BigNumber(ratio).div(100);
     const maxRate = new BigNumber(maxRatio);
     const maxRatio70 = maxRate.times(0.7);
+    // console.log(rate.toFixed(18,1),maxRate.toFixed(18,1),maxRatio70.toFixed(18,1))
 
     if (rate.gte(0) && rate.lt(maxRatio70)) {
       return "#0CC69D";

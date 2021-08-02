@@ -27,7 +27,7 @@ const Mine: React.FC = () => {
   const { itankInfo, lastDate, redeemAmount } = useItankInfo(itank);
   const myShare = useTokenBalance(itank?.itankContract);
   const depositBalance = useTokenBalance(itank?.depositToken);
-  console.log("🚀 ~ file: ITankDetail.tsx ~ line 30 ~ depositBalance", depositBalance)
+  
 
   const myRatio = useMemo(() => {
     //我的LP余额除总供应

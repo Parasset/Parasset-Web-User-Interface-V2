@@ -9,7 +9,7 @@ import { getDep, $isFiniteNumber } from "../../../utils/utils";
 import useWithdraw from "../../../hooks/itank/useWithdraw";
 import useBlur from "../../../hooks/useBlur";
 import useFocus from "../../../hooks/useFocus";
-
+import useApprove from "../../../hooks/useApprove";
 const DepositModal: React.FC = ({
   isOpen,
   onDismiss,
@@ -30,6 +30,13 @@ const DepositModal: React.FC = ({
   const { onWithdraw } = useWithdraw(
     itank?.itankContract,
     itank?.itankContract?.decimal
+  );
+
+
+  const [approveStatus, approve] = useApprove(
+    itank?.itankContract,
+    itank?.itankContract?.address,
+    val
   );
 
   const canBuyAmount = useMemo(() => {
@@ -222,6 +229,18 @@ const DepositModal: React.FC = ({
           },
         }}
         type="number"
+
+
+
+
+        showApprove={true}
+        approveStatus={approveStatus}
+        approve={async () => {
+          setPendingTx(true);
+          await approve();
+          setPendingTx(false);
+        }}
+        approveTokenName={itank?.LPTokenName}
       />
     </>
   );

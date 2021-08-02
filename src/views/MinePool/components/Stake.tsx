@@ -8,17 +8,13 @@ import Card from "../../../components/Card";
 import Button from "../../../components/Button";
 import Value from "../../../components/Value";
 import useIsMobile from "../../../hooks/useIsMobile";
-import useApprove from "../../../hooks/useApprove";
-import useBasisCash from "../../../hooks/useBasisCash";
+
 const Stake: React.FC = ({ mine, staked, onSelect, onOpenModal }) => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
-  const basisCash = useBasisCash();
-  const [pendingTx, setPendingTx] = useState(false);
-  const [approveStatus, approve] = useApprove(
-    mine?.depositToken,
-    basisCash?.contracts.Mine?.address
-  );
+
+
+
   return (
     <>
       <StyledWrapBox className={`wing-blank-lg ${isMobile ? "" : "width-47"} `}>
@@ -40,7 +36,7 @@ const Stake: React.FC = ({ mine, staked, onSelect, onOpenModal }) => {
             {t("ydy")} ( {mine.depositTokenName} )
           </div>
           <Spacer />
-          {approveStatus ? (
+          {/* {approveStatus ? (
             <>
               <div className="flex-row-center-center">
                 <Button
@@ -57,24 +53,31 @@ const Stake: React.FC = ({ mine, staked, onSelect, onOpenModal }) => {
               </div>
             </>
           ) : (
-            <>
-              <div className="flex-jc-center">
-                <Button
-                  text={` ${t("diya")} ${mine.depositTokenName} `}
-                  variant="secondary"
-                  width="47%"
-                  onClick={() => {
-                    onSelect(1);
-                    onOpenModal();
-                  }}
-                />
-                <Button text={t("shuhui")} variant="tertiary" width="47%"    onClick={() => {
-                onSelect(2)
-                onOpenModal()
-              }}/>
-              </div>
-            </>
-          )}
+           
+          )} */}
+
+  
+            <div className="flex-jc-center">
+              <Button
+                text={` ${t("diya")} ${mine.depositTokenName} `}
+                variant="secondary"
+                width="47%"
+                onClick={() => {
+                  onSelect(1);
+                  onOpenModal();
+                }}
+              />
+              <Button
+                text={t("shuhui")}
+                variant="tertiary"
+                width="47%"
+                onClick={() => {
+                  onSelect(2);
+                  onOpenModal();
+                }}
+              />
+            </div>
+        
         </div>
 
         <Spacer size="mmd" />

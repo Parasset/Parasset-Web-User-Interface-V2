@@ -95,54 +95,7 @@ const Specie: React.FC = ({}) => {
   const NESTWalletBalance = useTokenBalance(basisCash?.externalTokens["NEST"]);
   const PETHWalletBalance = useTokenBalance(basisCash?.externalTokens["PETH"]);
   const PUSDWalletBalance = useTokenBalance(basisCash?.externalTokens["PUSD"]);
-  const [approveStatusPUSD, approvePUSD] = useApprove(
-    basisCash?.externalTokens["PUSD"],
-    basisCash?.contracts["PUSDMorPool"]?.address
-  );
 
-  const [approveStatusPETH, approvePETH] = useApprove(
-    basisCash?.externalTokens["PETH"],
-    basisCash?.contracts["PETHMorPool"]?.address
-  );
-  const [approveStatusNESTPETH, approveNESTPETH] = useApprove(
-    basisCash?.externalTokens["NEST"],
-    basisCash?.contracts["PETHMorPool"]?.address
-  );
-  const [approveStatusNESTPUSD, approveNESTPUSD] = useApprove(
-    basisCash?.externalTokens["NEST"],
-    basisCash?.contracts["PUSDMorPool"]?.address
-  );
-
-  const approveList = useMemo(() => {
-    return {
-      NESTPETH: {
-        status: approveStatusNESTPETH,
-        approve: approveNESTPETH,
-      },
-      NESTPUSD: {
-        status: approveStatusNESTPUSD,
-        approve: approveNESTPUSD,
-      },
-      PETH: {
-        status: approveStatusPETH,
-        approve: approvePETH,
-      },
-
-      PUSD: {
-        status: approveStatusPUSD,
-        approve: approvePUSD,
-      },
-    };
-  }, [
-    approveStatusPETH,
-    approveStatusPUSD,
-    approvePETH,
-    approvePUSD,
-    approveStatusNESTPETH,
-    approveStatusNESTPUSD,
-    approveNESTPETH,
-    approveNESTPUSD,
-  ]);
 
   const currencyListInput = useMemo(() => {
     return [
@@ -215,7 +168,7 @@ const Specie: React.FC = ({}) => {
     var max = $isPositiveNumber(
       $isFiniteNumber(new BigNumber(ETHWalletBalance).minus(0.02).toFixed(18,1))
     );
-    console.log(max,'max');
+    
 
     var canBuyAmount = isETH ? max : inputCurrencyBalance;
     const amount = new BigNumber(canBuyAmount);
@@ -310,6 +263,62 @@ const Specie: React.FC = ({}) => {
     const fee = dataList[selectInputCurrency + selectOutputCurrency].fee;
     return fee;
   }, [dataList, selectInputCurrency, selectOutputCurrency]);
+
+
+
+  const [approveStatusPUSD, approvePUSD] = useApprove(
+    basisCash?.externalTokens["PUSD"],
+    basisCash?.contracts["PUSDMorPool"]?.address,
+    fee
+  );
+
+  const [approveStatusPETH, approvePETH] = useApprove(
+    basisCash?.externalTokens["PETH"],
+    basisCash?.contracts["PETHMorPool"]?.address,
+    fee
+  );
+  const [approveStatusNESTPETH, approveNESTPETH] = useApprove(
+    basisCash?.externalTokens["NEST"],
+    basisCash?.contracts["PETHMorPool"]?.address,
+    inputValue
+
+  );
+  const [approveStatusNESTPUSD, approveNESTPUSD] = useApprove(
+    basisCash?.externalTokens["NEST"],
+    basisCash?.contracts["PUSDMorPool"]?.address,
+    inputValue
+  );
+
+  const approveList = useMemo(() => {
+    return {
+      NESTPETH: {
+        status: approveStatusNESTPETH,
+        approve: approveNESTPETH,
+      },
+      NESTPUSD: {
+        status: approveStatusNESTPUSD,
+        approve: approveNESTPUSD,
+      },
+      PETH: {
+        status: approveStatusPETH,
+        approve: approvePETH,
+      },
+
+      PUSD: {
+        status: approveStatusPUSD,
+        approve: approvePUSD,
+      },
+    };
+  }, [
+    approveStatusPETH,
+    approveStatusPUSD,
+    approvePETH,
+    approvePUSD,
+    approveStatusNESTPETH,
+    approveStatusNESTPUSD,
+    approveNESTPETH,
+    approveNESTPUSD,
+  ]);
 
   const onChangeInputCurrencySelect = useCallback(
     ({ id }, index) => {

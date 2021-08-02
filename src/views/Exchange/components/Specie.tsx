@@ -70,17 +70,20 @@ const Specie: React.FC = ({}) => {
   } = useItankInfo(itankPETH);
   const [approveStatusPETH, approvePETH] = useApprove(
     basisCash?.externalTokens["PETH"],
-    basisCash?.contracts["PETHInsPool"]?.address
+    basisCash?.contracts["PETHInsPool"]?.address,
+    inputValue
   );
 
   const [approveStatusUSDT, approveUSDT] = useApprove(
     basisCash?.externalTokens["USDT"],
-    basisCash?.contracts["PUSDInsPool"]?.address
+    basisCash?.contracts["PUSDInsPool"]?.address,
+    inputValue
   );
 
   const [approveStatusPUSD, approvePUSD] = useApprove(
     basisCash?.externalTokens["PUSD"],
-    basisCash?.contracts["PUSDInsPool"]?.address
+    basisCash?.contracts["PUSDInsPool"]?.address,
+    inputValue
   );
 
   const approveList = useMemo(() => {
@@ -206,7 +209,7 @@ const Specie: React.FC = ({}) => {
     var max = parseFloat(inputCurrencyBalance)
       ? new BigNumber(inputCurrencyBalance).minus(0.01).toFixed(18,1)
       : 0;
-      console.log(max,'max');
+      
 
     var canBuyAmount =
       selectInputCurrency === "ETH" ? max : inputCurrencyBalance;

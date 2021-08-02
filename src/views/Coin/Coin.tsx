@@ -1,7 +1,5 @@
 //@ts-nocheck
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
-import useIsMobile from "../../hooks/useIsMobile";
 import Tab from "../../components/Tab";
 import Specie from "./components/Specie";
 import Debt from "./components/Debt";

@@ -11,7 +11,7 @@ const useAllowance = (token: any, spender: string) => {
     
       const allowance = await token.allowance(basisCash?.myAccount, spender);
       
-      setAllowance((getTonumber(allowance)) );
+      setAllowance((getTonumber(allowance,token.decimal)) );
       
     }
   }, [basisCash?.myAccount, spender, token]);

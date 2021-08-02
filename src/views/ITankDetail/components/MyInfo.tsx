@@ -10,7 +10,7 @@ import Button from "../../../components/Button";
 import Value from "../../../components/Value";
 import Account from "./Account";
 import useIsMobile from "../../../hooks/useIsMobile";
-import useApprove from "../../../hooks/useApprove";
+
 const MyInfo: React.FC = ({
   itank,
   itankInfo,
@@ -26,10 +26,7 @@ const MyInfo: React.FC = ({
   const history = useHistory();
 
   const [pendingTx, setPendingTx] = useState(false);
-  const [approveStatus, approve] = useApprove(
-    itank?.depositToken,
-    itank?.itankContract?.address
-  );
+
   return (
     <>
       <Card className={` ${isMobile ? "wing-blank" : "wing-blank-lg"} `}>
@@ -67,31 +64,13 @@ const MyInfo: React.FC = ({
           />
           <Spacer size="mmd" />
           <div className="flex-jc-center">
-            {itank.depositTokenName === "USDT" && approveStatus ? (
-              <>
-                <Button
-                  variant="secondary"
-                  text={`${t("sq")} ${itank.depositTokenName}`}
-                  width="47%"
-                  disabled={pendingTx}
-                  onClick={async () => {
-                    setPendingTx(true);
-                    await approve();
-                    setPendingTx(false);
-                  }}
-                />
-              </>
-            ) : (
-              <>
-                <Button
-                  variant="secondary"
-                  text={`${t("zhuru")} ${itank.depositTokenName}`}
-                  width="47%"
-                  onClick={onOpenDepositModal}
-                />
-              </>
-            )}
-
+        
+            <Button
+              variant="secondary"
+              text={`${t("zhuru")} ${itank.depositTokenName}`}
+              width="47%"
+              onClick={onOpenDepositModal}
+            />
             <Button
               variant="tertiary"
               text={t("tq")}
@@ -101,7 +80,7 @@ const MyInfo: React.FC = ({
           </div>
           <Spacer />
           <div className="text-center">
-            {/* /mine/pool/PUSDInsPool */}
+         
             <div
               onClick={() => {
                 history.push(`/mine/pool/${itank.contract}`);

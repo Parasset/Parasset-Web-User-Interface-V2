@@ -9,6 +9,7 @@ import { getDep, $isFiniteNumber } from "../../../utils/utils";
 import useStake from "../../../hooks/itank/useStake";
 import useBlur from "../../../hooks/useBlur";
 import useFocus from "../../../hooks/useFocus";
+import useApprove from "../../../hooks/useApprove";
 const DepositModal: React.FC = ({
   isOpen,
   onDismiss,
@@ -19,6 +20,11 @@ const DepositModal: React.FC = ({
   const { t } = useTranslation();
   const [val, setVal] = useState(0);
   const [pendingTx, setPendingTx] = useState(false);
+  const [approveStatus, approve] = useApprove(
+    itank?.depositToken,
+    itank?.itankContract?.address,
+    val
+  );
   const { onBlur } = useBlur();
   const { onFocus } = useFocus();
   const { onStake } = useStake(
@@ -136,6 +142,14 @@ const DepositModal: React.FC = ({
           },
         }}
         type="number"
+        showApprove={itank.depositTokenName !== "ETH" ? true : false}
+        approveStatus={approveStatus}
+        approve={async () => {
+          setPendingTx(true);
+          await approve();
+          setPendingTx(false);
+        }}
+        approveTokenName={itank?.depositTokenName}
       />
     </>
   );

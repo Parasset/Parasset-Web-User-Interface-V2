@@ -33,8 +33,8 @@ export default function HandlerModal({
   onFocus,
   showApprove,
   approveStatus,
-  approve ,
-  approveTokenName
+  approve,
+  approveTokenName,
 }) {
   const { t } = useTranslation();
 
@@ -78,9 +78,8 @@ export default function HandlerModal({
               placeholder={placeholder}
               type={type}
               value={val}
-
               onChange={handleChange}
-              className='flex15'
+              className="flex15"
               onBlur={onBlur}
               onFocus={onFocus}
             />
@@ -116,7 +115,7 @@ export default function HandlerModal({
         <Spacer size="mmd" />
         {showApprove && approveStatus ? (
           <Button
-            text={t("sq")+approveTokenName}
+            text={t("sq") + approveTokenName || ""}
             variant="secondary"
             disabled={disabled}
             onClick={approve}

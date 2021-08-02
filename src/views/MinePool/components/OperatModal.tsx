@@ -8,6 +8,8 @@ import useStake from "../../../hooks/mine/useStake";
 import useWithdraw from "../../../hooks/mine/useWithdraw";
 import useBlur from "../../../hooks/useBlur";
 import useFocus from "../../../hooks/useFocus";
+import useApprove from "../../../hooks/useApprove";
+import useBasisCash from "../../../hooks/useBasisCash";
 const Mine: React.FC = ({
   isOpen,
   onDismiss,
@@ -24,6 +26,12 @@ const Mine: React.FC = ({
   const { onWithdraw } = useWithdraw(mine?.depositToken?.address);
   const { onBlur } = useBlur();
   const { onFocus } = useFocus();
+  const basisCash = useBasisCash();
+  const [approveStatus, approve] = useApprove(
+    mine?.depositToken,
+    basisCash?.contracts.Mine?.address,
+    val
+  );
   const canBuyAmount = useMemo(() => {
     return select === 1 ? depositBalance : stakeBalance;
   }, [depositBalance, select, stakeBalance]);
@@ -107,6 +115,15 @@ const Mine: React.FC = ({
         onFocus={(e) => {
           onFocus(e, setVal);
         }}
+
+        showApprove={true}
+        approveStatus={approveStatus}
+        approve={async () => {
+          setPendingTx(true);
+          await approve();
+          setPendingTx(false);
+        }}
+        approveTokenName={mine?.depositTokenName}
       />
     </>
   );
