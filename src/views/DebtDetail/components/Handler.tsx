@@ -10,15 +10,19 @@ import Button from "../../../components/Button";
 import OperatModal from "./OperatModal";
 import useIsMobile from "../../../hooks/useIsMobile";
 import useTokenBalance from "../../../hooks/useTokenBalance";
+import useBasisCash from "../../../hooks/useBasisCash";
 
 const Handler: React.FC = ({ debt, debtInfo, fetchInfo }) => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
   const [isOpen, setOpen] = useState(false);
   const [max, setMax] = useState(0);
+  
   const [select, setSelect] = useState("Stake");
+  const basisCash = useBasisCash();
   const mortgageBalance = useTokenBalance(debt?.mortgageToken);
   const parassetBalance = useTokenBalance(debt?.uToken);
+  const ETHWalletBalance = useTokenBalance(basisCash?.externalTokens["ETH"]);
   const openModal = useCallback((select, max) => {
     setMax(max);
     setSelect(select);
@@ -179,6 +183,7 @@ const Handler: React.FC = ({ debt, debtInfo, fetchInfo }) => {
         debtInfo={debtInfo}
         parassetBalance={parassetBalance}
         mortgageBalance={mortgageBalance}
+        ETHWalletBalance={ETHWalletBalance}
         fetchInfo={fetchInfo}
         max={max}
         key={isOpen}

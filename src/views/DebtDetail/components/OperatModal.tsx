@@ -13,8 +13,7 @@ import {
 } from "../../../utils/utils";
 import useApprove from "../../../hooks/useApprove";
 import useHandlerDebt from "../../../hooks/debt/useHandlerDebt";
-import useTokenBalance from "../../../hooks/useTokenBalance";
-import useBasisCash from "../../../hooks/useBasisCash";
+
 import useBlur from "../../../hooks/useBlur";
 import useFocus from "../../../hooks/useFocus";
 const Mine: React.FC = ({
@@ -25,14 +24,14 @@ const Mine: React.FC = ({
   debtInfo,
   max,
   parassetBalance,
-  mortgageBalance,
-  fetchInfo
+  ETHWalletBalance,
+  fetchInfo,
 }) => {
   const { t } = useTranslation();
-  const basisCash = useBasisCash();
+
   const [val, setVal] = useState(0);
 
-  const ETHWalletBalance = useTokenBalance(basisCash?.externalTokens["ETH"]);
+ 
   const [pendingTx, setPendingTx] = useState(false);
   const { onHandlerDebt } = useHandlerDebt();
   const { onBlur } = useBlur();
@@ -245,7 +244,7 @@ const Mine: React.FC = ({
         tip: "tip2",
       },
     };
-    
+
     const columns = {
       Stake: columnsLeft,
       Redeem: columnsLeft,
@@ -299,7 +298,13 @@ const Mine: React.FC = ({
       },
     };
   }, [debt, assetChanges, columns]);
+  
   const onConfirm = useCallback(async () => {
+    console.log(
+      ETHWalletBalance,
+      parseFloat(ETHWalletBalance),
+      parseFloat(ETHWalletBalance) < 0.01
+    );
     if (!parseFloat(val)) {
       Toast.info(t(dataInfo[select].placeholder), 1000);
     } else if (parseFloat(val) > parseFloat(canBuyAmount)) {
@@ -333,15 +338,14 @@ const Mine: React.FC = ({
       );
       setPendingTx(false);
       if (result !== "0") {
-        fetchInfo()
+        fetchInfo();
         setTimeout(() => {
           setVal("");
           onDismiss();
-        
         }, 1000);
       }
     }
-  }, [onHandlerDebt, select, val, ETHWalletBalance, canBuyAmount, dataInfo]);
+  }, [ETHWalletBalance, onHandlerDebt, select, val, canBuyAmount, dataInfo]);
 
   const handleSelectMax = useCallback(() => {
     setVal(canBuyAmount);

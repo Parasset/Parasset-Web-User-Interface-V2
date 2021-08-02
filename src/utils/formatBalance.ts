@@ -38,6 +38,10 @@ export const getTonumber = (balance: any, decimals = 18) => {
   // return balance.dividedBy(new BigNumber1(10).pow(decimals)).toNumber();
   return balance.dividedBy(new BigNumber1(10).pow(decimals)).toFixed(displayBalance.dp(), 1);
 };
+export const getNumberToFixed = (balance: any,) => {
+  balance = new BigNumber1(balance);
+  return balance.toFixed(balance.dp(), 1);
+};
 export const getToBignumber = (balance: any, decimals = 18) => {
   balance = new BigNumber1(balance.toString());
   return balance.dividedBy(new BigNumber1(10).pow(decimals));

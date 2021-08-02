@@ -1,8 +1,8 @@
 //@ts-nocheck
-import { ethers } from 'ethers';
-import { useCallback, useMemo } from 'react';
-import useHandleTransactionReceipt from './useHandleTransactionReceipt';
-import useAllowance from './useAllowance';
+import { ethers } from "ethers";
+import { useCallback, useMemo } from "react";
+import useHandleTransactionReceipt from "./useHandleTransactionReceipt";
+import useAllowance from "./useAllowance";
 
 const APPROVE_AMOUNT = ethers.constants.MaxUint256;
 
@@ -12,21 +12,31 @@ function useApprove(token: any, spender: string) {
   const handleTransactionReceipt = useHandleTransactionReceipt();
   // check the current approval status
   const approvalState = useMemo(() => {
-    return !currentAllowance;
+    return !parseFloat(currentAllowance);
+    // return currentAllowance;
+  }, [currentAllowance]);
+  const approvalNumber = useMemo(() => {
+    return currentAllowance;
     // return currentAllowance;
   }, [currentAllowance]);
 
   const approve = useCallback(async () => {
     if (!approvalState) {
-      console.error('approve was called unnecessarily');
+      console.error("approve was called unnecessarily");
       return;
     }
     try {
-    
-      return handleTransactionReceipt(token.approve, [spender, APPROVE_AMOUNT], token);
+      return handleTransactionReceipt(
+        token.approve,
+        [spender, APPROVE_AMOUNT],
+        token
+      );
     } catch (error) {
-      console.log("🚀 ~ file: useApprove.ts ~ line 27 ~ approve ~ error", error)
-      return '0';
+      console.log(
+        "🚀 ~ file: useApprove.ts ~ line 27 ~ approve ~ error",
+        error
+      );
+      return "0";
     }
   }, [approvalState, token, spender]);
 
