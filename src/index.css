@@ -37,7 +37,7 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 .style_mask__9zmSN {
-  z-index: 99999;
+  z-index: 99999999999!important;
 }
 .bd-right,
 .bd-right1,

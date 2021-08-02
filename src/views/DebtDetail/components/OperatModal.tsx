@@ -322,7 +322,7 @@ const Mine: React.FC = ({
       select === "Repay" &&
       new BigNumber(parassetBalance).lt(new BigNumber(debtInfo.fee).plus(val))
     ) {
-      Toast.info(t("qbkypxzcbz"), 1000);
+      Toast.info(t("yebzchzwwdf"), 1000);
     } else {
       setPendingTx(true);
       const result = await onHandlerDebt(

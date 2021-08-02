@@ -17,7 +17,6 @@ const Mine: React.FC = ({
   stakeBalance,
   fetchInfo,
 }) => {
-  
   const { t } = useTranslation();
   const [val, setVal] = useState(0);
   const [pendingTx, setPendingTx] = useState(false);
@@ -47,15 +46,14 @@ const Mine: React.FC = ({
       const result = await func(val + "");
       setPendingTx(false);
       if (result !== "0") {
-        fetchInfo();
+        fetchInfo && fetchInfo();
         setTimeout(() => {
           setVal("");
           onDismiss();
-     
-        }, 1000);
+        }, 0);
       }
     }
-  }, [onStake, onWithdraw, select, val, canBuyAmount]);
+  }, [onStake, onWithdraw, select, fetchInfo, val, canBuyAmount]);
 
   const handleSelectMax = useCallback(() => {
     setVal(canBuyAmount);

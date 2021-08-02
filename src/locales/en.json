@@ -140,7 +140,7 @@
   "bxcyebz": "Insufficient insurance pool balance",
   "dqjzxybnzr": "When per share is less than 0, deposit is prohibited",
   "xch": "Repayable",
-  "qbkypxzcbz": "The wallet has insufficient parallel assets available",
+  "qbkypxzcbz": "Insufficient wallet balance to pay Stability Fee",
   "cswlcw": "Network error，Please connect 'Ethereum Rinkeby Testnet'",
   "zwwlcw": "Network error，Please connect 'Ethereum Mainet'",
   "bxcks": "The loss of the insurance pool, and the available capital is 0",
@@ -154,6 +154,7 @@
   "yujing": "Warning",
   "daiqingsuan": "Liquidable",
   "jxz": "In progress",
-   "yzt": "Paused"
+   "yzt": "Paused",
+   "yebzchzwwdf": "The wallet balance is insufficient to repay Debts and Stability Fee"
   
 }

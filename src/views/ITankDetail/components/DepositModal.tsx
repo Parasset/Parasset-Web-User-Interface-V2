@@ -41,9 +41,12 @@ const DepositModal: React.FC = ({
     } else if (parseFloat(val) > parseFloat(canBuyAmount)) {
       Toast.info(t("yebz"), 1000);
     } else if (getDep(val) > 18) {
-      Toast.info(      t("zdsrws", {
-        decimal: 18,
-      }), 1000);
+      Toast.info(
+        t("zdsrws", {
+          decimal: 18,
+        }),
+        1000
+      );
     } else if (itankInfo.perShare < 0) {
       Toast.info(t("dqjzxybnzr"), 1000);
     } else {
@@ -62,7 +65,8 @@ const DepositModal: React.FC = ({
 
   const handleSelectMax = useCallback(() => {
     if (itank.depositTokenName === "ETH") {
-      let val = new BigNumber(canBuyAmount).minus(0.01).toNumber();
+      const amount = new BigNumber(canBuyAmount);
+      let val = amount.minus(0.01).toFixed(getDep(amount), 1);
       setVal(val < 0 ? 0 : val);
     } else {
       setVal(canBuyAmount);

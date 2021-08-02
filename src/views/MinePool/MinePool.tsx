@@ -70,7 +70,7 @@ const Mine: React.FC = () => {
       <OperatModal
         isOpen={isOpen}
         mine={mine}
-        mineInfo={mineInfo.fetchInfo}
+        fetchInfo={mineInfo.fetchInfo}
         onDismiss={() => setIsOpen(false)}
         select={select}
         key={select + isOpen}
