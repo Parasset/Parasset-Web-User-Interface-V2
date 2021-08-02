@@ -11,16 +11,16 @@ import OperatModal from "./OperatModal";
 import useIsMobile from "../../../hooks/useIsMobile";
 import useTokenBalance from "../../../hooks/useTokenBalance";
 
-const Handler: React.FC = ({ debt, debtInfo,fetchInfo }) => {
+const Handler: React.FC = ({ debt, debtInfo, fetchInfo }) => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
   const [isOpen, setOpen] = useState(false);
   const [max, setMax] = useState(0);
   const [select, setSelect] = useState("Stake");
-  const mortgageBalance = useTokenBalance(debt?.mortgageToken)
-  const parassetBalance = useTokenBalance(debt?.uToken)
-  const openModal = useCallback((select,max) => {
-    setMax(max)
+  const mortgageBalance = useTokenBalance(debt?.mortgageToken);
+  const parassetBalance = useTokenBalance(debt?.uToken);
+  const openModal = useCallback((select, max) => {
+    setMax(max);
     setSelect(select);
     setOpen(true);
   }, []);
@@ -31,10 +31,12 @@ const Handler: React.FC = ({ debt, debtInfo,fetchInfo }) => {
         <div className="bd-bottom">
           <div className={` ${isMobile ? "" : "flex-jc-center"} `}>
             <div
-              className={`wing-blank-lg ${isMobile ? "" : "flex1 bd-right1 "} `}
+              className={` ${
+                isMobile ? "" : "wing-blank-lg flex1 bd-right1 "
+              } `}
             >
               <div className="color-grey">{t("dyzc")}</div>
-              <div className="wing-blank">
+              <div className={` ${isMobile ? "" : "wing-blank  "} `}>
                 <Spacer size={isMobile ? "mmd" : "md"} />
 
                 <div className="flex-row-center-center ">
@@ -58,15 +60,15 @@ const Handler: React.FC = ({ debt, debtInfo,fetchInfo }) => {
                   text={t("diya")}
                   variant="secondary"
                   onClick={() => {
-                    openModal("Stake",mortgageBalance);
+                    openModal("Stake", mortgageBalance);
                   }}
                 />
                 <Spacer size={isMobile ? "mmd" : "md"} />
               </div>
             </div>
-            <div className="flex1 wing-blank-lg">
+            <div className={` ${isMobile ? "" : "flex1 wing-blank-lg"} `}>
               <div className="color-grey">{t("yzbsl")}</div>
-              <div className="wing-blank">
+              <div className={` ${isMobile ? "" : "wing-blank  "} `}>
                 <Spacer size={isMobile ? "mmd" : "md"} />
 
                 <div className="flex-row-center-center ">
@@ -85,9 +87,13 @@ const Handler: React.FC = ({ debt, debtInfo,fetchInfo }) => {
                   />
                 </div>
                 <Spacer size={isMobile ? "mmd" : "md"} />
-                <Button text={t("changhuan")} variant="secondary"  onClick={() => {
-                    openModal("Repay",debtInfo.parassetAssets);
-                  }} />
+                <Button
+                  text={t("changhuan")}
+                  variant="secondary"
+                  onClick={() => {
+                    openModal("Repay", debtInfo.parassetAssets);
+                  }}
+                />
                 <Spacer size={isMobile ? "mmd" : "md"} />
               </div>
             </div>
@@ -98,10 +104,10 @@ const Handler: React.FC = ({ debt, debtInfo,fetchInfo }) => {
           <Spacer size={isMobile ? "mmd" : "md"} />
           <div className={` ${isMobile ? "" : "flex-jc-center"} `}>
             <div
-              className={`wing-blank-lg ${isMobile ? "" : "flex1 bd-right1 "} `}
+              className={` ${isMobile ? "" : "flex1 wing-blank-lg bd-right1"} `}
             >
               <div className="color-grey">{t("ksh")}</div>
-              <div className="wing-blank">
+              <div className={` ${isMobile ? "" : "wing-blank  "} `}>
                 <Spacer size={isMobile ? "mmd" : "md"} />
 
                 <div className="flex-row-center-center ">
@@ -120,15 +126,19 @@ const Handler: React.FC = ({ debt, debtInfo,fetchInfo }) => {
                   />
                 </div>
                 <Spacer size={isMobile ? "mmd" : "md"} />
-                <Button text={t("shuhui")} variant="secondary"  onClick={() => {
-                    openModal("Redeem",debtInfo.maxSubM);
-                  }} />
+                <Button
+                  text={t("shuhui")}
+                  variant="secondary"
+                  onClick={() => {
+                    openModal("Redeem", debtInfo.maxSubM);
+                  }}
+                />
                 <Spacer size={isMobile ? "mmd" : "md"} />
               </div>
             </div>
-            <div className="flex1 wing-blank-lg">
+            <div className={` ${isMobile ? "" : "flex1 wing-blank-lg "} `}>
               <div className="color-grey">{t("kzb")}</div>
-              <div className="wing-blank">
+              <div className={` ${isMobile ? "" : "wing-blank  "} `}>
                 <Spacer size={isMobile ? "mmd" : "md"} />
 
                 <div className="flex-row-center-center ">
@@ -147,15 +157,18 @@ const Handler: React.FC = ({ debt, debtInfo,fetchInfo }) => {
                   />
                 </div>
                 <Spacer size={isMobile ? "mmd" : "md"} />
-                <Button text={t("zhubi")} variant="secondary"   onClick={() => {
-                    openModal("Mint",debtInfo.maxAddP);
-                  }}/>
+                <Button
+                  text={t("zhubi")}
+                  variant="secondary"
+                  onClick={() => {
+                    openModal("Mint", debtInfo.maxAddP);
+                  }}
+                />
                 <Spacer size={isMobile ? "mmd" : "md"} />
               </div>
             </div>
           </div>
         </div>
-
         <Spacer size="mmd" />
       </Card>
       <Spacer size={isMobile ? "mmd" : "md"} />

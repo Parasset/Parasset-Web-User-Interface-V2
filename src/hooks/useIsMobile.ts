@@ -6,6 +6,7 @@ const useIsMobile = () => {
     setSize();
   };
   function setSize() {
+    
     let isMobile = !(document.documentElement.offsetWidth > 768);
     setIsMobile(isMobile);
   }

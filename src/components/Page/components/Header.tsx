@@ -90,6 +90,7 @@ const Header: React.FC = () => {
       </StyledSidebar>
       <WalletModal
         isOpen={isOpen}
+        key={isOpen}
         onDismiss={() => {
           setOpen(false);
         }}
@@ -107,7 +108,7 @@ const StyledHeaderPc = styled.div`
   padding-right: 180px;
   background: white;
   z-index: 99;
-  border-bottom:1px solid  rgba(238,238,238,0.6);
+  border-bottom: 1px solid rgba(238, 238, 238, 0.4);
   @media (max-width: 768px) {
     display: none !important;
   }
@@ -118,7 +119,8 @@ const StyledHeaderMobile = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 999;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(238, 238, 238, 0.4);
   background-color: #fff;
   @media (min-width: 1024px) {
     display: none !important;

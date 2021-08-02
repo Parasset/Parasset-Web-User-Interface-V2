@@ -122,6 +122,7 @@ const Right: React.FC = () => {
       </div>
       <WalletModal
         isOpen={isOpen}
+        key={isOpen}
         onDismiss={() => {
           setOpen(false);
         }}

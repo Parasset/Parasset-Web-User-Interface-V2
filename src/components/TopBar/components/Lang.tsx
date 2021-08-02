@@ -62,14 +62,20 @@ const StyledLang = styled.div`
     position: absolute;
     bottom: 10px;
     left: 0;
+    box-sizing: border-box;
+    padding-left: 20px;
+    border-top: 1px solid rgba(238, 238, 238, 0.6);
     img {
-      margin-right: 20px;
+      margin-right: 15px;
     }
   }
   @media (max-width: 768px) {
     position: absolute;
     bottom: 0;
     left: 0;
+    box-sizing: border-box;
+    width: 100%;
+    border-top: 1px solid rgba(238, 238, 238, 0.6);
     img {
       margin-right: 10px;
     }
