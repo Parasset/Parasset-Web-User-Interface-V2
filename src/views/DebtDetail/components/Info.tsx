@@ -14,12 +14,10 @@ const Info: React.FC = ({ debt, debtInfo }) => {
     <>
       <Card className="wing-blank-lg">
         <div className={` ${isMobile ? "" : "flex-jc-center"} `}>
-          <div
-            className={`wing-blank-lg ${isMobile ? "" : "flex1 bd-right1 "} `}
-          >
+          <div className={` ${isMobile ? "" : "flex1 bd-right1 "} `}>
             <Spacer size={isMobile ? "mmd" : "md"} />
             <div className="color-grey">{t("qsjg")}</div>
-            <div className="wing-blank">
+            <div className="">
               <Spacer size={isMobile ? "mmd" : "md"} />
               <div className="font-size-24 bold-600 text-center">
                 <Value value={debtInfo?.liqPrice} suffix={debt.liqUnit} />
@@ -35,6 +33,7 @@ const Info: React.FC = ({ debt, debtInfo }) => {
                   value={
                     <>
                       <Spacer size="ssm" />
+                      <Spacer size="ssm" />
                       <Value
                         value={debtInfo?.mortgageToParassetPrice}
                         suffix="USDT"
@@ -47,10 +46,10 @@ const Info: React.FC = ({ debt, debtInfo }) => {
             </div>
             {isMobile ? null : <Spacer size={isMobile ? "mmd" : "md"} />}
           </div>
-          <div className={`wing-blank-lg ${isMobile ? "" : "flex1  "} `}>
+          <div className={`${isMobile ? "" : "flex1  "} `}>
             <Spacer size={isMobile ? "mmd" : "md"} />
             <div className="color-grey">{t("dqdyl")}</div>
-            <div className="wing-blank">
+            <div className="">
               <Spacer size={isMobile ? "mmd" : "md"} />
               <div className="font-size-24 bold-600 text-center">
                 <Value value={debtInfo?.rate} decimals={2} suffix="%" />
@@ -60,16 +59,16 @@ const Info: React.FC = ({ debt, debtInfo }) => {
                 <Label
                   className="debt-header-info"
                   label={t("qsdyl")}
-                 
                   value={
                     <>
                       <Spacer size="ssm" />
+                      <Spacer size="ssm" />
                       <Value
-                      value={$isPositiveNumber(
-                        $isFiniteNumber(debtInfo?.liqRatio * 100)
-                      )}
-                      suffix="%"
-                    />
+                        value={$isPositiveNumber(
+                          $isFiniteNumber(debtInfo?.liqRatio * 100)
+                        )}
+                        suffix="%"
+                      />
                     </>
                   }
                 />

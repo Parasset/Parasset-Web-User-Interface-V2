@@ -451,7 +451,7 @@ input[type="number"] {
 .debt-header-info {
   flex-direction: column !important;
   align-items: flex-start !important;
-  padding: 10px 20px;
+  padding: 15px 20px;
 }
 @media (max-width: 768px) {
   .font-size-32 {
