@@ -1,5 +1,6 @@
 //@ts-nocheck
 import BigNumber1 from "bignumber.js";
+import { getDep } from "./utils";
 export const getNumberToAll = (balance: any, decimals = 18) => {
   balance = new BigNumber1(balance.toString());
   const displayBalance = balance.dividedBy(new BigNumber1(10).pow(decimals));
@@ -36,9 +37,11 @@ export const getTonumber = (balance: any, decimals = 18) => {
   balance = new BigNumber1(balance.toString());
   const displayBalance = balance.dividedBy(new BigNumber1(10).pow(decimals));
   // return balance.dividedBy(new BigNumber1(10).pow(decimals)).toNumber();
-  return balance.dividedBy(new BigNumber1(10).pow(decimals)).toFixed(displayBalance.dp(), 1);
+  return balance
+    .dividedBy(new BigNumber1(10).pow(decimals))
+    .toFixed(displayBalance.dp(), 1);
 };
-export const getNumberToFixed = (balance: any,) => {
+export const getNumberToFixed = (balance: any) => {
   balance = new BigNumber1(balance);
   return balance.toFixed(balance.dp(), 1);
 };
@@ -49,4 +52,13 @@ export const getToBignumber = (balance: any, decimals = 18) => {
 
 export const getNoDecimalsTonumber = (balance: any) => {
   return balance.toNumber();
+};
+export const updateNumDep = (val, token) => {
+  let dp = getDep(val);
+  if (dp) {
+    dp = dp > token.decimal ? token.decimal : dp;
+    return new BigNumber1(val).toFixed(dp, 1);
+  } else {
+    return val;
+  }
 };

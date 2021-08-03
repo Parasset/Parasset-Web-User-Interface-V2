@@ -16,6 +16,7 @@ import {
   $isFiniteNumber,
   $isPositiveNumber,
 } from "../../../utils/utils";
+import { updateNumDep } from "../../../utils/formatBalance";
 import useItank from "../../../hooks/itank/useItank";
 import useItankInfo from "../../../hooks/itank/useItankInfo";
 import useExchange from "../../../hooks/itank/useExchange";
@@ -225,15 +226,7 @@ const Specie: React.FC = ({}) => {
     ({ value, isInput }) => {
       const inputToken = basisCash?.externalTokens[selectInputCurrency];
       const outputToken = basisCash?.externalTokens[selectOutputCurrency];
-      const updateNumDep = (val, token) => {
-        let dp = getDep(val);
-        if (dp) {
-          dp = dp > token.decimal ? token.decimal : dp;
-          return new BigNumber(val).toFixed(dp, 1);
-        } else {
-          return val;
-        }
-      };
+
       if (isInput) {
         const val =
           value === "" ? value : $isPositiveNumber($isFiniteNumber(value));

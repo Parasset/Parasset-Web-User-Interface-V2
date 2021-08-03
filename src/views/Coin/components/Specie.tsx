@@ -20,11 +20,12 @@ import useFocus from "../../../hooks/useFocus";
 import useApprove from "../../../hooks/useApprove";
 import useTokenBalance from "../../../hooks/useTokenBalance";
 import useBasisCash from "../../../hooks/useBasisCash";
-import useAvgPrice from "../../../hooks/useAvgPrice";
+
 import usePrice from "../../../hooks/coin/usePrice";
 import useMaxRatio from "../../../hooks/coin/useMaxRatio";
 import useFee from "../../../hooks/coin/useFee";
 import useCoin from "../../../hooks/coin/useCoin";
+import useCallbackState from "../../../hooks/useCallbackState";
 
 import {
   getDep,
@@ -32,11 +33,11 @@ import {
   $isPositiveNumber,
   getEncryptAddress,
 } from "../../../utils/utils";
-import { getNumberToFixed } from "../../../utils/formatBalance";
+import { getNumberToFixed, updateNumDep } from "../../../utils/formatBalance";
 const Specie: React.FC = ({}) => {
   const { t } = useTranslation();
   const basisCash = useBasisCash();
-  const avgPrice = useAvgPrice();
+
   const { onCoin } = useCoin();
   const {
     selectInputCurrency: inputCurrency,
@@ -46,6 +47,7 @@ const Specie: React.FC = ({}) => {
 
   const [inputValue, setInputValue] = useState(0);
   const [outputValue, setOutputValue] = useState(0);
+  const [ratio, setRatio] = useCallbackState(50);
   const [pendingTx, setPendingTx] = useState(false);
   const [showInputCurrencySelect, setShowInputCurrencySelect] = useState(false);
 
@@ -230,36 +232,20 @@ const Specie: React.FC = ({}) => {
   ]);
 
   const calcRatio = useMemo(() => {
-    if (parseFloat(inputValue) && parseFloat(outputValue)) {
-      // NESTToUSDTPrice, NESTToETHPrice, ETHAvgPrice
-      // X=输入的PUSD数量/(输入的ETH数量*ETH-USDT预言机价格) ETH铸币PUSD
-      // X=输入的PUSD数量/(输入的NEST数量*NEST-USDT预言机价格) NEST铸币PUSD
-      // X=输入的PETH数量/(输入的NEST数量*NEST-PETH预言机价格)  NEST铸币PETH
-      // 若X大于NEST的最高抵押率（合约返回值），则红色显示前端计算的抵押率结果；铸币按钮灰色不可点击；若X小于等于NEST的最高抵押率，则可正常铸币
-      const price = dataList[selectInputCurrency + selectOutputCurrency].price;
-      const ratio = new BigNumber(outputValue)
-        .div(new BigNumber(inputValue).times(price))
-        .toNumber();
-      return $isPositiveNumber($isFiniteNumber(ratio));
-    }
-  }, [inputValue, outputValue, dataList]);
+    return new BigNumber(ratio).div(100).toNumber();
+  }, [ratio]);
 
   const isExceeds = useMemo(() => {
     const { maxRatio } = dataList[selectInputCurrency + selectOutputCurrency];
-    return new BigNumber(calcRatio).gte(maxRatio);
+    return new BigNumber(calcRatio).gt(maxRatio);
   }, [calcRatio, dataList, selectInputCurrency, selectOutputCurrency]);
 
-  const ratio = useMemo(() => {
-    return $isPositiveNumber(
-      $isFiniteNumber(
-        new BigNumber(
-          parseInt(new BigNumber(calcRatio).times(100000).toNumber())
-        )
-          .div(1000)
-          .toNumber()
-      )
-    );
-  }, [calcRatio]);
+  const maxRatio = useMemo(() => {
+    const { maxRatio } = dataList[selectInputCurrency + selectOutputCurrency];
+    return !maxRatio
+      ? 70
+      : parseInt(new BigNumber(maxRatio).times(100).toNumber());
+  }, [dataList, selectInputCurrency, selectOutputCurrency]);
 
   const fee = useMemo(() => {
     const fee = dataList[selectInputCurrency + selectOutputCurrency].fee;
@@ -325,7 +311,8 @@ const Specie: React.FC = ({}) => {
       //默认输出PUSD
       setSelectOutputCurrency(currencyListOutput[0].id);
       const max = maxList[id];
-      setInputValue(parseFloat(inputValue) > max ? max : inputValue);
+      // setInputValue(parseFloat(inputValue) > max ? max : inputValue);
+      setInputValue(inputValue);
     },
     [isETH, currencyListOutput, inputMax, maxList, inputValue]
   );
@@ -337,33 +324,82 @@ const Specie: React.FC = ({}) => {
     [currencyListInput]
   );
 
-  const handleChangeInputValue = useCallback(
-    (e) => {
-      const minLimit = 0;
-      var { value } = e.currentTarget;
-      var value1 = parseFloat(value);
-      const canBuyAmount = inputMax;
-      var canBuyAmount1 = parseFloat(canBuyAmount);
+  const calcAmount = useCallback(
+    ({ value, isInput }) => {
+      const inputToken = basisCash?.externalTokens[selectInputCurrency];
+      const outputToken = basisCash?.externalTokens[selectOutputCurrency];
+      const price = dataList[selectInputCurrency + selectOutputCurrency].price;
 
-      value =
-        value1 > canBuyAmount1
-          ? canBuyAmount
-          : value !== "" && value1 <= minLimit
-          ? minLimit
-          : value !== "" && !Number.isFinite(value1)
-          ? minLimit
-          : value;
+      if (isInput) {
+        // NESTToUSDTPrice, NESTToETHPrice, ETHAvgPrice
+        // X=输入的PUSD数量/(输入的ETH数量*ETH-USDT预言机价格) ETH铸币PUSD
+        // X=输入的PUSD数量/(输入的NEST数量*NEST-USDT预言机价格) NEST铸币PUSD
+        // X=输入的PETH数量/(输入的NEST数量*NEST-PETH预言机价格)  NEST铸币PETH
+        // 若X大于NEST的最高抵押率（合约返回值），则红色显示前端计算的抵押率结果；铸币按钮灰色不可点击；若X小于等于NEST的最高抵押率，则可正常铸币
+        // const ratio = new BigNumber(outputValue)
+        //   .div(new BigNumber(inputValue).times(price))
+        //   .toNumber();
+        // return $isPositiveNumber($isFiniteNumber(ratio));
 
-      setInputValue(value);
+        let val =
+          value === "" ? value : $isPositiveNumber($isFiniteNumber(value));
+        val = updateNumDep(val, inputToken);
+
+        setInputValue(val);
+        const amount = new BigNumber(val).times(price).times(calcRatio);
+        const outputAmount = $isPositiveNumber(
+          $isFiniteNumber(getNumberToFixed(amount))
+        );
+        console.log(
+          "🚀 ~ file: Specie.tsx ~ line 346 ~ input",
+          value,
+          val,
+          outputAmount
+        );
+        setOutputValue(updateNumDep(outputAmount, outputToken));
+      } else {
+        let val =
+          value === "" ? value : $isPositiveNumber($isFiniteNumber(value));
+        val = updateNumDep(val, outputToken);
+        setOutputValue(val);
+
+        const amount = new BigNumber(val).div(calcRatio).div(price);
+        const inputAmount = $isPositiveNumber(
+          $isFiniteNumber(getNumberToFixed(amount))
+        );
+        console.log(
+          "🚀 ~ file: Specie.tsx ~ line 346 ~ output",
+          value,
+          val,
+          inputAmount,
+          calcRatio,
+          price
+        );
+
+        setInputValue(updateNumDep(inputAmount, inputToken));
+      }
     },
-    [inputMax]
+    [
+      calcRatio,
+      basisCash?.externalTokens,
+      dataList,
+      selectInputCurrency,
+      selectOutputCurrency,
+    ]
   );
+
+  const handleChangeInputValue = useCallback((e) => {
+    const { value } = e.currentTarget;
+    setInputValue(value);
+  }, []);
 
   const handleChangeOutputValue = useCallback((e) => {
     const { value } = e.currentTarget;
-    setOutputValue(
-      value === "" ? value : $isPositiveNumber($isFiniteNumber(value))
+    console.log(
+      "🚀 ~ file: Specie.tsx ~ line 388 ~ handleChangeOutputValue ~ value",
+      value
     );
+    setOutputValue(value);
   }, []);
 
   const onConfirm = useCallback(async () => {
@@ -425,6 +461,34 @@ const Specie: React.FC = ({}) => {
     isExceeds,
     onCoin,
   ]);
+  const onChangeRatio = useCallback((val) => {
+    setRatio(val);
+  }, []);
+
+  useEffect(() => {
+    if (parseFloat(inputValue)) {
+      calcAmount({
+        value: inputValue,
+        isInput: true,
+      });
+    } else if (parseFloat(outputValue)) {
+      console.log(outputValue);
+      calcAmount({
+        value: outputValue,
+        isInput: false,
+      });
+    }
+  }, [inputValue, outputValue, calcRatio]);
+
+  useEffect(() => {
+    if (inputCurrency) {
+      setSelectInputCurrency(inputCurrency);
+    }
+    if (outputCurrency) {
+      setSelectOutputCurrency(outputCurrency);
+    }
+  }, [inputCurrency, outputCurrency]);
+
   const handleDocumentClick = useCallback(() => {
     setShowInputCurrencySelect(false);
     setShowOutputCurrencySelect(false);
@@ -436,15 +500,6 @@ const Specie: React.FC = ({}) => {
       window.removeEventListener("click", handleDocumentClick);
     };
   }, []);
-
-  useEffect(() => {
-    if (inputCurrency) {
-      setSelectInputCurrency(inputCurrency);
-    }
-    if (outputCurrency) {
-      setSelectOutputCurrency(outputCurrency);
-    }
-  }, [inputCurrency, outputCurrency]);
 
   return (
     <>
@@ -495,17 +550,18 @@ const Specie: React.FC = ({}) => {
         <Spacer size="ssm" />
         <div id="slider">
           <Slider
-            defaultValue={30}
+            value={ratio}
             min={1}
-            max={70}
+            max={maxRatio}
             tooltipVisible
             getTooltipPopupContainer={document.getElementById("slider")}
+            onChange={onChangeRatio}
           />
         </div>
         <Spacer size="ssm" />
         <div className="flex-jc-center color-grey">
           <div>1%</div>
-          <div>70%</div>
+          <div>{maxRatio}%</div>
         </div>
         <Spacer />
         <div className="color-grey wing-blank-lg">
@@ -531,20 +587,7 @@ const Specie: React.FC = ({}) => {
           }}
         />
         <Spacer size="mmd" />
-        <Label
-          label={t("dyl")}
-          value={
-            <div className={isExceeds ? "color-red" : ""}>
-              <Value
-                value={ratio}
-                suffix="%"
-                placeholder={true}
-                showAll={true}
-              />
-            </div>
-          }
-          className="wing-blank-lg"
-        />
+
         <Spacer size="mmd" />
         <Label
           label={t("heyue", {
