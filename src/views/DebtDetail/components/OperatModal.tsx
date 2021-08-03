@@ -393,7 +393,7 @@ const Mine: React.FC = ({
         val={val}
         type="number"
         columns={dataInfo[select].columns}
-        showApprove={true}
+        showApprove={debt?.depositTokenName!=='ETH'?true:false}
         approveStatus={
           select === "Stake"
             ? approveMortgageTokenStatus || approveParassetTokenStatus
