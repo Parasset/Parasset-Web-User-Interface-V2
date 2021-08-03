@@ -19,35 +19,24 @@ function useApprove(token: any, spender: string, amount) {
   const approvalState = useMemo(() => {
     const approvalAmount = new BigNumber(currentAllowance);
     const payAmount = $isPositiveNumber($isFiniteNumber(amount));
-    
+
     if (payAmount) {
- 
       return approvalAmount.gte(payAmount) ? false : true;
     } else if (!parseFloat(payAmount)) {
       return !parseFloat(currentAllowance);
     }
   }, [currentAllowance, amount]);
 
-  
-
-  const approve = useCallback(async () => {
+  const approve = useCallback(() => {
     if (!approvalState) {
       console.error("approve was called unnecessarily");
       return;
     }
-    try {
-      return handleTransactionReceipt(
-        token.approve,
-        [spender, APPROVE_AMOUNT],
-        token
-      );
-    } catch (error) {
-      console.log(
-        "🚀 ~ file: useApprove.ts ~ line 27 ~ approve ~ error",
-        error
-      );
-      return "0";
-    }
+    return handleTransactionReceipt(
+      token.approve,
+      [spender, APPROVE_AMOUNT],
+      token
+    );
   }, [approvalState, token, spender]);
 
   return [approvalState, approve];

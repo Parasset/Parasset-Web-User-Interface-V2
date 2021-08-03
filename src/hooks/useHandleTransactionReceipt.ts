@@ -40,7 +40,13 @@ function useHandleTransactionReceipt() {
           }
         }
       } catch (e) {
-        return '0'
+        if (e.code === 4001) {
+          toggleStatus(5);
+          return "0";
+        } else {
+          toggleStatus(4);
+          return "0";
+        }
       }
     },
     //

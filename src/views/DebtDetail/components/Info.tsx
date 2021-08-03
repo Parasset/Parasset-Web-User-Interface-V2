@@ -19,10 +19,12 @@ const Info: React.FC = ({ debt, debtInfo }) => {
             className={` ${isMobile ? "" : "flex1 wing-blank-lg bd-right1 "} `}
           >
             <Spacer size={isMobile ? "mmd" : "md"} />
-            <Tooltip title={t("tip5")}>
-            <div className="color-grey text-underline cursor-pointer">{t("qsjg")}</div>
-            </Tooltip>
-         
+
+            <div className="color-grey text-underline cursor-pointer">
+              <Tooltip title={t("tip5")} placement="right">
+                <span> {t("qsjg")}</span>
+              </Tooltip>
+            </div>
             <div className={` ${isMobile ? "" : "wing-blank  "} `}>
               <Spacer size={isMobile ? "mmd" : "md"} />
               <div className="font-size-24 bold-600 text-center">
@@ -37,10 +39,7 @@ const Info: React.FC = ({ debt, debtInfo }) => {
                   })}
                   value={
                     <>
-                    
-                      <Value
-                        value={debtInfo?.mortgageToParassetPrice}
-                      />
+                      <Value value={debtInfo?.mortgageToParassetPrice} />
                     </>
                   }
                 />
@@ -62,18 +61,19 @@ const Info: React.FC = ({ debt, debtInfo }) => {
                 <Label
                   label={
                     <Tooltip title={t("tip6")}>
-                      <div className="text-underline cursor-pointer">{t("qsdyl")}</div>
+                      <div className="text-underline cursor-pointer">
+                        {t("qsdyl")}
+                      </div>
                     </Tooltip>
                   }
                   value={
                     <>
-                     
                       <Value
-                      value={$isPositiveNumber(
-                        $isFiniteNumber(debtInfo?.liqRatio * 100)
-                      )}
-                      suffix="%"
-                    />
+                        value={$isPositiveNumber(
+                          $isFiniteNumber(debtInfo?.liqRatio * 100)
+                        )}
+                        suffix="%"
+                      />
                     </>
                   }
                 />

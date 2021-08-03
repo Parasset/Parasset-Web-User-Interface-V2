@@ -451,24 +451,14 @@ export class BasisCash {
         ...value,
       });
     } catch (error) {
-      console.log(
-        "🚀 ~ file: BasisCash.ts ~ line 221 ~ BasisCash ~ itankStake ~ error",
-        itankContract,
-        amount,
-        error
-      );
+      return error;
     }
   }
   async itankUnstake(itankContract, amount) {
     try {
       return await itankContract.redemptionIns(amount, this.gasOptions());
     } catch (error) {
-      console.log(
-        "🚀 ~ file: BasisCash.ts ~ line 221 ~ BasisCash ~ itankStake ~ error",
-        itankContract,
-        amount,
-        error
-      );
+      return error;
     }
   }
   async getExchangeFee(itankContract) {
@@ -541,13 +531,11 @@ export class BasisCash {
   }
 
   async stake(amount, address) {
-    console.log(amount, address);
-
     try {
       const { Mine } = this.contracts;
       return await Mine.stake(amount, address, this.gasOptions());
     } catch (error) {
-      return error
+      return error;
     }
   }
 
@@ -556,12 +544,18 @@ export class BasisCash {
       const { Mine } = this.contracts;
 
       return await Mine.withdraw(amount, address, this.gasOptions());
-    } catch (error) {}
+    } catch (error) {
+      return error;
+    }
   }
 
   async harvest(address) {
-    const { Mine } = this.contracts;
-    return await Mine.getReward(address, this.gasOptions());
+    try {
+      const { Mine } = this.contracts;
+      return await Mine.getReward(address, this.gasOptions());
+    } catch (error) {
+      return error;
+    }
   }
   async exchangePTokenToUnderlying(itankContract, amount, value) {
     try {
@@ -570,9 +564,7 @@ export class BasisCash {
         ...value,
       });
     } catch (error) {
-      console.log(itankContract.address, amount, value);
-      console.log(error);
-      return "0";
+      return error;
     }
   }
 
@@ -583,9 +575,7 @@ export class BasisCash {
         ...value,
       });
     } catch (error) {
-      console.log(itankContract.address, amount, value);
-      console.log(error);
-      return "0";
+      return error;
     }
   }
 
@@ -602,8 +592,7 @@ export class BasisCash {
         }
       );
     } catch (error) {
-      console.log(error);
-      return "0";
+      return error;
     }
   }
 
@@ -628,8 +617,7 @@ export class BasisCash {
         from: this.myAccount,
       });
     } catch (error) {
-      console.log(error);
-      return "0";
+      return error;
     }
   }
 }
