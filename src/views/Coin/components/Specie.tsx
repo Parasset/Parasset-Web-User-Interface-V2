@@ -142,7 +142,6 @@ const Specie: React.FC = ({}) => {
 
   const maxList = useMemo(() => {
     return {
-
       ETH: $isPositiveNumber(
         $isFiniteNumber(
           getNumberToFixed(new BigNumber(ETHWalletBalance).minus(0.02))
@@ -490,16 +489,24 @@ const Specie: React.FC = ({}) => {
         <div className="text-right color-grey wing-blank-lg">
           ≈ <Value value={inputCurrencyValue} prefix="$" />
         </div>
-        {/* <StyledExchangeImg className="text-center">
-          <img
-            src={require("../../../assets/img/icon_arrow_bottom.png")}
-            width="50"
-            height="50"
-            className="center-block cursor-pointer"
+
+        <Spacer size="sm" />
+        <div className="color-grey">{t("dyl")}</div>
+        <Spacer size="ssm" />
+        <div id="slider">
+          <Slider
+            defaultValue={30}
+            min={1}
+            max={70}
+            tooltipVisible
+            getTooltipPopupContainer={document.getElementById("slider")}
           />
-        </StyledExchangeImg> */}
-        {/* <div className="color-grey">{t("dyl")}</div>
-        <Slider defaultValue={30}  /> */}
+        </div>
+        <Spacer size="ssm" />
+        <div className="flex-jc-center color-grey">
+          <div>1%</div>
+          <div>70%</div>
+        </div>
         <Spacer />
         <div className="color-grey wing-blank-lg">
           <div> {t("zbsl")}</div>

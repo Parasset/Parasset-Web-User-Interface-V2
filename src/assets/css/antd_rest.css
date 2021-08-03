@@ -8,5 +8,38 @@
 .ant-tooltip-arrow-content {
   box-shadow: none;
   background: white;
-  box-shadow: 0px 0px 10px #EEEEEE;
+  box-shadow: 0px 0px 10px #eeeeee;
+}
+.ant-slider {
+  padding: 0;
+}
+.ant-slider-track {
+  background-color: #196ea6;
+}
+.ant-slider-handle.ant-tooltip-open {
+  border: none;
+  background: #196ea6;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-top: -4px;
+}
+.ant-slider:hover .ant-slider-track {
+  background: #196ea6;
+}
+.ant-slider-tooltip .ant-tooltip-inner {
+  background: linear-gradient(90deg, #7076a8 0%, #5ca1c7 50%, #82c2ca 100%);
+  color: white;
+  height: 32px;
+  width: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  padding: 0;
+  margin-bottom: -3px !important;
+  box-shadow: none;
+}
+.ant-tooltip-placement-top .ant-tooltip-arrow {
+  display: none;
 }
