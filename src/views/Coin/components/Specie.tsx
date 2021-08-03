@@ -1,6 +1,6 @@
 //@ts-nocheck
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { Tooltip } from "antd";
+import { Tooltip, Slider } from "antd";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import BigNumber from "bignumber.js";
@@ -32,6 +32,7 @@ import {
   $isPositiveNumber,
   getEncryptAddress,
 } from "../../../utils/utils";
+import { getNumberToFixed } from "../../../utils/formatBalance";
 const Specie: React.FC = ({}) => {
   const { t } = useTranslation();
   const basisCash = useBasisCash();
@@ -141,8 +142,11 @@ const Specie: React.FC = ({}) => {
 
   const maxList = useMemo(() => {
     return {
+
       ETH: $isPositiveNumber(
-        $isFiniteNumber(new BigNumber(ETHWalletBalance).minus(0.02).toNumber())
+        $isFiniteNumber(
+          getNumberToFixed(new BigNumber(ETHWalletBalance).minus(0.02))
+        )
       ),
       NEST: NESTWalletBalance,
     };
@@ -486,14 +490,16 @@ const Specie: React.FC = ({}) => {
         <div className="text-right color-grey wing-blank-lg">
           ≈ <Value value={inputCurrencyValue} prefix="$" />
         </div>
-        <StyledExchangeImg className="text-center">
+        {/* <StyledExchangeImg className="text-center">
           <img
             src={require("../../../assets/img/icon_arrow_bottom.png")}
             width="50"
             height="50"
             className="center-block cursor-pointer"
           />
-        </StyledExchangeImg>
+        </StyledExchangeImg> */}
+        {/* <div className="color-grey">{t("dyl")}</div>
+        <Slider defaultValue={30}  /> */}
         <Spacer />
         <div className="color-grey wing-blank-lg">
           <div> {t("zbsl")}</div>

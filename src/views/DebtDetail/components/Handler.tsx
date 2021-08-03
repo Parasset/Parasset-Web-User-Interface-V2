@@ -16,15 +16,14 @@ const Handler: React.FC = ({ debt, debtInfo, fetchInfo }) => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
   const [isOpen, setOpen] = useState(false);
-  const [max, setMax] = useState(0);
-  
   const [select, setSelect] = useState("Stake");
   const basisCash = useBasisCash();
   const mortgageBalance = useTokenBalance(debt?.mortgageToken);
+
   const parassetBalance = useTokenBalance(debt?.uToken);
   const ETHWalletBalance = useTokenBalance(basisCash?.externalTokens["ETH"]);
-  const openModal = useCallback((select, max) => {
-    setMax(max);
+  const openModal = useCallback((select, ) => {
+    // setMax(max);
     setSelect(select);
     setOpen(true);
   }, []);
@@ -185,7 +184,17 @@ const Handler: React.FC = ({ debt, debtInfo, fetchInfo }) => {
         mortgageBalance={mortgageBalance}
         ETHWalletBalance={ETHWalletBalance}
         fetchInfo={fetchInfo}
-        max={max}
+        max={
+          select === "Stake"
+            ? mortgageBalance
+            : select === "Repay"
+            ? debtInfo.parassetAssets
+            : select === "Redeem"
+            ? debtInfo.maxSubM
+            : select === "Mint"
+            ? debtInfo.maxAddP
+            : ""
+        }
         key={isOpen}
         onDismiss={() => {
           setOpen(false);

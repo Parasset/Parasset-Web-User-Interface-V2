@@ -11,6 +11,7 @@ import {
   $isFiniteNumber,
   $isPositiveNumber,
 } from "../../../utils/utils";
+import { getNumberToFixed } from "../../../utils/formatBalance";
 import useApprove from "../../../hooks/useApprove";
 import useHandlerDebt from "../../../hooks/debt/useHandlerDebt";
 
@@ -49,11 +50,14 @@ const Mine: React.FC = ({
       ? new BigNumber(debtInfo.fee).plus(val).toFixed(18, 1)
       : debtInfo.fee
   );
-  console.log(approveMortgageTokenStatus,approveParassetTokenStatus,approveMortgageTokenStatus || approveParassetTokenStatus);
 
   const canBuyAmount = useMemo(() => {
-    return max;
-  }, [max]);
+    return debt?.depositTokenName === "ETH"
+      ? $isPositiveNumber(
+          $isFiniteNumber(getNumberToFixed(new BigNumber(max).minus(0.02)))
+        )
+      : max;
+  }, [max, debt?.depositTokenName]);
 
   const assetChanges = useMemo(() => {
     if (select === "Stake") {
@@ -393,7 +397,7 @@ const Mine: React.FC = ({
         val={val}
         type="number"
         columns={dataInfo[select].columns}
-        showApprove={debt?.depositTokenName!=='ETH'?true:false}
+        showApprove={debt?.depositTokenName !== "ETH" ? true : false}
         approveStatus={
           select === "Stake"
             ? approveMortgageTokenStatus || approveParassetTokenStatus
