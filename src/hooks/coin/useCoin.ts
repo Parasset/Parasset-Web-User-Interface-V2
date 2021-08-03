@@ -18,7 +18,7 @@ const useCoin = () => {
         mortgageToken.decimal
       );
       ratio = new BigNumber(ratio).times(100000).toFixed(0, 1);
-      console.log(ratio, Number(ratio));
+     
       return handleTransactionReceipt(basisCash.coin, [
         mortgagePoolContract,
         mortgageToken,

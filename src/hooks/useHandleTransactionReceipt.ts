@@ -20,20 +20,27 @@ function useHandleTransactionReceipt() {
         toggleStatus(1);
         toggleWait(true);
         const tx = await func.call(contextObj ? contextObj : basisCash, ...arg);
+        console.log(
+          "🚀 ~ file: useHandleTransactionReceipt.ts ~ line 23 ~ tx",
+          tx
+        );
         toggleStatus(2);
-        const status = await tx.wait();
-        if (typeof status !== "string") {
+        if (tx?.wait) {
+          const status = await tx.wait();
           toggleStatus(3);
           updateTx(status.transactionHash);
           return status;
         } else {
-          toggleStatus(4);
-          return "0";
+          if (tx.code === 4001) {
+            toggleStatus(5);
+            return "0";
+          } else {
+            toggleStatus(4);
+            return "0";
+          }
         }
       } catch (e) {
-        console.log("🚀 ~ file: useHandleTransactionReceipt.ts ~ line 34 ~ e", e)
-        toggleStatus(5);
-        return "0";
+        return '0'
       }
     },
     //

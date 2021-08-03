@@ -135,7 +135,7 @@ const StyledNavRight = styled.div`
   background-color: ${(props) => props.theme.color.grey[100]};
   border-left: 1px solid ${(props) => props.theme.color.grey[200]};
   min-height: 100vh;
-  width: 180px;
+  width: 240px;
   position: fixed;
   right: 0;
   top: 0;

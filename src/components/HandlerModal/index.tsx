@@ -95,7 +95,7 @@ export default function HandlerModal({
                   label={
                     item.isTooltip ? (
                       <Tooltip title={t(item.tip)}>
-                        <div className="text-underline"> {t(item?.label)}</div>
+                        <div className="text-underline cursor-pointer"> {t(item?.label)}</div>
                       </Tooltip>
                     ) : (
                       t(item?.label) + (item?.labelUnit ? item?.labelUnit : "")

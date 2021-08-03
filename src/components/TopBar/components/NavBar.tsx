@@ -131,6 +131,7 @@ const StyledBarItem = styled(NavLink)`
   &.active {
     color: ${(props) => props.theme.color.primary.main}!important;
     box-sizing: border-box;
+    font-weight: 600;
   }
   &:last-child {
     padding-bottom: 10px;

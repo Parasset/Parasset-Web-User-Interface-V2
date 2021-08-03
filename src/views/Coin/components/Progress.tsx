@@ -60,7 +60,7 @@ const Progress: React.FC = ({ ratio, maxRatio, liqRatio }) => {
             <Value value={ratio} decimals={2} suffix="%" />
           </div>
           <Tooltip title={t("tip1")}>
-            <StyledRatio className="color-grey text-underline text-nowrap">
+            <StyledRatio className="color-grey text-underline text-nowrap cursor-pointer">
               {t("dqdyl")}
             </StyledRatio>
           </Tooltip>

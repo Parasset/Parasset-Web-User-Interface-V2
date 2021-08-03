@@ -105,7 +105,7 @@ const StyledHeaderPc = styled.div`
   top: 0;
   left: 0;
   padding-left: 260px;
-  padding-right: 180px;
+  padding-right: 240px;
   background: white;
   z-index: 99;
   border-bottom: 1px solid rgba(238, 238, 238, 0.4);
@@ -129,9 +129,9 @@ const StyledHeaderMobile = styled.div`
 
 const StyledMask = styled.div`
   position: fixed;
-  height: calc(100vh - 51px);
+  height: calc(100vh - 50px);
   background: rgba(0, 0, 0, 0.45);
-  top: 51px;
+  top: 50px;
   left: 0;
   width: 100%;
   z-index: 888;
@@ -139,8 +139,8 @@ const StyledMask = styled.div`
 const StyledSidebar = styled.div`
   background: #fff;
   position: fixed;
-  height: calc(100vh - 51px);
-  top: 51px;
+  height: calc(100vh - 50px);
+  top: 50px;
   left: -220px;
   width: 220px;
   z-index: 999;

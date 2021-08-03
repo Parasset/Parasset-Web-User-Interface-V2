@@ -10,7 +10,7 @@ const CardButton: React.FC<CardProps> = ({
   children,
   className = "text-center  flex-row-center-center ",
   size,
-  onClick
+  onClick,
 }) => (
   <>
     <StyledButton className={`wing-blank ${className}`} onClick={onClick}>
@@ -22,7 +22,8 @@ const CardButton: React.FC<CardProps> = ({
 );
 
 const StyledButton = styled.div`
-  box-shadow: 0px 0px 10px ${(props) => props.theme.color.grey[200]};
+  /* box-shadow: 0px 0px 10px ${(props) => props.theme.color.grey[200]}; */
+  box-shadow: 0px 0px 10px ${(props) => props.theme.color.grey[200]} inset;
   border-radius: 999999px;
   min-height: 35px;
 `;

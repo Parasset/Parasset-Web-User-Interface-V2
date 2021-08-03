@@ -49,6 +49,7 @@ const Mine: React.FC = ({
       ? new BigNumber(debtInfo.fee).plus(val).toFixed(18, 1)
       : debtInfo.fee
   );
+  console.log(approveMortgageTokenStatus,approveParassetTokenStatus,approveMortgageTokenStatus || approveParassetTokenStatus);
 
   const canBuyAmount = useMemo(() => {
     return max;
@@ -395,7 +396,7 @@ const Mine: React.FC = ({
         showApprove={true}
         approveStatus={
           select === "Stake"
-            ? approveMortgageTokenStatus && approveParassetTokenStatus
+            ? approveMortgageTokenStatus || approveParassetTokenStatus
             : approveParassetTokenStatus
         }
         approve={async () => {

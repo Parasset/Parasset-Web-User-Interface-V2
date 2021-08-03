@@ -16,7 +16,7 @@ const BtnLink: React.FC = ({ text, path }) => {
           history.push(path);
         }}
       >
-        <span className="color-light-blue text-underline">{text}</span>
+        <span className="color-light-blue text-underline cursor-pointer">{text}</span>
       </Card>
     </>
   );

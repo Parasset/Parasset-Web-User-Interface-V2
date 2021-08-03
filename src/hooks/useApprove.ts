@@ -28,7 +28,7 @@ function useApprove(token: any, spender: string, amount) {
     }
   }, [currentAllowance, amount]);
 
-  console.log(currentAllowance,approvalState,token?.symbol,spender,amount)
+  
 
   const approve = useCallback(async () => {
     if (!approvalState) {

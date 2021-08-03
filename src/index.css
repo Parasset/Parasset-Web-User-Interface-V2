@@ -37,7 +37,7 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 .style_mask__9zmSN {
-  z-index: 99999999999!important;
+  z-index: 99999999999 !important;
 }
 .bd-right,
 .bd-right1,
@@ -432,9 +432,8 @@ input[type="number"] {
   box-sizing: border-box;
 }
 .wing-blank-xl {
-  padding-left: 180px;
-  padding-right: 180px;
-  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
   box-sizing: border-box;
 }
 
@@ -448,11 +447,7 @@ input[type="number"] {
 .text-nowrap {
   white-space: nowrap;
 }
-.debt-header-info {
-  flex-direction: column !important;
-  align-items: flex-start !important;
-  padding: 15px 20px;
-}
+
 @media (max-width: 768px) {
   .font-size-32 {
     font-size: 24px !important;
@@ -479,9 +474,8 @@ input[type="number"] {
     font-size: 13px !important;
   }
   .wing-blank-xl {
-    padding-left: 0;
-    padding-right: 0;
-    width: 100%;
+    max-width: auto;
+    margin: 0 auto;
     box-sizing: border-box;
   }
   body {
@@ -494,7 +488,7 @@ body a {
 @media (min-width: 1024px) {
   body {
     padding-left: 240px;
-    padding-right: 180px;
+    padding-right: 240px;
     padding-top: 90px;
   }
 }

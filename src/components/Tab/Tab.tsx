@@ -28,6 +28,7 @@ const StyledTabItem = styled.div`
   &.active span {
     color: ${(props) => props.theme.color.primary.main}!important;
     box-sizing: border-box;
+    font-weight: 600;
   }
 `;
 export default Tab;

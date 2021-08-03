@@ -153,8 +153,11 @@
   "jiankong": "Monitor",
   "yujing": "Warning",
   "daiqingsuan": "Liquidable",
-  "jxz": "In progress",
+  "jxz": "Mining",
    "yzt": "Paused",
-   "yebzchzwwdf": "The wallet balance is insufficient to repay Debts and Stability Fee"
+   "yebzchzwwdf": "The wallet balance is insufficient to repay Debts and Stability Fee",
+   "tip4": "According to the stability fee designed based on the mortgage rate, each debt warehouse should pay the stability fee according to the difference between the liquidation line and the current price and the time cycle when increasing / reducing the mortgage, casting new currency / repaying the debt and clearing.",
+   "tip5": "When the mortgage asset price falls below the liquidation price, the debt warehouse can be liquidated",
+   "tip6": "The Liquidation Ratio is a certain multiple of the Max Coll. Ratio. When the Current Coll. Ratio ≥ Liquidation Ratio, the debt warehouse can be liquidated."
   
 }

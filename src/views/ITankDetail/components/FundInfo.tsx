@@ -20,7 +20,7 @@ const FundInfo: React.FC = ({ itank, itankInfo }) => {
               <div className="color-grey">{t("bxjjzh")}</div>
               <div>
                 <span className="color-grey">{t("dqjz")}：</span>
-                <span className="text-underline">
+                <span className="text-underline ">
                   <Value value={itankInfo.perShare} decimals={6} placeholder={true} />
                 </span>
               </div>

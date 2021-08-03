@@ -207,9 +207,8 @@ const Specie: React.FC = ({}) => {
 
   const inputMax = useMemo(() => {
     var max = parseFloat(inputCurrencyBalance)
-      ? new BigNumber(inputCurrencyBalance).minus(0.01).toFixed(18,1)
+      ? new BigNumber(inputCurrencyBalance).minus(0.01).toFixed(18, 1)
       : 0;
-      
 
     var canBuyAmount =
       selectInputCurrency === "ETH" ? max : inputCurrencyBalance;
@@ -228,8 +227,12 @@ const Specie: React.FC = ({}) => {
       const outputToken = basisCash?.externalTokens[selectOutputCurrency];
       const updateNumDep = (val, token) => {
         let dp = getDep(val);
-        dp = dp > token.decimal ? token.decimal : dp;
-        return new BigNumber(val).toFixed(dp, 1);
+        if (dp) {
+          dp = dp > token.decimal ? token.decimal : dp;
+          return new BigNumber(val).toFixed(dp, 1);
+        } else {
+          return val;
+        }
       };
       if (isInput) {
         const val =

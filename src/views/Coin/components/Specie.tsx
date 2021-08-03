@@ -96,7 +96,6 @@ const Specie: React.FC = ({}) => {
   const PETHWalletBalance = useTokenBalance(basisCash?.externalTokens["PETH"]);
   const PUSDWalletBalance = useTokenBalance(basisCash?.externalTokens["PUSD"]);
 
-
   const currencyListInput = useMemo(() => {
     return [
       {
@@ -166,15 +165,15 @@ const Specie: React.FC = ({}) => {
 
   const inputMax = useMemo(() => {
     var max = $isPositiveNumber(
-      $isFiniteNumber(new BigNumber(ETHWalletBalance).minus(0.02).toFixed(18,1))
+      $isFiniteNumber(
+        new BigNumber(ETHWalletBalance).minus(0.02).toFixed(18, 1)
+      )
     );
-    
 
     var canBuyAmount = isETH ? max : inputCurrencyBalance;
     const amount = new BigNumber(canBuyAmount);
     return amount.toFixed(getDep(amount), 1);
   }, [inputCurrencyBalance, isETH]);
-
 
   const cointAddress = useMemo(() => {
     return {
@@ -264,8 +263,6 @@ const Specie: React.FC = ({}) => {
     return fee;
   }, [dataList, selectInputCurrency, selectOutputCurrency]);
 
-
-
   const [approveStatusPUSD, approvePUSD] = useApprove(
     basisCash?.externalTokens["PUSD"],
     basisCash?.contracts["PUSDMorPool"]?.address,
@@ -281,7 +278,6 @@ const Specie: React.FC = ({}) => {
     basisCash?.externalTokens["NEST"],
     basisCash?.contracts["PETHMorPool"]?.address,
     inputValue
-
   );
   const [approveStatusNESTPUSD, approveNESTPUSD] = useApprove(
     basisCash?.externalTokens["NEST"],
@@ -354,7 +350,7 @@ const Specie: React.FC = ({}) => {
           : value !== "" && !Number.isFinite(value1)
           ? minLimit
           : value;
-    
+
       setInputValue(value);
     },
     [inputMax]
@@ -554,7 +550,7 @@ const Specie: React.FC = ({}) => {
         <Label
           label={
             <Tooltip title={t("tip2")}>
-              <div className="text-underline">{t("yyjdyf")}</div>
+              <div className="text-underline cursor-pointer">{t("yyjdyf")}</div>
             </Tooltip>
           }
           value="0.01 ETH"
@@ -563,7 +559,11 @@ const Specie: React.FC = ({}) => {
 
         <Spacer size="mmd" />
         <Label
-          label={t("wdf")}
+          label={
+            <Tooltip title={t("tip4")}>
+              <div className="text-underline cursor-pointer">{t("wdf")}</div>
+            </Tooltip>
+          }
           className="wing-blank-lg"
           value={
             <Value value={fee} suffix={selectOutputCurrency} showAll={true} />

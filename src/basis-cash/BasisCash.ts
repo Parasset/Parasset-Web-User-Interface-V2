@@ -546,7 +546,9 @@ export class BasisCash {
     try {
       const { Mine } = this.contracts;
       return await Mine.stake(amount, address, this.gasOptions());
-    } catch (error) {}
+    } catch (error) {
+      return error
+    }
   }
 
   async unstake(amount, address) {
