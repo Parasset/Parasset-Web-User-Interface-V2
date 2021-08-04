@@ -277,9 +277,10 @@ export class BasisCash {
         .div(new BigNumber(liqRatio).times(mortgageAssets))
         .toNumber();
       liqPrice = $isPositiveNumber($isFiniteNumber(liqPrice));
-      const rate = new BigNumber(getNumberToFixed(mortgageRate.toString())).div(
+      const rate = getNumberToFixed(new BigNumber(getNumberToFixed(mortgageRate.toString())).div(
         1000
-      );
+      ));
+      console.log("🚀 ~ file: BasisCash.ts ~ line 283 ~ BasisCash ~ getDebt ~ rate", rate)
       return {
         ...info,
         mortgageAssets,
