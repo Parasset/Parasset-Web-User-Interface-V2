@@ -306,17 +306,6 @@ const Specie: React.FC = ({}) => {
     approveNESTPUSD,
   ]);
 
-  // const onChangeInputCurrencySelect = useCallback(
-  //   ({ id }, index) => {
-  //     setSelectInputCurrency(id);
-  //     //默认输出PUSD
-  //     setSelectOutputCurrency(currencyListOutput[0].id);
-  //     const max = maxList[id];
-  //     setInputValue(parseFloat(inputValue) > max ? max : inputValue);
-  //   },
-  //   [isETH, currencyListOutput, inputMax, maxList, inputValue]
-  // );
-
   const calcAmount = useCallback(
     ({ value, isInput, ratio, price }) => {
       const inputToken = basisCash?.externalTokens[selectInputCurrency];
@@ -419,7 +408,6 @@ const Specie: React.FC = ({}) => {
       let rate = getNumberToFixed(new BigNumber(ratio).div(100));
       setRatio(ratio);
       const price = dataList[id + outputId].price;
-      console.log(value, rate, price);
       if (parseFloat(value)) {
         calcAmount({
           value,
@@ -429,6 +417,14 @@ const Specie: React.FC = ({}) => {
         });
         return;
       }
+      if (parseFloat(outputValue)) {
+        calcAmount({
+          value: outputValue,
+          isInput: false,
+          ratio: rate,
+          price,
+        });
+      }
     },
     [
       isETH,
@@ -436,6 +432,7 @@ const Specie: React.FC = ({}) => {
       inputMax,
       maxList,
       inputValue,
+      outputValue,
       calcRatio,
       basisCash?.externalTokens,
       dataList,
@@ -446,9 +443,40 @@ const Specie: React.FC = ({}) => {
 
   const onChangeOutputCurrencySelect = useCallback(
     ({ id }) => {
+      const price = dataList[selectInputCurrency + id].price;
+      let rate = calcRatio;
       setSelectOutputCurrency(id);
+      if (parseFloat(inputValue)) {
+        calcAmount({
+          value: inputValue,
+          isInput: true,
+          ratio: rate,
+          price,
+        });
+        return;
+      }
+      if (parseFloat(outputValue)) {
+        calcAmount({
+          value: outputValue,
+          isInput: false,
+          ratio: rate,
+          price,
+        });
+      }
     },
-    [currencyListInput]
+    [
+      isETH,
+      currencyListOutput,
+      inputMax,
+      maxList,
+      inputValue,
+      outputValue,
+      calcRatio,
+      basisCash?.externalTokens,
+      dataList,
+      selectInputCurrency,
+      selectOutputCurrency,
+    ]
   );
 
   const onConfirm = useCallback(async () => {
@@ -624,7 +652,6 @@ const Specie: React.FC = ({}) => {
             />
           </div>
 
-          <Spacer size="ssm" />
           <div className="flex-jc-center color-grey">
             <div>1%</div>
             <div>{maxRatio}%</div>
