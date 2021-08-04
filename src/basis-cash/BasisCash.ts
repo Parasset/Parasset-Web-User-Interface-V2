@@ -7,7 +7,9 @@ import {
   getDisplayNumber,
   getToBignumber,
   getTonumber,
+  getNumberToFixed,
 } from "../utils/formatBalance";
+
 import { formatDate } from "../utils/utils";
 import { $isFiniteNumber, $isPositiveNumber } from "../utils/utils";
 import { getDefaultProvider } from "../utils/provider";
@@ -317,9 +319,11 @@ export class BasisCash {
         NEST.address
       );
       // avgPrice2/avgPrice1=NEST对u的价格
-      return new BigNumber(getTonumber(avgPriceUSDT, USDT.decimal))
-        .div(getTonumber(avgPriceNEST, NEST.decimal))
-        .toNumber();
+      return getNumberToFixed(
+        new BigNumber(getTonumber(avgPriceUSDT, USDT.decimal)).div(
+          getTonumber(avgPriceNEST, NEST.decimal)
+        )
+      );
     } catch (error) {
       return "0";
     }
@@ -331,9 +335,9 @@ export class BasisCash {
       const { NEST } = this.externalTokens;
       let { avgPrice } = await NestQuery.triggeredPriceInfo(NEST.address);
       // nest对ETH的价格  1/avgPrice2
-      return new BigNumber(1)
-        .div(getTonumber(avgPrice, NEST.decimal))
-        .toNumber();
+      return getNumberToFixed(
+        new BigNumber(1).div(getTonumber(avgPrice, NEST.decimal))
+      );
     } catch (error) {
       console.log(
         "🚀 ~ file: BasisCash.ts ~ line 172 ~ BasisCash ~ getNESTToETHPrice ~ error",

@@ -122,7 +122,7 @@ const StyledSelectBox = styled.div`
   border-radius: 10px;
   padding: 5px 0;
   top: 65px;
-  z-index: 99;
+  z-index: 1080;
   background: #fff;
   box-shadow: 0px 0px 10px ${(props) => props.theme.color.grey[200]};
 `;

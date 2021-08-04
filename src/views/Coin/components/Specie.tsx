@@ -188,6 +188,7 @@ const Specie: React.FC = ({}) => {
       address: basisCash?.externalTokens[selectOutputCurrency].address,
     };
   }, [selectOutputCurrency, basisCash?.externalTokens]);
+
   const dataList = useMemo(() => {
     return {
       ETHPUSD: {
@@ -232,7 +233,7 @@ const Specie: React.FC = ({}) => {
   ]);
 
   const calcRatio = useMemo(() => {
-    return new BigNumber(ratio).div(100).toNumber();
+    return getNumberToFixed(new BigNumber(ratio).div(100));
   }, [ratio]);
 
   const isExceeds = useMemo(() => {
@@ -305,17 +306,42 @@ const Specie: React.FC = ({}) => {
     approveNESTPUSD,
   ]);
 
+  // const onChangeInputCurrencySelect = useCallback(
+  //   ({ id }, index) => {
+  //     setSelectInputCurrency(id);
+  //     //默认输出PUSD
+  //     setSelectOutputCurrency(currencyListOutput[0].id);
+  //     const max = maxList[id];
+  //     setInputValue(parseFloat(inputValue) > max ? max : inputValue);
+  //   },
+  //   [isETH, currencyListOutput, inputMax, maxList, inputValue]
+  // );
+
+
   const onChangeInputCurrencySelect = useCallback(
     ({ id }, index) => {
       setSelectInputCurrency(id);
       //默认输出PUSD
       setSelectOutputCurrency(currencyListOutput[0].id);
       const max = maxList[id];
-      // setInputValue(parseFloat(inputValue) > max ? max : inputValue);
-      setInputValue(inputValue);
+      const value = parseFloat(inputValue) > max ? max : inputValue;
+      setInputValue(value);
+      let ratio = id === "ETH" ? 50 : 20;
+      let rate = getNumberToFixed(new BigNumber(ratio).div(100));
+      setRatio(ratio);
+      if (parseFloat(value)) {
+        calcAmount({
+          value,
+          isInput: true,
+          ratio: rate,
+        });
+        return;
+      }
     },
     [isETH, currencyListOutput, inputMax, maxList, inputValue]
   );
+
+
 
   const onChangeOutputCurrencySelect = useCallback(
     ({ id }) => {
@@ -325,11 +351,13 @@ const Specie: React.FC = ({}) => {
   );
 
   const calcAmount = useCallback(
-    ({ value, isInput }) => {
+    ({ value, isInput, ratio }) => {
+      console.log(dataList, ETHAvgPrice);
       const inputToken = basisCash?.externalTokens[selectInputCurrency];
       const outputToken = basisCash?.externalTokens[selectOutputCurrency];
       const price = dataList[selectInputCurrency + selectOutputCurrency].price;
 
+      ratio = ratio !== undefined ? ratio : calcRatio;
       if (isInput) {
         // NESTToUSDTPrice, NESTToETHPrice, ETHAvgPrice
         // X=输入的PUSD数量/(输入的ETH数量*ETH-USDT预言机价格) ETH铸币PUSD
@@ -346,15 +374,9 @@ const Specie: React.FC = ({}) => {
         val = updateNumDep(val, inputToken);
 
         setInputValue(val);
-        const amount = new BigNumber(val).times(price).times(calcRatio);
+        const amount = new BigNumber(val).times(price).times(ratio);
         const outputAmount = $isPositiveNumber(
           $isFiniteNumber(getNumberToFixed(amount))
-        );
-        console.log(
-          "🚀 ~ file: Specie.tsx ~ line 346 ~ input",
-          value,
-          val,
-          outputAmount
         );
         setOutputValue(updateNumDep(outputAmount, outputToken));
       } else {
@@ -363,17 +385,9 @@ const Specie: React.FC = ({}) => {
         val = updateNumDep(val, outputToken);
         setOutputValue(val);
 
-        const amount = new BigNumber(val).div(calcRatio).div(price);
+        const amount = new BigNumber(val).div(ratio).div(price);
         const inputAmount = $isPositiveNumber(
           $isFiniteNumber(getNumberToFixed(amount))
-        );
-        console.log(
-          "🚀 ~ file: Specie.tsx ~ line 346 ~ output",
-          value,
-          val,
-          inputAmount,
-          calcRatio,
-          price
         );
 
         setInputValue(updateNumDep(inputAmount, inputToken));
@@ -388,19 +402,39 @@ const Specie: React.FC = ({}) => {
     ]
   );
 
-  const handleChangeInputValue = useCallback((e) => {
-    const { value } = e.currentTarget;
-    setInputValue(value);
-  }, []);
+  const handleChangeInputValue = useCallback(
+    (e) => {
+      const { value } = e.currentTarget;
+      calcAmount({
+        value,
+        isInput: true,
+      });
+    },
+    [
+      calcRatio,
+      basisCash?.externalTokens,
+      dataList,
+      selectInputCurrency,
+      selectOutputCurrency,
+    ]
+  );
 
-  const handleChangeOutputValue = useCallback((e) => {
-    const { value } = e.currentTarget;
-    console.log(
-      "🚀 ~ file: Specie.tsx ~ line 388 ~ handleChangeOutputValue ~ value",
-      value
-    );
-    setOutputValue(value);
-  }, []);
+  const handleChangeOutputValue = useCallback(
+    (e) => {
+      const { value } = e.currentTarget;
+      calcAmount({
+        value,
+        isInput: false,
+      });
+    },
+    [
+      calcRatio,
+      basisCash?.externalTokens,
+      dataList,
+      selectInputCurrency,
+      selectOutputCurrency,
+    ]
+  );
 
   const onConfirm = useCallback(async () => {
     const {
@@ -441,7 +475,7 @@ const Specie: React.FC = ({}) => {
         mortgagePoolContract,
         mortgageToken,
         inputValue,
-        calcRatio
+        ratio
       );
       setPendingTx(false);
       if (result !== "0") {
@@ -452,6 +486,7 @@ const Specie: React.FC = ({}) => {
   }, [
     inputValue,
     outputValue,
+    ratio,
     inputMax,
     dataList,
     ETHWalletBalance,
@@ -461,24 +496,36 @@ const Specie: React.FC = ({}) => {
     isExceeds,
     onCoin,
   ]);
-  const onChangeRatio = useCallback((val) => {
-    setRatio(val);
-  }, []);
-
-  useEffect(() => {
-    if (parseFloat(inputValue)) {
-      calcAmount({
-        value: inputValue,
-        isInput: true,
-      });
-    } else if (parseFloat(outputValue)) {
-      console.log(outputValue);
-      calcAmount({
-        value: outputValue,
-        isInput: false,
-      });
-    }
-  }, [inputValue, outputValue, calcRatio]);
+  const onChangeRatio = useCallback(
+    (val) => {
+      setRatio(val);
+      const rate = getNumberToFixed(new BigNumber(val).div(100));
+      if (parseFloat(inputValue)) {
+        calcAmount({
+          value: inputValue,
+          isInput: true,
+          ratio:rate,
+        });
+        return;
+      }
+      if (parseFloat(outputValue)) {
+        calcAmount({
+          value: outputValue,
+          isInput: false,
+          ratio:rate,
+        });
+        return;
+      }
+    },
+    [
+      inputValue,
+      outputValue,
+      basisCash?.externalTokens,
+      dataList,
+      selectInputCurrency,
+      selectOutputCurrency,
+    ]
+  );
 
   useEffect(() => {
     if (inputCurrency) {
