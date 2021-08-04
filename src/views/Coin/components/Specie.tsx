@@ -317,45 +317,14 @@ const Specie: React.FC = ({}) => {
   //   [isETH, currencyListOutput, inputMax, maxList, inputValue]
   // );
 
-
-  const onChangeInputCurrencySelect = useCallback(
-    ({ id }, index) => {
-      setSelectInputCurrency(id);
-      //默认输出PUSD
-      setSelectOutputCurrency(currencyListOutput[0].id);
-      const max = maxList[id];
-      const value = parseFloat(inputValue) > max ? max : inputValue;
-      setInputValue(value);
-      let ratio = id === "ETH" ? 50 : 20;
-      let rate = getNumberToFixed(new BigNumber(ratio).div(100));
-      setRatio(ratio);
-      if (parseFloat(value)) {
-        calcAmount({
-          value,
-          isInput: true,
-          ratio: rate,
-        });
-        return;
-      }
-    },
-    [isETH, currencyListOutput, inputMax, maxList, inputValue]
-  );
-
-
-
-  const onChangeOutputCurrencySelect = useCallback(
-    ({ id }) => {
-      setSelectOutputCurrency(id);
-    },
-    [currencyListInput]
-  );
-
   const calcAmount = useCallback(
-    ({ value, isInput, ratio }) => {
-      console.log(dataList, ETHAvgPrice);
+    ({ value, isInput, ratio, price }) => {
       const inputToken = basisCash?.externalTokens[selectInputCurrency];
       const outputToken = basisCash?.externalTokens[selectOutputCurrency];
-      const price = dataList[selectInputCurrency + selectOutputCurrency].price;
+      price =
+        price !== undefined
+          ? price
+          : dataList[selectInputCurrency + selectOutputCurrency].price;
 
       ratio = ratio !== undefined ? ratio : calcRatio;
       if (isInput) {
@@ -379,6 +348,7 @@ const Specie: React.FC = ({}) => {
           $isFiniteNumber(getNumberToFixed(amount))
         );
         setOutputValue(updateNumDep(outputAmount, outputToken));
+        console.log(value, val, outputAmount, price, ratio);
       } else {
         let val =
           value === "" ? value : $isPositiveNumber($isFiniteNumber(value));
@@ -434,6 +404,51 @@ const Specie: React.FC = ({}) => {
       selectInputCurrency,
       selectOutputCurrency,
     ]
+  );
+
+  const onChangeInputCurrencySelect = useCallback(
+    ({ id }, index) => {
+      setSelectInputCurrency(id);
+      //默认输出PUSD
+      const outputId = currencyListOutput[0].id;
+      setSelectOutputCurrency(outputId);
+      const max = maxList[id];
+      const value = parseFloat(inputValue) > max ? max : inputValue;
+      setInputValue(value);
+      let ratio = id === "ETH" ? 50 : 20;
+      let rate = getNumberToFixed(new BigNumber(ratio).div(100));
+      setRatio(ratio);
+      const price = dataList[id + outputId].price;
+      console.log(value, rate, price);
+      if (parseFloat(value)) {
+        calcAmount({
+          value,
+          isInput: true,
+          ratio: rate,
+          price,
+        });
+        return;
+      }
+    },
+    [
+      isETH,
+      currencyListOutput,
+      inputMax,
+      maxList,
+      inputValue,
+      calcRatio,
+      basisCash?.externalTokens,
+      dataList,
+      selectInputCurrency,
+      selectOutputCurrency,
+    ]
+  );
+
+  const onChangeOutputCurrencySelect = useCallback(
+    ({ id }) => {
+      setSelectOutputCurrency(id);
+    },
+    [currencyListInput]
   );
 
   const onConfirm = useCallback(async () => {
@@ -503,7 +518,7 @@ const Specie: React.FC = ({}) => {
         calcAmount({
           value: inputValue,
           isInput: true,
-          ratio:rate,
+          ratio: rate,
         });
         return;
       }
@@ -511,7 +526,7 @@ const Specie: React.FC = ({}) => {
         calcAmount({
           value: outputValue,
           isInput: false,
-          ratio:rate,
+          ratio: rate,
         });
         return;
       }
@@ -560,7 +575,10 @@ const Specie: React.FC = ({}) => {
             <span
               className="color-dark text-underline cursor-pointer"
               onClick={() => {
-                setInputValue(inputMax);
+                calcAmount({
+                  value: inputMax,
+                  isInput: true,
+                });
               }}
             >
               <Value value={inputCurrencyBalance} decimals={6} />
@@ -590,26 +608,30 @@ const Specie: React.FC = ({}) => {
         <div className="text-right color-grey wing-blank-lg">
           ≈ <Value value={inputCurrencyValue} prefix="$" />
         </div>
+        <div className=" wing-blank-lg">
+          <Spacer size="sm" />
+          <div className="color-grey">{t("dyl")}</div>
+          <Spacer size="ssm" />
 
-        <Spacer size="sm" />
-        <div className="color-grey">{t("dyl")}</div>
-        <Spacer size="ssm" />
-        <div id="slider">
-          <Slider
-            value={ratio}
-            min={1}
-            max={maxRatio}
-            tooltipVisible
-            getTooltipPopupContainer={document.getElementById("slider")}
-            onChange={onChangeRatio}
-          />
+          <div id="slider">
+            <Slider
+              value={ratio}
+              min={1}
+              max={maxRatio}
+              tooltipVisible
+              getTooltipPopupContainer={document.getElementById("slider")}
+              onChange={onChangeRatio}
+            />
+          </div>
+
+          <Spacer size="ssm" />
+          <div className="flex-jc-center color-grey">
+            <div>1%</div>
+            <div>{maxRatio}%</div>
+          </div>
+          <Spacer />
         </div>
-        <Spacer size="ssm" />
-        <div className="flex-jc-center color-grey">
-          <div>1%</div>
-          <div>{maxRatio}%</div>
-        </div>
-        <Spacer />
+
         <div className="color-grey wing-blank-lg">
           <div> {t("zbsl")}</div>
         </div>
@@ -722,8 +744,5 @@ const Specie: React.FC = ({}) => {
     </>
   );
 };
-const StyledExchangeImg = styled.div`
-  margin-top: -10px;
-  margin-bottom: -10px;
-`;
+
 export default Specie;

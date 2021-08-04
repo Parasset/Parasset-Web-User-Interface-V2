@@ -12,6 +12,8 @@
 }
 .ant-slider {
   padding: 0;
+  margin-left: 0;
+  margin-right: 0;
 }
 .ant-slider-track {
   background-color: #196ea6;
