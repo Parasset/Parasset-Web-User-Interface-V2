@@ -475,7 +475,7 @@ const Specie: React.FC = ({}) => {
         mortgagePoolContract,
         mortgageToken,
         inputValue,
-        ratio
+        calcRatio
       );
       setPendingTx(false);
       if (result !== "0") {
@@ -486,7 +486,6 @@ const Specie: React.FC = ({}) => {
   }, [
     inputValue,
     outputValue,
-    ratio,
     inputMax,
     dataList,
     ETHWalletBalance,

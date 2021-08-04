@@ -233,7 +233,7 @@ export class BasisCash {
       const NESTToUSDTPrice = await this.getNESTToUSDTPrice();
       const NESTToETHPrice = await this.getNESTToETHPrice();
 
-      let { maxSubM, maxAddP } = await this.getInfoRealTime(
+      let { maxSubM, maxAddP, mortgageRate } = await this.getInfoRealTime(
         mortgagePoolContract,
         mortgageToken,
         uToken,
@@ -277,11 +277,14 @@ export class BasisCash {
         .div(new BigNumber(liqRatio).times(mortgageAssets))
         .toNumber();
       liqPrice = $isPositiveNumber($isFiniteNumber(liqPrice));
+      const rate = new BigNumber(getNumberToFixed(mortgageRate.toString())).div(
+        1000
+      );
       return {
         ...info,
         mortgageAssets,
         parassetAssets,
-        rate: info.rate.toNumber() / 1000,
+        rate,
         fee,
         liqRatio,
         liqPrice,

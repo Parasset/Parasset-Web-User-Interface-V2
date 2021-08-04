@@ -17,6 +17,8 @@ const useCoin = () => {
           : String(0.01),
         mortgageToken.decimal
       );
+      ratio = new BigNumber(ratio).times(100000).toFixed(0, 1);
+      console.log("🚀 ~ file: useCoin.ts ~ line 21 ~ useCoin ~ ratio", ratio)
      
       return handleTransactionReceipt(basisCash.coin, [
         mortgagePoolContract,
