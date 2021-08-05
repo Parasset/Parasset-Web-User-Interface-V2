@@ -52,12 +52,13 @@ const Mine: React.FC = ({
   );
 
   const canBuyAmount = useMemo(() => {
-    return debt?.depositTokenName === "ETH"
+    return debt?.depositTokenName === "ETH" &&
+      (select === "Stake" || select === "Mint")
       ? $isPositiveNumber(
           $isFiniteNumber(getNumberToFixed(new BigNumber(max).minus(0.02)))
         )
       : max;
-  }, [max, debt?.depositTokenName]);
+  }, [max, select, debt?.depositTokenName]);
 
   const assetChanges = useMemo(() => {
     if (select === "Stake") {
