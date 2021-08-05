@@ -11,8 +11,9 @@ const Card: React.FC<CardProps> = ({ className, children,onClick }) => (
 
 const StyledCard = styled.div`
   box-shadow: 0px 0px 10px ${(props) => props.theme.color.grey[200]};
-  padding:10px 20px;
-  border-radius: 8px;
+  padding:10px 30px;
+  border-radius: 16px;
+  border: 1px solid ${(props) => props.theme.color.grey[200]};
 `;
 
 export default Card;

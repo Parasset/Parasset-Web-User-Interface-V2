@@ -144,7 +144,7 @@ const Datum: React.FC = () => {
   );
 };
 const StyledLabel = styled.div`
-  height: 35px;
+  height: 40px;
   display: flex;
   align-items: center;
 `;

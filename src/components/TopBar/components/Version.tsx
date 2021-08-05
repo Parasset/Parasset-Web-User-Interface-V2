@@ -14,7 +14,7 @@ const Version: React.FC = () => {
           target="__blank"
         >
           {" "}
-          <CardButton>Parasset V1</CardButton>
+          <StyledCardButton  className = "text-center  flex-row-center-center ">Parasset V1</StyledCardButton>
         </a>
 
         <div className="space-white-lg"></div>
@@ -22,5 +22,9 @@ const Version: React.FC = () => {
     </div>
   );
 };
+//
+const StyledCardButton = styled(CardButton)`
+ box-shadow: 0px 0px 10px ${(props) => props.theme.color.grey[200]};
+`;
 
 export default Version;

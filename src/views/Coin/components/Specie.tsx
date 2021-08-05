@@ -598,6 +598,7 @@ const Specie: React.FC = ({}) => {
         <Spacer />
         <div className="flex-jc-center color-grey wing-blank-lg">
           <div> {t("dyzcsl")}</div>
+      
           <div>
             {t("yue")}
             <span
@@ -613,6 +614,7 @@ const Specie: React.FC = ({}) => {
             </span>
           </div>
         </div>
+        <Spacer size="sm" />
         <Spacer size="sm" />
         <Select
           showSelect={showInputCurrencySelect}

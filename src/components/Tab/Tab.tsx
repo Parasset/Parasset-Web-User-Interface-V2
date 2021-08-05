@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 const Tab: React.FC = ({ tabs, tab, onChangeTab }) => {
   const { t } = useTranslation();
   return (
-    <Card className="flex-jc-center text-center">
+    <StyledTab className="flex-jc-center text-center">
       {tabs.map((item) => {
         return (
           <StyledTabItem
@@ -20,10 +20,13 @@ const Tab: React.FC = ({ tabs, tab, onChangeTab }) => {
           </StyledTabItem>
         );
       })}
-    </Card>
+    </StyledTab>
   );
 };
 
+const StyledTab = styled(Card)`
+  height: 50px;
+`;
 const StyledTabItem = styled.div`
   &.active span {
     color: ${(props) => props.theme.color.primary.main}!important;
