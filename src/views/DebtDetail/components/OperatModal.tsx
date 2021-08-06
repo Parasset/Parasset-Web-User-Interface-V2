@@ -52,8 +52,7 @@ const Mine: React.FC = ({
   );
 
   const canBuyAmount = useMemo(() => {
-    return debt?.depositTokenName === "ETH" &&
-      (select === "Stake")
+    return debt?.depositTokenName === "ETH" && select === "Stake"
       ? $isPositiveNumber(
           $isFiniteNumber(getNumberToFixed(new BigNumber(max).minus(0.02)))
         )
@@ -398,15 +397,22 @@ const Mine: React.FC = ({
         val={val}
         type="number"
         columns={dataInfo[select].columns}
-        showApprove={debt?.depositTokenName !== "ETH" ? true : false}
+        showApprove={
+          debt?.depositTokenName !== "ETH" ||
+          (debt?.depositTokenName === "ETH" && approveParassetTokenStatus)
+            ? true
+            : false
+        }
         approveStatus={
-          select === "Stake"
+          select === "Stake" && debt?.depositTokenName !== "ETH"
             ? approveMortgageTokenStatus || approveParassetTokenStatus
             : approveParassetTokenStatus
         }
         approve={async () => {
           const func =
-            select === "Stake" && approveMortgageTokenStatus
+            select === "Stake" &&
+            approveMortgageTokenStatus &&
+            debt?.depositTokenName !== "ETH"
               ? approveMortgageToken
               : approveParassetToken;
           setPendingTx(true);
@@ -414,7 +420,9 @@ const Mine: React.FC = ({
           setPendingTx(false);
         }}
         approveTokenName={
-          select === "Stake" && approveMortgageTokenStatus
+          select === "Stake" &&
+          approveMortgageTokenStatus &&
+          debt?.depositTokenName !== "ETH"
             ? debt?.depositTokenName
             : debt?.earnTokenName
         }
