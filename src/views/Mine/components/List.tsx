@@ -95,7 +95,7 @@ const List: React.FC = ({ mines }) => {
   );
 };
 const StyledWrapBox = styled(Card)`
-  height: 400px;
+  height: 420px;
   position: relative;
   @media (max-width: 768px) {
     margin-bottom: 16px;

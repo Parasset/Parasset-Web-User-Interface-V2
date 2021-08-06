@@ -88,7 +88,7 @@ const List: React.FC = ({ itanks }) => {
   );
 };
 const StyledWrapBox = styled(Card)`
-  height: 330px;
+  height: 350px;
   @media (max-width: 768px) {
     margin-bottom: 16px;
     height: auto;

@@ -31,7 +31,7 @@ const StyledMain = styled.div`
 `;
 const StyledWrapBox = styled.div`
   @media (min-width: 1024px) {
-    max-width: 830px;
+    max-width: 960px;
     margin: 0 auto;
   }
 `;
