@@ -7,7 +7,7 @@ const BtnLink: React.FC = ({ text, path }) => {
   const history = useHistory();
   return (
     <>
-      <Spacer size="mmd" />
+         <Spacer />
       <Card
         className="wing-blank-lg width-100 text-center cursor-pointer"
         onClick={() => {

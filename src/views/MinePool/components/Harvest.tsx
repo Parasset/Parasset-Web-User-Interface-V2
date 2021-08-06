@@ -36,7 +36,7 @@ const Harvest: React.FC = ({ mine, mineInfo }) => {
           </div>
           <Spacer size="sm" />
           <div className="color-grey">
-            {t("dlqsy")} ({mine.earnTokenName} )
+            {t("dlqsy")} ({mine.earnTokenName})
           </div>
           <Spacer />
           <Button

@@ -33,7 +33,7 @@ const Stake: React.FC = ({ mine, staked, onSelect, onOpenModal }) => {
           </div>
           <Spacer size="sm" />
           <div className="color-grey">
-            {t("ydy")} ({mine.depositTokenName} )
+            {t("ydy")} ({mine.depositTokenName})
           </div>
           <Spacer />
           {/* {approveStatus ? (

@@ -49,7 +49,7 @@ const Button: React.FC<ButtonProps> = ({
   switch (size) {
     case "sm":
       buttonPadding = spacing[2];
-      buttonSize = 30;
+      buttonSize = 35;
       fontSize = 12;
       break;
     case "lg":
