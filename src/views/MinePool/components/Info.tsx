@@ -19,13 +19,13 @@ const Info: React.FC = ({ mine, mineInfo }) => {
           <Spacer />
           <div className={` ${isMobile ? "" : "flex-jc-center"} `}>
             <Label
-              label={`${t("dys")} ( ${mine.depositTokenName} )`}
+              label={`${t("dys")} (${mine.depositTokenName})`}
               value={<Value value={mineInfo.info.totalSupply} />}
               className={` ${isMobile ? "" : "width-47"} `}
             />
             {isMobile ? <Spacer size="mmd" /> : null}
             <Label
-              label={`${t("rcl")} ( ${mine.earnTokenName} )`}
+              label={`${t("rcl")} (${mine.earnTokenName})`}
               value={<Value value={mineInfo.info.rewardRate} />}
               className={` ${isMobile ? "" : "width-47"} `}
             />

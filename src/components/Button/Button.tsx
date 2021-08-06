@@ -1,21 +1,20 @@
+import React, { useContext, useMemo } from "react";
+import styled, { ThemeContext } from "styled-components";
 
-import React, { useContext, useMemo } from 'react';
-import styled, { ThemeContext } from 'styled-components';
-
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 interface ButtonProps {
   children?: React.ReactNode;
   disabled?: boolean;
   href?: string;
   onClick?: any;
-  size?: 'sm' | 'md' | 'lg';
+  size?: "sm" | "md" | "lg";
   text?: string;
   to?: string;
   className?: string;
   width?: number | string;
-  target?:  string;
-  variant?: 'default' | 'secondary' | 'tertiary' | 'fourthly';
+  target?: string;
+  variant?: "default" | "secondary" | "tertiary" | "fourthly";
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -23,22 +22,22 @@ const Button: React.FC<ButtonProps> = ({
   disabled,
   href,
   onClick,
-  size='sm',
+  size = "sm",
   text,
   to,
   variant,
   className,
   width,
-  target='__blank'
+  target = "__blank",
 }) => {
   const { color, spacing } = useContext(ThemeContext);
 
   let buttonColor: string;
   switch (variant) {
-    case 'secondary':
+    case "secondary":
       buttonColor = color.white;
       break;
-    case 'default':
+    case "default":
     default:
       buttonColor = color.primary.main;
   }
@@ -48,17 +47,17 @@ const Button: React.FC<ButtonProps> = ({
   let buttonPadding: number;
   let fontSize: number;
   switch (size) {
-    case 'sm':
+    case "sm":
       buttonPadding = spacing[2];
       buttonSize = 30;
       fontSize = 12;
       break;
-    case 'lg':
+    case "lg":
       buttonPadding = spacing[4];
       buttonSize = 50;
       fontSize = 16;
       break;
-    case 'md':
+    case "md":
     default:
       buttonPadding = spacing[3];
       buttonSize = 50;
@@ -115,27 +114,26 @@ const StyledButton = styled.button<StyledButtonProps>`
   border: 0;
   border-radius: 20px;
   background-image: ${(props) =>
-    props.variant === 'secondary'
-      ? 'linear-gradient(90deg, #7076A8 0%, #5CA1C7 50%, #82C2CA 100%)'
-      : 'none'};
+    props.variant === "secondary"
+      ? "linear-gradient(90deg, #7076A8 0%, #5CA1C7 50%, #82C2CA 100%)"
+      : "none"};
   background-repeat: no-repeat;
   background-size: 100% 100%;
   color: ${(props) => (!props.disabled ? props.color : `${props.color}`)};
   cursor: pointer;
   display: flex;
   font-size: ${(props) => props.fontSize}px;
-  border: ${(props) => (props.variant === 'tertiary' ? '1px' : '0px')} solid
+  border: ${(props) => (props.variant === "tertiary" ? "1px" : "0px")} solid
     ${(props) => props.theme.color.primary.main};
   height: ${(props) => props.size}px;
   justify-content: center;
   outline: none;
   padding-left: ${(props) => props.padding}px;
   padding-right: ${(props) => props.padding}px;
-  pointer-events: ${(props) => (!props.disabled ? undefined : 'none')};
-  width: ${(props) => (props.width ? props.width : '100%')};
+  pointer-events: ${(props) => (!props.disabled ? undefined : "none")};
+  width: ${(props) => (props.width ? props.width : "100%")};
   opacity: ${(props) => (!props.disabled ? 1 : 0.6)};
- 
- 
+  font-weight: 600;
 `;
 
 const StyledLink = styled(Link)`

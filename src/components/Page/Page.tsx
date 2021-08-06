@@ -17,6 +17,7 @@ const StyledPage = styled.div`
   align-content: center;
   /*  stretch让盒子内的每个元素的高度都等于行高 */
   align-items: stretch;
+
   @media (max-width: 768px) {
     display: block;
   }

@@ -340,7 +340,7 @@ input[type="number"] {
   width: 60% !important;
 }
 .width-47 {
-  width: 47% !important;
+  width: calc((100% - 24px) / 2) !important;
 }
 .width-32 {
   width: 32% !important;

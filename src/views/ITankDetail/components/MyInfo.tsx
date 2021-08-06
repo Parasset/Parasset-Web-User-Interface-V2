@@ -52,7 +52,7 @@ const MyInfo: React.FC = ({
           />
           <Spacer />
           <Label
-            label={`${t("wdfe")} (${itank.LPTokenName} )`}
+            label={`${t("wdfe")} (${itank.LPTokenName})`}
             value={<Value value={myShare} decimals={6} />}
             className="wing-blank-lg"
           />

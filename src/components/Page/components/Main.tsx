@@ -8,11 +8,11 @@ const Main: React.FC = ({ children }) => {
     <StyledMain className=" width-100">
       <div className="flex1">
         <Header />
-        <div className="wing-blank-lg">
+        <StyledWrapBox className="wing-blank-lg">
           <Spacer />
           {children}
           <Spacer />
-        </div>
+        </StyledWrapBox>
       </div>
 
       <Right />
@@ -27,6 +27,12 @@ const StyledMain = styled.div`
   align-items: stretch;
   @media (max-width: 768px) {
     padding-top: 50px;
+  }
+`;
+const StyledWrapBox = styled.div`
+  @media (min-width: 1024px) {
+    max-width: 770px;
+    margin: 0 auto;
   }
 `;
 export default Main;
