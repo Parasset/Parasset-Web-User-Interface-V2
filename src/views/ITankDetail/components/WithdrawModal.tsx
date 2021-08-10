@@ -55,37 +55,16 @@ const DepositModal: React.FC = ({
   }, [redeemAmount, lastDate]);
 
   const recentDate = useMemo(() => {
-    const currentTime = new Date().getTime() / 1000;
     const {
       nextStartTime,
       nextEndTime,
-      preStartTime,
-      preEndTime,
-      nextStartTimeNum,
-      nextEndTimeNum,
-      preStartTimeNum,
-      preEndTimeNum,
+     
     } = lastDate;
 
-    if (currentTime >= preStartTimeNum && currentTime <= preEndTimeNum) {
-      return {
-        startTime: preStartTime,
-        endTime: preEndTime,
-      };
-    } else if (
-      currentTime >= nextStartTimeNum &&
-      currentTime <= nextEndTimeNum
-    ) {
-      return {
-        startTime: nextStartTime,
-        endTime: nextEndTime,
-      };
-    } else {
-      return {
-        startTime: nextStartTime,
-        endTime: nextEndTime,
-      };
-    }
+    return {
+      startTime: nextStartTime,
+      endTime: nextEndTime,
+    };
   }, [redeemAmount, lastDate]);
 
   const estimateValue = useMemo(() => {

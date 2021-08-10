@@ -18,12 +18,7 @@ const useItankInfo = (itank) => {
   const [lastDate, setLastDate] = useState({
     nextStartTime: "",
     nextEndTime: "",
-    preStartTime: "",
-    preEndTime: "",
-    nextStartTimeNum: 0,
-    nextEndTimeNum: 0,
-    preStartTimeNum: 0,
-    preEndTimeNum: 0,
+    
   });
   const [redeemAmount, setRedeemAmount] = useState(0);
   const [fee, setFee] = useState(0);

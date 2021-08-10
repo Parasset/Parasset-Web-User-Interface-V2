@@ -420,20 +420,11 @@ export class BasisCash {
         startTime: nextStartTime,
         endTime: nextEndTime,
       } = await itankContract.getRedemptionTime();
-      let {
-        startTime: preStartTime,
-        endTime: preEndTime,
-      } = await itankContract.getRedemptionTimeFront();
-
+     
       return {
         nextStartTime: formatDate(nextStartTime.toNumber()),
         nextEndTime: formatDate(nextEndTime.toNumber()),
-        preStartTime: formatDate(preStartTime.toNumber()),
-        preEndTime: formatDate(preEndTime.toNumber()),
-        nextStartTimeNum: nextStartTime.toNumber(),
-        nextEndTimeNum: nextEndTime.toNumber(),
-        preStartTimeNum: preStartTime.toNumber(),
-        preEndTimeNum: preEndTime.toNumber(),
+       
       };
     } catch (error) {}
   }
