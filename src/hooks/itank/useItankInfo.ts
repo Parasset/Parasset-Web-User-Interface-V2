@@ -43,6 +43,7 @@ const useItankInfo = (itank) => {
         itank?.itankContract?.decimal,
         address
       );
+      console.log("🚀 ~ file: useItankInfo.ts ~ line 46 ~ redeemAmount", redeemAmount)
       setRedeemAmount(redeemAmount);
     },
     [basisCash?.myAccount, itank]

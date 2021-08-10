@@ -32,7 +32,6 @@ const DepositModal: React.FC = ({
     itank?.itankContract?.decimal
   );
 
-
   const [approveStatus, approve] = useApprove(
     itank?.itankContract,
     itank?.itankContract?.address,
@@ -40,26 +39,11 @@ const DepositModal: React.FC = ({
   );
 
   const canBuyAmount = useMemo(() => {
-    const currentTime = new Date().getTime() / 1000;
-    const {
-      nextStartTimeNum,
-      nextEndTimeNum,
-      preStartTimeNum,
-      preEndTimeNum,
-    } = lastDate;
-    const isTime =
-      (currentTime >= preStartTimeNum && currentTime <= preEndTimeNum) ||
-      (currentTime >= nextStartTimeNum && currentTime <= nextEndTimeNum);
-
-    return isTime ? redeemAmount : 0;
-  }, [redeemAmount, lastDate]);
+    return redeemAmount;
+  }, [redeemAmount]);
 
   const recentDate = useMemo(() => {
-    const {
-      nextStartTime,
-      nextEndTime,
-     
-    } = lastDate;
+    const { nextStartTime, nextEndTime } = lastDate;
 
     return {
       startTime: nextStartTime,
@@ -73,7 +57,7 @@ const DepositModal: React.FC = ({
     // 2、若0≤X≤保险基金账户的标的资产数量，则预计提取的标的资产数量=X，预计提取的平行资产数量=0；点击“确定”可正常提取
     // 3、若X＞保险基金的标的资产数量，则预计提取的标的资产数量=保险基金中标的资产的数量；预计提取的平行资产数量=X-保险基金中标的资产数量；点击“确定”可正常提取
     const x = new BigNumber(itankInfo.perShare).times(val);
-    return x
+    return x;
   }, [val, itankInfo]);
 
   const estimateWithdrawDepositToken = useMemo(() => {
@@ -95,9 +79,6 @@ const DepositModal: React.FC = ({
     return value;
   }, [estimateValue, itankInfo.depositFundBalance]);
 
-
-
-  
   const remainingShare = useMemo(() => {
     // 持有的LP-提取LP-USD数量输入值
     let amount = new BigNumber(canBuyAmount).minus(val);
@@ -110,9 +91,12 @@ const DepositModal: React.FC = ({
     } else if (parseFloat(val) > parseFloat(canBuyAmount)) {
       Toast.info(t("yebz"), 1000);
     } else if (getDep(val) > 18) {
-      Toast.info(      t("zdsrws", {
-        decimal: 18,
-      }), 1000);
+      Toast.info(
+        t("zdsrws", {
+          decimal: 18,
+        }),
+        1000
+      );
     } else if (itankInfo.perShare < 0) {
       Toast.info(t("bxcks"), 1000);
     } else {
@@ -190,7 +174,9 @@ const DepositModal: React.FC = ({
           },
           estimateWithdrawDepositToken: {
             label: "yjtqusdt",
-            value: <Value value={estimateWithdrawDepositToken} showAll={true} />,
+            value: (
+              <Value value={estimateWithdrawDepositToken} showAll={true} />
+            ),
             unit: "",
             labelUnit: itank.depositTokenName,
           },
@@ -208,10 +194,6 @@ const DepositModal: React.FC = ({
           },
         }}
         type="number"
-
-
-
-
         showApprove={true}
         approveStatus={approveStatus}
         approve={async () => {
