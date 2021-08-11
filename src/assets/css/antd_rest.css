@@ -5,6 +5,9 @@
   color: #878787;
   border-radius: 16px;
 }
+.ant-tooltip {
+  z-index: 700;
+}
 .ant-tooltip-arrow-content {
   box-shadow: none;
   background: white;

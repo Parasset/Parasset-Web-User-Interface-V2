@@ -192,8 +192,10 @@ export class BasisCash {
 
       return info;
     } catch (err) {
-      console.log(err, "err");
-      return "0";
+      // console.log(err, "err");
+      return {
+        fee:0
+      }
     }
   }
   async getStableFee(mortgagePoolContract, mortgageToken, uToken, address) {
@@ -203,6 +205,7 @@ export class BasisCash {
       uToken,
       address
     );
+    console.log("🚀 ~ file: BasisCash.ts ~ line 206 ~ BasisCash ~ getStableFee ~ fee", fee)
 
     return getTonumber(fee);
   }

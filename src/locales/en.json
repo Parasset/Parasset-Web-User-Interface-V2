@@ -93,7 +93,7 @@
   "sq": "Approve",
   "tq": "Withdraw",
   "zywa": "Stake {{lpToken}} Earn {{token}}",
-  "shuoming": "After deposit, your assets will be locked at least 7 days and can be withdrawn only in the specified redemption window period, Each redemption window period is 2 days.",
+  "shuoming": "After deposit, can be withdrawn only in the specified redemption window period, Each redemption window period is 2 days.",
   "cunzhuan": "Stake {{lpToken}} Earn {{token}}",
   "wdzy": "Your Staked",
   "dlsy": "Your Earned",
