@@ -18,7 +18,8 @@ const useItankInfo = (itank) => {
   const [lastDate, setLastDate] = useState({
     nextStartTime: "",
     nextEndTime: "",
-    
+    nextStartTimeNum: 0,
+    nextEndTimeNum: 0,
   });
   const [redeemAmount, setRedeemAmount] = useState(0);
   const [fee, setFee] = useState(0);
@@ -43,7 +44,6 @@ const useItankInfo = (itank) => {
         itank?.itankContract?.decimal,
         address
       );
-      console.log("🚀 ~ file: useItankInfo.ts ~ line 46 ~ redeemAmount", redeemAmount)
       setRedeemAmount(redeemAmount);
     },
     [basisCash?.myAccount, itank]

@@ -39,8 +39,13 @@ const DepositModal: React.FC = ({
   );
 
   const canBuyAmount = useMemo(() => {
-    return redeemAmount;
-  }, [redeemAmount]);
+    const currentTime = new Date().getTime() / 1000;
+    const { nextStartTimeNum, nextEndTimeNum } = lastDate;
+    const isTime =
+      currentTime >= nextStartTimeNum && currentTime <= nextEndTimeNum;
+
+    return isTime ? redeemAmount : 0;
+  }, [redeemAmount, lastDate]);
 
   const recentDate = useMemo(() => {
     const { nextStartTime, nextEndTime } = lastDate;

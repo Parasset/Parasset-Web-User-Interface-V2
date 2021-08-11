@@ -424,6 +424,8 @@ export class BasisCash {
       return {
         nextStartTime: formatDate(nextStartTime.toNumber()),
         nextEndTime: formatDate(nextEndTime.toNumber()),
+        nextStartTimeNum: nextStartTime.toNumber(),
+        nextEndTimeNum: nextEndTime.toNumber(),
        
       };
     } catch (error) {}
