@@ -74,7 +74,7 @@ const Datum: React.FC = () => {
           </div>
           <div className="margin-left-10">
             <div>
-              <Value value={ETHAvgPrice} />
+              <Value value={ETHAvgPrice} decimals={8}/>
             </div>
             <div>ETH/USDT</div>
           </div>
@@ -87,7 +87,7 @@ const Datum: React.FC = () => {
           </div>
           <div className="margin-left-10">
             <div>
-              <Value value={NESTToUSDTPrice} />
+              <Value value={NESTToUSDTPrice} decimals={8}/>
             </div>
             <div>NEST/USDT</div>
           </div>
@@ -100,7 +100,7 @@ const Datum: React.FC = () => {
           </div>
           <div className="margin-left-10">
             <div>
-              <Value value={NESTToETHPrice} />
+              <Value value={NESTToETHPrice}  decimals={8}/>
             </div>
             <div>NEST/ETH</div>
           </div>
