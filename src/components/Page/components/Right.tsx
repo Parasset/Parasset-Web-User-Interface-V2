@@ -30,7 +30,7 @@ const Right: React.FC = () => {
     if (status === "disconnected") {
       connect("injected");
     } else if (status === "error") {
-      Toast.info(t("cswlcw"));
+      Toast.info(t("zwwlcw"));
     }
   }, [status]);
 
@@ -90,7 +90,7 @@ const Right: React.FC = () => {
         </div>
         <div className="">
           <StyledLabel>{t("ltl")}</StyledLabel>
-          <a href={`https://rinkeby.etherscan.io/token/${PUSDToken?.address}`}>
+          <a href={`https://etherscan.io/token/${PUSDToken?.address}`}>
             <div className="flex-jc-start ">
               <div className="flex-jc-center">
                 <TokenSymbol symbol="PUSD" size={25} />
@@ -105,7 +105,7 @@ const Right: React.FC = () => {
           </a>
 
           <Spacer size="md" />
-          <a href={`https://rinkeby.etherscan.io/token/${PETHToken?.address}`}>
+          <a href={`https://etherscan.io/token/${PETHToken?.address}`}>
             <div className="flex-jc-start">
               <div className="flex-jc-center">
                 <TokenSymbol symbol="PETH" size={25} />

@@ -9,7 +9,7 @@ const Version: React.FC = () => {
       <div className="width-100">
         <div className="space-white-lg"></div>
         <a
-          href="https://parasset.top/#/
+          href="https://v1.parasset.top/
         "
           target="__blank"
         >
