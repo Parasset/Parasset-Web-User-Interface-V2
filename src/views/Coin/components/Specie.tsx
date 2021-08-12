@@ -146,7 +146,7 @@ const Specie: React.FC = ({}) => {
     return {
       ETH: $isPositiveNumber(
         $isFiniteNumber(
-          getNumberToFixed(new BigNumber(ETHWalletBalance).minus(0.02))
+          getNumberToFixed(new BigNumber(ETHWalletBalance).minus(0.025))
         )
       ),
       NEST: NESTWalletBalance,
@@ -171,7 +171,7 @@ const Specie: React.FC = ({}) => {
   const inputMax = useMemo(() => {
     var max = $isPositiveNumber(
       $isFiniteNumber(
-        new BigNumber(ETHWalletBalance).minus(0.02).toFixed(18, 1)
+        new BigNumber(ETHWalletBalance).minus(0.025).toFixed(18, 1)
       )
     );
 
