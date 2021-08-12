@@ -19,7 +19,7 @@ const Lang: React.FC = () => {
         <div className="space-white-lg"></div>
         <div
           className={`wing-blank  ${
-            isMobile ? "flex-jc-start" : "flex-jc-start  flex-wrap"
+            isMobile ? "flex-row-center-center" : "flex-jc-start  flex-wrap"
           } `}
         >
           <div

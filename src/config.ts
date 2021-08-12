@@ -8,7 +8,7 @@ import { BigNumber } from "ethers";
 const configurations: { [env: string]: Configuration } = {
   development: {
     chainId: ChainId.MAINNET,
-    etherscanUrl: "https://etherscan.io",
+    etherscanUrl: "https://etherscan.io/",
     defaultProvider:
       "https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
     deployments: require("./basis-cash/deployments/deployments.mainnet.json"),
@@ -25,7 +25,7 @@ const configurations: { [env: string]: Configuration } = {
   },
   production: {
     chainId: ChainId.MAINNET,
-    etherscanUrl: "https://etherscan.io",
+    etherscanUrl: "https://etherscan.io/",
     defaultProvider:
       "https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
     deployments: require("./basis-cash/deployments/deployments.mainnet.json"),
