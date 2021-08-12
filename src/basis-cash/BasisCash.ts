@@ -205,7 +205,6 @@ export class BasisCash {
       uToken,
       address
     );
-    console.log("🚀 ~ file: BasisCash.ts ~ line 206 ~ BasisCash ~ getStableFee ~ fee", fee)
 
     return getTonumber(fee);
   }

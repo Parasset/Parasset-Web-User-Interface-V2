@@ -22,6 +22,7 @@ const Right: React.FC = () => {
   const PUSDToken = basisCash?.externalTokens["PUSD"];
   const PETHToken = basisCash?.externalTokens["PETH"];
   const PUSDTotalSupply = useTotalSupply(PUSDToken);
+  console.log("🚀 ~ file: Right.tsx ~ line 25 ~ PUSDTotalSupply",PUSDToken, PUSDTotalSupply)
   const PETHTotalSupply = useTotalSupply(PETHToken);
 
   const [isOpen, setOpen] = useState(false);

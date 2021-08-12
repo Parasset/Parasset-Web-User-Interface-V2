@@ -7,7 +7,7 @@ import "antd/dist/antd.css";
 import "./assets/css/antd_rest.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-window.console.log=()=>{}
+// window.console.log=()=>{}
 //
 ReactDOM.render(
   <>
