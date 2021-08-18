@@ -11,6 +11,7 @@ const TableTitle: React.FC = ({  }) => {
       <Card className=" flex-jc-center color-grey">
         <div className="flex1">{t('dyzc')}</div>
         <div className="flex1">TVL</div>
+        <div className="flex1">{t('diyashu')}</div>
         <div className="flex1">{t('zddyl')}</div>
         <div className="flex1">{t('qsdyl')}</div>
       </Card>

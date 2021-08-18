@@ -282,7 +282,7 @@ export class BasisCash {
       const rate = getNumberToFixed(new BigNumber(getNumberToFixed(mortgageRate.toString())).div(
         1000
       ));
-      console.log("🚀 ~ file: BasisCash.ts ~ line 283 ~ BasisCash ~ getDebt ~ rate", rate)
+      
       return {
         ...info,
         mortgageAssets,

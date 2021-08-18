@@ -43,6 +43,9 @@ const Item: React.FC = ({ item }) => {
             <Value value={item.TVL} prefix="$" />
           </div>
           <div className="flex1">
+            <Value value={item.staked} />
+          </div>
+          <div className="flex1">
             <Value value={item.maxRatio} suffix="%" />
           </div>
           <div className="flex1 flex-jc-center">
@@ -90,6 +93,8 @@ const Item: React.FC = ({ item }) => {
           <Spacer size="mmd" />
 
           <Label label="TVL" value={<Value value={item.TVL} prefix="$" />} />
+          <Spacer size="mmd" />
+          <Label label={t("diyashu")} value={<Value value={item.staked} />} />
 
           <Spacer size="mmd" />
           <Label

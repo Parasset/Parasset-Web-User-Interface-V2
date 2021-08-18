@@ -14,6 +14,7 @@ import Footer from "./components/Footer";
 import useBasisCash from "./../../hooks/useBasisCash";
 import useDebt from "../../hooks/debt/useDebt";
 import useTVL from "../../hooks/debt/useTVL";
+import useStaked from "../../hooks/debt/useStaked";
 import useDebtInfo from "../../hooks/debt/useDebtInfo";
 import useMaxRatio from "./../../hooks/coin/useMaxRatio";
 import useTotalSupply from "./../../hooks/useTokenTotalSupply";
@@ -53,7 +54,21 @@ const Home: React.FC = () => {
     NESTPETHDebt?.mortgageToken,
     NESTPETHDebtfo?.mortgagePrice
   );
-  // console.log(ETHPUSDTVL,NESTPUSDTVL,NESTPETHTVL);
+
+  const ETHPUSDStaked = useStaked(
+    ETHDebt?.mortgagePoolContract,
+    ETHDebt?.mortgageToken
+  );
+
+  const NESTPUSDStaked = useStaked(
+    NESTPUSDDebt?.mortgagePoolContract,
+    NESTPUSDDebt?.mortgageToken
+  );
+  const NESTPETHStaked = useStaked(
+    NESTPETHDebt?.mortgagePoolContract,
+    NESTPETHDebt?.mortgageToken
+  );
+
   const maxRatioETH = useMaxRatio(
     ETHDebt?.mortgagePoolContract,
     ETHDebt?.mortgageToken
@@ -75,11 +90,24 @@ const Home: React.FC = () => {
     );
   }, [NESTPUSDTVL, NESTPETHTVL]);
 
+  const ETHStaked = useMemo(() => {
+    return $isPositiveNumber($isFiniteNumber(ETHPUSDStaked));
+  }, [ETHPUSDStaked]);
+
+  const NESTStaked = useMemo(() => {
+    return $isPositiveNumber(
+      $isFiniteNumber(
+        new BigNumber(NESTPUSDStaked).plus(NESTPETHStaked).toNumber()
+      )
+    );
+  }, [NESTPUSDStaked, NESTPETHStaked]);
+
   const list = useMemo(() => {
     return [
       {
         name: "ETH",
         TVL: ETHTVL,
+        staked: ETHStaked,
         maxRatio: $isPositiveNumber(
           $isFiniteNumber(new BigNumber(maxRatioETH).times(100).toNumber())
         ),
@@ -101,6 +129,7 @@ const Home: React.FC = () => {
       {
         name: "NEST",
         TVL: NESTTVL,
+        staked: NESTStaked,
         maxRatio: $isPositiveNumber(
           $isFiniteNumber(new BigNumber(maxRatioNEST).times(100).toNumber())
         ),
@@ -130,7 +159,8 @@ const Home: React.FC = () => {
     maxRatioNEST,
     ETHDebtInfo,
     NESTPUSDDebtInfo,
-    ,
+    ETHStaked,
+    NESTStaked,
   ]);
   const totalmortgageAssetValue = useMemo(() => {
     return $isPositiveNumber(

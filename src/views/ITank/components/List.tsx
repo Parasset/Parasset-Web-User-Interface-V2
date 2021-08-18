@@ -29,14 +29,13 @@ const Item: React.FC = ({ item }) => {
     return $isFiniteNumber(ratio);
   }, [myShare, itankInfo.totalSupply]);
 
-
   const tvl = useMemo(() => {
     //我的LP余额除总供应
     const tvl = new BigNumber(itankInfo.depositFundValue)
       .plus(itankInfo.earnFundValue)
       .toNumber();
     return $isPositiveNumber($isFiniteNumber(tvl));
-  }, [itankInfo.depositFundValue,itankInfo.earnFundValue]);
+  }, [itankInfo.depositFundValue, itankInfo.earnFundValue]);
 
   return (
     <>
@@ -48,10 +47,15 @@ const Item: React.FC = ({ item }) => {
         </div>
         <Spacer size="sm" />
         <div className="font-size-16 text-center">{item.name}</div>
-
         <Spacer size="mmd" />
         <Label label="TVL" value={<Value value={tvl} prefix="$" />} />
-
+        <Spacer size="mmd" />
+        <Label
+          label={t("jingzhi")}
+          value={
+            <Value value={itankInfo.perShare} decimals={6} placeholder={true} />
+          }
+        />
         <Spacer size="mmd" />
         <Label
           label={t("wdfe")}
@@ -59,7 +63,6 @@ const Item: React.FC = ({ item }) => {
         />
         <Spacer size="mmd" />
         <Label label={t("wdzb")} value={<Value value={myRatio} suffix="%" />} />
-
         <Spacer />
         <Button
           text={t("xuanze")}
