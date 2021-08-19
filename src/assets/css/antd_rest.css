@@ -6,7 +6,7 @@
   border-radius: 16px;
 }
 .ant-tooltip {
-  z-index: 700;
+  z-index: 30;
 }
 .ant-tooltip-arrow-content {
   box-shadow: none;

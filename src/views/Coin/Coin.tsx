@@ -1,10 +1,14 @@
 //@ts-nocheck
 import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { useLocation, useHistory } from "react-router-dom";
 import Tab from "../../components/Tab";
+import { getQueryParam } from "../../utils/utils";
 import Specie from "./components/Specie";
 import Debt from "./components/Debt";
 import RiskModal from "../../components/RiskModal";
 const Coin: React.FC = () => {
+  const history = useHistory();
+  const locationObj = useLocation();
   const [messages] = useState(["risk_msg4"]);
 
   const [isOpen, setOpen] = useState(false);
@@ -22,6 +26,13 @@ const Coin: React.FC = () => {
   const [tab, setTab] = useState(1);
 
   useEffect(() => {
+    if (locationObj && locationObj.search) {
+      var tab = getQueryParam("tab", locationObj.search);
+      setTab(parseInt(tab));
+    }
+  }, [locationObj]);
+
+  useEffect(() => {
     if (!localStorage.getItem("isCoinMsg")) {
       setOpen(true);
       localStorage.setItem("isCoinMsg", "isCoinMsg");
@@ -32,7 +43,10 @@ const Coin: React.FC = () => {
       <Tab
         tabs={tabs}
         tab={tab}
-        onChangeTab={setTab}
+        // onChangeTab={setTab}
+        onChangeTab={(tab) => {
+          history.replace({ path: "/coin", search: `?tab=${tab}` });
+        }}
       />
       {tab === 1 ? <Specie /> : <Debt />}
 
@@ -40,7 +54,6 @@ const Coin: React.FC = () => {
         messages={messages}
         isOpen={isOpen}
         onDismiss={() => {
-          console.log("?????");
 
           setOpen(false);
         }}
