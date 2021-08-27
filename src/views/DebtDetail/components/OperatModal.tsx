@@ -212,7 +212,7 @@ const Mine: React.FC = ({
       },
       liqChanges: {
         label: "qsjbgw",
-        value: <Value value={liqChanges} />,
+        value: <Value value={liqChanges}  showAll={true}/>,
 
         unit: debt.liqUnit,
       },
@@ -242,7 +242,7 @@ const Mine: React.FC = ({
       },
       liqChanges: {
         label: "qsjbgw",
-        value: <Value value={liqChanges} />,
+        value: <Value value={liqChanges}  showAll={true}/>,
         unit: debt.liqUnit,
       },
       payFee: {
