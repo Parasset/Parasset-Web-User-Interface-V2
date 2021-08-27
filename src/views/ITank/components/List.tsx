@@ -58,6 +58,19 @@ const Item: React.FC = ({ item }) => {
         />
         <Spacer size="mmd" />
         <Label
+          label={t("yqnhsyl")}
+          value={
+            <Value
+              value={itankInfo.revenue}
+              decimals={6}
+              placeholder={true}
+              suffix="%"
+            />
+          }
+        />
+
+        <Spacer size="mmd" />
+        <Label
           label={t("wdfe")}
           value={<Value value={myShare} decimals={6} />}
         />
@@ -91,7 +104,7 @@ const List: React.FC = ({ itanks }) => {
   );
 };
 const StyledWrapBox = styled(Card)`
-  height: 420px;
+  min-height: 460px;
   @media (max-width: 768px) {
     margin-bottom: 16px;
     height: auto;

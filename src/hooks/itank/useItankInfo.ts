@@ -13,6 +13,7 @@ const useItankInfo = (itank) => {
     totalSupply: 0,
     totalAssets: 0,
     avgPrice: 0,
+    revenue: 0,
   });
 
   const [lastDate, setLastDate] = useState({

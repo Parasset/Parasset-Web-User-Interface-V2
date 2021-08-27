@@ -160,6 +160,7 @@
    "tip5": "When the mortgage asset price falls below the liquidation price, the debt warehouse can be liquidated",
    "tip6": "The Liquidation Ratio is a certain multiple of the Max Coll. Ratio. When the Current Coll. Ratio ≥ Liquidation Ratio, the debt warehouse can be liquidated.",
    "jingzhi": "PerShare",
-   "diyashu": "Staked"
+   "diyashu": "Staked",
+   "yqnhsyl": "Expected APR"
   
 }

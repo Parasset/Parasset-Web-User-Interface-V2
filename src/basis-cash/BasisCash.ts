@@ -194,8 +194,8 @@ export class BasisCash {
     } catch (err) {
       // console.log(err, "err");
       return {
-        fee:0
-      }
+        fee: 0,
+      };
     }
   }
   async getStableFee(mortgagePoolContract, mortgageToken, uToken, address) {
@@ -279,10 +279,10 @@ export class BasisCash {
         .div(new BigNumber(liqRatio).times(mortgageAssets))
         .toNumber();
       liqPrice = $isPositiveNumber($isFiniteNumber(liqPrice));
-      const rate = getNumberToFixed(new BigNumber(getNumberToFixed(mortgageRate.toString())).div(
-        1000
-      ));
-      
+      const rate = getNumberToFixed(
+        new BigNumber(getNumberToFixed(mortgageRate.toString())).div(1000)
+      );
+
       return {
         ...info,
         mortgageAssets,
@@ -362,6 +362,14 @@ export class BasisCash {
         itankContract,
         address,
       } = itank;
+      let revenue = await fetch("https://api.parasset.top/fee/getDailyRevenue");
+      revenue = await revenue.json();
+      const { pethRevenue, pusdtRevenue } = revenue;
+      revenue = depositTokenName === "ETH" ? pethRevenue : pusdtRevenue;
+      revenue = $isPositiveNumber(
+        $isFiniteNumber(getNumberToFixed(new BigNumber(revenue).times(100)))
+      );
+     
       let depositFundBalance = 0;
 
       if (depositTokenName !== "ETH") {
@@ -401,6 +409,7 @@ export class BasisCash {
         totalSupply,
         totalAssets,
         avgPrice,
+        revenue
       };
     } catch (error) {
       return {
@@ -412,6 +421,7 @@ export class BasisCash {
         totalSupply: 0,
         totalAssets: 0,
         avgPrice: 0,
+        revenue: 0,
       };
     }
   }
@@ -422,13 +432,12 @@ export class BasisCash {
         startTime: nextStartTime,
         endTime: nextEndTime,
       } = await itankContract.getRedemptionTime();
-     
+
       return {
         nextStartTime: formatDate(nextStartTime.toNumber()),
         nextEndTime: formatDate(nextEndTime.toNumber()),
         nextStartTimeNum: nextStartTime.toNumber(),
         nextEndTimeNum: nextEndTime.toNumber(),
-       
       };
     } catch (error) {}
   }
