@@ -367,7 +367,7 @@ export class BasisCash {
       const { pethRevenue, pusdtRevenue } = revenue;
       revenue = depositTokenName === "ETH" ? pethRevenue : pusdtRevenue;
       revenue = $isPositiveNumber(
-        $isFiniteNumber(getNumberToFixed(new BigNumber(revenue).times(100)))
+        $isFiniteNumber(getNumberToFixed(new BigNumber(revenue).times(365)))
       );
      
       let depositFundBalance = 0;
