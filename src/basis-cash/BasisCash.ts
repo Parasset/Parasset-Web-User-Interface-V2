@@ -362,7 +362,7 @@ export class BasisCash {
         itankContract,
         address,
       } = itank;
-      let revenue = await fetch("https://api.parasset.top/fee/getDailyRevenue");
+      let revenue = await fetch("https://api.parasset.top/fee/getDailyRevenueV1");
       revenue = await revenue.json();
       const { pethRevenue, pusdtRevenue } = revenue;
       revenue = depositTokenName === "ETH" ? pethRevenue : pusdtRevenue;
