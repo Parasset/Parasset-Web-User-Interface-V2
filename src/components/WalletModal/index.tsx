@@ -33,9 +33,9 @@ export default function WalletModal({ isOpen, onDismiss }) {
         onDismiss={onDismiss}
         width="330px"
         showHeader={true}
-        title={status !== "connected"||backWallet ? t("ljqb") : t("zhanghu")}
+        title={status !== "connected" || backWallet ? t("ljqb") : t("zhanghu")}
       >
-        {status !== "connected"||backWallet ? (
+        {status !== "connected" || backWallet ? (
           <>
             <Spacer size="mmd" />
             <CardButton
@@ -46,7 +46,7 @@ export default function WalletModal({ isOpen, onDismiss }) {
                 onDismiss();
               }}
             >
-              <div className="flex-jc-start width-100">
+              <div className="flex-jc-start width-100  bold-600 font-size-16">
                 <img
                   src={require("../../assets/img/metamask.png")}
                   width="35"
@@ -65,7 +65,7 @@ export default function WalletModal({ isOpen, onDismiss }) {
                 onDismiss();
               }}
             >
-              <div className="flex-jc-start width-100">
+              <div className="flex-jc-start width-100  bold-600 font-size-16">
                 <img
                   src={require("../../assets/img/walletconnect.png")}
                   width="35"
@@ -81,7 +81,7 @@ export default function WalletModal({ isOpen, onDismiss }) {
             <div className="bd-bottom">
               <Spacer size="mmd" />
               <div className="flex-jc-center">
-                <div className="flex-jc-start ">
+                <div className="flex-jc-start  bold-600 font-size-16">
                   {/* injected  */}
                   <img
                     src={
@@ -101,8 +101,8 @@ export default function WalletModal({ isOpen, onDismiss }) {
                     text={t("genggai")}
                     width="60px"
                     className="margin-right-10"
-                    onClick={()=>{
-                      setBackWallet(true)
+                    onClick={() => {
+                      setBackWallet(true);
                     }}
                   />
                   {/* <Button
@@ -122,7 +122,7 @@ export default function WalletModal({ isOpen, onDismiss }) {
                   className="margin-right-10"
                 />
 
-                <span>{newAccount}</span>
+                <span className=" bold-600 font-size-16">{newAccount}</span>
 
                 <Copy toCopy={account} />
               </div>
@@ -145,13 +145,13 @@ export default function WalletModal({ isOpen, onDismiss }) {
             </div>
             <div>
               <Spacer size="mmd" />
-              <div className="bold-600">{t("wdpxzc")}</div>
+              <div className=" bold-600 font-size-16">{t("wdpxzc")}</div>
               <Spacer size="mmd" />
               <div className="flex-al-start">
                 <div className="flex-jc-start">
                   <TokenSymbol symbol="PETH" size={35} />
                   <div className="margin-left-10">
-                    <div>PETH</div>
+                    <div className=" bold-600 font-size-16">PETH</div>
                     <Spacer size="ssm" />
                     <div className="flex-jc-start color-grey">
                       <div>{PETHAddress}</div>
@@ -160,14 +160,16 @@ export default function WalletModal({ isOpen, onDismiss }) {
                     </div>
                   </div>
                 </div>
-                <Value value={PETHTokenBalance} />
+                <div className=" bold-600 font-size-16">
+                  <Value value={PETHTokenBalance} />
+                </div>
               </div>
               <Spacer size="mmd" />
               <div className="flex-al-start">
                 <div className="flex-jc-start">
                   <TokenSymbol symbol="PUSD" size={35} />
                   <div className="margin-left-10">
-                    <div>PUSD</div>
+                    <div className=" bold-600 font-size-16">PUSD</div>
                     <Spacer size="ssm" />
                     <div className="flex-jc-start color-grey">
                       <div>{PUSDAddress}</div>
@@ -176,7 +178,9 @@ export default function WalletModal({ isOpen, onDismiss }) {
                     </div>
                   </div>
                 </div>
-                <Value value={PUSDTokenBalance} />
+                <div className=" bold-600 font-size-16">
+                  <Value value={PUSDTokenBalance} />
+                </div>
               </div>
             </div>
           </>

@@ -45,7 +45,7 @@ const Depot: React.FC = ({ list, loading }) => {
                         <div className="flex-jc-center flex1">
                           <div className="color-grey">{t("dyzc")}</div>
                           <div className="text-right">
-                            <div className="font-size-14">
+                            <div className=" bold-600 font-size-16">
                               <Value value={item.mortgageAssets} decimals={6} />
                               {item.depositTokenName}
                             </div>
@@ -60,7 +60,7 @@ const Depot: React.FC = ({ list, loading }) => {
                         <div className="flex-jc-center flex1">
                           <div className="color-grey">{t("zbzw")}</div>
                           <div className="text-right">
-                            <div className="font-size-14">
+                            <div className=" bold-600 font-size-16">
                               {" "}
                               <Value value={item.parassetAssets} decimals={6} />
                               {item.earnTokenName}
@@ -76,7 +76,7 @@ const Depot: React.FC = ({ list, loading }) => {
                         <div className="flex-jc-center flex1">
                           <div className="color-grey">{t("wdf")}</div>
                           <div className="text-right">
-                            <div className=" font-size-14">
+                            <div className="  bold-600 font-size-16">
                               <Value value={item.fee} showAll={true} />
                               {item.earnTokenName}
                             </div>
