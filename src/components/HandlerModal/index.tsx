@@ -37,6 +37,7 @@ export default function HandlerModal({
   approveTokenName,
 }) {
   const { t } = useTranslation();
+  const [isBlur,setIsBlur]=useState(false)
 
   return (
     <>
@@ -61,7 +62,7 @@ export default function HandlerModal({
         </div>
         <Spacer size="mmd" />
         <CardButton
-          className="width-100 wing-blank-lg cursor-pointer"
+          className={`${isBlur?'input-focus':'input-no-focus'}  width-100 wing-blank-lg cursor-pointer input-dark-box`}
           size="lg"
         >
           <div className="flex-jc-center">
@@ -80,8 +81,14 @@ export default function HandlerModal({
               value={val}
               onChange={handleChange}
               className="flex15"
-              onBlur={onBlur}
-              onFocus={onFocus}
+              onBlur={(e) => {
+                onBlur(e);
+                setIsBlur(false);
+              }}
+              onFocus={(e) => {
+                onFocus(e);
+                setIsBlur(true);
+              }}
             />
           </div>
         </CardButton>

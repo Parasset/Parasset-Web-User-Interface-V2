@@ -1,3 +1,19 @@
+/* vietnamese */
+@font-face {
+  font-family: 'Wallpoet-Regular';
+  font-weight: 600;
+  src: url(../font/Wallpoet-Regular.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'KumbhSans-Medium';
+  src: url(../font/KumbhSans-Medium.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'OPPOSans-M';
+  src: url(../font/OPPOSans-M.woff2) format('woff2');
+}
+
+
 .ant-tooltip-inner {
   background: #ffffff;
   /* border: 1px solid #eeeeee; */

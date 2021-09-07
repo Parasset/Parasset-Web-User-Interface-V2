@@ -1,14 +1,18 @@
 body {
   background: #ffffff;
   margin: 0;
-  font-family: "Nunito", sans-serif;
+  /* font-family: "Nunito", sans-serif; */
+  font-family: "KumbhSans-Medium", "OPPOSans-M" !important;
   font-size: 13px !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #000;
   overflow-x: hidden;
 }
-
+/*  */
+.font-Wallpoet {
+  font-family: "Wallpoet-Regular";
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -36,6 +40,15 @@ input::-webkit-inner-spin-button {
 /* 火狐浏览器 */
 input[type="number"] {
   -moz-appearance: textfield;
+}
+.input-dark-box{
+  background: #F7F8FA;
+}
+.input-focus{
+  border: 1px solid #196EA6!important;
+}
+.input-no-focus{
+  border: 1px solid #EEEEEE!important;
 }
 .style_mask__9zmSN {
   z-index: 99999999999 !important;
@@ -151,6 +164,14 @@ input[type="number"] {
 }
 .font-size-32 {
   font-size: 32px !important;
+}
+
+.font-size-50 {
+  letter-spacing: 5px;
+  font-size: 50px !important;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: normal;
 }
 
 .font-size-18 {
@@ -456,6 +477,14 @@ input[type="number"] {
   .space-white-lg {
     height: 8px;
   }
+  .font-size-50 {
+    letter-spacing: 3px;
+    font-size: 24px !important;
+    word-wrap: break-word;
+    word-break: break-all;
+    white-space: normal;
+  }
+
   .space-white-md {
     height: 6px;
   }

@@ -7,7 +7,7 @@ const BigValue: React.FC = ({ text, color = "#5DB3D3",value }) => (
   <>
     <Card className="text-center">
       <Spacer size="sm" />
-      <div className="font-size-32 bold-600" style={{ color }}>
+      <div className="font-size-50 bold-600 font-Wallpoet" style={{ color }}>
         {value}
       </div>
       <Spacer size="sm" />

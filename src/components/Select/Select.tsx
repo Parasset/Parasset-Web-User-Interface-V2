@@ -17,6 +17,7 @@ const Select: React.FC = ({
   onBlur,
   onFocus,
 }) => {
+  const [isBlur, setIsBlur] = useState(false);
   const selectItem = useMemo(() => {
     let item = list.filter((item) => {
       return item.id === active;
@@ -26,7 +27,12 @@ const Select: React.FC = ({
 
   return (
     <div className="position-relative">
-      <CardButton className="wing-blank-lg " size="lg">
+      <CardButton
+        className={`${
+          isBlur ? "input-focus" : "input-no-focus"
+        }  wing-blank-lg  input-dark-box`}
+        size="lg"
+      >
         <div
           className="flex-jc-center cursor-pointer"
           onClick={(e) => {
@@ -63,8 +69,14 @@ const Select: React.FC = ({
               value={value}
               onChange={handleChange}
               type="number"
-              onBlur={onBlur}
-              onFocus={onFocus}
+              onBlur={(e) => {
+                onBlur(e);
+                setIsBlur(false);
+              }}
+              onFocus={(e) => {
+                onFocus(e);
+                setIsBlur(true);
+              }}
             />
           </div>
         </div>
