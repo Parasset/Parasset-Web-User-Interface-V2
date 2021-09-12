@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import logo from "../../assets/img/Parasset.png";
+import logo from "../../assets/img/Parasset.svg";
 import useIsMobile from "../../hooks/useIsMobile";
 const Logo: React.FC = () => {
   const isMobile = useIsMobile();

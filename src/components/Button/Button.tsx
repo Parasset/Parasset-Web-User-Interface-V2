@@ -50,7 +50,7 @@ const Button: React.FC<ButtonProps> = ({
     case "sm":
       buttonPadding = spacing[2];
       buttonSize = 35;
-      fontSize = 12;
+      fontSize = 16;
       break;
     case "lg":
       buttonPadding = spacing[4];
@@ -61,7 +61,7 @@ const Button: React.FC<ButtonProps> = ({
     default:
       buttonPadding = spacing[3];
       buttonSize = 50;
-      fontSize = 14;
+      fontSize = 16;
   }
 
   const ButtonChild = useMemo(() => {

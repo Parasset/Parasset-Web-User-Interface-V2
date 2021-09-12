@@ -33,7 +33,7 @@ const Item: React.FC = ({ item }) => {
   }, [mineInfo.info.rewardRate]);
   return (
     <>
-      <StyledWrapBox className={`wing-blank-lg ${isMobile ? "" : "width-47"} `}>
+      <StyledWrapBox className={`wing-blank-lg ${isMobile ? "" : "with-100-16"} `}>
         <StyledTag color={status.color}>{t(status.text)}</StyledTag>
         <Spacer size="mmd" />
         <div className="flex-row-center-center">

@@ -43,7 +43,7 @@ const StyledInput = styled.input`
   border: none;
   background-color: transparent;
   text-align: right;
-  font-size: 12px;
+  font-size: 16px;
   margin: 0;
   padding: 0;
 `;

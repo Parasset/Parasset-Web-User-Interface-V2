@@ -450,8 +450,8 @@ const Specie: React.FC = ({}) => {
         <StyledExchangeImg className="text-center">
           <img
             src={require("../../../assets/img/change_icon.png")}
-            width="50"
-            height="50"
+            width="70"
+            height="70"
             className="center-block cursor-pointer"
             onClick={onTransformCurrency}
           />

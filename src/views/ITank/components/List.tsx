@@ -39,7 +39,7 @@ const Item: React.FC = ({ item }) => {
 
   return (
     <>
-      <StyledWrapBox className={`wing-blank-lg ${isMobile ? "" : "width-47"} `}>
+      <StyledWrapBox className={`wing-blank-lg ${isMobile ? "" : "with-100-16"} `}>
         <Spacer size="mmd" />
         <div className="flex-row-center-center">
           <TokenSymbol symbol={item.icon1} size={40} />

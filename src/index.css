@@ -3,11 +3,14 @@ body {
   margin: 0;
   /* font-family: "Nunito", sans-serif; */
   font-family: "KumbhSans-Medium", "OPPOSans-M" !important;
-  font-size: 13px !important;
+  font-size: 14px !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #000;
   overflow-x: hidden;
+}
+#root .with-100-16{
+  width: calc(( 100% - 16px ) / 2)!important;
 }
 /*  */
 .font-Wallpoet {

@@ -10,7 +10,7 @@ const Nav: React.FC = ({toggleShow}) => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
   return (
-    <div className="wing-blank-lg ">
+    <div className="wing-blank-lg font-size-16">
       <div className={` ${isMobile ? "" : "bd-bottom width-100"} `}>
         <div className="wing-blank">
           <StyledBarItem
