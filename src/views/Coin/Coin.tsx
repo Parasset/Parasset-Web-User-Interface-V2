@@ -39,7 +39,7 @@ const Coin: React.FC = () => {
     }
   }, []);
   return (
-    <div className="wing-blank-xl">
+    <div className="wing-blank-xl1">
       <Tab
         tabs={tabs}
         tab={tab}

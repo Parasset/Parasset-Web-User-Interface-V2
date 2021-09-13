@@ -37,9 +37,19 @@ const Item: React.FC = ({ item }) => {
     return $isPositiveNumber($isFiniteNumber(tvl));
   }, [itankInfo.depositFundValue, itankInfo.earnFundValue]);
 
+  const deposited = useMemo(() => {
+    //锁仓量
+    const deposited = new BigNumber(itankInfo.depositFundBalance)
+      .plus(itankInfo.earnFundBalance)
+      .toNumber();
+    return $isPositiveNumber($isFiniteNumber(deposited));
+  }, [itankInfo.depositFundBalance, itankInfo.earnFundBalance]);
+
   return (
     <>
-      <StyledWrapBox className={`wing-blank-lg ${isMobile ? "" : "with-100-16"} `}>
+      <StyledWrapBox
+        className={`wing-blank-lg ${isMobile ? "" : "with-100-16"} `}
+      >
         <Spacer size="mmd" />
         <div className="flex-row-center-center">
           <TokenSymbol symbol={item.icon1} size={40} />
@@ -49,6 +59,8 @@ const Item: React.FC = ({ item }) => {
         <div className="font-size-16 text-center">{item.name}</div>
         <Spacer size="mmd" />
         <Label label="TVL" value={<Value value={tvl} prefix="$" />} />
+        <Spacer size="mmd" />
+        <Label label={t("scl")} value={<Value value={deposited} />} />
         <Spacer size="mmd" />
         <Label
           label={t("jingzhi")}
@@ -104,10 +116,11 @@ const List: React.FC = ({ itanks }) => {
   );
 };
 const StyledWrapBox = styled(Card)`
-  min-height: 460px;
+  min-height: 520px;
   @media (max-width: 768px) {
     margin-bottom: 16px;
     height: auto;
+    min-height: auto;
   }
 `;
 export default List;

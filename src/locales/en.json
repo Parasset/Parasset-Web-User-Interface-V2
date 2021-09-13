@@ -161,6 +161,7 @@
    "tip6": "The Liquidation Ratio is a certain multiple of the Max Coll. Ratio. When the Current Coll. Ratio ≥ Liquidation Ratio, the debt warehouse can be liquidated.",
    "jingzhi": "PerShare",
    "diyashu": "Staked",
-   "yqnhsyl": "Expected APR"
+   "yqnhsyl": "Expected APR",
+   "scl": "Deposited"
   
 }

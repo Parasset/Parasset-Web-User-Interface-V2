@@ -60,7 +60,7 @@ const Select: React.FC = ({
             />
           </div>
           <div
-            className="flex-jc-end"
+            className="flex-jc-end of-hide"
             onClick={(e) => {
               e.stopPropagation();
             }}
