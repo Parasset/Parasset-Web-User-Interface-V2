@@ -67,7 +67,7 @@ const MyInfo: React.FC = ({
         
             <Button
               variant="secondary"
-              text={`${t("zhuru")} ${itank.depositTokenName}`}
+              text={`${t("zhuru")}`}
               width="47%"
               onClick={onOpenDepositModal}
             />
