@@ -4,10 +4,13 @@ body {
   /* font-family: "Nunito", sans-serif; */
   /* font-family: "KumbhSans-Medium", "OPPOSans-M" !important; */
   font-family: "KumbhSans-Medium" !important;
-  font-size: 14px !important;
+  font-size: 13px !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #000;
+  overflow-x: hidden;
+}
+#root,body,html{
   overflow-x: hidden;
 }
 #root button,
