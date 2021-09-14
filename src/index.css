@@ -2,7 +2,8 @@ body {
   background: #ffffff;
   margin: 0;
   /* font-family: "Nunito", sans-serif; */
-  font-family: "KumbhSans-Medium", "OPPOSans-M" !important;
+  /* font-family: "KumbhSans-Medium", "OPPOSans-M" !important; */
+  font-family: "KumbhSans-Medium" !important;
   font-size: 14px !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
