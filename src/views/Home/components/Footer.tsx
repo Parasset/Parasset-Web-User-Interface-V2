@@ -12,11 +12,11 @@ const Footer: React.FC = () => {
       <div className={`width-100 ${isMobile ? "" : "flex-jc-center"} `}>
         {isMobile ? <Spacer size="mmd" /> : null}
 
-        <div className="color-grey text-center">{t("dypxzc")}</div>
+        {/* <div className="color-grey text-center">{t("dypxzc")}</div> */}
         {isMobile ? <Spacer size="mmd" /> : null}
         <div
           className={` flex-wrap ${
-            isMobile ? "wing-blank flex-jc-center" : "flex-jc-end flex1"
+            isMobile ? "wing-blank flex-jc-center" : "flex-jc-start flex1"
           } `}
         >
           <a

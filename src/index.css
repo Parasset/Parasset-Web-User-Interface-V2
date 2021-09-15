@@ -121,7 +121,7 @@ input[type="number"] {
   -ms-overflow-style: none;
 }
 #root {
-  height: 100vh;
+  /* height: 100vh; */
 }
 .space-white-sm {
   height: 5px;
