@@ -700,7 +700,7 @@ const Specie: React.FC = ({}) => {
         />
 
         <Spacer size="mmd" />
-        <Label
+        {/* <Label
           label={
             <Tooltip title={t("tip2")}>
               <div className="text-underline cursor-pointer">{t("yyjdyf")}</div>
@@ -710,7 +710,7 @@ const Specie: React.FC = ({}) => {
           className="wing-blank-lg"
         />
 
-        <Spacer size="mmd" />
+        <Spacer size="mmd" /> */}
         <Label
           label={
             <Tooltip title={t("tip4")}>
