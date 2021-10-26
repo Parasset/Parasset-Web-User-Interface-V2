@@ -362,14 +362,15 @@ export class BasisCash {
         itankContract,
         address,
       } = itank;
-      let revenue = await fetch("https://api.parasset.top/fee/getDailyRevenueV1");
-      revenue = await revenue.json();
-      const { pethRevenue, pusdtRevenue } = revenue;
-      revenue = depositTokenName === "ETH" ? pethRevenue : pusdtRevenue;
-      revenue = $isPositiveNumber(
-        $isFiniteNumber(getNumberToFixed(new BigNumber(revenue).times(365)))
-      );
-     
+      // let revenue = await fetch("https://api.parasset.top/fee/getDailyRevenueV1");
+      // revenue = await revenue.json();
+      // const { pethRevenue, pusdtRevenue } = revenue;
+      // revenue = depositTokenName === "ETH" ? pethRevenue : pusdtRevenue;
+      // revenue = $isPositiveNumber(
+      //   $isFiniteNumber(getNumberToFixed(new BigNumber(revenue).times(365)))
+      // );
+      let revenue = 0;
+
       let depositFundBalance = 0;
 
       if (depositTokenName !== "ETH") {
@@ -409,7 +410,7 @@ export class BasisCash {
         totalSupply,
         totalAssets,
         avgPrice,
-        revenue
+        revenue,
       };
     } catch (error) {
       return {
