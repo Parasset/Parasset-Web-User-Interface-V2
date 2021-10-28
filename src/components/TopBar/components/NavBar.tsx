@@ -1,14 +1,23 @@
 //@ts-nocheck
-import React, { useState, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { NavLink, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Spacer from "../../Spacer";
 import useIsMobile from "../../../hooks/useIsMobile";
-const Nav: React.FC = ({toggleShow}) => {
+let flag=true
+const Nav: React.FC = ({ toggleShow }) => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
   const { pathname } = useLocation();
+  const [showMenu, setShowMenu] = useState(false);
+
+  useEffect(() => {
+    if (pathname.includes("/datum")&&flag) {
+      setShowMenu(true);
+      flag=false
+    }
+  }, [pathname, showMenu]);
   return (
     <div className="wing-blank-lg font-size-16">
       <div className={` ${isMobile ? "" : "bd-bottom width-100"} `}>
@@ -40,13 +49,17 @@ const Nav: React.FC = ({toggleShow}) => {
             onClick={toggleShow}
             isActive={(match, { pathname }) => {
               return (
-                pathname.includes("/coin") || pathname.includes("/debt/detail")
+                (pathname.includes("/coin") ||
+                  pathname.includes("/debt/detail")) &&
+                !pathname.includes("/datum")
               );
             }}
           >
             <img
               src={
-                pathname.includes("/coin") || pathname.includes("/debt/detail")
+                (pathname.includes("/coin") ||
+                  pathname.includes("/debt/detail")) &&
+                !pathname.includes("/datum")
                   ? require("../../../assets/img/coin_icon1.png")
                   : require("../../../assets/img/coin_icon.png")
               }
@@ -81,13 +94,15 @@ const Nav: React.FC = ({toggleShow}) => {
             activeClassName="active"
             to="/itank"
             isActive={(match, { pathname }) => {
-              return pathname.includes("/itank");
+              return (
+                pathname.includes("/itank") && !pathname.includes("/datum")
+              );
             }}
             onClick={toggleShow}
           >
             <img
               src={
-                pathname.includes("/itank")
+                pathname.includes("/itank") && !pathname.includes("/datum")
                   ? require("../../../assets/img/pool_icon1.png")
                   : require("../../../assets/img/pool_icon.png")
               }
@@ -121,6 +136,78 @@ const Nav: React.FC = ({toggleShow}) => {
           </StyledBarItem>
         </div>
       </div>
+      <div className={` ${isMobile ? "" : "bd-bottom width-100"} `}>
+        <div className="wing-blank">
+          <StyledBarItem
+            className="flex-jc-center cursor-pointer"
+            as="div"
+            onClick={() => {
+              setShowMenu(!showMenu);
+            }}
+          >
+            <div className="flex-jc-center">
+              <img
+                src={require("../../../assets/img/icon_datum.png")}
+                width="35"
+                height="35"
+                className="margin-right-5"
+              />
+               {t("shuju")}
+            </div>
+
+            <img
+              src={
+                showMenu
+                  ? require("../../../assets/img/icon_arrow_top.png")
+                  : require("../../../assets/img/arrow_bottom_icon.png")
+              }
+              width="8"
+              height="5"
+              className="margin-left-10"
+            />
+          </StyledBarItem>
+          {showMenu ? (
+            <>
+              <StyledMenuItem
+                className="flex-jc-start"
+                exact
+                activeClassName="active"
+                to="/datum/overview"
+                onClick={toggleShow}
+              >
+                {t("gailan")}
+              </StyledMenuItem>
+              <StyledMenuItem
+                className="flex-jc-start"
+                exact
+                activeClassName="active"
+                to="/datum/coin"
+                onClick={toggleShow}
+              >
+                  {t("zhubi")}
+              </StyledMenuItem>
+              <StyledMenuItem
+                className="flex-jc-start"
+                exact
+                activeClassName="active"
+                to="/datum/itank"
+                onClick={toggleShow}
+              >
+                  {t("bxc")}
+              </StyledMenuItem>
+              <StyledMenuItem
+                className="flex-jc-start"
+                exact
+                activeClassName="active"
+                to="/datum/user"
+                onClick={toggleShow}
+              >
+                {t("yonghu")}
+              </StyledMenuItem>
+            </>
+          ) : null}
+        </div>
+      </div>
     </div>
   );
 };
@@ -136,6 +223,10 @@ const StyledBarItem = styled(NavLink)`
   &:last-child {
     padding-bottom: 10px;
   }
+`;
+const StyledMenuItem = styled(StyledBarItem)`
+  padding-left: 40px;
+  box-sizing: border-box;
 `;
 
 export default Nav;

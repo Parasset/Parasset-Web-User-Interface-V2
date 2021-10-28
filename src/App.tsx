@@ -18,6 +18,10 @@ import ITankDetail from "./views/ITankDetail";
 import ITank from "./views/ITank";
 import Exchange from "./views/Exchange";
 import DebtDetail from "./views/DebtDetail";
+import DatumOverview from "./views/DatumOverview";
+import DatumItank from "./views/DatumItank";
+import DatumUser from "./views/DatumUser";
+import DatumCoin from "./views/DatumCoin";
 
 import store from "./state";
 import theme from "./theme";
@@ -34,7 +38,10 @@ const App: React.FC = () => {
             <Route path="/" exact>
               <Home />
             </Route>
-            <Route path="/coin/:selectInputCurrency?/:selectOutputCurrency?" exact>
+            <Route
+              path="/coin/:selectInputCurrency?/:selectOutputCurrency?"
+              exact
+            >
               <Coin />
             </Route>
             <Route path="/debt/detail/:debtId" exact>
@@ -43,6 +50,21 @@ const App: React.FC = () => {
             <Route path="/exchange" exact>
               <Exchange />
             </Route>
+
+            <Route path="/datum/overview" exact>
+              <DatumOverview />
+            </Route>
+            <Route path="/datum/itank" exact>
+              <DatumItank />
+            </Route>
+            <Route path="/datum/user" exact>
+              <DatumUser />
+            </Route>
+            <Route path="/datum/coin" exact>
+              <DatumCoin />
+            </Route>
+            
+            
             <Route path="/mine" exact>
               <Mine />
             </Route>
@@ -67,12 +89,12 @@ const App: React.FC = () => {
 const Providers: React.FC = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
-      <UseWalletProvider 
-      chainId={config.chainId}  
-      connectors={{
+      <UseWalletProvider
+        chainId={config.chainId}
+        connectors={{
           walletconnect: { rpcUrl: config.defaultProvider },
         }}
-        >
+      >
         <Provider store={store}>
           <Updaters />
           <BasisCashProvider>

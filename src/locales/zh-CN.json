@@ -164,7 +164,23 @@
   "jingzhi": "净值",
   "diyashu": "抵押数",
   "yqnhsyl": "预期年化收益率",
-  "scl": "锁仓量"
+  "scl": "锁仓量",
+  "gailan": "概览",
+  "yonghu": "用户",
+  "zcfb": "资产分布",
+  "ljsxfsr": "累计手续费收入",
+  "bxcjz": "保险池净值",
+  "pxzc": "平行资产",
+  "pxzczjz": "平行资产总价值",
+  "zczs": "债仓总数",
+  "ljqse": "累计清算额",
+  "ljyh": "累计用户",
+  "zbljyh": "铸币累计用户",
+  "bxcljyh": "保险池累计用户",
+  "dhljyh": "兑换累计用户",
+  "xzyh": "新增用户",
+  "hyyh": "活跃用户"
+  
 
   
 

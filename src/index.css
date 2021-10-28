@@ -10,7 +10,9 @@ body {
   color: #000;
   overflow-x: hidden;
 }
-#root,body,html{
+#root,
+body,
+html {
   overflow-x: hidden;
 }
 #root button,
@@ -142,7 +144,7 @@ input[type="number"] {
   height: 30px;
 }
 
-#root  .of-hide {
+#root .of-hide {
   overflow: hidden;
 }
 
@@ -432,6 +434,12 @@ input[type="number"] {
   display: flex;
   align-items: center;
 }
+.flex-jc-center-pc {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-direction: row !important;
+}
 .flex-none {
   flex: none !important;
 }
@@ -487,6 +495,9 @@ input[type="number"] {
 }
 
 @media (max-width: 768px) {
+  .flex-jc-center-pc {
+    flex-direction: column !important;
+  }
   .font-size-32 {
     font-size: 24px !important;
   }
@@ -517,7 +528,7 @@ input[type="number"] {
     font-size: 18px !important;
   }
   .font-size-22 {
-    font-size: 13px !important;
+    font-size: 16px !important;
   }
   .wing-blank-xl {
     max-width: auto;
@@ -540,8 +551,8 @@ body a {
 }
 @media (min-width: 1024px) {
   body {
-    padding-left: 240px;
-    padding-right: 240px;
+    /* padding-left: 240px;
+    padding-right: 240px; */
     padding-top: 90px;
     font-size: 14px;
   }

@@ -13,7 +13,6 @@ const Nav: React.FC = () => {
       <Logo />
       <NavBar />
 
-
       <Version /> 
       <Lang />
     </StyledNav>
