@@ -34,6 +34,11 @@ const Header: React.FC = () => {
   const title = useMemo(() => {
     if (pathname === "/") {
       return "home_title";
+    }else if (
+      pathname.includes("/data") ||
+      pathname.includes("/debt/detail")
+    ){
+
     } else if (
       pathname.includes("/coin") ||
       pathname.includes("/debt/detail")

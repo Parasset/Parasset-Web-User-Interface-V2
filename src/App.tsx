@@ -44,13 +44,6 @@ const App: React.FC = () => {
             >
               <Coin />
             </Route>
-            <Route path="/debt/detail/:debtId" exact>
-              <DebtDetail />
-            </Route>
-            <Route path="/exchange" exact>
-              <Exchange />
-            </Route>
-
             <Route path="/datum/overview" exact>
               <DatumOverview />
             </Route>
@@ -63,8 +56,13 @@ const App: React.FC = () => {
             <Route path="/datum/coin" exact>
               <DatumCoin />
             </Route>
-            
-            
+            <Route path="/debt/detail/:debtId" exact>
+              <DebtDetail />
+            </Route>
+            <Route path="/exchange" exact>
+              <Exchange />
+            </Route>
+
             <Route path="/mine" exact>
               <Mine />
             </Route>

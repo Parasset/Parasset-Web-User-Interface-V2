@@ -9,11 +9,8 @@ const Main: React.FC = ({ children }) => {
   const { pathname } = useLocation();
   const isDatumPath = useMemo(() => {
     return pathname.includes("/datum");
+    // return false
   }, [pathname]);
-  console.log(
-    "🚀 ~ file: Main.tsx ~ line 12 ~ isDataPath ~ isDataPath",
-    isDatumPath
-  );
 
   return (
     <StyledMain className=" width-100" isDatumPath={isDatumPath}>
@@ -25,7 +22,8 @@ const Main: React.FC = ({ children }) => {
           <Spacer />
         </StyledWrapBox>
       </div>
-      {!isDatumPath ? <Right /> : null}
+      {/* {!isDatumPath ? <Right isDatumPath={isDatumPath}/> : null} */}
+      <Right isDatumPath={isDatumPath}/>
     </StyledMain>
   );
 };

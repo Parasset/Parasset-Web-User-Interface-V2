@@ -14,7 +14,8 @@ import useBasisCash from "../../../hooks/useBasisCash";
 import useTotalSupply from "../../../hooks/useTokenTotalSupply";
 import usePrice from "../../../hooks/coin/usePrice";
 import config from "../../../config";
-const Right: React.FC = () => {
+const Right: React.FC = ({ isDatumPath }) => {
+console.log("🚀 ~ file: Right.tsx ~ line 18 ~ isDatumPath", isDatumPath)
   const { t } = useTranslation();
   const { account, connect, status } = useWallet();
   const newAccount = useEncryptAddress(account);
@@ -22,7 +23,7 @@ const Right: React.FC = () => {
   const PUSDToken = basisCash?.externalTokens["PUSD"];
   const PETHToken = basisCash?.externalTokens["PETH"];
   const PUSDTotalSupply = useTotalSupply(PUSDToken);
- 
+
   const PETHTotalSupply = useTotalSupply(PETHToken);
 
   const [isOpen, setOpen] = useState(false);
@@ -36,7 +37,7 @@ const Right: React.FC = () => {
   }, [status]);
 
   return (
-    <StyledNavRight>
+    <StyledNavRight style={{ display: isDatumPath ? "none" : "block" }}>
       <StyledWallet className="flex-row-center-center bd-bottom wing-blank-lg ">
         <Button
           text={!account ? t("ljqb") : newAccount}
@@ -113,7 +114,7 @@ const Right: React.FC = () => {
               </div>
               <div className="margin-left-10">
                 <div>
-                  <Value value={PETHTotalSupply}/>{" "}
+                  <Value value={PETHTotalSupply} />{" "}
                 </div>
                 <div>PETH</div>
               </div>

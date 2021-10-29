@@ -11,6 +11,7 @@ export const Context = createContext<BasisCashContext>({ basisCash: null });
 
 export const BasisCashProvider: React.FC = ({ children }) => {
   const { ethereum, account } = useWallet();
+  
   const [basisCash, setBasisCash] = useState<BasisCash>();
 
   useEffect(() => {
