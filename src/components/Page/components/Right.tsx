@@ -15,7 +15,6 @@ import useTotalSupply from "../../../hooks/useTokenTotalSupply";
 import usePrice from "../../../hooks/coin/usePrice";
 import config from "../../../config";
 const Right: React.FC = ({ isDatumPath }) => {
-console.log("🚀 ~ file: Right.tsx ~ line 18 ~ isDatumPath", isDatumPath)
   const { t } = useTranslation();
   const { account, connect, status } = useWallet();
   const newAccount = useEncryptAddress(account);
