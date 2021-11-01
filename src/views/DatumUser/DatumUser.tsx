@@ -19,17 +19,17 @@ import Value from "../../components/Value";
 const Overview: React.FC = () => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
-  const main2 = useRef(null);
+  const activeUsers = useRef(null);
   let chartInstance = null;
 
-  let renderChart = () => {
+  let initActiveUsers = () => {
     const myChart = echarts.getInstanceByDom(
-      (main2.current as unknown) as HTMLDivElement
+      (activeUsers.current as unknown) as HTMLDivElement
     );
     if (myChart) chartInstance = myChart;
     else
       chartInstance = echarts.init(
-        (main2.current as unknown) as HTMLDivElement
+        (activeUsers.current as unknown) as HTMLDivElement
       );
     chartInstance.setOption({
       xAxis: {
@@ -48,8 +48,8 @@ const Overview: React.FC = () => {
     });
   };
 
-  let initChart = () => {
-    let element = document.getElementById("main");
+  let initNewUsers = () => {
+    let element = document.getElementById("newUsers");
     let myChart = echarts.init(element as HTMLDivElement);
     let option = {
       xAxis: {
@@ -70,8 +70,8 @@ const Overview: React.FC = () => {
   };
 
   useEffect(() => {
-    initChart();
-    renderChart();
+    initNewUsers();
+    initActiveUsers();
   });
 
   return (
@@ -80,13 +80,13 @@ const Overview: React.FC = () => {
         <Picker>
           <div></div>
         </Picker>
-        <div id={"main"} style={{ height: 400 }} />
+        <div id={"newUsers"} style={{ height: 400 }} />
       </Container>
       <Container title={t("hyyh")}>
         <Picker>
           <div></div>
         </Picker>
-        <div style={{ height: 400 }} ref={main2} />
+        <div style={{ height: 400 }} ref={activeUsers} />
       </Container>
     </>
   );

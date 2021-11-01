@@ -19,18 +19,13 @@ import Value from "../../components/Value";
 const Overview: React.FC = () => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
-  const main2 = useRef(null);
+  const itankValueChart = useRef(null);
   let chartInstance = null;
 
-  let renderChart = () => {
-    const myChart = echarts.getInstanceByDom(
-      (main2.current as unknown) as HTMLDivElement
-    );
+  let initItankValueChart = () => {
+    const myChart = echarts.getInstanceByDom(itankValueChart.current);
     if (myChart) chartInstance = myChart;
-    else
-      chartInstance = echarts.init(
-        (main2.current as unknown) as HTMLDivElement
-      );
+    else chartInstance = echarts.init(itankValueChart.current);
     chartInstance.setOption({
       tooltip: {
         trigger: "axis",
@@ -69,7 +64,7 @@ const Overview: React.FC = () => {
       ],
     });
   };
-  let initChart1 = () => {
+  let initTotalFeeIncomeChart = () => {
     let element = document.getElementById("totalFeeIncome");
     let myChart = echarts.init(element as HTMLDivElement);
     let option = {
@@ -89,8 +84,8 @@ const Overview: React.FC = () => {
     };
     myChart.setOption(option);
   };
-  let initChart = () => {
-    let element = document.getElementById("main");
+  let initItankTvlChart = () => {
+    let element = document.getElementById("itankTvlChart");
     let myChart = echarts.init(element as HTMLDivElement);
     let option = {
       tooltip: {
@@ -133,9 +128,9 @@ const Overview: React.FC = () => {
   };
 
   useEffect(() => {
-    initChart();
-    initChart1();
-    renderChart();
+    initItankTvlChart();
+    initTotalFeeIncomeChart();
+    initItankValueChart();
   });
 
   return (
@@ -146,7 +141,7 @@ const Overview: React.FC = () => {
             <Value value={234189341209} prefix="$" />
           </div>
         </Picker>
-        <div id={"main"} style={{ height: 400 }} />
+        <div id={"itankTvlChart"} style={{ height: 400 }} />
       </Container>
 
       <Container title={t("ljsxfsr")}>
@@ -161,7 +156,7 @@ const Overview: React.FC = () => {
         <Picker>
           <div></div>
         </Picker>
-        <div style={{ height: 400 }} ref={main2} />
+        <div style={{ height: 400 }} ref={itankValueChart} />
       </Container>
     </>
   );

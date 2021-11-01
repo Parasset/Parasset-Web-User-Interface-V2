@@ -16,21 +16,20 @@ import Container from "../../components/Datum/Container";
 import ListItem from "../../components/Datum/ListItem";
 import Picker from "../../components/Datum/Picker";
 import Value from "../../components/Value";
+
+import useDatumCoin from "../../hooks/datum/useDatumCoin";
 const Overview: React.FC = () => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
-  const main2 = useRef(null);
+  const debtChart = useRef(null);
+  const { coinData } = useDatumCoin();
+  console.log("🚀 ~ file: DatumCoin.tsx ~ line 26 ~ coinData", coinData);
   let chartInstance = null;
 
-  let renderChart = () => {
-    const myChart = echarts.getInstanceByDom(
-      (main2.current as unknown) as HTMLDivElement
-    );
+  let initDebtChart = () => {
+    const myChart = echarts.getInstanceByDom(debtChart.current);
     if (myChart) chartInstance = myChart;
-    else
-      chartInstance = echarts.init(
-        (main2.current as unknown) as HTMLDivElement
-      );
+    else chartInstance = echarts.init(debtChart.current);
     chartInstance.setOption({
       tooltip: {
         trigger: "axis",
@@ -70,8 +69,8 @@ const Overview: React.FC = () => {
     });
   };
 
-  let initChart = () => {
-    let element = document.getElementById("main");
+  let initTvlChart = () => {
+    let element = document.getElementById("tvlChart");
     let myChart = echarts.init(element as HTMLDivElement);
     let option = {
       tooltip: {
@@ -112,48 +111,16 @@ const Overview: React.FC = () => {
     };
     myChart.setOption(option);
   };
-  let initChart1 = () => {
+  let initStakedAssetsChart = useCallback(() => {
     let element = document.getElementById("stakedAssets");
-    let myChart = echarts.init(element as HTMLDivElement);
-    let option = {
-      title: {
-        text: "抵押资产分布",
-        left: "center",
-      },
-      tooltip: {
-        trigger: "item",
-      },
-      legend: {
-        orient: "vertical",
-        left: "left",
-      },
-      series: [
-        {
-          name: "Access From",
-          type: "pie",
-          radius: "50%",
-          data: [
-            { value: 1048, name: "ETH" },
-            { value: 735, name: "USDT" },
-         
-          ],
-          emphasis: {
-            itemStyle: {
-              shadowBlur: 10,
-              shadowOffsetX: 0,
-              shadowColor: "rgba(0, 0, 0, 0.5)",
-            },
-          },
-        },
-      ],
-    };
-    myChart.setOption(option);
-  };
+    let myChart = echarts.init(element);
+    myChart.setOption(coinData);
+  }, [coinData]);
 
-  let initChart2 = () => {
+  let initParalletlAssetsChart = () => {
     let element = document.getElementById("paralletlAssets");
     let myChart = echarts.init(element as HTMLDivElement);
-    let option ={
+    let option = {
       title: {
         text: "平行资产分布",
         left: "center",
@@ -173,7 +140,6 @@ const Overview: React.FC = () => {
           data: [
             { value: 1048, name: "PUSD" },
             { value: 735, name: "PETH" },
-         
           ],
           emphasis: {
             itemStyle: {
@@ -189,24 +155,25 @@ const Overview: React.FC = () => {
   };
 
   useEffect(() => {
-    initChart();
-    initChart1();
-    initChart2();
-    renderChart();
-  });
+    initTvlChart();
+    initStakedAssetsChart();
+    initParalletlAssetsChart();
+    initDebtChart();
+  }, [coinData]);
+
   return (
     <>
       <Container title="TVL">
         <Picker>
           <div></div>
         </Picker>
-        <div id={"main"} style={{ height: 400 }} />
+        <div id={"tvlChart"} style={{ height: 400 }} />
       </Container>
       <Container title={t("zhaicang")}>
         <Picker>
           <div></div>
         </Picker>
-        <div style={{ height: 400 }} ref={main2} />
+        <div style={{ height: 400 }} ref={debtChart} />
       </Container>
       <Container title={t("zcfb")}>
         <div id={"stakedAssets"} style={{ height: 400 }} />
