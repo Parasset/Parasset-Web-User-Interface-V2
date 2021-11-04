@@ -16,6 +16,8 @@ import useBasisCash from "./../../hooks/useBasisCash";
 import useTotalSupply from "./../../hooks/useTokenTotalSupply";
 import useItanks from "./../../hooks/itank/useItanks";
 import useItankInfo from "./../../hooks/itank/useItankInfo";
+import useUserOverview from "./../../hooks/datum/useUserOverview";
+import useDebtOverview from "./../../hooks/datum/useDebtOverview";
 const Overview: React.FC = () => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
@@ -24,6 +26,8 @@ const Overview: React.FC = () => {
   const PETHToken = basisCash?.externalTokens["PETH"];
   const PUSDTotalSupply = useTotalSupply(PUSDToken);
   const PETHTotalSupply = useTotalSupply(PETHToken);
+  const { userOverview } = useUserOverview();
+  const { debtOverview } = useDebtOverview();
   const ETHDebt = useDebt("ETHPUSD");
   const NESTPUSDDebt = useDebt("NESTPUSD");
   const NESTPETHDebt = useDebt("NESTPETH");
@@ -128,10 +132,11 @@ const Overview: React.FC = () => {
     //保险池内资产两种币的总和换成USDT
 
     return $isPositiveNumber(
-      $isFiniteNumber(new BigNumber(USDTItankValue).plus(ETHItankValue).toNumber())
+      $isFiniteNumber(
+        new BigNumber(USDTItankValue).plus(ETHItankValue).toNumber()
+      )
     );
   }, [USDTItankValue, ETHItankValue]);
-
 
   return (
     <>
@@ -194,19 +199,19 @@ const Overview: React.FC = () => {
           <ListItem
             text={t("zczs")}
             color="#B88450"
-            value={<Value value={1000000} />}
+            value={<Value value={debtOverview.count} />}
           />
           <ListItem
             text={t("dqdyl")}
             color="#B88450"
-            value={<Value value={1000000} suffix="%" />}
+            value={<Value value={debtOverview.rate} suffix="%" />}
           />
-          <ListItem
+          {/* <ListItem
             text={t("ljqse")}
             color="#B88450"
             value={<Value value={1000000} prefix="$" />}
             showSpacer={false}
-          />
+          /> */}
         </div>
       </Container>
       <Container title={t("bxc")}>
@@ -234,22 +239,22 @@ const Overview: React.FC = () => {
           <ListItem
             text={t("ljyh")}
             color="#11A538"
-            value={<Value value={1000000} />}
+            value={<Value value={userOverview.total} />}
           />
           <ListItem
             text={t("zbljyh")}
             color="#11A538"
-            value={<Value value={1000000} />}
+            value={<Value value={userOverview.coin} />}
           />
           <ListItem
             text={t("bxcljyh")}
             color="#11A538"
-            value={<Value value={1000000} />}
+            value={<Value value={userOverview.ins} />}
           />
           <ListItem
             text={t("dhljyh")}
             color="#11A538"
-            value={<Value value={1000000} />}
+            value={<Value value={userOverview.exchange} />}
             showSpacer={false}
           />
         </div>

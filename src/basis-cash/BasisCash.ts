@@ -362,7 +362,9 @@ export class BasisCash {
         itankContract,
         address,
       } = itank;
-      let revenue = await fetch("https://api.parasset.top/fee/getDailyRevenueV1");
+      let revenue = await fetch(
+        "https://api.parasset.top/fee/getDailyRevenueV1"
+      );
       revenue = await revenue.json();
       const { pethRevenue, pusdtRevenue } = revenue;
       revenue = depositTokenName === "ETH" ? pethRevenue : pusdtRevenue;
@@ -485,6 +487,38 @@ export class BasisCash {
       );
     }
   }
+  async getFetchData(url) {
+    try {
+      let res = await fetch(url);
+      let resData = await res.json();
+      if (res.status === 200) {
+        return resData;
+      }
+    } catch (error) {
+      return {};
+    }
+  }
+
+  async getUserOverview() {
+    let { value } = await this.getFetchData(
+      "http://apiv2.parasset.top/api/user/overview"
+    );
+    return value;
+  }
+  async getDebtOverview() {
+    let { value } = await this.getFetchData(
+      "http://apiv2.parasset.top/api/coin/debtTotal"
+    );
+    return value;
+  }
+  async getActiveUsers() {
+    let { value } = await this.getFetchData(
+      "http://apiv2.parasset.top/api/user/active/2021-08-01/2021-12-18"
+    );
+    return value;
+  }
+
+  
 
   async getChannelInfo(address, block) {
     try {

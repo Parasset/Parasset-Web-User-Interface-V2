@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import useBasisCash from "../useBasisCash";
 import { useBlockNumber } from "../../state/application/hooks";
 
-const useDatumCoin = () => {
+const useCoinDatum = () => {
   const [coinData, setCoinData] = useState({});
 
   const basisCash = useBasisCash();
@@ -56,4 +56,4 @@ const useDatumCoin = () => {
   return { coinData, fetchCoinData };
 };
 
-export default useDatumCoin;
+export default useCoinDatum;
