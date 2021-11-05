@@ -1,32 +1,27 @@
 //@ts-nocheck
-import React, {
-  useCallback,
-  useRef,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import BigNumber from "bignumber.js";
+
 import * as echarts from "echarts";
-import useIsMobile from "../../hooks/useIsMobile";
-import { $isFiniteNumber, $isPositiveNumber } from "../../utils/utils";
 
 import Container from "../../components/Datum/Container";
-import ListItem from "../../components/Datum/ListItem";
+
 import Picker from "../../components/Datum/Picker";
 import Value from "../../components/Value";
+import useItankDatum from "./../../hooks/datum/useItankDatum";
 const Overview: React.FC = () => {
-  const isMobile = useIsMobile();
   const { t } = useTranslation();
-  const itankValueChart = useRef(null);
-  let chartInstance = null;
 
-  let initItankValueChart = () => {
-    const myChart = echarts.getInstanceByDom(itankValueChart.current);
-    if (myChart) chartInstance = myChart;
-    else chartInstance = echarts.init(itankValueChart.current);
-    chartInstance.setOption({
+  const [tvlDatumValue, setTvlDatumValue] = useState("1W");
+
+  const { tvlDatum } = useItankDatum({
+    tvlDatumValue,
+  });
+  let initItankValueChart = useCallback(() => {
+    let element = document.getElementById("itankValueChart");
+    let myChart = echarts.init(element);
+
+    myChart.setOption({
       tooltip: {
         trigger: "axis",
       },
@@ -63,10 +58,10 @@ const Overview: React.FC = () => {
         },
       ],
     });
-  };
-  let initTotalFeeIncomeChart = () => {
+  }, []);
+  let initTotalFeeIncomeChart = useCallback(() => {
     let element = document.getElementById("totalFeeIncome");
-    let myChart = echarts.init(element as HTMLDivElement);
+    let myChart = echarts.init(element);
     let option = {
       xAxis: {
         type: "category",
@@ -83,10 +78,20 @@ const Overview: React.FC = () => {
       ],
     };
     myChart.setOption(option);
-  };
-  let initItankTvlChart = () => {
+  }, []);
+  let initItankTvlChart = useCallback(() => {
     let element = document.getElementById("itankTvlChart");
-    let myChart = echarts.init(element as HTMLDivElement);
+    let myChart = echarts.init(element);
+    const usdtList = tvlDatum.filter((item) => item.title === "USDT保险池");
+    const ethList = tvlDatum.filter((item) => item.title === "ETH保险池");
+
+    const usdtDatum = usdtList.map((item, i) => {
+      return [item.x, item.y];
+    });
+    const ethDatum = ethList.map((item, i) => {
+      return [item.x, item.y];
+    });
+    console.log(usdtList, ethList, usdtDatum, ethDatum);
     let option = {
       tooltip: {
         trigger: "axis",
@@ -125,18 +130,18 @@ const Overview: React.FC = () => {
       ],
     };
     myChart.setOption(option);
-  };
+  }, [tvlDatum]);
 
   useEffect(() => {
     initItankTvlChart();
-    initTotalFeeIncomeChart();
-    initItankValueChart();
-  });
+    // initTotalFeeIncomeChart();
+    // initItankValueChart();
+  }, [tvlDatum]);
 
   return (
     <>
       <Container title={`${t("bxc")} TVL`}>
-        <Picker>
+        <Picker value={tvlDatumValue} onChangePicker={setTvlDatumValue}>
           <div className="color-main">
             <Value value={234189341209} prefix="$" />
           </div>
@@ -144,7 +149,7 @@ const Overview: React.FC = () => {
         <div id={"itankTvlChart"} style={{ height: 400 }} />
       </Container>
 
-      <Container title={t("ljsxfsr")}>
+      {/* <Container title={t("ljsxfsr")}>
         <Picker>
           <div className="color-main">
             <Value value={234189341209} prefix="$" />
@@ -156,8 +161,8 @@ const Overview: React.FC = () => {
         <Picker>
           <div></div>
         </Picker>
-        <div style={{ height: 400 }} ref={itankValueChart} />
-      </Container>
+        <div style={{ height: 400 }} id="itankValueChart" />
+      </Container> */}
     </>
   );
 };

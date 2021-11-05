@@ -9,8 +9,12 @@ import {
   getTonumber,
   getNumberToFixed,
 } from "../utils/formatBalance";
-
-import { formatDate } from "../utils/utils";
+import {
+  formatDate,
+  getWeekDate,
+  getMonthDate,
+  getAllDate,
+} from "../utils/utils";
 import { $isFiniteNumber, $isPositiveNumber } from "../utils/utils";
 import { getDefaultProvider } from "../utils/provider";
 import ERC20 from "./ERC20";
@@ -345,10 +349,6 @@ export class BasisCash {
         new BigNumber(1).div(getTonumber(avgPrice, NEST.decimal))
       );
     } catch (error) {
-      console.log(
-        "🚀 ~ file: BasisCash.ts ~ line 172 ~ BasisCash ~ getNESTToETHPrice ~ error",
-        error
-      );
       return "0";
     }
   }
@@ -451,11 +451,6 @@ export class BasisCash {
 
       return getTonumber(amount, decimal);
     } catch (error) {
-      console.log(
-        "🚀 ~ file: BasisCash.ts ~ line 246 ~ BasisCash ~ getRedemptionAmount ~ error",
-        itankContract,
-        error
-      );
       return "0";
     }
   }
@@ -480,12 +475,7 @@ export class BasisCash {
     try {
       const fee = await itankContract._feeRate();
       return fee.toNumber() / 1000;
-    } catch (error) {
-      console.log(
-        "🚀 ~ file: BasisCash.ts ~ line 272 ~ BasisCash ~ itankUnstake ~ error",
-        error
-      );
-    }
+    } catch (error) {}
   }
   async getFetchData(url) {
     try {
@@ -497,6 +487,17 @@ export class BasisCash {
     } catch (error) {
       return {};
     }
+  }
+  getStartEndDate(value) {
+    const funcList = {
+      "1W": getWeekDate,
+      "1M": getMonthDate,
+      ALL: getAllDate,
+    };
+    const func = funcList[value];
+    const date = func();
+
+    return date;
   }
 
   async getUserOverview() {
@@ -511,14 +512,32 @@ export class BasisCash {
     );
     return value;
   }
-  async getActiveUsers() {
+  async getActiveUsers(activeUsersValue) {
+    const date = this.getStartEndDate(activeUsersValue);
     let { value } = await this.getFetchData(
-      "http://apiv2.parasset.top/api/user/active/2021-08-01/2021-12-18"
+      `http://apiv2.parasset.top/api/user/active/${date.startDate}/${date.endDate}`
     );
+
     return value;
   }
 
-  
+  async getNewUsers(newUsersValue) {
+    const date = this.getStartEndDate(newUsersValue);
+    let { value } = await this.getFetchData(
+      `http://apiv2.parasset.top/api/user/new/${date.startDate}/${date.endDate}`
+    );
+
+    return value;
+  }
+
+  async getItankTvlDatum(tvlDatumValue) {
+    const date = this.getStartEndDate(tvlDatumValue);
+    let { value } = await this.getFetchData(
+      `http://apiv2.parasset.top/api/insPool/tvl/${date.startDate}/${date.endDate}`
+    );
+
+    return value;
+  }
 
   async getChannelInfo(address, block) {
     try {

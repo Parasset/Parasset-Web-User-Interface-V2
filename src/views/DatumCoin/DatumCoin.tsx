@@ -23,7 +23,6 @@ const Overview: React.FC = () => {
   const { t } = useTranslation();
   const debtChart = useRef(null);
   const { coinData } = useCoinDatum();
-  console.log("🚀 ~ file: DatumCoin.tsx ~ line 26 ~ coinData", coinData);
   let chartInstance = null;
 
   let initDebtChart = () => {
