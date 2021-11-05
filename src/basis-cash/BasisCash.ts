@@ -502,20 +502,20 @@ export class BasisCash {
 
   async getUserOverview() {
     let { value } = await this.getFetchData(
-      "http://apiv2.parasset.top/api/user/overview"
+      "https://apiv2.parasset.top/api/user/overview"
     );
     return value;
   }
   async getDebtOverview() {
     let { value } = await this.getFetchData(
-      "http://apiv2.parasset.top/api/coin/debtTotal"
+      "https://apiv2.parasset.top/api/coin/debtTotal"
     );
     return value;
   }
   async getActiveUsers(activeUsersValue) {
     const date = this.getStartEndDate(activeUsersValue);
     let { value } = await this.getFetchData(
-      `http://apiv2.parasset.top/api/user/active/${date.startDate}/${date.endDate}`
+      `https://apiv2.parasset.top/api/user/active/${date.startDate}/${date.endDate}`
     );
 
     return value;
@@ -524,7 +524,7 @@ export class BasisCash {
   async getNewUsers(newUsersValue) {
     const date = this.getStartEndDate(newUsersValue);
     let { value } = await this.getFetchData(
-      `http://apiv2.parasset.top/api/user/new/${date.startDate}/${date.endDate}`
+      `https://apiv2.parasset.top/api/user/new/${date.startDate}/${date.endDate}`
     );
 
     return value;
@@ -533,7 +533,7 @@ export class BasisCash {
   async getItankTvlDatum(tvlDatumValue) {
     const date = this.getStartEndDate(tvlDatumValue);
     let { value } = await this.getFetchData(
-      `http://apiv2.parasset.top/api/insPool/tvl/${date.startDate}/${date.endDate}`
+      `https://apiv2.parasset.top/api/insPool/tvl/${date.startDate}/${date.endDate}`
     );
 
     return value;
@@ -542,7 +542,7 @@ export class BasisCash {
   async getItankFeeDatum(feeDatumValue) {
     const date = this.getStartEndDate(feeDatumValue);
     let { value } = await this.getFetchData(
-      `http://apiv2.parasset.top/api/insPool/fee/${date.startDate}/${date.endDate}`
+      `https://apiv2.parasset.top/api/insPool/fee/${date.startDate}/${date.endDate}`
     );
 
     return value;
@@ -550,7 +550,7 @@ export class BasisCash {
   async getItankNetValueDatum(netValueDatumValue) {
     const date = this.getStartEndDate(netValueDatumValue);
     let { value } = await this.getFetchData(
-      `http://apiv2.parasset.top/api/insPool/netValue/${date.startDate}/${date.endDate}`
+      `https://apiv2.parasset.top/api/insPool/netValue/${date.startDate}/${date.endDate}`
     );
 
     return value;
@@ -558,11 +558,11 @@ export class BasisCash {
   async getCoinTvlDatum(tvlDatumValue) {
     const date = this.getStartEndDate(tvlDatumValue);
     let { value: insTvlDatum } = await this.getFetchData(
-      `http://apiv2.parasset.top/api/coin/insTvl/${date.startDate}/${date.endDate}`
+      `https://apiv2.parasset.top/api/coin/insTvl/${date.startDate}/${date.endDate}`
     );
 
     let { value: morTvlDatum } = await this.getFetchData(
-      `http://apiv2.parasset.top/api/coin/morTvl/${date.startDate}/${date.endDate}`
+      `https://apiv2.parasset.top/api/coin/morTvl/${date.startDate}/${date.endDate}`
     );
 
     return {
@@ -574,10 +574,10 @@ export class BasisCash {
   async getDebtDatum(debtDatumValue) {
     const date = this.getStartEndDate(debtDatumValue);
     let { value: avgRateDatum } = await this.getFetchData(
-      `http://apiv2.parasset.top/api/coin/avgRate/${date.startDate}/${date.endDate}`
+      `https://apiv2.parasset.top/api/coin/avgRate/${date.startDate}/${date.endDate}`
     );
     let { value: debtDatum } = await this.getFetchData(
-      `http://apiv2.parasset.top/api/coin/debtData/${date.startDate}/${date.endDate}`
+      `https://apiv2.parasset.top/api/coin/debtData/${date.startDate}/${date.endDate}`
     );
 
     return {
