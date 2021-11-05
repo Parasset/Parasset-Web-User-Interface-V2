@@ -3,57 +3,44 @@ import { useCallback, useEffect, useState } from "react";
 import useBasisCash from "../useBasisCash";
 import { useBlockNumber } from "../../state/application/hooks";
 
-const useCoinDatum = () => {
-  const [coinData, setCoinData] = useState({});
+const useCoinDatum = ({ tvlDatumValue, debtDatumValue }) => {
+  const [tvlDatum, setTvlDatum] = useState({
+    insTvlDatum:[],
+    morTvlDatum:[],
+  });
+  const [debtDatum, setDebtDatum] = useState({
+    avgRateDatum:[],
+    debtDatum:[],
+  });
 
   const basisCash = useBasisCash();
   const block = useBlockNumber();
-  const fetchCoinData = useCallback(
-    async (address = basisCash?.myAccount) => {
-      setTimeout(() => {
-        setCoinData({
-          title: {
-            text: "抵押资产分布",
-            left: "center",
-          },
-          tooltip: {
-            trigger: "item",
-          },
-          legend: {
-            orient: "vertical",
-            left: "left",
-          },
-          series: [
-            {
-              name: "Access From",
-              type: "pie",
-              radius: "50%",
-              data: [
-                { value: 1048, name: "ETH" },
-                { value: 735, name: "USDT" },
-              ],
-              emphasis: {
-                itemStyle: {
-                  shadowBlur: 10,
-                  shadowOffsetX: 0,
-                  shadowColor: "rgba(0, 0, 0, 0.5)",
-                },
-              },
-            },
-          ],
-        });
-      }, 100);
-    },
-    [basisCash?.myAccount]
-  );
+
+  const fetchTvlDatum = useCallback(async () => {
+    const tvlDatum = await basisCash.getCoinTvlDatum(tvlDatumValue);
+    setTvlDatum(tvlDatum);
+  }, [basisCash, tvlDatumValue]);
+
+  const fetchDebtDatum = useCallback(async () => {
+    const debtDatum = await basisCash.getDebtDatum(debtDatumValue);
+    console.log("🚀 ~ file: useCoinDatum.ts ~ line 24 ~ fetchDebtDatum ~ debtDatum", debtDatum)
+    setDebtDatum(debtDatum);
+  }, [basisCash, debtDatumValue]);
 
   useEffect(() => {
-    if (basisCash?.myAccount) {
-      fetchCoinData();
+    if (basisCash) {
+      fetchTvlDatum();
+      fetchDebtDatum();
     }
-  }, [basisCash?.myAccount, block]);
+  }, [basisCash, block, tvlDatumValue, debtDatumValue]);
 
-  return { coinData, fetchCoinData };
+  return {
+    tvlDatum,
+    debtDatum,
+
+    fetchTvlDatum,
+    fetchDebtDatum,
+  };
 };
 
 export default useCoinDatum;

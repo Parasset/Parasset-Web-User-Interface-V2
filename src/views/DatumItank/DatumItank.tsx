@@ -1,89 +1,36 @@
 //@ts-nocheck
 import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-
+import BigNumber from "bignumber.js";
 import * as echarts from "echarts";
 
 import Container from "../../components/Datum/Container";
-
+import { $isFiniteNumber, $isPositiveNumber } from "../../utils/utils";
 import Picker from "../../components/Datum/Picker";
 import Value from "../../components/Value";
 import useItankDatum from "./../../hooks/datum/useItankDatum";
 const Overview: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const [tvlDatumValue, setTvlDatumValue] = useState("1W");
+  const [feeDatumValue, setFeeDatumValue] = useState("1W");
+  const [netValueDatumValue, setNetValueDatumValue] = useState("1W");
+  const [recentTvlDatum, setRecentTvlDatum] = useState(0);
+  const [recentFeeDatum, setRecentFeeDatum] = useState(0);
 
-  const { tvlDatum } = useItankDatum({
+  const { tvlDatum, feeDatum, netValueDatum } = useItankDatum({
     tvlDatumValue,
+    feeDatumValue,
+    netValueDatumValue,
   });
+
+
+
   let initItankValueChart = useCallback(() => {
     let element = document.getElementById("itankValueChart");
     let myChart = echarts.init(element);
-
-    myChart.setOption({
-      tooltip: {
-        trigger: "axis",
-      },
-      legend: {
-        data: ["USDT保险池", "ETH保险池"],
-      },
-      grid: {
-        left: "3%",
-        right: "4%",
-        bottom: "3%",
-        containLabel: true,
-      },
-
-      xAxis: {
-        type: "category",
-        boundaryGap: false,
-        data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-      },
-      yAxis: {
-        type: "value",
-      },
-      series: [
-        {
-          name: "USDT保险池",
-          type: "line",
-          stack: "Total",
-          data: [120, 132, 101, 134, 90, 230, 210],
-        },
-        {
-          name: "ETH保险池",
-          type: "line",
-          stack: "Total",
-          data: [220, 182, 191, 234, 290, 330, 310],
-        },
-      ],
-    });
-  }, []);
-  let initTotalFeeIncomeChart = useCallback(() => {
-    let element = document.getElementById("totalFeeIncome");
-    let myChart = echarts.init(element);
-    let option = {
-      xAxis: {
-        type: "category",
-        data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-      },
-      yAxis: {
-        type: "value",
-      },
-      series: [
-        {
-          data: [150, 230, 224, 218, 135, 147, 260],
-          type: "line",
-        },
-      ],
-    };
-    myChart.setOption(option);
-  }, []);
-  let initItankTvlChart = useCallback(() => {
-    let element = document.getElementById("itankTvlChart");
-    let myChart = echarts.init(element);
-    const usdtList = tvlDatum.filter((item) => item.title === "USDT保险池");
-    const ethList = tvlDatum.filter((item) => item.title === "ETH保险池");
+    const usdtList = netValueDatum.filter((item) => item.type === "USDT");
+    const ethList = netValueDatum.filter((item) => item.type === "ETH");
 
     const usdtDatum = usdtList.map((item, i) => {
       return [item.x, item.y];
@@ -91,13 +38,22 @@ const Overview: React.FC = () => {
     const ethDatum = ethList.map((item, i) => {
       return [item.x, item.y];
     });
-    console.log(usdtList, ethList, usdtDatum, ethDatum);
+  
+
+    const usdtRecentData = usdtList[usdtList.length - 1]?.y;
+    const ethRecentData = ethList[ethList.length - 1]?.y;
+    let recentFeeDatum = new BigNumber(usdtRecentData)
+      .plus(ethRecentData)
+      .toNumber();
+    recentFeeDatum = $isPositiveNumber($isFiniteNumber(recentFeeDatum));
+    setRecentFeeDatum(recentFeeDatum);
+
     let option = {
       tooltip: {
         trigger: "axis",
       },
       legend: {
-        data: ["USDT保险池", "ETH保险池"],
+        data: [`USDT${t("bxc")}`, `ETH${t("bxc")}`],
       },
       grid: {
         left: "3%",
@@ -105,64 +61,219 @@ const Overview: React.FC = () => {
         bottom: "3%",
         containLabel: true,
       },
-
       xAxis: {
-        type: "category",
-        boundaryGap: false,
-        data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        type: "time",
+        axisLabel: {
+          interval: 0,
+          rotate: -20,
+          formatter: function (value, index) {
+            return echarts.format.formatTime("MM.dd", new Date(value));
+            // return echarts.format.formatTime('yyyy-MM-dd', new Date(value));
+          },
+        },
       },
       yAxis: {
         type: "value",
+        min: function (value) {
+          return value.min;
+        },
       },
       series: [
         {
-          name: "USDT保险池",
+          name: `USDT${t("bxc")}`,
           type: "line",
           stack: "Total",
-          data: [120, 132, 101, 134, 90, 230, 210],
+          data: usdtDatum,
         },
         {
-          name: "ETH保险池",
+          name: `ETH${t("bxc")}`,
           type: "line",
           stack: "Total",
-          data: [220, 182, 191, 234, 290, 330, 310],
+          data: ethDatum,
         },
       ],
     };
     myChart.setOption(option);
-  }, [tvlDatum]);
+  }, [netValueDatum, i18n.language]);
+
+  let initTotalFeeIncomeChart = useCallback(() => {
+    let element = document.getElementById("totalFeeIncome");
+    let myChart = echarts.init(element);
+    const usdtList = feeDatum.filter((item) => item.type === "USDT");
+    const ethList = feeDatum.filter((item) => item.type === "ETH");
+
+    const usdtDatum = usdtList.map((item, i) => {
+      return [item.x, item.y];
+    });
+    const ethDatum = ethList.map((item, i) => {
+      return [item.x, item.y];
+    });
+
+    const usdtRecentData = usdtList[usdtList.length - 1]?.y;
+    const ethRecentData = ethList[ethList.length - 1]?.y;
+    let recentFeeDatum = new BigNumber(usdtRecentData)
+      .plus(ethRecentData)
+      .toNumber();
+    recentFeeDatum = $isPositiveNumber($isFiniteNumber(recentFeeDatum));
+    setRecentFeeDatum(recentFeeDatum);
+
+    let option = {
+      tooltip: {
+        trigger: "axis",
+      },
+      legend: {
+        data: [`USDT${t("bxc")}`, `ETH${t("bxc")}`],
+      },
+      grid: {
+        left: "3%",
+        right: "4%",
+        bottom: "3%",
+        containLabel: true,
+      },
+      xAxis: {
+        type: "time",
+        axisLabel: {
+          interval: 0,
+          rotate: -20,
+          formatter: function (value, index) {
+            return echarts.format.formatTime("MM.dd", new Date(value));
+            // return echarts.format.formatTime('yyyy-MM-dd', new Date(value));
+          },
+        },
+      },
+      yAxis: {
+        type: "value",
+        min: function (value) {
+          return value.min;
+        },
+      },
+      series: [
+        {
+          name: `USDT${t("bxc")}`,
+          type: "line",
+          stack: "Total",
+          data: usdtDatum,
+        },
+        {
+          name: `ETH${t("bxc")}`,
+          type: "line",
+          stack: "Total",
+          data: ethDatum,
+        },
+      ],
+    };
+    myChart.setOption(option);
+  }, [feeDatum, i18n.language]);
+
+  let initItankTvlChart = useCallback(() => {
+    let element = document.getElementById("itankTvlChart");
+    let myChart = echarts.init(element);
+    const usdtList = tvlDatum.filter((item) => item.type === "USDT");
+    const ethList = tvlDatum.filter((item) => item.type === "ETH");
+
+    const usdtDatum = usdtList.map((item, i) => {
+      return [item.x, item.y];
+    });
+    const ethDatum = ethList.map((item, i) => {
+      return [item.x, item.y];
+    });
+    const usdtRecentData = usdtList[usdtList.length - 1]?.y;
+    const ethRecentData = ethList[ethList.length - 1]?.y;
+    let recentTvlDatum = new BigNumber(usdtRecentData)
+      .plus(ethRecentData)
+      .toNumber();
+    recentTvlDatum = $isPositiveNumber($isFiniteNumber(recentTvlDatum));
+    setRecentTvlDatum(recentTvlDatum);
+
+    let option = {
+      tooltip: {
+        trigger: "axis",
+      },
+      legend: {
+        data: [`USDT${t("bxc")}`, `ETH${t("bxc")}`],
+      },
+      grid: {
+        left: "3%",
+        right: "4%",
+        bottom: "3%",
+        containLabel: true,
+      },
+      xAxis: {
+        type: "time",
+        axisLabel: {
+          interval: 0,
+          rotate: -20,
+          formatter: function (value, index) {
+            return echarts.format.formatTime("MM.dd", new Date(value));
+            // return echarts.format.formatTime('yyyy-MM-dd', new Date(value));
+          },
+        },
+      },
+      yAxis: {
+        type: "value",
+    
+      },
+      series: [
+        {
+          name: `USDT${t("bxc")}`,
+          type: "line",
+          stack: "Total",
+          data: usdtDatum,
+        },
+        {
+          name: `ETH${t("bxc")}`,
+          type: "line",
+          stack: "Total",
+          data: ethDatum,
+        },
+      ],
+    };
+    myChart.setOption(option);
+  }, [tvlDatum, i18n.language]);
 
   useEffect(() => {
     initItankTvlChart();
-    // initTotalFeeIncomeChart();
-    // initItankValueChart();
-  }, [tvlDatum]);
+  }, [tvlDatum, feeDatum, i18n.language]);
 
+  useEffect(() => {
+    initTotalFeeIncomeChart();
+  }, [feeDatum, i18n.language]);
+
+
+  useEffect(() => {
+    initItankValueChart();
+  }, [netValueDatum, i18n.language]);
+
+
+  
   return (
     <>
       <Container title={`${t("bxc")} TVL`}>
         <Picker value={tvlDatumValue} onChangePicker={setTvlDatumValue}>
           <div className="color-main">
-            <Value value={234189341209} prefix="$" />
+            <Value value={recentTvlDatum} prefix="$" />
           </div>
         </Picker>
         <div id={"itankTvlChart"} style={{ height: 400 }} />
       </Container>
 
-      {/* <Container title={t("ljsxfsr")}>
-        <Picker>
+      <Container title={t("ljsxfsr")}>
+        <Picker value={feeDatumValue} onChangePicker={setFeeDatumValue}>
           <div className="color-main">
-            <Value value={234189341209} prefix="$" />
+            <Value value={recentFeeDatum} prefix="$" />
           </div>
         </Picker>
         <div id={"totalFeeIncome"} style={{ height: 400 }} />
       </Container>
       <Container title={t("bxcjz")}>
-        <Picker>
+        <Picker
+          value={netValueDatumValue}
+          onChangePicker={setNetValueDatumValue}
+        >
           <div></div>
         </Picker>
         <div style={{ height: 400 }} id="itankValueChart" />
-      </Container> */}
+      </Container>
     </>
   );
 };

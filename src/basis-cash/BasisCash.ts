@@ -539,6 +539,53 @@ export class BasisCash {
     return value;
   }
 
+  async getItankFeeDatum(feeDatumValue) {
+    const date = this.getStartEndDate(feeDatumValue);
+    let { value } = await this.getFetchData(
+      `http://apiv2.parasset.top/api/insPool/fee/${date.startDate}/${date.endDate}`
+    );
+
+    return value;
+  }
+  async getItankNetValueDatum(netValueDatumValue) {
+    const date = this.getStartEndDate(netValueDatumValue);
+    let { value } = await this.getFetchData(
+      `http://apiv2.parasset.top/api/insPool/netValue/${date.startDate}/${date.endDate}`
+    );
+
+    return value;
+  }
+  async getCoinTvlDatum(tvlDatumValue) {
+    const date = this.getStartEndDate(tvlDatumValue);
+    let { value: insTvlDatum } = await this.getFetchData(
+      `http://apiv2.parasset.top/api/coin/insTvl/${date.startDate}/${date.endDate}`
+    );
+
+    let { value: morTvlDatum } = await this.getFetchData(
+      `http://apiv2.parasset.top/api/coin/morTvl/${date.startDate}/${date.endDate}`
+    );
+
+    return {
+      insTvlDatum,
+      morTvlDatum,
+    };
+  }
+
+  async getDebtDatum(debtDatumValue) {
+    const date = this.getStartEndDate(debtDatumValue);
+    let { value: avgRateDatum } = await this.getFetchData(
+      `http://apiv2.parasset.top/api/coin/avgRate/${date.startDate}/${date.endDate}`
+    );
+    let { value: debtDatum } = await this.getFetchData(
+      `http://apiv2.parasset.top/api/coin/debtData/${date.startDate}/${date.endDate}`
+    );
+
+    return {
+      avgRateDatum,
+      debtDatum,
+    };
+  }
+
   async getChannelInfo(address, block) {
     try {
       const { Mine } = this.contracts;

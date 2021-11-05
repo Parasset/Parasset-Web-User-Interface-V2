@@ -29,6 +29,7 @@ const Overview: React.FC = () => {
     myChart.setOption({
       xAxis: {
         type: "time",
+        boundaryGap: false,
         axisLabel: {
           interval: 0,
           rotate: -20,
@@ -74,6 +75,7 @@ const Overview: React.FC = () => {
     myChart.setOption({
       xAxis: {
         type: "time",
+        boundaryGap: false,
         axisLabel: {
           interval: 0,
           rotate: -20,
