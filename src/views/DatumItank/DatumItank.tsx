@@ -40,13 +40,6 @@ const Overview: React.FC = () => {
     });
   
 
-    const usdtRecentData = usdtList[usdtList.length - 1]?.y;
-    const ethRecentData = ethList[ethList.length - 1]?.y;
-    let recentFeeDatum = new BigNumber(usdtRecentData)
-      .plus(ethRecentData)
-      .toNumber();
-    recentFeeDatum = $isPositiveNumber($isFiniteNumber(recentFeeDatum));
-    setRecentFeeDatum(recentFeeDatum);
 
     let option = {
       tooltip: {
@@ -99,39 +92,20 @@ const Overview: React.FC = () => {
   let initTotalFeeIncomeChart = useCallback(() => {
     let element = document.getElementById("totalFeeIncome");
     let myChart = echarts.init(element);
-    const usdtList = feeDatum.filter((item) => item.type === "USDT");
-    const ethList = feeDatum.filter((item) => item.type === "ETH");
 
-    const usdtDatum = usdtList.map((item, i) => {
+    const data = feeDatum.map((item, i) => {
       return [item.x, item.y];
     });
-    const ethDatum = ethList.map((item, i) => {
-      return [item.x, item.y];
-    });
-
-    const usdtRecentData = usdtList[usdtList.length - 1]?.y;
-    const ethRecentData = ethList[ethList.length - 1]?.y;
-    let recentFeeDatum = new BigNumber(usdtRecentData)
-      .plus(ethRecentData)
-      .toNumber();
-    recentFeeDatum = $isPositiveNumber($isFiniteNumber(recentFeeDatum));
-    setRecentFeeDatum(recentFeeDatum);
-
-    let option = {
+    console.log("🚀 ~ file: DatumItank.tsx ~ line 106 ~ data ~ data",feeDatum[feeDatum.length-1]?.y, data)
+  
+    setRecentFeeDatum(feeDatum[feeDatum.length-1]?.y);
+    myChart.setOption({
       tooltip: {
         trigger: "axis",
       },
-      legend: {
-        data: [`USDT${t("bxc")}`, `ETH${t("bxc")}`],
-      },
-      grid: {
-        left: "3%",
-        right: "4%",
-        bottom: "3%",
-        containLabel: true,
-      },
       xAxis: {
         type: "time",
+        boundaryGap: false,
         axisLabel: {
           interval: 0,
           rotate: -20,
@@ -143,26 +117,32 @@ const Overview: React.FC = () => {
       },
       yAxis: {
         type: "value",
-        min: function (value) {
-          return value.min;
-        },
+        // min: function (value) {
+        //   return value.min;
+        // },
       },
-      series: [
+
+      dataZoom: [
         {
-          name: `USDT${t("bxc")}`,
-          type: "line",
-          stack: "Total",
-          data: usdtDatum,
+          show: true,
+          realtime: true,
+          start: 0,
+          end: 50,
         },
         {
-          name: `ETH${t("bxc")}`,
-          type: "line",
-          stack: "Total",
-          data: ethDatum,
+          type: "inside",
+          realtime: true,
+          start: 0,
+          end: 50,
         },
       ],
-    };
-    myChart.setOption(option);
+      series: [
+        {
+          data,
+          type: "line",
+        },
+      ],
+    });
   }, [feeDatum, i18n.language]);
 
   let initItankTvlChart = useCallback(() => {

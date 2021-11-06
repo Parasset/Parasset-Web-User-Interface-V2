@@ -27,6 +27,9 @@ const Overview: React.FC = () => {
       return [item.x, item.y];
     });
     myChart.setOption({
+      tooltip: {
+        trigger: "axis",
+      },
       xAxis: {
         type: "time",
         boundaryGap: false,
@@ -73,6 +76,9 @@ const Overview: React.FC = () => {
       return [item.x, item.y];
     });
     myChart.setOption({
+      tooltip: {
+        trigger: "axis",
+      },
       xAxis: {
         type: "time",
         boundaryGap: false,
