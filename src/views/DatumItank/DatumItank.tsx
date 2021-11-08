@@ -24,8 +24,6 @@ const Overview: React.FC = () => {
     netValueDatumValue,
   });
 
-
-
   let initItankValueChart = useCallback(() => {
     let element = document.getElementById("itankValueChart");
     let myChart = echarts.init(element);
@@ -38,8 +36,6 @@ const Overview: React.FC = () => {
     const ethDatum = ethList.map((item, i) => {
       return [item.x, item.y];
     });
-  
-
 
     let option = {
       tooltip: {
@@ -96,12 +92,25 @@ const Overview: React.FC = () => {
     const data = feeDatum.map((item, i) => {
       return [item.x, item.y];
     });
-    console.log("🚀 ~ file: DatumItank.tsx ~ line 106 ~ data ~ data",feeDatum[feeDatum.length-1]?.y, data)
-  
-    setRecentFeeDatum(feeDatum[feeDatum.length-1]?.y);
+
+    setRecentFeeDatum(feeDatum[feeDatum.length - 1]?.y);
     myChart.setOption({
       tooltip: {
         trigger: "axis",
+        formatter: function (params) {
+          var relVal = params[0].name;
+          const unit = "$";
+          var date = params[0].axisValueLabel;
+          relVal += date + "<br/>";
+          relVal +=
+            params[0].marker +
+            params[0].seriesName +
+            " : " +
+            unit +
+            params[0].value[1] +
+            "<br/>";
+          return relVal;
+        },
       },
       xAxis: {
         type: "time",
@@ -140,6 +149,7 @@ const Overview: React.FC = () => {
         {
           data,
           type: "line",
+          name: t("ljsxfsr"),
         },
       ],
     });
@@ -168,6 +178,22 @@ const Overview: React.FC = () => {
     let option = {
       tooltip: {
         trigger: "axis",
+        formatter: function (params) {
+          var relVal = params[0].name;
+          var date = params[0].axisValueLabel;
+          relVal += date + "<br/>";
+          for (var i = 0, l = params.length; i < l; i++) {
+            const unit = "$";
+            relVal +=
+              params[i].marker +
+              params[i].seriesName +
+              " : " +
+              unit +
+              params[i].value[1] +
+              "<br/>";
+          }
+          return relVal;
+        },
       },
       legend: {
         data: [`USDT${t("bxc")}`, `ETH${t("bxc")}`],
@@ -191,7 +217,6 @@ const Overview: React.FC = () => {
       },
       yAxis: {
         type: "value",
-    
       },
       series: [
         {
@@ -219,13 +244,10 @@ const Overview: React.FC = () => {
     initTotalFeeIncomeChart();
   }, [feeDatum, i18n.language]);
 
-
   useEffect(() => {
     initItankValueChart();
   }, [netValueDatum, i18n.language]);
 
-
-  
   return (
     <>
       <Container title={`${t("bxc")} TVL`}>

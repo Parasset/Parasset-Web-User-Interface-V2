@@ -150,12 +150,12 @@ const Overview: React.FC = () => {
           <ListItem
             text={`ETH ${t("dysl")}`}
             color="#FA6141"
-            value={<Value value={ETHStaked} prefix="$" />}
+            value={<Value value={ETHStaked}  />}
           />
           <ListItem
             text={`NEST ${t("dysl")}`}
             color="#FA6141"
-            value={<Value value={NESTStaked} prefix="$" />}
+            value={<Value value={NESTStaked}  />}
             showSpacer={false}
           />
         </div>

@@ -91,6 +91,22 @@ const Overview: React.FC = () => {
     let option = {
       tooltip: {
         trigger: "axis",
+        formatter: function (params) {
+          var relVal = params[0].name;
+          var date = params[0].axisValueLabel;
+          relVal += date + "<br/>";
+          for (var i = 0, l = params.length; i < l; i++) {
+            const unit = "$";
+            relVal +=
+              params[i].marker +
+              params[i].seriesName +
+              " : " +
+              unit +
+              params[i].value[1] +
+              "<br/>";
+          }
+          return relVal;
+        },
       },
       legend: {
         data: [t("dyzc"), t("pxzc")],
@@ -144,6 +160,22 @@ const Overview: React.FC = () => {
     let option = {
       tooltip: {
         trigger: "axis",
+        formatter: function (params) {
+          var relVal = params[0].name;
+          var date = params[0].axisValueLabel;
+          relVal += date + "<br/>";
+          for (var i = 0, l = params.length; i < l; i++) {
+            const unit = params[i].seriesIndex === 0 ? "" : "%";
+            relVal +=
+              params[i].marker +
+              params[i].seriesName +
+              " : " +
+              params[i].value[1] +
+              unit +
+              "<br/>";
+          }
+          return relVal;
+        },
       },
       legend: {
         data: [t("zcs"), t("pjdyl")],
@@ -200,6 +232,17 @@ const Overview: React.FC = () => {
       },
       tooltip: {
         trigger: "item",
+        formatter: function (params) {
+          return (
+            params.seriesName +
+            "<br/>" +
+            params.marker +
+            params.name +
+            " : " +
+            "$" +
+            params.value
+          );
+        },
       },
       legend: {
         orient: "vertical",
@@ -207,7 +250,7 @@ const Overview: React.FC = () => {
       },
       series: [
         {
-          name: "Access From",
+          name: t("dyzcfb"),
           type: "pie",
           radius: "50%",
           data: [
@@ -236,6 +279,17 @@ const Overview: React.FC = () => {
       },
       tooltip: {
         trigger: "item",
+        formatter: function (params) {
+          return (
+            params.seriesName +
+            "<br/>" +
+            params.marker +
+            params.name +
+            " : " +
+            "$" +
+            params.value
+          );
+        },
       },
       legend: {
         orient: "vertical",
@@ -243,7 +297,7 @@ const Overview: React.FC = () => {
       },
       series: [
         {
-          name: "Access From",
+          name: t("pxzcfb"),
           type: "pie",
           radius: "50%",
           data: [

@@ -23,7 +23,6 @@ const useCoinDatum = ({ tvlDatumValue, debtDatumValue }) => {
 
   const fetchDebtDatum = useCallback(async () => {
     const debtDatum = await basisCash.getDebtDatum(debtDatumValue);
-    console.log("🚀 ~ file: useCoinDatum.ts ~ line 24 ~ fetchDebtDatum ~ debtDatum", debtDatum)
     setDebtDatum(debtDatum);
   }, [basisCash, debtDatumValue]);
 
