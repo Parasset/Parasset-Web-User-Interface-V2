@@ -13,28 +13,14 @@ import SelectToken from "../../../components/SelectToken";
 const Item: React.FC = ({ item }) => {
   const { t } = useTranslation();
 
-  const [showSelect, setShowSelect] = useState(false);
-  const history = useHistory();
-
-  const handleDocumentClick = useCallback(() => {
-    setShowSelect(false);
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener("click", handleDocumentClick);
-    return () => {
-      window.removeEventListener("click", handleDocumentClick);
-    };
-  }, []);
-
   return (
     <>
       <StyledPcItem>
         <Card className=" flex-jc-center bold-600 font-size-14">
           <div className="flex1 flex-jc-start">
-            <TokenSymbol symbol={item.name} size={25} />
+            <TokenSymbol symbol={item.depositTokenName} size={25} />
             <TokenSymbol
-              symbol={item.name}
+              symbol={item.earnTokenName}
               size={25}
               isRight={true}
               className="margin-right-5"
@@ -42,22 +28,30 @@ const Item: React.FC = ({ item }) => {
             {item.name}
           </div>
           <div className="flex1">
-            <Value value={77.45} suffix="%" />
+            <Value value={0} suffix="%" />
           </div>
           <div className="flex1">
             <Value
-              value={item.staked}
-              suffix={<span className="margin-left-4 font-size-10">NEST</span>}
+              value={0}
+              suffix={
+                <span className="margin-left-4 font-size-10">
+                  {item.depositTokenName}
+                </span>
+              }
             />
 
             <div className="color-grey font-size-10 bold-500">
-              <Value value={284} prefix="$" />
+              <Value value={0} prefix="$" />
             </div>
           </div>
           <div className="flex1">
             <Value
-              value={item.staked}
-              suffix={<span className="margin-left-4 font-size-10">PUSD</span>}
+              value={0}
+              suffix={
+                <span className="margin-left-4 font-size-10">
+                  {item.earnTokenName}
+                </span>
+              }
             />
 
             <div className="color-grey font-size-10 bold-500">
@@ -67,9 +61,11 @@ const Item: React.FC = ({ item }) => {
           <div className="flex1 flex-jc-center">
             <span>
               <Value
-                value={item.liqRatio}
+                value={0}
                 suffix={
-                  <span className="margin-left-4 font-size-10">PUSD</span>
+                  <span className="margin-left-4 font-size-10">
+                    {item.earnTokenName}
+                  </span>
                 }
               />
             </span>
@@ -78,21 +74,7 @@ const Item: React.FC = ({ item }) => {
                 text={t("zhubi")}
                 variant="secondary"
                 width="80px"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setShowSelect(!showSelect);
-                }}
-              />
-              <SelectToken
-                showSelect={showSelect}
-                list={item.selectList}
-                active={item.active}
-                toggleShow={() => {
-                  setShowSelect(!showSelect);
-                }}
-                onChangeSelect={(select) => {
-                  history.push(`/coin/${item.name}/${select.name}`);
-                }}
+                onClick={(e) => {}}
               />
             </div>
           </div>
@@ -106,8 +88,8 @@ const Item: React.FC = ({ item }) => {
           <div className="color-grey">{t("zhaicang")}</div>
           <Spacer size="mmd" />
           <div className="flex-row-center-center">
-            <TokenSymbol symbol={item.name} size={40} />
-            <TokenSymbol symbol={item.name} size={40} isRight={true} />
+            <TokenSymbol symbol={item.depositTokenName} size={40} />
+            <TokenSymbol symbol={item.earnTokenName} size={40} isRight={true} />
           </div>
           <Spacer size="sm" />
           <div className="font-size-16 text-center width-100"> {item.name}</div>
@@ -117,7 +99,7 @@ const Item: React.FC = ({ item }) => {
           <Label
             height="56px"
             label={t("dqdyl")}
-            value={<Value value={77.45} suffix="%" />}
+            value={<Value value={0} suffix="%" />}
           />
           <Spacer size="mmd" />
 
@@ -128,14 +110,16 @@ const Item: React.FC = ({ item }) => {
               <div className="text-right">
                 <div className="font-size-14">
                   <Value
-                    value={item.staked}
+                    value={0}
                     suffix={
-                      <span className="margin-left-4 font-size-10">NEST</span>
+                      <span className="margin-left-4 font-size-10">
+                        {item.depositTokenName}
+                      </span>
                     }
                   />
                 </div>
                 <div className="color-grey font-size-10">
-                  <Value value={284} prefix="$" />
+                  <Value value={0} prefix="$" />
                 </div>
               </div>
             }
@@ -148,14 +132,16 @@ const Item: React.FC = ({ item }) => {
               <div className="text-right">
                 <div className="font-size-14">
                   <Value
-                    value={item.staked}
+                    value={0}
                     suffix={
-                      <span className="margin-left-4 font-size-10">PUSD</span>
+                      <span className="margin-left-4 font-size-10">
+                        {item.earnTokenName}
+                      </span>
                     }
                   />
                 </div>
                 <div className="color-grey font-size-10">
-                  <Value value={284} prefix="$" />
+                  <Value value={0} prefix="$" />
                 </div>
               </div>
             }
@@ -168,9 +154,11 @@ const Item: React.FC = ({ item }) => {
             label={t("zdqsf")}
             value={
               <Value
-                value={item.liqRatio}
+                value={0}
                 suffix={
-                  <span className="margin-left-4 font-size-10">PUSD</span>
+                  <span className="margin-left-4 font-size-10">
+                    {item.earnTokenName}
+                  </span>
                 }
               />
             }
@@ -179,14 +167,7 @@ const Item: React.FC = ({ item }) => {
           <Spacer />
 
           <div className="position-relative">
-            <Button
-              text={t("qingsuan")}
-              variant="secondary"
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowSelect(!showSelect);
-              }}
-            />
+            <Button text={t("qingsuan")} variant="secondary" />
           </div>
 
           <Spacer size="mmd" />
@@ -196,6 +177,7 @@ const Item: React.FC = ({ item }) => {
   );
 };
 const TableList: React.FC = ({ list }) => {
+  
   return (
     <>
       {list && list.length

@@ -10,6 +10,7 @@ const useCreatedDebts = () => {
   const [totalMortgageValue, setTotalMortgageValue] = useState(0);
   const [totalParassetValue, setTotalParassetValue] = useState(0);
   const debts = useDebts();
+  console.log("🚀 ~ file: useCreatedDebts.ts ~ line 13 ~ useCreatedDebts ~ debts", debts)
   const basisCash = useBasisCash();
   const block = useBlockNumber();
   const fetchList = useCallback(

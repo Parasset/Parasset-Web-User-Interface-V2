@@ -353,6 +353,12 @@ export class BasisCash {
     }
   }
 
+  async getDebtUserList() {
+    let res = await fetch("https://robotv2.parasset.top/fee/userList");
+    res = await res.json();
+    return res;
+  }
+
   async getFundAsset(itank) {
     try {
       const {
