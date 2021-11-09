@@ -142,7 +142,7 @@ const StyledNavRight = styled.div`
   top: 0;
   z-index: 10000;
   @media (max-width: 768px) {
-    display: none;
+    display: none!important;
   }
 `;
 
