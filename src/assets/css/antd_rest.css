@@ -1,9 +1,5 @@
 /* vietnamese */
-@font-face {
-  font-family: 'Wallpoet-Regular';
-  font-weight: 600;
-  src: url(../font/Wallpoet-Regular.woff2) format('woff2');
-}
+
 @font-face {
   font-family: 'KumbhSans-Medium';
   src: url(../font/KumbhSans-Medium.woff2) format('woff2');

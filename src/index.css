@@ -22,10 +22,7 @@ input {
 #root .with-100-16 {
   width: calc((100% - 16px) / 2) !important;
 }
-/*  */
-.font-Wallpoet {
-  font-family: "Wallpoet-Regular";
-}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;

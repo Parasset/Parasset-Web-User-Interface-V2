@@ -3,23 +3,22 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import BigNumber from "bignumber.js";
 import useIsMobile from "../../hooks/useIsMobile";
-import { $isFiniteNumber, $isPositiveNumber } from "./../../utils/utils";
+import { $isFiniteNumber, $isPositiveNumber } from "../../utils/utils";
 
-import BigValue from "../../components/BigValue";
+import BigValue from "./components/BigValue";
 import TableTitle from "../../components/TableTitle";
 import TableList from "./components/TableList";
 import Value from "../../components/Value";
 
-import Footer from "./components/Footer";
-import useBasisCash from "./../../hooks/useBasisCash";
+import useBasisCash from "../../hooks/useBasisCash";
 import useDebt from "../../hooks/debt/useDebt";
 import useTVL from "../../hooks/debt/useTVL";
 import useStaked from "../../hooks/debt/useStaked";
 import useDebtInfo from "../../hooks/debt/useDebtInfo";
-import useMaxRatio from "./../../hooks/coin/useMaxRatio";
-import useTotalSupply from "./../../hooks/useTokenTotalSupply";
-import useItanks from "./../../hooks/itank/useItanks";
-import useItankInfo from "./../../hooks/itank/useItankInfo";
+import useMaxRatio from "../../hooks/coin/useMaxRatio";
+import useTotalSupply from "../../hooks/useTokenTotalSupply";
+import useItanks from "../../hooks/itank/useItanks";
+import useItankInfo from "../../hooks/itank/useItankInfo";
 const Home: React.FC = () => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
@@ -203,23 +202,16 @@ const Home: React.FC = () => {
   return (
     <>
       <BigValue
-        text={t("dyzcsdsz")}
-        color="#DD8751"
-        value={<Value value={totalmortgageAssetValue} prefix="$" />}
+        text1={'Value of Pending liquidation'}
+        color1="#DD8751"
+        value1={<Value value={totalmortgageAssetValue} prefix="$" />}
+        text2={'yqszcjz'}
+        color2="#77A89A"
+        value2={<Value value={totalmortgageAssetValue} prefix="$" />}
       />
-      <BigValue
-        text={t("pxzcltsz")}
-        color="#77A89A"
-        value={<Value value={totalParassetValue} prefix="$" />}
-      />
-      <BigValue
-        text={t("bxcldxzsz")}
-        color="#5DB3D3"
-        value={<Value value={totalItankValue} prefix="$" />}
-      />
+
       <TableTitle />
       <TableList list={list} />
-      <Footer />
     </>
   );
 };

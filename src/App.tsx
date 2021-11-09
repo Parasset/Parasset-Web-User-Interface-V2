@@ -11,6 +11,7 @@ import BasisCashProvider from "./contexts/BasisCashProvider";
 import Page from "./components/Page";
 
 import Home from "./views/Home";
+import Liquidation from "./views/Liquidation";
 import Coin from "./views/Coin";
 import Mine from "./views/Mine";
 import MinePool from "./views/MinePool";
@@ -44,6 +45,17 @@ const App: React.FC = () => {
             >
               <Coin />
             </Route>
+
+            <Route
+              path="/liquidation"
+              exact
+            >
+              <Liquidation />
+            </Route>
+
+
+
+            
             <Route path="/datum/overview" exact>
               <DatumOverview />
             </Route>
