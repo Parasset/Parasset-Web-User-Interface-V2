@@ -154,7 +154,7 @@ const Nav: React.FC = ({ toggleShow }) => {
               height="35"
               className="margin-right-5"
             />
-            {t("liquidation")}
+            {t("qingsuan")}
           </StyledBarItem>
 
 

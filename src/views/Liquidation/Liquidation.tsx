@@ -5,7 +5,7 @@ import BigNumber from "bignumber.js";
 import useIsMobile from "../../hooks/useIsMobile";
 import { $isFiniteNumber, $isPositiveNumber } from "../../utils/utils";
 
-import BigValue from "./components/BigValue";
+import BigValue from "../../components/BigValue";
 import TableTitle from "../../components/TableTitle";
 import TableList from "./components/TableList";
 import Value from "../../components/Value";
@@ -24,6 +24,13 @@ const Home: React.FC = () => {
   const { t } = useTranslation();
   const basisCash = useBasisCash();
   const itanks = useItanks();
+  const [titles, setTitles] = useState([
+    "zhaicang",
+    "dqdyl",
+    "dyzc",
+    "zbzw",
+    "zdqsf",
+  ]);
   //两个保险池相加
   const { itankInfo: itankInfo1 } = useItankInfo(
     itanks.length ? itanks[0] : null
@@ -202,15 +209,17 @@ const Home: React.FC = () => {
   return (
     <>
       <BigValue
-        text1={'Value of Pending liquidation'}
-        color1="#DD8751"
-        value1={<Value value={totalmortgageAssetValue} prefix="$" />}
-        text2={'yqszcjz'}
-        color2="#77A89A"
-        value2={<Value value={totalmortgageAssetValue} prefix="$" />}
+        text={t("dqsqsjz")}
+        color="#DD8751"
+        value={<Value value={totalmortgageAssetValue} prefix="$" />}
+      />
+      <BigValue
+        text={t("yqszcjz")}
+        color="#77A89A"
+        value={<Value value={totalmortgageAssetValue} prefix="$" />}
       />
 
-      <TableTitle />
+      <TableTitle titles={titles} />
       <TableList list={list} />
     </>
   );

@@ -25,6 +25,13 @@ const Home: React.FC = () => {
   const { t } = useTranslation();
   const basisCash = useBasisCash();
   const itanks = useItanks();
+  const [titles, setTitles] = useState([
+    'dyzc',
+    'TVL',
+    'diyashu',
+    'zddyl',
+    'qsdyl',
+   ]);
   //两个保险池相加
   const { itankInfo: itankInfo1 } = useItankInfo(
     itanks.length ? itanks[0] : null
@@ -217,7 +224,7 @@ const Home: React.FC = () => {
         color="#5DB3D3"
         value={<Value value={totalItankValue} prefix="$" />}
       />
-      <TableTitle />
+      <TableTitle titles={titles} />
       <TableList list={list} />
       <Footer />
     </>

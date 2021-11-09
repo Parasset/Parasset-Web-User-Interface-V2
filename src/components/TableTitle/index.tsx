@@ -4,16 +4,18 @@ import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 import Spacer from "../Spacer";
 import Card from "../Card";
-const TableTitle: React.FC = ({}) => {
+const TableTitle: React.FC = ({ titles }) => {
   const { t } = useTranslation();
   return (
     <StyledTableTitleBox>
       <Card className=" flex-jc-center color-grey">
-        <div className="flex1">{t("dyzc")}</div>
-        <div className="flex1">TVL</div>
-        <div className="flex1">{t("diyashu")}</div>
-        <div className="flex1">{t("zddyl")}</div>
-        <div className="flex1">{t("qsdyl")}</div>
+        {titles.map((item) => {
+          return (
+            <div className="flex1" key={item}>
+              {t(item)}
+            </div>
+          );
+        })}
       </Card>
       <Spacer size="sm" />
       <Spacer size="sm" />

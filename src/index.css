@@ -281,6 +281,9 @@ input[type="number"] {
 .bold-600 {
   font-weight: 600;
 }
+.bold-500 {
+  font-weight: 500 !important;
+}
 .border-radius-3 {
   border-radius: 3px;
 }
@@ -490,7 +493,9 @@ input[type="number"] {
 .text-nowrap {
   white-space: nowrap;
 }
-
+.text-break{
+  word-break: break-all
+}
 @media (max-width: 768px) {
   .flex-jc-center-pc {
     flex-direction: column !important;

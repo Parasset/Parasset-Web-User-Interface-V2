@@ -30,27 +30,48 @@ const Item: React.FC = ({ item }) => {
   return (
     <>
       <StyledPcItem>
-        <Card className=" flex-jc-center bold-600 font-size-16">
+        <Card className=" flex-jc-center bold-600 font-size-14">
           <div className="flex1 flex-jc-start">
+            <TokenSymbol symbol={item.name} size={25} />
             <TokenSymbol
               symbol={item.name}
               size={25}
+              isRight={true}
               className="margin-right-5"
             />
             {item.name}
           </div>
           <div className="flex1">
-            <Value value={item.TVL} prefix="$" />
+            <Value value={77.45} suffix="%" />
           </div>
           <div className="flex1">
-            <Value value={item.staked} />
+            <Value
+              value={item.staked}
+              suffix={<span className="margin-left-4 font-size-10">NEST</span>}
+            />
+
+            <div className="color-grey font-size-10 bold-500">
+              <Value value={284} prefix="$" />
+            </div>
           </div>
           <div className="flex1">
-            <Value value={item.maxRatio} suffix="%" />
+            <Value
+              value={item.staked}
+              suffix={<span className="margin-left-4 font-size-10">PUSD</span>}
+            />
+
+            <div className="color-grey font-size-10 bold-500">
+              <Value value={284} prefix="$" />
+            </div>
           </div>
           <div className="flex1 flex-jc-center">
             <span>
-              <Value value={item.liqRatio} suffix="%" />
+              <Value
+                value={item.liqRatio}
+                suffix={
+                  <span className="margin-left-4 font-size-10">PUSD</span>
+                }
+              />
             </span>
             <div className="position-relative">
               <Button
@@ -82,52 +103,88 @@ const Item: React.FC = ({ item }) => {
       <StyledMobileItem>
         <Card className="wing-blank-lg">
           <Spacer size="mmd" />
-          <div className="color-grey">{t("dyzc")}</div>
+          <div className="color-grey">{t("zhaicang")}</div>
           <Spacer size="mmd" />
           <div className="flex-row-center-center">
             <TokenSymbol symbol={item.name} size={40} />
+            <TokenSymbol symbol={item.name} size={40} isRight={true} />
           </div>
           <Spacer size="sm" />
           <div className="font-size-16 text-center width-100"> {item.name}</div>
 
           <Spacer size="mmd" />
 
-          <Label label="TVL" value={<Value value={item.TVL} prefix="$" />} />
+          <Label
+            height="56px"
+            label={t("dqdyl")}
+            value={<Value value={77.45} suffix="%" />}
+          />
           <Spacer size="mmd" />
-          <Label label={t("diyashu")} value={<Value value={item.staked} />} />
 
+          <Label
+            height="56px"
+            label={t("dyzc")}
+            value={
+              <div className="text-right">
+                <div className="font-size-14">
+                  <Value
+                    value={item.staked}
+                    suffix={
+                      <span className="margin-left-4 font-size-10">NEST</span>
+                    }
+                  />
+                </div>
+                <div className="color-grey font-size-10">
+                  <Value value={284} prefix="$" />
+                </div>
+              </div>
+            }
+          />
           <Spacer size="mmd" />
           <Label
-            label={t("zddyl")}
-            value={<Value value={item.maxRatio} suffix="%" />}
+            height="56px"
+            label={t("zbzw")}
+            value={
+              <div className="text-right">
+                <div className="font-size-14">
+                  <Value
+                    value={item.staked}
+                    suffix={
+                      <span className="margin-left-4 font-size-10">PUSD</span>
+                    }
+                  />
+                </div>
+                <div className="color-grey font-size-10">
+                  <Value value={284} prefix="$" />
+                </div>
+              </div>
+            }
           />
 
           <Spacer size="mmd" />
+
           <Label
-            label={t("qsdyl")}
-            value={<Value value={item.liqRatio} suffix="%" />}
+            height="56px"
+            label={t("zdqsf")}
+            value={
+              <Value
+                value={item.liqRatio}
+                suffix={
+                  <span className="margin-left-4 font-size-10">PUSD</span>
+                }
+              />
+            }
           />
 
           <Spacer />
 
           <div className="position-relative">
             <Button
-              text={t("zhubi")}
+              text={t("qingsuan")}
               variant="secondary"
               onClick={(e) => {
                 e.stopPropagation();
                 setShowSelect(!showSelect);
-              }}
-            />
-            <SelectToken
-              showSelect={showSelect}
-              list={item.selectList}
-              active={item.active}
-              toggleShow={() => {
-                setShowSelect(!showSelect);
-              }}
-              onChangeSelect={(select) => {
-                history.push(`/coin/${item.name}/${select.name}`);
               }}
             />
           </div>
