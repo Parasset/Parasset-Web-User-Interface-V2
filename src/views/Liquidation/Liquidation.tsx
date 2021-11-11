@@ -11,11 +11,12 @@ import TableList from "./components/TableList";
 import Value from "../../components/Value";
 
 import useLiquidationList from "../../hooks/debt/useLiquidationList";
-
+import LiqModal from "./components/LiqModal";
 const Home: React.FC = () => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
-
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectKey, setSelectKey] = useState("ETHPUSD");
   const { list, loading, totalMortgageValue } = useLiquidationList();
   const [titles, setTitles] = useState([
     "zhaicang",
@@ -24,6 +25,16 @@ const Home: React.FC = () => {
     "zbzw",
     "zdqsf",
   ]);
+
+  const onSelect = useCallback((key) => {
+    setSelectKey(key);
+  }, []);
+
+  const select = useMemo(() => {
+    const item = list.filter((item) => item.key === selectKey);
+    return item.length ? item[0] : {};
+  }, [selectKey, list]);
+
 
   return (
     <>
@@ -39,7 +50,18 @@ const Home: React.FC = () => {
       />
 
       <TableTitle titles={titles} />
-      <TableList list={list} />
+      <TableList
+        list={list}
+        onSelect={onSelect}
+        loading={loading}
+        openModal={() => setIsOpen(true)}
+      />
+      <LiqModal
+        isOpen={isOpen}
+        onDismiss={() => setIsOpen(false)}
+        key={isOpen + "isOpen"}
+        select={select}
+      />
     </>
   );
 };

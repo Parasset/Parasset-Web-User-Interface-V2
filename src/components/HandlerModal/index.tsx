@@ -35,9 +35,11 @@ export default function HandlerModal({
   approveStatus,
   approve,
   approveTokenName,
+  showSelectPercentage = false,
+  onSelectPercentage = false,
 }) {
   const { t } = useTranslation();
-  const [isBlur,setIsBlur]=useState(false)
+  const [isBlur, setIsBlur] = useState(false);
 
   return (
     <>
@@ -62,7 +64,9 @@ export default function HandlerModal({
         </div>
         <Spacer size="mmd" />
         <CardButton
-          className={`${isBlur?'input-focus':'input-no-focus'}  width-100 wing-blank-lg cursor-pointer input-dark-box`}
+          className={`${
+            isBlur ? "input-focus" : "input-no-focus"
+          }  width-100 wing-blank-lg cursor-pointer input-dark-box`}
           size="lg"
         >
           <div className="flex-jc-center">
@@ -92,6 +96,47 @@ export default function HandlerModal({
             />
           </div>
         </CardButton>
+        {showSelectPercentage ? (
+          <>
+            <Spacer size="mmd" />
+            <div className="flex-jc-center">
+              <CardButton
+                className="width-22 flex-row-center-center cursor-pointer"
+                onClick={() => {
+                  onSelectPercentage(0.25);
+                }}
+              >
+                25%
+              </CardButton>
+              <CardButton
+                className="width-22 flex-row-center-center cursor-pointer"
+                onClick={() => {
+                  onSelectPercentage(0.5);
+                }}
+              >
+                50%
+              </CardButton>
+              <CardButton
+                className="width-22 flex-row-center-center cursor-pointer"
+                onClick={() => {
+                  onSelectPercentage(0.75);
+                }}
+              >
+                75%
+              </CardButton>
+              <CardButton
+                className="width-22 flex-row-center-center cursor-pointer"
+                onClick={() => {
+                  onSelectPercentage(1);
+                }}
+              >
+                100%
+              </CardButton>
+            </div>
+            <Spacer size="mmd" />
+          </>
+        ) : null}
+
         {columns &&
           Object.keys(columns).map((key) => {
             const item = columns[key];
@@ -102,7 +147,10 @@ export default function HandlerModal({
                   label={
                     item.isTooltip ? (
                       <Tooltip title={t(item.tip)}>
-                        <div className="text-underline cursor-pointer"> {t(item?.label)}</div>
+                        <div className="text-underline cursor-pointer">
+                          {" "}
+                          {t(item?.label)}
+                        </div>
                       </Tooltip>
                     ) : (
                       t(item?.label) + (item?.labelUnit ? item?.labelUnit : "")

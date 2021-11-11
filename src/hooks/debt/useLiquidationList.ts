@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useState } from "react";
 import BigNumber from "bignumber.js";
 import useBasisCash from "../useBasisCash";
+import { getNumberToFixed } from "../../utils/formatBalance";
 import { useBlockNumber } from "../../state/application/hooks";
 import useDebts from "./useDebts";
 const useLiquidationList = () => {
@@ -18,7 +19,6 @@ const useLiquidationList = () => {
         const userList = await basisCash.getDebtUserList();
         let list = await Promise.all(
           debts.map(async (item) => {
-         
             const datum = await Promise.all(
               userList.map(async (el) => {
                 const info = await basisCash.getDebt(
@@ -35,17 +35,35 @@ const useLiquidationList = () => {
             return { ...item, datum };
           })
         );
-        // list = list.filter((el) => !!el.created);
-        // let totalMortgageValue = new BigNumber(0);
-
-        // list.forEach((item) => {
-        //   totalMortgageValue = totalMortgageValue.plus(item.mortgageValue);
-
-        // });
-        // setTotalMortgageValue(totalMortgageValue.toNumber());
+        // mortgageAssets mortgageValue
+        list = list.map((item) => {
+          let totalRate = new BigNumber(0);
+          let totalMortgageValue = new BigNumber(0);
+          let totalMortgageAssets = new BigNumber(0);
+          let totalParassetAssets = new BigNumber(0);
+          let totalParassetValue = new BigNumber(0);
+          item.datum.forEach((el) => {
+            totalRate = totalRate.plus(el.rate);
+            totalMortgageAssets = totalMortgageAssets.plus(el.mortgageAssets);
+            totalMortgageValue = totalMortgageValue.plus(el.mortgageValue);
+            totalParassetAssets = totalParassetAssets.plus(el.parassetAssets);
+            totalParassetValue = totalParassetValue.plus(el.parassetValue);
+          });
+          const mortgagePrice = new BigNumber(item.datum[0]?.mortgagePrice);
+          const maxLiqFee = mortgagePrice.times(totalMortgageAssets).times(0.9);
+          return {
+            ...item,
+            totalRate: getNumberToFixed(totalRate),
+            totalMortgageValue: getNumberToFixed(totalMortgageValue),
+            totalMortgageAssets: getNumberToFixed(totalMortgageAssets),
+            totalParassetAssets: getNumberToFixed(totalParassetAssets),
+            totalParassetValue: getNumberToFixed(totalParassetValue),
+            maxLiqFee: getNumberToFixed(maxLiqFee),
+          };
+        });
 
         console.log("🚀 ~ file: useLiquidationList.ts ~ line 52 ~ list", list);
-        setList(debts);
+        setList(list);
         setLoading(false);
         return list;
       }

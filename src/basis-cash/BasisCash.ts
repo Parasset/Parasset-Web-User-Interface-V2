@@ -714,6 +714,22 @@ export class BasisCash {
       return error;
     }
   }
+  async liquidation(mortgagePoolContract, mortgageToken, amount,account,  value) {
+  
+    try {
+      return await mortgagePoolContract.liquidation(
+        this.gasETHAddress(mortgageToken),
+        account,
+        amount,
+        {
+          value,
+          from: this.myAccount,
+        }
+      );
+    } catch (error) {
+      return error;
+    }
+  }
 
   async handlerDebt(
     mortgagePoolContract,

@@ -2,17 +2,14 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
 import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
 import Button from "../../../components/Button";
 import Label from "../../../components/Label";
 import TokenSymbol from "../../../components/TokenSymbol";
 import Value from "../../../components/Value";
-import SelectToken from "../../../components/SelectToken";
-const Item: React.FC = ({ item }) => {
+const Item: React.FC = ({ item, onSelect, openModal }) => {
   const { t } = useTranslation();
-
   return (
     <>
       <StyledPcItem>
@@ -28,11 +25,12 @@ const Item: React.FC = ({ item }) => {
             {item.name}
           </div>
           <div className="flex1">
-            <Value value={0} suffix="%" />
+            <Value value={item.totalRate} decimals={2} suffix="%" />
           </div>
           <div className="flex1">
             <Value
-              value={0}
+              value={item.totalMortgageAssets}
+              decimals={2}
               suffix={
                 <span className="margin-left-4 font-size-10">
                   {item.depositTokenName}
@@ -41,12 +39,13 @@ const Item: React.FC = ({ item }) => {
             />
 
             <div className="color-grey font-size-10 bold-500">
-              <Value value={0} prefix="$" />
+              <Value value={item.totalMortgageValue} prefix="$" />
             </div>
           </div>
           <div className="flex1">
             <Value
-              value={0}
+              value={item.totalParassetAssets}
+              decimals={2}
               suffix={
                 <span className="margin-left-4 font-size-10">
                   {item.earnTokenName}
@@ -55,13 +54,14 @@ const Item: React.FC = ({ item }) => {
             />
 
             <div className="color-grey font-size-10 bold-500">
-              <Value value={284} prefix="$" />
+              <Value value={item.totalParassetValue} prefix="$" />
             </div>
           </div>
           <div className="flex1 flex-jc-center">
             <span>
               <Value
-                value={0}
+                value={item.maxLiqFee}
+                decimals={2}
                 suffix={
                   <span className="margin-left-4 font-size-10">
                     {item.earnTokenName}
@@ -71,10 +71,13 @@ const Item: React.FC = ({ item }) => {
             </span>
             <div className="position-relative">
               <Button
-                text={t("zhubi")}
+                text={t("qingsuan")}
                 variant="secondary"
                 width="80px"
-                onClick={(e) => {}}
+                onClick={(e) => {
+                  onSelect(item.key);
+                  openModal()
+                }}
               />
             </div>
           </div>
@@ -99,7 +102,7 @@ const Item: React.FC = ({ item }) => {
           <Label
             height="56px"
             label={t("dqdyl")}
-            value={<Value value={0} suffix="%" />}
+            value={<Value value={item.totalRate} suffix="%" decimals={2} />}
           />
           <Spacer size="mmd" />
 
@@ -110,7 +113,8 @@ const Item: React.FC = ({ item }) => {
               <div className="text-right">
                 <div className="font-size-14">
                   <Value
-                    value={0}
+                    value={item.totalMortgageAssets}
+                    decimals={2}
                     suffix={
                       <span className="margin-left-4 font-size-10">
                         {item.depositTokenName}
@@ -119,7 +123,7 @@ const Item: React.FC = ({ item }) => {
                   />
                 </div>
                 <div className="color-grey font-size-10">
-                  <Value value={0} prefix="$" />
+                  <Value value={item.totalMortgageValue} prefix="$" />
                 </div>
               </div>
             }
@@ -132,7 +136,8 @@ const Item: React.FC = ({ item }) => {
               <div className="text-right">
                 <div className="font-size-14">
                   <Value
-                    value={0}
+                    value={item.totalParassetAssets}
+                    decimals={2}
                     suffix={
                       <span className="margin-left-4 font-size-10">
                         {item.earnTokenName}
@@ -141,7 +146,7 @@ const Item: React.FC = ({ item }) => {
                   />
                 </div>
                 <div className="color-grey font-size-10">
-                  <Value value={0} prefix="$" />
+                  <Value value={item.totalParassetValue} prefix="$" />
                 </div>
               </div>
             }
@@ -154,7 +159,8 @@ const Item: React.FC = ({ item }) => {
             label={t("zdqsf")}
             value={
               <Value
-                value={0}
+                value={item.maxLiqFee}
+                decimals={2}
                 suffix={
                   <span className="margin-left-4 font-size-10">
                     {item.earnTokenName}
@@ -167,7 +173,14 @@ const Item: React.FC = ({ item }) => {
           <Spacer />
 
           <div className="position-relative">
-            <Button text={t("qingsuan")} variant="secondary" />
+            <Button
+              text={t("qingsuan")}
+              variant="secondary"
+              onClick={(e) => {
+                onSelect(item.key);
+                openModal()
+              }}
+            />
           </div>
 
           <Spacer size="mmd" />
@@ -176,19 +189,33 @@ const Item: React.FC = ({ item }) => {
     </>
   );
 };
-const TableList: React.FC = ({ list }) => {
-  
+const TableList: React.FC = ({ list, loading, onSelect, openModal }) => {
+  const { t } = useTranslation();
   return (
     <>
-      {list && list.length
-        ? list.map((item) => {
-            return (
-              <React.Fragment key={item.name}>
-                <Item item={item} />
-              </React.Fragment>
-            );
-          })
-        : null}
+      {!loading ? (
+        <>
+          {list && list.length
+            ? list.map((item) => {
+                return (
+                  <React.Fragment key={item.key}>
+                    <Item item={item} onSelect={onSelect} openModal={openModal} />
+                  </React.Fragment>
+                );
+              })
+            : null}
+        </>
+      ) : (
+        <>
+          <div className="text-center">
+            <Spacer />
+            <div className="color-grey text-center  line-height-20">
+              {t("jzz")}
+            </div>
+            <Spacer />
+          </div>
+        </>
+      )}
     </>
   );
 };

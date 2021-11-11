@@ -365,6 +365,9 @@ input[type="number"] {
 .width-70 {
   width: 70%;
 }
+.width-22 {
+  width: 22%!important;
+}
 #root .width-100 {
   width: 100%;
 }

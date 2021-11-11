@@ -5,6 +5,7 @@ import Spacer from "../Spacer";
 export interface CardProps {
   className?: string;
   children?: any;
+  onClick?: any;
 }
 const CardButton: React.FC<CardProps> = ({
   children,
