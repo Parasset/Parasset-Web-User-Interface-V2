@@ -75,7 +75,7 @@ const Item: React.FC = ({ item, onSelect, openModal }) => {
                 variant="secondary"
                 width="80px"
                 onClick={(e) => {
-                  onSelect(item.account);
+                  onSelect(item.itemKey);
                   openModal()
                 }}
               />
@@ -177,7 +177,7 @@ const Item: React.FC = ({ item, onSelect, openModal }) => {
               text={t("qingsuan")}
               variant="secondary"
               onClick={(e) => {
-                onSelect(item.account);
+                onSelect(item.itemKey);
                 openModal()
               }}
             />
@@ -198,7 +198,7 @@ const TableList: React.FC = ({ list, loading, onSelect, openModal }) => {
           {list && list.length
             ? list.map((item) => {
                 return (
-                  <React.Fragment key={item.account+item.key}>
+                  <React.Fragment key={item.itemKey}>
                     <Item item={item} onSelect={onSelect} openModal={openModal} />
                   </React.Fragment>
                 );

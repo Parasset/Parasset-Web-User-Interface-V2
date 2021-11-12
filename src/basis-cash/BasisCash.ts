@@ -354,9 +354,14 @@ export class BasisCash {
   }
 
   async getDebtUserList() {
-    let res = await fetch("https://robotv2.parasset.top/fee/userList");
-    res = await res.json();
-    return res;
+    // let res = await fetch("https://robotv2.parasset.top/fee/userList");
+    // res = await res.json();
+    // return res;
+    return [
+      {
+        address: "0xd73d348055E41bb405054720c4a06133bd004CD5",
+      },
+    ];
   }
 
   async getFundAsset(itank) {
@@ -714,19 +719,27 @@ export class BasisCash {
       return error;
     }
   }
-  async liquidation(mortgagePoolContract, mortgageToken, amount,account,  value) {
-  
+  async liquidation(
+    mortgagePoolContract,
+    mortgageToken,
+    amount,
+    account,
+    value
+  ) {
+    console.log(this.gasETHAddress(mortgageToken), account, amount, value);
     try {
       return await mortgagePoolContract.liquidation(
         this.gasETHAddress(mortgageToken),
         account,
         amount,
+        // '1000000000000000000000000000',
         {
           value,
           from: this.myAccount,
         }
       );
     } catch (error) {
+      console.log("🚀 ~ file: BasisCash.ts ~ line 741 ~ BasisCash ~ error", error)
       return error;
     }
   }

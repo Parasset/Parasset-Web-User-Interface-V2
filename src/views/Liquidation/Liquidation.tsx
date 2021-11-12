@@ -9,12 +9,14 @@ import BigValue from "../../components/BigValue";
 import TableTitle from "../../components/TableTitle";
 import TableList from "./components/TableList";
 import Value from "../../components/Value";
-
+import useBasisCash from "../../hooks/useBasisCash";
+import useTokenBalance from "../../hooks/useTokenBalance";
 import useLiquidationList from "../../hooks/debt/useLiquidationList";
 import LiqModal from "./components/LiqModal";
 const Home: React.FC = () => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
+  const basisCash = useBasisCash();
   const [isOpen, setIsOpen] = useState(false);
   const [selectKey, setSelectKey] = useState("ETHPUSD");
   const { list, loading, mortgageValue } = useLiquidationList();
@@ -26,15 +28,17 @@ const Home: React.FC = () => {
     "zdqsf",
   ]);
 
-  const onSelect = useCallback((key) => {
-    setSelectKey(key);
+  const onSelect = useCallback((itemKey) => {
+    setSelectKey(itemKey);
   }, []);
 
   const select = useMemo(() => {
-    const item = list.filter((item) => item.account === selectKey);
+    const item = list.filter((item) => item.itemKey === selectKey);
     return item.length ? item[0] : {};
   }, [selectKey, list]);
-
+  const PETHWalletBalance = useTokenBalance(basisCash?.externalTokens["PETH"]);
+  const PUSDWalletBalance = useTokenBalance(basisCash?.externalTokens["PUSD"]);
+  const ETHWalletBalance = useTokenBalance(basisCash?.externalTokens["ETH"]);
   return (
     <>
       <BigValue
@@ -60,6 +64,9 @@ const Home: React.FC = () => {
         onDismiss={() => setIsOpen(false)}
         key={isOpen + "isOpen"}
         select={select}
+        PETHWalletBalance={PETHWalletBalance}
+        PUSDWalletBalance={PUSDWalletBalance}
+        ETHWalletBalance={ETHWalletBalance}
       />
     </>
   );

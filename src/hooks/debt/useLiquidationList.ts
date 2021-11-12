@@ -35,7 +35,7 @@ const useLiquidationList = () => {
                   .times(info.mortgageAssets)
                   .times(0.9)
                   .toNumber();
-                return { ...item, ...info, account, maxLiqFee };
+                return { ...item, ...info, account, maxLiqFee,itemKey:item.key+account };
               })
             );
             list.push(...datum);

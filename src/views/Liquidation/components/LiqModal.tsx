@@ -18,9 +18,19 @@ import useLiquidation from "../../../hooks/debt/useLiquidation";
 
 import useBlur from "../../../hooks/useBlur";
 import useFocus from "../../../hooks/useFocus";
-const LiqModal: React.FC = ({ isOpen, onDismiss, select }) => {
+const LiqModal: React.FC = ({
+  isOpen,
+  onDismiss,
+  select,
+  PETHWalletBalance,
+  PUSDWalletBalance,
+  ETHWalletBalance,
+}) => {
+  console.log(
+    "🚀 ~ file: LiqModal.tsx ~ line 29 ~ ETHWalletBalance",
+    ETHWalletBalance
+  );
   const { t } = useTranslation();
-
   const [val, setVal] = useState(0);
 
   const [pendingTx, setPendingTx] = useState(false);
@@ -42,14 +52,32 @@ const LiqModal: React.FC = ({ isOpen, onDismiss, select }) => {
     return max;
   }, [max]);
 
+  const uTokenBalance = useMemo(() => {
+    return select.earnTokenName === "PETH"
+      ? PETHWalletBalance
+      : PUSDWalletBalance;
+  }, [select.earnTokenName, PETHWalletBalance, PUSDWalletBalance]);
+
+  const requiredPayment = useMemo(() => {
+    return $isPositiveNumber(
+      $isFiniteNumber(getNumberToFixed(new BigNumber(val).times(0.9)))
+    );
+  }, [val]);
+
   const onConfirm = useCallback(async () => {
     const { mortgagePoolContract, mortgageToken, account } = select;
+    const bigValue = new BigNumber(val);
+    const biguTokenBalance = new BigNumber(uTokenBalance);
+    const bigETHWalletBalance = new BigNumber(ETHWalletBalance);
+    console.log("🚀 ~ file: LiqModal.tsx ~ line 73 ~ onConfirm ~ bigETHWalletBalance", bigETHWalletBalance.toFixed(),bigETHWalletBalance.lt(0.026))
     if (!parseFloat(val)) {
       Toast.info(t("qsrsxqsdzcsl"), 1000);
-    } else if (parseFloat(val) > parseFloat(max)) {
+    } else if (bigValue.gt(max)) {
       Toast.info(t("kyqsyebz"), 1000);
-    } else if (parseFloat(val) > parseFloat(0.026)) {
+    } else if (bigETHWalletBalance.lt(0.026)) {
       Toast.info(t("qbkyethbz"), 1000);
+    } else if (biguTokenBalance.lt(requiredPayment)) {
+      Toast.info(t("kyqsyebz"), 1000);
     } else {
       setPendingTx(true);
 
@@ -67,7 +95,7 @@ const LiqModal: React.FC = ({ isOpen, onDismiss, select }) => {
         }, 1000);
       }
     }
-  }, [val, max, select]);
+  }, [val, max, select, uTokenBalance, ETHWalletBalance]);
 
   const handleSelectMax = useCallback(() => {
     setVal(canBuyAmount);
@@ -129,15 +157,7 @@ const LiqModal: React.FC = ({ isOpen, onDismiss, select }) => {
           },
           requiredPayment: {
             label: "sxzf",
-            value: (
-              <Value
-                value={$isPositiveNumber(
-                  $isFiniteNumber(
-                    getNumberToFixed(new BigNumber(val).times(0.9))
-                  )
-                )}
-              />
-            ),
+            value: <Value value={requiredPayment} />,
             unit: select.earnTokenName,
           },
         }}

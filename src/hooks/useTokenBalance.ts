@@ -18,7 +18,7 @@ const useTokenBalance = (token: ERC20) => {
         );
         setBalance(getTonumber(balance, token.decimal));
       } else {
-     
+        
         const balance = await token.balanceOf(basisCash.myAccount);
         // console.log(token.symbol,formatUnits(balance),getTonumber(balance, token.decimal))
         setBalance(getTonumber(balance, token.decimal));
@@ -35,7 +35,7 @@ const useTokenBalance = (token: ERC20) => {
       }
     }, 1000);
     return () => clearInterval(refreshInterval);
-  }, [basisCash?.myAccount, token]);
+  }, [basisCash?.myAccount, ]);
 
   return balance;
 };
