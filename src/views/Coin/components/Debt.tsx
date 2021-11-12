@@ -12,8 +12,8 @@ const Specie: React.FC = ({}) => {
   const {
     list,
     loading,
-    totalMortgageValue,
-    totalParassetValue,
+    mortgageValue,
+    parassetValue,
   } = useCreatedDebts();
   return (
     <>
@@ -22,12 +22,12 @@ const Specie: React.FC = ({}) => {
       <BigValue
         text={t("dasz")}
         color="#DD8751"
-        value={<Value value={totalMortgageValue} prefix="$"/>}
+        value={<Value value={mortgageValue} prefix="$"/>}
       />
       <BigValue
         text={t("zwsz")}
         color="#77A89A"
-        value={<Value value={totalParassetValue} prefix="$"/>}
+        value={<Value value={parassetValue} prefix="$"/>}
       />
       <Spacer size="sm" />
       <Depot list={list} loading={loading} />

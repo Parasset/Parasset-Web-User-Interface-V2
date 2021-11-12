@@ -19,7 +19,6 @@ import useLiquidation from "../../../hooks/debt/useLiquidation";
 import useBlur from "../../../hooks/useBlur";
 import useFocus from "../../../hooks/useFocus";
 const LiqModal: React.FC = ({ isOpen, onDismiss, select }) => {
-  console.log("🚀 ~ file: LiqModal.tsx ~ line 22 ~ select", select);
   const { t } = useTranslation();
 
   const [val, setVal] = useState(0);
@@ -36,23 +35,39 @@ const LiqModal: React.FC = ({ isOpen, onDismiss, select }) => {
   );
 
   const max = useMemo(() => {
-    return select.totalMortgageAssets;
-  }, [select.totalMortgageAssets]);
+    return select.mortgageAssets;
+  }, [select.mortgageAssets]);
 
   const canBuyAmount = useMemo(() => {
     return max;
   }, [max]);
 
   const onConfirm = useCallback(async () => {
+    const { mortgagePoolContract, mortgageToken, account } = select;
     if (!parseFloat(val)) {
       Toast.info(t("qsrsxqsdzcsl"), 1000);
     } else if (parseFloat(val) > parseFloat(max)) {
-      Toast.info(t("可用清算余额不足"), 1000);
-    } 
-    else if (parseFloat(val) > parseFloat(0.001+0.025)) {
-      Toast.info(t("可用清算余额不足"), 1000);
-    } 
-  }, [val]);
+      Toast.info(t("kyqsyebz"), 1000);
+    } else if (parseFloat(val) > parseFloat(0.026)) {
+      Toast.info(t("qbkyethbz"), 1000);
+    } else {
+      setPendingTx(true);
+
+      const result = await onLiquidation(
+        mortgagePoolContract,
+        mortgageToken,
+        val + "",
+        account
+      );
+      setPendingTx(false);
+      if (result !== "0") {
+        setTimeout(() => {
+          setVal("");
+          onDismiss();
+        }, 1000);
+      }
+    }
+  }, [val, max, select]);
 
   const handleSelectMax = useCallback(() => {
     setVal(canBuyAmount);

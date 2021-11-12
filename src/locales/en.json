@@ -189,5 +189,6 @@
   "yjhd": "Expected Obtain",
   "sxzf": "Required payment",
   "dqsqsjz": "Value of Pending liquidation",
-  "yqszcjz": "Value of Pending liquidated"
+  "yqszcjz": "Value of Pending liquidated",
+  "kyqsyebz": "Insufficient available clearing balance"
 }

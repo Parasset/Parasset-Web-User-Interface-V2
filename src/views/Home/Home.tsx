@@ -175,7 +175,7 @@ const Home: React.FC = () => {
     );
   }, [ETHTVL, NESTTVL]);
 
-  const totalParassetValue = useMemo(() => {
+  const parassetValue = useMemo(() => {
     //两个平行资产总供应*对U价值
     const PUSDValue = new BigNumber(PUSDTotalSupply).times(1);
 
@@ -217,7 +217,7 @@ const Home: React.FC = () => {
       <BigValue
         text={t("pxzcltsz")}
         color="#77A89A"
-        value={<Value value={totalParassetValue} prefix="$" />}
+        value={<Value value={parassetValue} prefix="$" />}
       />
       <BigValue
         text={t("bxcldxzsz")}

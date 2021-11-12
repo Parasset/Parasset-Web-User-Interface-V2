@@ -73,7 +73,7 @@ const Overview: React.FC = () => {
     NESTPETHDebt?.mortgageToken
   );
 
-  const totalParassetValue = useMemo(() => {
+  const parassetValue = useMemo(() => {
     //两个平行资产总供应*对U价值
     const PUSDValue = new BigNumber(PUSDTotalSupply).times(1);
 
@@ -165,7 +165,7 @@ const Overview: React.FC = () => {
           <ListItem
             text={t("pxzczjz")}
             color="#03AEB1"
-            value={<Value value={totalParassetValue} prefix="$" />}
+            value={<Value value={parassetValue} prefix="$" />}
           />
           <ListItem
             text={`PUSD ${t("ltl")}`}

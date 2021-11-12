@@ -25,11 +25,11 @@ const Item: React.FC = ({ item, onSelect, openModal }) => {
             {item.name}
           </div>
           <div className="flex1">
-            <Value value={item.totalRate} decimals={2} suffix="%" />
+            <Value value={item.rate} decimals={2} suffix="%" />
           </div>
           <div className="flex1">
             <Value
-              value={item.totalMortgageAssets}
+              value={item.mortgageAssets}
               decimals={2}
               suffix={
                 <span className="margin-left-4 font-size-10">
@@ -39,12 +39,12 @@ const Item: React.FC = ({ item, onSelect, openModal }) => {
             />
 
             <div className="color-grey font-size-10 bold-500">
-              <Value value={item.totalMortgageValue} prefix="$" />
+              <Value value={item.mortgageValue} prefix="$" />
             </div>
           </div>
           <div className="flex1">
             <Value
-              value={item.totalParassetAssets}
+              value={item.parassetAssets}
               decimals={2}
               suffix={
                 <span className="margin-left-4 font-size-10">
@@ -54,7 +54,7 @@ const Item: React.FC = ({ item, onSelect, openModal }) => {
             />
 
             <div className="color-grey font-size-10 bold-500">
-              <Value value={item.totalParassetValue} prefix="$" />
+              <Value value={item.parassetValue} prefix="$" />
             </div>
           </div>
           <div className="flex1 flex-jc-center">
@@ -75,7 +75,7 @@ const Item: React.FC = ({ item, onSelect, openModal }) => {
                 variant="secondary"
                 width="80px"
                 onClick={(e) => {
-                  onSelect(item.key);
+                  onSelect(item.account);
                   openModal()
                 }}
               />
@@ -102,7 +102,7 @@ const Item: React.FC = ({ item, onSelect, openModal }) => {
           <Label
             height="56px"
             label={t("dqdyl")}
-            value={<Value value={item.totalRate} suffix="%" decimals={2} />}
+            value={<Value value={item.rate} suffix="%" decimals={2} />}
           />
           <Spacer size="mmd" />
 
@@ -113,7 +113,7 @@ const Item: React.FC = ({ item, onSelect, openModal }) => {
               <div className="text-right">
                 <div className="font-size-14">
                   <Value
-                    value={item.totalMortgageAssets}
+                    value={item.mortgageAssets}
                     decimals={2}
                     suffix={
                       <span className="margin-left-4 font-size-10">
@@ -123,7 +123,7 @@ const Item: React.FC = ({ item, onSelect, openModal }) => {
                   />
                 </div>
                 <div className="color-grey font-size-10">
-                  <Value value={item.totalMortgageValue} prefix="$" />
+                  <Value value={item.mortgageValue} prefix="$" />
                 </div>
               </div>
             }
@@ -136,7 +136,7 @@ const Item: React.FC = ({ item, onSelect, openModal }) => {
               <div className="text-right">
                 <div className="font-size-14">
                   <Value
-                    value={item.totalParassetAssets}
+                    value={item.parassetAssets}
                     decimals={2}
                     suffix={
                       <span className="margin-left-4 font-size-10">
@@ -146,7 +146,7 @@ const Item: React.FC = ({ item, onSelect, openModal }) => {
                   />
                 </div>
                 <div className="color-grey font-size-10">
-                  <Value value={item.totalParassetValue} prefix="$" />
+                  <Value value={item.parassetValue} prefix="$" />
                 </div>
               </div>
             }
@@ -177,7 +177,7 @@ const Item: React.FC = ({ item, onSelect, openModal }) => {
               text={t("qingsuan")}
               variant="secondary"
               onClick={(e) => {
-                onSelect(item.key);
+                onSelect(item.account);
                 openModal()
               }}
             />
@@ -198,7 +198,7 @@ const TableList: React.FC = ({ list, loading, onSelect, openModal }) => {
           {list && list.length
             ? list.map((item) => {
                 return (
-                  <React.Fragment key={item.key}>
+                  <React.Fragment key={item.account+item.key}>
                     <Item item={item} onSelect={onSelect} openModal={openModal} />
                   </React.Fragment>
                 );

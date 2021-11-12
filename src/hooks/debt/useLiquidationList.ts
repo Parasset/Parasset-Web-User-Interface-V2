@@ -8,7 +8,7 @@ import useDebts from "./useDebts";
 const useLiquidationList = () => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [totalMortgageValue, setTotalMortgageValue] = useState(0);
+  const [mortgageValue, setTotalMortgageValue] = useState(0);
 
   const debts = useDebts();
   const basisCash = useBasisCash();
@@ -17,51 +17,31 @@ const useLiquidationList = () => {
     async (address = basisCash?.myAccount) => {
       if (debts.length) {
         const userList = await basisCash.getDebtUserList();
-        let list = await Promise.all(
+        let list = [];
+        await Promise.all(
           debts.map(async (item) => {
             const datum = await Promise.all(
               userList.map(async (el) => {
+                const account = el.address;
                 const info = await basisCash.getDebt(
                   item.mortgagePoolContract,
                   item.mortgageToken,
-                  el.address,
+                  account,
                   item.uToken,
                   item.key
                 );
-                return info;
+                const mortgagePrice = new BigNumber(info?.mortgagePrice);
+                const maxLiqFee = mortgagePrice
+                  .times(info.mortgageAssets)
+                  .times(0.9)
+                  .toNumber();
+                return { ...item, ...info, account, maxLiqFee };
               })
             );
-
-            return { ...item, datum };
+            list.push(...datum);
           })
         );
-        // mortgageAssets mortgageValue
-        list = list.map((item) => {
-          let totalRate = new BigNumber(0);
-          let totalMortgageValue = new BigNumber(0);
-          let totalMortgageAssets = new BigNumber(0);
-          let totalParassetAssets = new BigNumber(0);
-          let totalParassetValue = new BigNumber(0);
-          item.datum.forEach((el) => {
-            totalRate = totalRate.plus(el.rate);
-            totalMortgageAssets = totalMortgageAssets.plus(el.mortgageAssets);
-            totalMortgageValue = totalMortgageValue.plus(el.mortgageValue);
-            totalParassetAssets = totalParassetAssets.plus(el.parassetAssets);
-            totalParassetValue = totalParassetValue.plus(el.parassetValue);
-          });
-          const mortgagePrice = new BigNumber(item.datum[0]?.mortgagePrice);
-          const maxLiqFee = mortgagePrice.times(totalMortgageAssets).times(0.9);
-          return {
-            ...item,
-            totalRate: getNumberToFixed(totalRate),
-            totalMortgageValue: getNumberToFixed(totalMortgageValue),
-            totalMortgageAssets: getNumberToFixed(totalMortgageAssets),
-            totalParassetAssets: getNumberToFixed(totalParassetAssets),
-            totalParassetValue: getNumberToFixed(totalParassetValue),
-            maxLiqFee: getNumberToFixed(maxLiqFee),
-          };
-        });
-
+        list = list.filter((el) => !!el.created);
         console.log("🚀 ~ file: useLiquidationList.ts ~ line 52 ~ list", list);
         setList(list);
         setLoading(false);
@@ -81,7 +61,7 @@ const useLiquidationList = () => {
     };
   }, [basisCash?.myAccount, debts, block]);
 
-  return { list, loading, totalMortgageValue };
+  return { list, loading, mortgageValue };
 };
 
 export default useLiquidationList;

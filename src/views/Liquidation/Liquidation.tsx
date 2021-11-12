@@ -17,7 +17,7 @@ const Home: React.FC = () => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [selectKey, setSelectKey] = useState("ETHPUSD");
-  const { list, loading, totalMortgageValue } = useLiquidationList();
+  const { list, loading, mortgageValue } = useLiquidationList();
   const [titles, setTitles] = useState([
     "zhaicang",
     "dqdyl",
@@ -31,17 +31,16 @@ const Home: React.FC = () => {
   }, []);
 
   const select = useMemo(() => {
-    const item = list.filter((item) => item.key === selectKey);
+    const item = list.filter((item) => item.account === selectKey);
     return item.length ? item[0] : {};
   }, [selectKey, list]);
-
 
   return (
     <>
       <BigValue
         text={t("dqsqsjz")}
         color="#DD8751"
-        value={<Value value={totalMortgageValue} prefix="$" />}
+        value={<Value value={mortgageValue} prefix="$" />}
       />
       <BigValue
         text={t("yqszcjz")}

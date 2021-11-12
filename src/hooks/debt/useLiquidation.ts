@@ -9,7 +9,7 @@ const useLiquidation = () => {
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleLiquidation = useCallback(
-    (mortgagePoolContract, mortgageToken, amount, ) => {
+    (mortgagePoolContract, mortgageToken, amount, account) => {
       const amountBn = decimalToBalance(String(amount), mortgageToken.decimal);
       const value = decimalToBalance(
         mortgageToken.symbol === "ETH"
@@ -17,11 +17,12 @@ const useLiquidation = () => {
           : String(0.001),
         mortgageToken.decimal
       );
-     
+
       return handleTransactionReceipt(basisCash.liquidation, [
         mortgagePoolContract,
         mortgageToken,
         amountBn,
+        account,
         value,
       ]);
     },
