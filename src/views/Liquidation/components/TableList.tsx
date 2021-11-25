@@ -61,7 +61,7 @@ const Item: React.FC = ({ item, onSelect, openModal }) => {
             <span>
               <Value
                 value={item.maxLiqFee}
-                decimals={2}
+                decimals={6}
                 suffix={
                   <span className="margin-left-4 font-size-10">
                     {item.earnTokenName}
@@ -160,7 +160,7 @@ const Item: React.FC = ({ item, onSelect, openModal }) => {
             value={
               <Value
                 value={item.maxLiqFee}
-                decimals={2}
+                decimals={6}
                 suffix={
                   <span className="margin-left-4 font-size-10">
                     {item.earnTokenName}

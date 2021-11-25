@@ -26,7 +26,6 @@ const LiqModal: React.FC = ({
   PUSDWalletBalance,
   ETHWalletBalance,
 }) => {
-  
   const { t } = useTranslation();
   const [val, setVal] = useState(0);
 
@@ -56,8 +55,13 @@ const LiqModal: React.FC = ({
   }, [select.earnTokenName, PETHWalletBalance, PUSDWalletBalance]);
 
   const requiredPayment = useMemo(() => {
+    // console.log(select?.mortgagePrice, "select?.mortgagePrice");
     return $isPositiveNumber(
-      $isFiniteNumber(getNumberToFixed(new BigNumber(val).times(0.9)))
+      $isFiniteNumber(
+        getNumberToFixed(
+          new BigNumber(val).times(select?.mortgagePrice).times(0.9)
+        )
+      )
     );
   }, [val]);
 
@@ -66,7 +70,11 @@ const LiqModal: React.FC = ({
     const bigValue = new BigNumber(val);
     const biguTokenBalance = new BigNumber(uTokenBalance);
     const bigETHWalletBalance = new BigNumber(ETHWalletBalance);
-    console.log("🚀 ~ file: LiqModal.tsx ~ line 73 ~ onConfirm ~ bigETHWalletBalance", bigETHWalletBalance.toFixed(),bigETHWalletBalance.lt(0.026))
+    console.log(
+      "🚀 ~ file: LiqModal.tsx ~ line 73 ~ onConfirm ~ bigETHWalletBalance",
+      bigETHWalletBalance.toFixed(),
+      bigETHWalletBalance.lt(0.026)
+    );
     if (!parseFloat(val)) {
       Toast.info(t("qsrsxqsdzcsl"), 1000);
     } else if (bigValue.gt(max)) {

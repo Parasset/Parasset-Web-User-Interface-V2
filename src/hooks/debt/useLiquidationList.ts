@@ -8,7 +8,7 @@ import useDebts from "./useDebts";
 const useLiquidationList = () => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [mortgageValue, setTotalMortgageValue] = useState(0);
+  const [totalMortgageAssets, setTotalMortgageAssets] = useState(0);
 
   const debts = useDebts();
   const basisCash = useBasisCash();
@@ -34,7 +34,7 @@ const useLiquidationList = () => {
 
                 const mortgagePrice = new BigNumber(info?.mortgagePrice);
                 const isLiq = new BigNumber(rate).div(100).gte(liqRatio);
-            
+
                 const maxLiqFee = mortgagePrice
                   .times(info.mortgageAssets)
                   .times(0.9)
@@ -55,6 +55,11 @@ const useLiquidationList = () => {
         //  new BigNumber(liqRatio)rate
         list = list.filter((el) => !!el.created);
         list = list.filter((el) => el.isLiq);
+        let totalMortgageAssets = new BigNumber(0);
+        list.forEach((item) => {
+          totalMortgageAssets = totalMortgageAssets.plus(item.mortgageAssets);
+        });
+        setTotalMortgageAssets(getNumberToFixed(totalMortgageAssets));
         console.log("🚀 ~ file: useLiquidationList.ts ~ line 52 ~ list", list);
         setList(list);
         setLoading(false);
@@ -74,7 +79,7 @@ const useLiquidationList = () => {
     };
   }, [basisCash?.myAccount, debts, block]);
 
-  return { list, loading, mortgageValue };
+  return { list, loading, totalMortgageAssets };
 };
 
 export default useLiquidationList;

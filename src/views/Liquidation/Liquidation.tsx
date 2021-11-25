@@ -19,7 +19,7 @@ const Home: React.FC = () => {
   const basisCash = useBasisCash();
   const [isOpen, setIsOpen] = useState(false);
   const [selectKey, setSelectKey] = useState("ETHPUSD");
-  const { list, loading, mortgageValue } = useLiquidationList();
+  const { list, loading, totalMortgageAssets } = useLiquidationList();
   const [titles, setTitles] = useState([
     "zhaicang",
     "dqdyl",
@@ -44,7 +44,7 @@ const Home: React.FC = () => {
       <BigValue
         text={t("dqsqsjz")}
         color="#DD8751"
-        value={<Value value={mortgageValue} prefix="$" />}
+        value={<Value value={totalMortgageAssets} prefix="$" />}
       />
       <BigValue
         text={t("yqszcjz")}
