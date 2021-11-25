@@ -30,11 +30,10 @@ const useLiquidationList = () => {
                   item.uToken,
                   item.key
                 );
-                const { ratio, liqRatio } = info;
+                const { rate, liqRatio } = info;
 
                 const mortgagePrice = new BigNumber(info?.mortgagePrice);
-                const rate = new BigNumber(info.ratio).div(100);
-                const isLiq = rate.gte(liqRatio);
+                const isLiq = new BigNumber(rate).div(100).gte(liqRatio);
             
                 const maxLiqFee = mortgagePrice
                   .times(info.mortgageAssets)
