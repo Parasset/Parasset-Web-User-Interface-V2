@@ -13,8 +13,8 @@ const useCoin = () => {
       const amountBn = decimalToBalance(String(amount), mortgageToken.decimal);
       const value = decimalToBalance(
         mortgageToken.symbol === "ETH"
-          ? new BigNumber(amount).plus(0.001).toFixed()
-          : String(0.001),
+          ? new BigNumber(amount).plus(0.01).toFixed()
+          : String(0.01),
         mortgageToken.decimal
       );
       ratio = new BigNumber(ratio).times(100000).toFixed(0, 1);

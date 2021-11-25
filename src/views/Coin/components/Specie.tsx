@@ -491,7 +491,7 @@ const Specie: React.FC = ({}) => {
       Toast.info(t("qsrdyyszc"), 1000);
     } else if (parseFloat(inputValue) > parseFloat(inputMax)) {
       Toast.info(t("qbkydyzcyebz"), 1000);
-    } else if (parseFloat(ETHWalletBalance) < 0.001) {
+    } else if (parseFloat(ETHWalletBalance) < 0.01) {
       Toast.info(t("qbkyethbz"), 1000);
     } else if (!parseFloat(outputValue)) {
       Toast.info(t("qsrzbsl"), 1000);
@@ -706,7 +706,7 @@ const Specie: React.FC = ({}) => {
               <div className="text-underline cursor-pointer">{t("yyjdyf")}</div>
             </Tooltip>
           }
-          value="0.001 ETH"
+          value="0.01 ETH"
           className="wing-blank-lg"
         />
 

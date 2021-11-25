@@ -223,7 +223,7 @@ const Mine: React.FC = ({
       },
       oracleFee: {
         label: "yyjdyf",
-        value: "0.001",
+        value: "0.01",
         unit: "ETH",
         isTooltip: true,
         tip: "tip2",
@@ -252,7 +252,7 @@ const Mine: React.FC = ({
       },
       oracleFee: {
         label: "yyjdyf",
-        value: "0.001",
+        value: "0.01",
         unit: "ETH",
         isTooltip: true,
         tip: "tip2",
@@ -318,7 +318,7 @@ const Mine: React.FC = ({
       Toast.info(t(dataInfo[select].placeholder), 1000);
     } else if (parseFloat(val) > parseFloat(canBuyAmount)) {
       Toast.info(t(dataInfo[select].exceededTip), 1000);
-    } else if (parseFloat(ETHWalletBalance) < 0.001) {
+    } else if (parseFloat(ETHWalletBalance) < 0.01) {
       Toast.info(t("qbkyethbz"), 1000);
     } else if (getDep(val) > 18) {
       Toast.info(
