@@ -2418,19 +2418,6 @@
         "type": "event"
       },
       {
-        "inputs": [],
-        "name": "_governance",
-        "outputs": [
-          {
-            "internalType": "address",
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
         "inputs": [
           {
             "components": [
@@ -2453,11 +2440,6 @@
                 "internalType": "uint88",
                 "name": "rate",
                 "type": "uint88"
-              },
-              {
-                "internalType": "bool",
-                "name": "created",
-                "type": "bool"
               }
             ],
             "internalType": "struct MortgagePool.PersonalLedger",
@@ -2480,13 +2462,26 @@
             "type": "uint80"
           },
           {
-            "internalType": "uint80",
+            "internalType": "uint40",
             "name": "r0Value",
-            "type": "uint80"
+            "type": "uint40"
           }
         ],
-        "name": "checkLine",
+        "name": "_checkLine",
         "outputs": [],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "_governance",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          }
+        ],
         "stateMutability": "view",
         "type": "function"
       },
@@ -2583,9 +2578,9 @@
             "type": "uint256"
           },
           {
-            "internalType": "uint80",
+            "internalType": "uint40",
             "name": "r0Value",
-            "type": "uint80"
+            "type": "uint40"
           }
         ],
         "name": "getFee",
@@ -2748,19 +2743,38 @@
             "internalType": "address",
             "name": "mortgageToken",
             "type": "address"
-          },
+          }
+        ],
+        "name": "getLedgerArrayNum",
+        "outputs": [
           {
             "internalType": "uint256",
-            "name": "index",
+            "name": "",
             "type": "uint256"
           }
         ],
-        "name": "getLedgerAddress",
-        "outputs": [
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
           {
             "internalType": "address",
-            "name": "",
+            "name": "mortgageToken",
             "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address"
+          }
+        ],
+        "name": "getLedgerIndex",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
           }
         ],
         "stateMutability": "view",
@@ -2774,12 +2788,12 @@
             "type": "address"
           }
         ],
-        "name": "getLedgerArrayNum",
+        "name": "getLiquidateRate",
         "outputs": [
           {
-            "internalType": "uint256",
+            "internalType": "uint40",
             "name": "",
-            "type": "uint256"
+            "type": "uint40"
           }
         ],
         "stateMutability": "view",
@@ -2830,12 +2844,12 @@
         "name": "getMortgageRate",
         "outputs": [
           {
-            "internalType": "uint88",
+            "internalType": "uint256",
             "name": "",
-            "type": "uint88"
+            "type": "uint256"
           }
         ],
-        "stateMutability": "pure",
+        "stateMutability": "view",
         "type": "function"
       },
       {
@@ -2853,7 +2867,7 @@
       },
       {
         "inputs": [],
-        "name": "getPriceController",
+        "name": "getPTokenAddress",
         "outputs": [
           {
             "internalType": "address",
@@ -2866,7 +2880,7 @@
       },
       {
         "inputs": [],
-        "name": "getPtokenAddress",
+        "name": "getPriceController",
         "outputs": [
           {
             "internalType": "address",
@@ -2888,9 +2902,9 @@
         "name": "getR0",
         "outputs": [
           {
-            "internalType": "uint80",
+            "internalType": "uint40",
             "name": "",
-            "type": "uint80"
+            "type": "uint40"
           }
         ],
         "stateMutability": "view",
@@ -2955,6 +2969,11 @@
           {
             "internalType": "uint256",
             "name": "amount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "pTokenAmountLimit",
             "type": "uint256"
           }
         ],
@@ -3079,6 +3098,24 @@
             "type": "address"
           },
           {
+            "internalType": "uint40",
+            "name": "num",
+            "type": "uint40"
+          }
+        ],
+        "name": "setLiquidateRate",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "mortgageToken",
+            "type": "address"
+          },
+          {
             "internalType": "uint88",
             "name": "num",
             "type": "uint88"
@@ -3141,9 +3178,9 @@
             "type": "address"
           },
           {
-            "internalType": "uint80",
+            "internalType": "uint40",
             "name": "num",
-            "type": "uint80"
+            "type": "uint40"
           }
         ],
         "name": "setR0",
@@ -3244,19 +3281,6 @@
         "type": "event"
       },
       {
-        "inputs": [],
-        "name": "_governance",
-        "outputs": [
-          {
-            "internalType": "address",
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
         "inputs": [
           {
             "components": [
@@ -3279,11 +3303,6 @@
                 "internalType": "uint88",
                 "name": "rate",
                 "type": "uint88"
-              },
-              {
-                "internalType": "bool",
-                "name": "created",
-                "type": "bool"
               }
             ],
             "internalType": "struct MortgagePool.PersonalLedger",
@@ -3306,13 +3325,26 @@
             "type": "uint80"
           },
           {
-            "internalType": "uint80",
+            "internalType": "uint40",
             "name": "r0Value",
-            "type": "uint80"
+            "type": "uint40"
           }
         ],
-        "name": "checkLine",
+        "name": "_checkLine",
         "outputs": [],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "_governance",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          }
+        ],
         "stateMutability": "view",
         "type": "function"
       },
@@ -3409,9 +3441,9 @@
             "type": "uint256"
           },
           {
-            "internalType": "uint80",
+            "internalType": "uint40",
             "name": "r0Value",
-            "type": "uint80"
+            "type": "uint40"
           }
         ],
         "name": "getFee",
@@ -3574,19 +3606,38 @@
             "internalType": "address",
             "name": "mortgageToken",
             "type": "address"
-          },
+          }
+        ],
+        "name": "getLedgerArrayNum",
+        "outputs": [
           {
             "internalType": "uint256",
-            "name": "index",
+            "name": "",
             "type": "uint256"
           }
         ],
-        "name": "getLedgerAddress",
-        "outputs": [
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
           {
             "internalType": "address",
-            "name": "",
+            "name": "mortgageToken",
             "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address"
+          }
+        ],
+        "name": "getLedgerIndex",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
           }
         ],
         "stateMutability": "view",
@@ -3600,12 +3651,12 @@
             "type": "address"
           }
         ],
-        "name": "getLedgerArrayNum",
+        "name": "getLiquidateRate",
         "outputs": [
           {
-            "internalType": "uint256",
+            "internalType": "uint40",
             "name": "",
-            "type": "uint256"
+            "type": "uint40"
           }
         ],
         "stateMutability": "view",
@@ -3656,12 +3707,12 @@
         "name": "getMortgageRate",
         "outputs": [
           {
-            "internalType": "uint88",
+            "internalType": "uint256",
             "name": "",
-            "type": "uint88"
+            "type": "uint256"
           }
         ],
-        "stateMutability": "pure",
+        "stateMutability": "view",
         "type": "function"
       },
       {
@@ -3679,7 +3730,7 @@
       },
       {
         "inputs": [],
-        "name": "getPriceController",
+        "name": "getPTokenAddress",
         "outputs": [
           {
             "internalType": "address",
@@ -3692,7 +3743,7 @@
       },
       {
         "inputs": [],
-        "name": "getPtokenAddress",
+        "name": "getPriceController",
         "outputs": [
           {
             "internalType": "address",
@@ -3714,9 +3765,9 @@
         "name": "getR0",
         "outputs": [
           {
-            "internalType": "uint80",
+            "internalType": "uint40",
             "name": "",
-            "type": "uint80"
+            "type": "uint40"
           }
         ],
         "stateMutability": "view",
@@ -3781,6 +3832,11 @@
           {
             "internalType": "uint256",
             "name": "amount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "pTokenAmountLimit",
             "type": "uint256"
           }
         ],
@@ -3905,6 +3961,24 @@
             "type": "address"
           },
           {
+            "internalType": "uint40",
+            "name": "num",
+            "type": "uint40"
+          }
+        ],
+        "name": "setLiquidateRate",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "mortgageToken",
+            "type": "address"
+          },
+          {
             "internalType": "uint88",
             "name": "num",
             "type": "uint88"
@@ -3967,9 +4041,9 @@
             "type": "address"
           },
           {
-            "internalType": "uint80",
+            "internalType": "uint40",
             "name": "num",
-            "type": "uint80"
+            "type": "uint40"
           }
         ],
         "name": "setR0",

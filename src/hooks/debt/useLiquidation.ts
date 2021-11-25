@@ -11,7 +11,7 @@ const useLiquidation = () => {
   const handleLiquidation = useCallback(
     (mortgagePoolContract, mortgageToken, amount, account) => {
       const amountBn = decimalToBalance(String(amount), mortgageToken.decimal);
-      const value = decimalToBalance(String(0.001), mortgageToken.decimal);
+      const value = decimalToBalance(String(0.01), mortgageToken.decimal);
 
       return handleTransactionReceipt(basisCash.liquidation, [
         mortgagePoolContract,

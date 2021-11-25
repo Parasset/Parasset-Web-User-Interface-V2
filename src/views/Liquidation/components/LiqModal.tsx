@@ -26,10 +26,7 @@ const LiqModal: React.FC = ({
   PUSDWalletBalance,
   ETHWalletBalance,
 }) => {
-  console.log(
-    "🚀 ~ file: LiqModal.tsx ~ line 29 ~ ETHWalletBalance",
-    ETHWalletBalance
-  );
+  
   const { t } = useTranslation();
   const [val, setVal] = useState(0);
 

@@ -76,7 +76,7 @@ const Item: React.FC = ({ item, onSelect, openModal }) => {
                 width="80px"
                 onClick={(e) => {
                   onSelect(item.itemKey);
-                  openModal()
+                  openModal();
                 }}
               />
             </div>
@@ -178,7 +178,7 @@ const Item: React.FC = ({ item, onSelect, openModal }) => {
               variant="secondary"
               onClick={(e) => {
                 onSelect(item.itemKey);
-                openModal()
+                openModal();
               }}
             />
           </div>
@@ -195,15 +195,31 @@ const TableList: React.FC = ({ list, loading, onSelect, openModal }) => {
     <>
       {!loading ? (
         <>
-          {list && list.length
-            ? list.map((item) => {
-                return (
-                  <React.Fragment key={item.itemKey}>
-                    <Item item={item} onSelect={onSelect} openModal={openModal} />
-                  </React.Fragment>
-                );
-              })
-            : null}
+          {list && list.length ? (
+            list.map((item) => {
+              return (
+                <React.Fragment key={item.itemKey}>
+                  <Item item={item} onSelect={onSelect} openModal={openModal} />
+                </React.Fragment>
+              );
+            })
+          ) : (
+            <div className="text-center">
+              <Spacer />
+              <Spacer />
+
+              <img
+                src={require("../../../assets/img/icon_empty.png")}
+                width="50"
+                height="50"
+              />
+              <Spacer />
+              <div className="color-grey text-center  line-height-20">
+                {t("zwqszc")}
+              </div>
+              <Spacer />
+            </div>
+          )}
         </>
       ) : (
         <>

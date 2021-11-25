@@ -30,18 +30,32 @@ const useLiquidationList = () => {
                   item.uToken,
                   item.key
                 );
+                const { ratio, liqRatio } = info;
+
                 const mortgagePrice = new BigNumber(info?.mortgagePrice);
+                const rate = new BigNumber(info.ratio).div(100);
+                const isLiq = rate.gte(liqRatio);
+            
                 const maxLiqFee = mortgagePrice
                   .times(info.mortgageAssets)
                   .times(0.9)
                   .toNumber();
-                return { ...item, ...info, account, maxLiqFee,itemKey:item.key+account };
+                return {
+                  ...item,
+                  ...info,
+                  account,
+                  maxLiqFee,
+                  itemKey: item.key + account,
+                  isLiq,
+                };
               })
             );
             list.push(...datum);
           })
         );
+        //  new BigNumber(liqRatio)rate
         list = list.filter((el) => !!el.created);
+        list = list.filter((el) => el.isLiq);
         console.log("🚀 ~ file: useLiquidationList.ts ~ line 52 ~ list", list);
         setList(list);
         setLoading(false);
