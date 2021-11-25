@@ -649,7 +649,7 @@ const Specie: React.FC = ({}) => {
               min={1}
               max={maxRatio}
               tooltipVisible
-              getTooltipPopupContainer={document.getElementById("slider")}
+              getTooltipPopupContainer={(node) => node.parentNode}
               onChange={onChangeRatio}
             />
           </div>
