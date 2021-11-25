@@ -52,13 +52,16 @@ const useLiquidationList = () => {
             list.push(...datum);
           })
         );
-        //  new BigNumber(liqRatio)rate
-        list = list.filter((el) => !!el.created);
-        list = list.filter((el) => el.isLiq);
         let totalMortgageAssets = new BigNumber(0);
+        list = list.filter((el) => !!el.created).filter((el) => el.isLiq);
         list.forEach((item) => {
           totalMortgageAssets = totalMortgageAssets.plus(item.mortgageAssets);
         });
+
+        list = list.sort((a, b) => {
+          return parseFloat(b.rate) - parseFloat(a.rate);
+        });
+
         setTotalMortgageAssets(getNumberToFixed(totalMortgageAssets));
         console.log("🚀 ~ file: useLiquidationList.ts ~ line 52 ~ list", list);
         setList(list);
