@@ -34,11 +34,7 @@ const LiqModal: React.FC = ({
   const { onBlur } = useBlur();
   const { onFocus } = useFocus();
 
-  const [approveParassetTokenStatus, approveParassetToken] = useApprove(
-    select?.uToken,
-    select?.mortgagePoolContract?.address,
-    val
-  );
+
 
   const max = useMemo(() => {
     return select.mortgageAssets;
@@ -64,6 +60,13 @@ const LiqModal: React.FC = ({
       )
     );
   }, [val]);
+
+
+  const [approveParassetTokenStatus, approveParassetToken] = useApprove(
+    select?.uToken,
+    select?.mortgagePoolContract?.address,
+    requiredPayment
+  );
 
   const onConfirm = useCallback(async () => {
     const { mortgagePoolContract, mortgageToken, account } = select;

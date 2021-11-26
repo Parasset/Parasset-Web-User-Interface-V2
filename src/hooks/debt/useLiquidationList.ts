@@ -8,7 +8,7 @@ import useDebts from "./useDebts";
 const useLiquidationList = () => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [totalMortgageAssets, setTotalMortgageAssets] = useState(0);
+  const [totalMortgageValue, setTotalMortgageAssets] = useState(0);
 
   const debts = useDebts();
   const basisCash = useBasisCash();
@@ -31,6 +31,10 @@ const useLiquidationList = () => {
                   item.key
                 );
                 const { rate, liqRatio } = info;
+                console.log(
+                  "🚀 ~ file: useLiquidationList.ts ~ line 34 ~ userList.map ~ info",
+                  info
+                );
 
                 const mortgagePrice = new BigNumber(info?.mortgagePrice);
                 const isLiq = new BigNumber(rate).div(100).gte(liqRatio);
@@ -52,17 +56,22 @@ const useLiquidationList = () => {
             list.push(...datum);
           })
         );
-        let totalMortgageAssets = new BigNumber(0);
+        let totalMortgageValue = new BigNumber(0);
         list = list.filter((el) => !!el.created).filter((el) => el.isLiq);
         list.forEach((item) => {
-          totalMortgageAssets = totalMortgageAssets.plus(item.mortgageAssets);
+          totalMortgageValue = totalMortgageValue.plus(item.mortgageValue);
         });
 
         list = list.sort((a, b) => {
-          return parseFloat(b.rate) - parseFloat(a.rate);
+          if (parseFloat(b.rate) === parseFloat(a.rate)) {
+            return parseFloat(b.parassetAssets) - parseFloat(a.parassetAssets);
+          } else {
+            return parseFloat(b.rate) - parseFloat(a.rate);
+          }
         });
 
-        setTotalMortgageAssets(getNumberToFixed(totalMortgageAssets));
+
+        setTotalMortgageAssets(getNumberToFixed(totalMortgageValue));
         console.log("🚀 ~ file: useLiquidationList.ts ~ line 52 ~ list", list);
         setList(list);
         setLoading(false);
@@ -82,7 +91,7 @@ const useLiquidationList = () => {
     };
   }, [basisCash?.myAccount, debts, block]);
 
-  return { list, loading, totalMortgageAssets };
+  return { list, loading, totalMortgageValue };
 };
 
 export default useLiquidationList;
