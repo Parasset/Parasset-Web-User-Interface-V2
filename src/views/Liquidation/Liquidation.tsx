@@ -12,6 +12,7 @@ import Value from "../../components/Value";
 import useBasisCash from "../../hooks/useBasisCash";
 import useTokenBalance from "../../hooks/useTokenBalance";
 import useLiquidationList from "../../hooks/debt/useLiquidationList";
+import useLiquidatedAssets from "../../hooks/debt/useLiquidatedAssets";
 import LiqModal from "./components/LiqModal";
 const Home: React.FC = () => {
   const isMobile = useIsMobile();
@@ -20,6 +21,7 @@ const Home: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectKey, setSelectKey] = useState("ETHPUSD");
   const { list, loading, totalMortgageValue } = useLiquidationList();
+  const liquidatedAssets = useLiquidatedAssets();
   const [titles, setTitles] = useState([
     "zhaicang",
     "dqdyl",

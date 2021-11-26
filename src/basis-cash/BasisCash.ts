@@ -385,6 +385,18 @@ export class BasisCash {
     ];
   }
 
+  async getLiquidatedAssets() {
+    try {
+      let res = await fetch("http://192.168.2.5:6100/fee/totalClear");
+      res = await res.json();
+      return res;
+    } catch (error) {
+      console.log("🚀 ~ file: BasisCash.ts ~ line 394 ~ BasisCash ~ getLiquidatedAssets ~ error", error)
+      return 0
+      
+    }
+  }
+
   async getFundAsset(itank) {
     try {
       const {
