@@ -73,7 +73,7 @@ const Item: React.FC = ({ item, onSelect, openModal }) => {
               <Button
                 text={t("qingsuan")}
                 variant="secondary"
-                width="60px"
+                width="80px"
                 size="sm"
                 onClick={(e) => {
                   onSelect(item.itemKey);
