@@ -354,46 +354,27 @@ export class BasisCash {
   }
 
   async getDebtUserList() {
-    let res = await fetch("https://robotv2.parasset.top/fee/userList");
-    res = await res.json();
-    return res;
-    // return [
-    //   {
-    //     address: "0x688f016cedd62ad1d8dfa4abcf3762ab29294489",
-    //   },
-    //   {
-    //     address: "0xb5a179c0dc2f58516c024014e41f9b12bdcb86da",
-    //   },
-    //   {
-    //     address: "0xec0ae68fb53f8d7791a383b6ebad7cbc6b36cbb7",
-    //   },
-    //   {
-    //     address: "0xd73d348055e41bb405054720c4a06133bd004cd5",
-    //   },
-    //   {
-    //     address: "0x5abf833469d9ddccbc180ff8ee6e06eb86fd7406",
-    //   },
-    //   {
-    //     address: "0xf44fbfafdb7e2f0b78060aa4e1330eab0525fab9",
-    //   },
-    //   {
-    //     address: "0x37560068cb2994bb410a673b3c555194c2726cb8",
-    //   },
-    //   {
-    //     address: "0x589d3f57ade2e74427f30346905fae0db38e8f03",
-    //   },
-    // ];
+    try {
+      let res = await fetch("https://robotv2.parasset.top/fee/userList");
+      res = await res.json();
+      return res;
+    } catch (error) {
+      return [];
+    }
   }
 
   async getLiquidatedAssets() {
     try {
-      let res = await fetch("http://192.168.2.5:6100/fee/totalClear");
+      let res = await fetch("https://robotv2.parasset.top/fee/totalClear");
       res = await res.json();
+      // console.log("🚀 ~ file: BasisCash.ts ~ line 378 ~ BasisCash ~ getLiquidatedAssets ~ res", res)
       return res;
     } catch (error) {
-      console.log("🚀 ~ file: BasisCash.ts ~ line 394 ~ BasisCash ~ getLiquidatedAssets ~ error", error)
-      return 0
-      
+      console.log(
+        "🚀 ~ file: BasisCash.ts ~ line 394 ~ BasisCash ~ getLiquidatedAssets ~ error",
+        error
+      );
+      return 0;
     }
   }
 

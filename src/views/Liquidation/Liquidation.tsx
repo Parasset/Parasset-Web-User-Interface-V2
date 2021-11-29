@@ -48,11 +48,11 @@ const Home: React.FC = () => {
         color="#DD8751"
         value={<Value value={totalMortgageValue} prefix="$" />}
       />
-      {/* <BigValue
+      <BigValue
         text={t("yqszcjz")}
         color="#77A89A"
-        value={<Value value={0} prefix="$" />}
-      /> */}
+        value={<Value value={liquidatedAssets} prefix="$" />}
+      />
 
       <TableTitle titles={titles} />
       <TableList

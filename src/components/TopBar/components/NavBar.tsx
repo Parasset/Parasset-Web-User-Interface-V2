@@ -136,7 +136,7 @@ const Nav: React.FC = ({ toggleShow }) => {
           </StyledBarItem>
 
 
-          {/* <StyledBarItem
+          <StyledBarItem
             className="flex-jc-start "
             exact
             activeClassName="active"
@@ -155,7 +155,7 @@ const Nav: React.FC = ({ toggleShow }) => {
               className="margin-right-5"
             />
             {t("qingsuan")}
-          </StyledBarItem> */}
+          </StyledBarItem>
 
 
           

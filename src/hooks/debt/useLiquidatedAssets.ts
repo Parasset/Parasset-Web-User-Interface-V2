@@ -9,7 +9,7 @@ const useLiquidatedAssets = () => {
 
   const fetchLiquidatedAssets = useCallback(async () => {
     const liquidatedAssets = await basisCash.getLiquidatedAssets();
-    // setLiquidatedAssets(liquidatedAssets);
+    setLiquidatedAssets(liquidatedAssets);
   }, [basisCash]);
 
   useEffect(() => {
