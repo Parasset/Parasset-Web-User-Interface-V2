@@ -4,7 +4,7 @@ import en from './locales/en.json'
 import zh from './locales/zh-CN.json'
 
 const getLanguage = () => {
-  const lang = 'zh' // 常规浏览器语言和IE浏览器
+  const lang = 'en' // 常规浏览器语言和IE浏览器
   const localStorageLang = localStorage.getItem('lang')
   const defaultLang = localStorageLang || lang
   return defaultLang
@@ -21,7 +21,7 @@ i18next.use(initReactI18next).init({
 
   lng: getLanguage(),
   // lng: 'zh',
-  fallbackLng: 'zh',
+  fallbackLng: 'en',
   interpolation: {
     escapeValue: false,
   },
