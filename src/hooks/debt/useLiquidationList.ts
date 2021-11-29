@@ -31,10 +31,7 @@ const useLiquidationList = () => {
                   item.key
                 );
                 const { rate, liqRatio } = info;
-                console.log(
-                  "🚀 ~ file: useLiquidationList.ts ~ line 34 ~ userList.map ~ info",
-                  info
-                );
+              
 
                 const mortgagePrice = new BigNumber(info?.mortgagePrice);
                 const isLiq = new BigNumber(rate).div(100).gte(liqRatio);
@@ -72,7 +69,7 @@ const useLiquidationList = () => {
 
 
         setTotalMortgageAssets(getNumberToFixed(totalMortgageValue));
-        console.log("🚀 ~ file: useLiquidationList.ts ~ line 52 ~ list", list);
+        
         setList(list);
         setLoading(false);
         return list;
