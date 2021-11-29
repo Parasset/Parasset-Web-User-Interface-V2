@@ -181,5 +181,15 @@
   "zcs": "Debt amount",
   "pjdyl": "Average Coll. Ratio",
   "dyzcfb": "Assets distribution",
-  "pxzcfb": "Parallel Assets distribution"
+  "pxzcfb": "Parallel Assets distribution",
+  "zdqsf": "Max Liquidation Fee",
+  "qingsuan": "Liquidate",
+  "qsdyzcsl": "Liquidation Amount",
+  "kqs": "Liquidatable",
+  "yjhd": "Expected Obtain",
+  "sxzf": "Required payment",
+  "dqsqsjz": "Value of Pending liquidation",
+  "yqszcjz": "Value of Pending liquidated",
+  "kyqsyebz": "Insufficient available clearing balance",
+  "zwqszc": "No liquidation debt warehouse yet"
 }

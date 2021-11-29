@@ -7,9 +7,10 @@ import useDebts from "./useDebts";
 const useCreatedDebts = () => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [totalMortgageValue, setTotalMortgageValue] = useState(0);
-  const [totalParassetValue, setTotalParassetValue] = useState(0);
+  const [mortgageValue, setTotalMortgageValue] = useState(0);
+  const [parassetValue, setTotalParassetValue] = useState(0);
   const debts = useDebts();
+  console.log("🚀 ~ file: useCreatedDebts.ts ~ line 13 ~ useCreatedDebts ~ debts", debts)
   const basisCash = useBasisCash();
   const block = useBlockNumber();
   const fetchList = useCallback(
@@ -28,16 +29,16 @@ const useCreatedDebts = () => {
           })
         );
         list = list.filter((el) => !!el.created);
-        let totalMortgageValue = new BigNumber(0);
-        let totalParassetValue = new BigNumber(0);
+        let mortgageValue = new BigNumber(0);
+        let parassetValue = new BigNumber(0);
         list.forEach((item) => {
-          totalMortgageValue = totalMortgageValue.plus(item.mortgageValue);
-          totalParassetValue = totalParassetValue
+          mortgageValue = mortgageValue.plus(item.mortgageValue);
+          parassetValue = parassetValue
             .plus(item.parassetValue)
             .plus(item.feeValue);
         });
-        setTotalMortgageValue(totalMortgageValue.toNumber());
-        setTotalParassetValue(totalParassetValue.toNumber());
+        setTotalMortgageValue(mortgageValue.toNumber());
+        setTotalParassetValue(parassetValue.toNumber());
         setList(list);
         setLoading(false);
         return list;
@@ -56,7 +57,7 @@ const useCreatedDebts = () => {
     };
   }, [basisCash?.myAccount, debts, block]);
 
-  return { list, loading, totalMortgageValue, totalParassetValue };
+  return { list, loading, mortgageValue, parassetValue };
 };
 
 export default useCreatedDebts;

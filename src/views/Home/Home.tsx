@@ -6,7 +6,7 @@ import useIsMobile from "../../hooks/useIsMobile";
 import { $isFiniteNumber, $isPositiveNumber } from "./../../utils/utils";
 
 import BigValue from "../../components/BigValue";
-import TableTitle from "./components/TableTitle";
+import TableTitle from "../../components/TableTitle";
 import TableList from "./components/TableList";
 import Value from "../../components/Value";
 
@@ -25,6 +25,13 @@ const Home: React.FC = () => {
   const { t } = useTranslation();
   const basisCash = useBasisCash();
   const itanks = useItanks();
+  const [titles, setTitles] = useState([
+    'dyzc',
+    'TVL',
+    'diyashu',
+    'zddyl',
+    'qsdyl',
+   ]);
   //两个保险池相加
   const { itankInfo: itankInfo1 } = useItankInfo(
     itanks.length ? itanks[0] : null
@@ -168,7 +175,7 @@ const Home: React.FC = () => {
     );
   }, [ETHTVL, NESTTVL]);
 
-  const totalParassetValue = useMemo(() => {
+  const parassetValue = useMemo(() => {
     //两个平行资产总供应*对U价值
     const PUSDValue = new BigNumber(PUSDTotalSupply).times(1);
 
@@ -210,14 +217,14 @@ const Home: React.FC = () => {
       <BigValue
         text={t("pxzcltsz")}
         color="#77A89A"
-        value={<Value value={totalParassetValue} prefix="$" />}
+        value={<Value value={parassetValue} prefix="$" />}
       />
       <BigValue
         text={t("bxcldxzsz")}
         color="#5DB3D3"
         value={<Value value={totalItankValue} prefix="$" />}
       />
-      <TableTitle />
+      <TableTitle titles={titles} />
       <TableList list={list} />
       <Footer />
     </>

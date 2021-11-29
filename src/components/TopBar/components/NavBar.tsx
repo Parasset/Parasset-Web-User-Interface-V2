@@ -134,6 +134,31 @@ const Nav: React.FC = ({ toggleShow }) => {
             />
             {t("wakuang")}
           </StyledBarItem>
+
+
+          <StyledBarItem
+            className="flex-jc-start "
+            exact
+            activeClassName="active"
+            to="/liquidation"
+        
+            onClick={toggleShow}
+          >
+            <img
+              src={
+                pathname.includes("/liquidation")
+                  ? require("../../../assets/img/liquidation_icon1.png")
+                  : require("../../../assets/img/liquidation_icon.png")
+              }
+              width="35"
+              height="35"
+              className="margin-right-5"
+            />
+            {t("qingsuan")}
+          </StyledBarItem>
+
+
+          
         </div>
       </div>
       <div className={` ${isMobile ? "" : "bd-bottom width-100"} `}>
