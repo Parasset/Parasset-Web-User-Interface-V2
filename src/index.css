@@ -452,6 +452,9 @@ input[type="number"] {
 .flex15 {
   flex: 1.5;
 }
+.flex05 {
+  flex: 0.5;
+}
 .cursor-pointer {
   cursor: pointer;
 }

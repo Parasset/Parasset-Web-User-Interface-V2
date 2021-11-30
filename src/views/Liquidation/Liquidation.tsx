@@ -23,11 +23,28 @@ const Home: React.FC = () => {
   const { list, loading, totalMortgageValue } = useLiquidationList();
   const liquidatedAssets = useLiquidatedAssets();
   const [titles, setTitles] = useState([
-    "zhaicang",
-    "dqdyl",
-    "dyzc",
-    "zbzw",
-    "zdqsf",
+    {
+      text:'zhaicang',
+      className:'flex1',
+    },
+    {
+      text:'dqdyl',
+      className:'flex05',
+    },
+    {
+      text:'dyzc',
+      className:'flex1',
+    },
+    {
+      text:'zbzw',
+      className:'flex1',
+    },
+    {
+      text:'zdqsf',
+      className:'flex15',
+    },
+
+  
   ]);
 
   const onSelect = useCallback((itemKey) => {

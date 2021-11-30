@@ -11,8 +11,8 @@ const TableTitle: React.FC = ({ titles }) => {
       <Card className=" flex-jc-center color-grey">
         {titles.map((item) => {
           return (
-            <div className="flex1" key={item}>
-              {t(item)}
+            <div className={item.className} key={item}>
+              {t(item.text)}
             </div>
           );
         })}

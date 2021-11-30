@@ -24,7 +24,7 @@ const Item: React.FC = ({ item, onSelect, openModal }) => {
             />
             {item.name}
           </div>
-          <div className="flex1">
+          <div className="flex05">
             <Value value={item.rate} decimals={2} suffix="%" />
           </div>
           <div className="flex1">
@@ -57,7 +57,7 @@ const Item: React.FC = ({ item, onSelect, openModal }) => {
               <Value value={item.parassetValue} prefix="$" />
             </div>
           </div>
-          <div className="flex1 flex-jc-center">
+          <div className="flex15 flex-jc-center">
             <span>
               <Value
                 value={item.maxLiqFee}
