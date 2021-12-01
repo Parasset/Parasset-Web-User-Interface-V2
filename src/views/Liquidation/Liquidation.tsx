@@ -29,7 +29,7 @@ const Home: React.FC = () => {
     },
     {
       text:'dqdyl',
-      className:'flex05',
+      className:'flex1',
     },
     {
       text:'dyzc',

@@ -14,17 +14,20 @@ const Item: React.FC = ({ item, onSelect, openModal }) => {
     <>
       <StyledPcItem>
         <Card className=" flex-jc-center bold-600 font-size-14">
-          <div className="flex1 flex-jc-start">
-            <TokenSymbol symbol={item.depositTokenName} size={25} />
-            <TokenSymbol
-              symbol={item.earnTokenName}
-              size={25}
-              isRight={true}
-              className="margin-right-5"
-            />
+          <div className="flex1 flex-column-align-center">
+            <div>
+              <TokenSymbol symbol={item.depositTokenName} size={25} />
+              <TokenSymbol
+                symbol={item.earnTokenName}
+                size={25}
+                isRight={true}
+                className="margin-right-5"
+              />
+            </div>
+
             {item.name}
           </div>
-          <div className="flex05">
+          <div className="flex1">
             <Value value={item.rate} decimals={2} suffix="%" />
           </div>
           <div className="flex1">
