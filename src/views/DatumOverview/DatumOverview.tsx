@@ -150,12 +150,12 @@ const Overview: React.FC = () => {
           <ListItem
             text={`ETH ${t("dysl")}`}
             color="#FA6141"
-            value={<Value value={ETHStaked}  />}
+            value={<Value value={ETHStaked} />}
           />
           <ListItem
             text={`NEST ${t("dysl")}`}
             color="#FA6141"
-            value={<Value value={NESTStaked}  />}
+            value={<Value value={NESTStaked} />}
             showSpacer={false}
           />
         </div>
@@ -205,6 +205,7 @@ const Overview: React.FC = () => {
             text={t("dqdyl")}
             color="#B88450"
             value={<Value value={debtOverview.rate} suffix="%" />}
+            showSpacer={false}
           />
           {/* <ListItem
             text={t("ljqse")}
