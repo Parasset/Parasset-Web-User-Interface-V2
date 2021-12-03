@@ -9,9 +9,9 @@ const TableTitle: React.FC = ({ titles }) => {
   return (
     <StyledTableTitleBox>
       <Card className=" flex-jc-center color-grey">
-        {titles.map((item) => {
+        {titles.map((item, i) => {
           return (
-            <div className={item.className} key={item}>
+            <div className={item.className} key={item.text + i}>
               {t(item.text)}
             </div>
           );

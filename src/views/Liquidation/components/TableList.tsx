@@ -24,8 +24,7 @@ const Item: React.FC = ({ item, onSelect, openModal }) => {
                 className="margin-right-5"
               />
             </div>
-
-            {item.name}
+            <div className="margin-bottom-minus-4">{item.name}</div>
           </div>
           <div className="flex1">
             <Value value={item.rate} decimals={2} suffix="%" />
@@ -201,6 +200,8 @@ const TableList: React.FC = ({ list, loading, onSelect, openModal }) => {
         <>
           {list && list.length ? (
             list.map((item) => {
+              console.log(item.itemKey, item, "item.itemKey");
+
               return (
                 <React.Fragment key={item.itemKey}>
                   <Item item={item} onSelect={onSelect} openModal={openModal} />

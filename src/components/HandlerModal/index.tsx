@@ -1,6 +1,7 @@
 //@ts-nocheck
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Tooltip } from "antd";
+import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 import Modal from "../Modal";
 import Spacer from "../Spacer";
@@ -40,6 +41,12 @@ export default function HandlerModal({
 }) {
   const { t } = useTranslation();
   const [isBlur, setIsBlur] = useState(false);
+  const [percentage, setPercentage] = useState(0);
+
+  const onClickPercentage = useCallback((percentage) => {
+    setPercentage(percentage);
+    onSelectPercentage(percentage);
+  }, []);
 
   return (
     <>
@@ -100,40 +107,48 @@ export default function HandlerModal({
           <>
             <Spacer size="mmd" />
             <div className="flex-jc-center">
-              <CardButton
-                className="width-22 flex-row-center-center cursor-pointer"
+              <StyledPercentageButton
+                className={`width-22 flex-row-center-center cursor-pointer ${
+                  percentage === 0.25 ? "active" : ""
+                }`}
                 onClick={() => {
-                  onSelectPercentage(0.25);
+                  onClickPercentage(0.25);
                 }}
               >
                 25%
-              </CardButton>
-              <CardButton
-                className="width-22 flex-row-center-center cursor-pointer"
+              </StyledPercentageButton>
+              <StyledPercentageButton
+                className={`width-22 flex-row-center-center cursor-pointer ${
+                  percentage === 0.5 ? "active" : ""
+                }`}
                 onClick={() => {
-                  onSelectPercentage(0.5);
+                  onClickPercentage(0.5);
                 }}
               >
                 50%
-              </CardButton>
-              <CardButton
-                className="width-22 flex-row-center-center cursor-pointer"
+              </StyledPercentageButton>
+              <StyledPercentageButton
+                className={`width-22 flex-row-center-center cursor-pointer ${
+                  percentage === 0.75 ? "active" : ""
+                }`}
                 onClick={() => {
-                  onSelectPercentage(0.75);
+                  onClickPercentage(0.75);
                 }}
               >
                 75%
-              </CardButton>
-              <CardButton
-                className="width-22 flex-row-center-center cursor-pointer"
+              </StyledPercentageButton>
+              <StyledPercentageButton
+                className={`width-22 flex-row-center-center cursor-pointer ${
+                  percentage === 1 ? "active" : ""
+                }`}
                 onClick={() => {
-                  onSelectPercentage(1);
+                  onClickPercentage(1);
                 }}
               >
                 100%
-              </CardButton>
+              </StyledPercentageButton>
             </div>
-            <Spacer size="mmd" />
+            {/* <Spacer size="mmd" /> */}
           </>
         ) : null}
 
@@ -187,3 +202,9 @@ export default function HandlerModal({
     </>
   );
 }
+const StyledPercentageButton = styled(CardButton)`
+  &.active {
+    border: 1px solid ${(props) => props.theme.color.primary.main};
+    box-shadow: none;
+  }
+`;
