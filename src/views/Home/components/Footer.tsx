@@ -64,7 +64,7 @@ const Footer: React.FC = () => {
             } `}
           >
             <StyledItemImg
-              src={require("../../../assets/img/medium_icon.png")}
+              src={require("../../../assets/img/Medium_icon.png")}
               width="22"
               height="22"
             />
