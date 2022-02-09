@@ -111,7 +111,7 @@ const Depot: React.FC = ({ list, loading }) => {
               <Spacer />
               <Spacer />
 
-              <img
+              <img alt="image"
                 src={require("../../../assets/img/icon_empty.png")}
                 width="50"
                 height="50"

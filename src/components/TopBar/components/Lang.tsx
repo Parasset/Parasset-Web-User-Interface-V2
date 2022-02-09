@@ -27,7 +27,7 @@ const Lang: React.FC = () => {
               i18n.language === "en" ? "" : "opacity-6"
             } flex-row-center-center cursor-pointer ${isMobile ? "" : ""} `}
           >
-            <img
+            <img alt="image"
               src={require("../../../assets/img/EN.png")}
               width="30"
               height="30"
@@ -41,7 +41,7 @@ const Lang: React.FC = () => {
               i18n.language === "zh" ? "" : "opacity-6"
             } flex-row-center-center cursor-pointer   ${isMobile ? "" : " "} `}
           >
-            <img
+            <img alt="image"
               src={require("../../../assets/img/CN.png")}
               width="30"
               height="30"

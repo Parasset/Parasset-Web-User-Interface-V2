@@ -37,7 +37,9 @@ const Item: React.FC = ({ item }) => {
               size={25}
               className="margin-right-5"
             />
-            {item.name}
+            <div style={{ paddingLeft: "10px" }}>
+              {item.name}
+            </div>
           </div>
           <div className="flex1">
             <Value value={item.TVL} prefix="$" />

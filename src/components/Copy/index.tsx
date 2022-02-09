@@ -8,7 +8,7 @@ export default function CopyHelper({toCopy}) {
   const [isCopied, setCopied] = useCopyClipboard();
   const { t } = useTranslation();
   return (
-    <img
+    <img alt="image"
       onClick={() => {
         setCopied(toCopy)
         Toast.info(t('fzcg'))

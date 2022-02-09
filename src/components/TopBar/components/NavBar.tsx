@@ -28,7 +28,7 @@ const Nav: React.FC = ({ toggleShow }) => {
             to="/"
             onClick={toggleShow}
           >
-            <img
+            <img alt="image"
               src={
                 pathname === "/"
                   ? require("../../../assets/img/home_icon1.png")
@@ -54,7 +54,7 @@ const Nav: React.FC = ({ toggleShow }) => {
               );
             }}
           >
-            <img
+            <img alt="image"
               src={
                 (pathname.includes("/coin") ||
                   pathname.includes("/debt/detail")) &&
@@ -75,7 +75,7 @@ const Nav: React.FC = ({ toggleShow }) => {
             to="/exchange"
             onClick={toggleShow}
           >
-            <img
+            <img alt="image"
               src={
                 pathname.includes("/exchange")
                   ? require("../../../assets/img/exchange_icon1.png")
@@ -99,7 +99,7 @@ const Nav: React.FC = ({ toggleShow }) => {
             }}
             onClick={toggleShow}
           >
-            <img
+            <img alt="image"
               src={
                 pathname.includes("/itank") && !pathname.includes("/datum")
                   ? require("../../../assets/img/pool_icon1.png")
@@ -121,7 +121,7 @@ const Nav: React.FC = ({ toggleShow }) => {
             }}
             onClick={toggleShow}
           >
-            <img
+            <img alt="image"
               src={
                 pathname.includes("/mine")
                   ? require("../../../assets/img/mine_icon1.png")
@@ -143,7 +143,7 @@ const Nav: React.FC = ({ toggleShow }) => {
         
             onClick={toggleShow}
           >
-            <img
+            <img alt="image"
               src={
                 pathname.includes("/liquidation")
                   ? require("../../../assets/img/liquidation_icon1.png")
@@ -170,7 +170,7 @@ const Nav: React.FC = ({ toggleShow }) => {
             }}
           >
             <div className="flex-jc-center">
-              <img
+              <img alt="image"
                 src={require("../../../assets/img/icon_datum.png")}
                 width="35"
                 height="35"
@@ -179,7 +179,7 @@ const Nav: React.FC = ({ toggleShow }) => {
                {t("shuju")}
             </div>
 
-            <img
+            <img alt="image"
               src={
                 showMenu
                   ? require("../../../assets/img/icon_arrow_top.png")

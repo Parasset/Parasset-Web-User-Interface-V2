@@ -47,7 +47,7 @@ export default function WalletModal({ isOpen, onDismiss }) {
               }}
             >
               <div className="flex-jc-start width-100  bold-600 font-size-16">
-                <img
+                <img alt="image"
                   src={require("../../assets/img/metamask.png")}
                   width="35"
                   height="35"
@@ -66,7 +66,7 @@ export default function WalletModal({ isOpen, onDismiss }) {
               }}
             >
               <div className="flex-jc-start width-100  bold-600 font-size-16">
-                <img
+                <img alt="image"
                   src={require("../../assets/img/walletconnect.png")}
                   width="35"
                   height="35"
@@ -83,7 +83,7 @@ export default function WalletModal({ isOpen, onDismiss }) {
               <div className="flex-jc-center">
                 <div className="flex-jc-start  bold-600 font-size-16">
                   {/* injected  */}
-                  <img
+                  <img alt="image"
                     src={
                       connector === "injected"
                         ? require("../../assets/img/metamask.png")
@@ -115,7 +115,7 @@ export default function WalletModal({ isOpen, onDismiss }) {
               </div>
               <Spacer size="mmd" />
               <div className="flex-jc-start">
-                <img
+                <img alt="image"
                   src={require("../../assets/img/account_icon.png")}
                   width="25"
                   height="25"
@@ -128,7 +128,7 @@ export default function WalletModal({ isOpen, onDismiss }) {
               </div>
               <Spacer size="mmd" />
               <div className="flex-jc-start">
-                <img
+                <img alt="image"
                   src={require("../../assets/img/etherscan_icon.png")}
                   width="25"
                   height="25"

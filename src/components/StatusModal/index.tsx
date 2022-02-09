@@ -48,7 +48,7 @@ export default function StatusModal({}) {
         </StyledModalHeader>
 
         <div className="text-center">
-          <img
+          <img alt="image"
             src={imgList[status - 1]}
             width="48"
             height="48"

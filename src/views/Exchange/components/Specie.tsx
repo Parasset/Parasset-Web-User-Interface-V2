@@ -446,7 +446,7 @@ const Specie: React.FC = ({}) => {
         </div>
         <Spacer size="sm" />
         <StyledExchangeImg className="text-center">
-          <img
+          <img alt="image"
             src={require("../../../assets/img/change_icon.png")}
             width="70"
             height="70"
