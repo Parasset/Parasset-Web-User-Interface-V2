@@ -142,7 +142,7 @@ const DepositModal: React.FC = ({
           },
         }}
         type="number"
-        showApprove={itank.depositTokenName !== "ETH" ? true : false}
+        showApprove={itank.depositTokenName !== "ETH"}
         approveStatus={approveStatus}
         approve={async () => {
           setPendingTx(true);

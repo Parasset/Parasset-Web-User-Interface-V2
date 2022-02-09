@@ -28,7 +28,7 @@ const Modal: React.FC<ModalProps> = ({
 
           <StyledModal className={className} width={width}>
             {showHeader ? (
-              <StyledModalHeader className="flex-jc-center bd-bottom">
+              <StyledModalHeader className="flex-jc-center bd-bottom wing-blank">
                 <div>{title}</div>
                 <CloseIcon
                   className="cursor-pointer"
@@ -55,7 +55,7 @@ const StyledModal = styled.div`
   width: ${({ width }) => (width ? width : "400px")};
   max-width: 400px;
   min-width: 300px;
-  padding: 20px 15px;
+  padding: 20px 0;
   box-sizing: border-box;
   @media (max-width: 768px) {
     width: 85%!important;

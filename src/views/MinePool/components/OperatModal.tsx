@@ -115,7 +115,7 @@ const Mine: React.FC = ({
         onFocus={(e) => {
           onFocus(e, setVal);
         }}
-        showApprove={select === 1 ? true : false}
+        showApprove={select === 1}
         approveStatus={approveStatus}
         approve={async () => {
           setPendingTx(true);

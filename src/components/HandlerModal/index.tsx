@@ -56,103 +56,104 @@ export default function HandlerModal({
         showHeader={true}
         title={title}
       >
-        <Spacer size="mmd" />
-        <div className="flex-jc-center">
-          <div className="color-grey">{label}</div>
-          <div>
-            <span className="color-grey"> {balanceTxt}：</span>
-            <span
-              className="text-underline cursor-pointer "
-              onClick={onSelectMax}
-            >
+        <div className={"wing-blank-lg"}>
+          <Spacer size="mmd" />
+          <div className="flex-jc-center">
+            <div className="color-grey">{label}</div>
+            <div>
+              <span className="color-grey"> {balanceTxt}：</span>
+              <span
+                className="text-underline cursor-pointer "
+                onClick={onSelectMax}
+              >
               <Value decimals={6} value={max} />
             </span>
-          </div>
-        </div>
-        <Spacer size="mmd" />
-        <CardButton
-          className={`${
-            isBlur ? "input-focus" : "input-no-focus"
-          }  width-100 wing-blank-lg cursor-pointer input-dark-box`}
-          size="lg"
-        >
-          <div className="flex-jc-center">
-            <div className="flex-jc-start font-size-12">
-              <div className="flex-jc-start margin-right-10">
-                <TokenSymbol size="25" symbol={icon1} />
-                {icon2 ? (
-                  <TokenSymbol size="25" symbol={icon2} isRight={true} />
-                ) : null}
-              </div>
-              <span>{tokenName}</span>
             </div>
-            <Input
-              placeholder={placeholder}
-              type={type}
-              value={val}
-              onChange={handleChange}
-              className="flex15"
-              onBlur={(e) => {
-                onBlur(e);
-                setIsBlur(false);
-              }}
-              onFocus={(e) => {
-                onFocus(e);
-                setIsBlur(true);
-              }}
-            />
           </div>
-        </CardButton>
-        {showSelectPercentage ? (
-          <>
-            <Spacer size="mmd" />
+          <Spacer size="mmd" />
+          <CardButton
+            className={`${
+              isBlur ? "input-focus" : "input-no-focus"
+            }  width-100 wing-blank-lg cursor-pointer input-dark-box`}
+            size="lg"
+          >
             <div className="flex-jc-center">
-              <StyledPercentageButton
-                className={`width-22 flex-row-center-center cursor-pointer ${
-                  percentage === 0.25 ? "active" : ""
-                }`}
-                onClick={() => {
-                  onClickPercentage(0.25);
+              <div className="flex-jc-start font-size-12">
+                <div className="flex-jc-start margin-right-10">
+                  <TokenSymbol size="25" symbol={icon1} />
+                  {icon2 ? (
+                    <TokenSymbol size="25" symbol={icon2} isRight={true} />
+                  ) : null}
+                </div>
+                <span>{tokenName}</span>
+              </div>
+              <Input
+                placeholder={placeholder}
+                type={type}
+                value={val}
+                onChange={handleChange}
+                className="flex15"
+                onBlur={(e) => {
+                  onBlur(e);
+                  setIsBlur(false);
                 }}
-              >
-                25%
-              </StyledPercentageButton>
-              <StyledPercentageButton
-                className={`width-22 flex-row-center-center cursor-pointer ${
-                  percentage === 0.5 ? "active" : ""
-                }`}
-                onClick={() => {
-                  onClickPercentage(0.5);
+                onFocus={(e) => {
+                  onFocus(e);
+                  setIsBlur(true);
                 }}
-              >
-                50%
-              </StyledPercentageButton>
-              <StyledPercentageButton
-                className={`width-22 flex-row-center-center cursor-pointer ${
-                  percentage === 0.75 ? "active" : ""
-                }`}
-                onClick={() => {
-                  onClickPercentage(0.75);
-                }}
-              >
-                75%
-              </StyledPercentageButton>
-              <StyledPercentageButton
-                className={`width-22 flex-row-center-center cursor-pointer ${
-                  percentage === 1 ? "active" : ""
-                }`}
-                onClick={() => {
-                  onClickPercentage(1);
-                }}
-              >
-                100%
-              </StyledPercentageButton>
+              />
             </div>
-            {/* <Spacer size="mmd" /> */}
-          </>
-        ) : null}
+          </CardButton>
+          {showSelectPercentage ? (
+            <>
+              <Spacer size="mmd" />
+              <div className="flex-jc-center">
+                <StyledPercentageButton
+                  className={`width-22 flex-row-center-center cursor-pointer ${
+                    percentage === 0.25 ? "active" : ""
+                  }`}
+                  onClick={() => {
+                    onClickPercentage(0.25);
+                  }}
+                >
+                  25%
+                </StyledPercentageButton>
+                <StyledPercentageButton
+                  className={`width-22 flex-row-center-center cursor-pointer ${
+                    percentage === 0.5 ? "active" : ""
+                  }`}
+                  onClick={() => {
+                    onClickPercentage(0.5);
+                  }}
+                >
+                  50%
+                </StyledPercentageButton>
+                <StyledPercentageButton
+                  className={`width-22 flex-row-center-center cursor-pointer ${
+                    percentage === 0.75 ? "active" : ""
+                  }`}
+                  onClick={() => {
+                    onClickPercentage(0.75);
+                  }}
+                >
+                  75%
+                </StyledPercentageButton>
+                <StyledPercentageButton
+                  className={`width-22 flex-row-center-center cursor-pointer ${
+                    percentage === 1 ? "active" : ""
+                  }`}
+                  onClick={() => {
+                    onClickPercentage(1);
+                  }}
+                >
+                  100%
+                </StyledPercentageButton>
+              </div>
+              {/* <Spacer size="mmd" /> */}
+            </>
+          ) : null}
 
-        {columns &&
+          {columns &&
           Object.keys(columns).map((key) => {
             const item = columns[key];
             return (
@@ -182,22 +183,23 @@ export default function HandlerModal({
             );
           })}
 
-        <Spacer size="mmd" />
-        {showApprove && approveStatus ? (
-          <Button
-            text={t("sq") + approveTokenName || ""}
-            variant="secondary"
-            disabled={disabled}
-            onClick={approve}
-          />
-        ) : (
-          <Button
-            variant="secondary"
-            text={t("queren")}
-            disabled={disabled}
-            onClick={onConfirm}
-          />
-        )}
+          <Spacer size="mmd" />
+          {showApprove && approveStatus ? (
+            <Button
+              text={t("sq") + approveTokenName || ""}
+              variant="secondary"
+              disabled={disabled}
+              onClick={approve}
+            />
+          ) : (
+            <Button
+              variant="secondary"
+              text={t("queren")}
+              disabled={disabled}
+              onClick={onConfirm}
+            />
+          )}
+        </div>
       </Modal>
     </>
   );

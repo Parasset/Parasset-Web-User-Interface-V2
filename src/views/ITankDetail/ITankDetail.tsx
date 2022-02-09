@@ -71,7 +71,7 @@ const Mine: React.FC = () => {
       ? depositAssets * 1
       : new BigNumber(depositAssets).times(avgPrice).toNumber();
     let earnAssetsValue = isUSDT
-      ? earnAssets * 1
+      ? earnAssets
       : new BigNumber(earnAssets).times(avgPrice).toNumber();
     depositAssets = $isPositiveNumber($isFiniteNumber(depositAssets));
     earnAssets = $isPositiveNumber($isFiniteNumber(earnAssets));
