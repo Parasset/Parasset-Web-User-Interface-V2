@@ -402,7 +402,6 @@ const Specie: React.FC = ({}) => {
 
   return (
     <>
-      <Spacer />
       <Card className="wing-blank-lg bg-white">
         <Spacer />
         <div className="flex-jc-center color-grey wing-blank-lg">

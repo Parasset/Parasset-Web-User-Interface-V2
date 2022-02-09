@@ -1,5 +1,5 @@
 //@ts-nocheck
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {useEffect, useState } from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import Tab from "../../components/Tab";
 import { getQueryParam } from "../../utils/utils";
@@ -40,7 +40,7 @@ const Coin: React.FC = () => {
     }
   }, []);
   return (
-    <div className="wing-blank-xl1">
+    <>
       <Tab
         tabs={tabs}
         tab={tab}
@@ -60,7 +60,7 @@ const Coin: React.FC = () => {
           setOpen(false);
         }}
       />
-    </div>
+    </>
   );
 };
 
