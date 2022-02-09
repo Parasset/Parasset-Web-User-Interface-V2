@@ -252,7 +252,7 @@ const Overview: React.FC = () => {
     <>
       <Container title={`${t("bxc")} TVL`}>
         <Picker value={tvlDatumValue} onChangePicker={setTvlDatumValue}>
-          <div className="color-main">
+          <div>
             <Value value={recentTvlDatum} prefix="$" />
           </div>
         </Picker>
@@ -261,7 +261,7 @@ const Overview: React.FC = () => {
 
       <Container title={t("ljsxfsr")}>
         <Picker value={feeDatumValue} onChangePicker={setFeeDatumValue}>
-          <div className="color-main">
+          <div>
             <Value value={recentFeeDatum} prefix="$" />
           </div>
         </Picker>
