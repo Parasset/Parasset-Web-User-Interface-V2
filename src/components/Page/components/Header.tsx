@@ -13,7 +13,8 @@ import Nav from "./Nav";
 const Header: React.FC = () => {
   const { pathname } = useLocation();
   const [isOpen, setOpen] = useState(false);
-  const [tabs, setTabs] = useState([
+
+  const tabs = [
     {
       text: "caidan",
       id: 1,
@@ -22,7 +23,7 @@ const Header: React.FC = () => {
       text: "shuju",
       id: 2,
     },
-  ]);
+  ]
 
   const [tab, setTab] = useState(1);
   const [show, setShow] = useState(false);
@@ -113,7 +114,7 @@ const StyledHeaderPc = styled.div`
   padding-right: 240px;
   background: white;
   z-index: 99;
-  border-bottom: 1px solid rgba(238, 238, 238, 0.4);
+  border-bottom: 1px solid black;
   @media (max-width: 768px) {
     display: none !important;
   }
@@ -125,7 +126,7 @@ const StyledHeaderMobile = styled.div`
   left: 0;
   width: 100%;
   z-index: 1000;
-  border-bottom: 1px solid rgba(238, 238, 238, 0.4);
+  border-bottom: 1px solid black;
   background-color: #fff;
   @media (min-width: 1024px) {
     display: none !important;

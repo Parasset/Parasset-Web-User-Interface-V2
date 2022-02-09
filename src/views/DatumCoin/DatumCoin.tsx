@@ -1,7 +1,6 @@
 //@ts-nocheck
 import React, {
   useCallback,
-  useRef,
   useEffect,
   useMemo,
   useState,
@@ -269,8 +268,8 @@ const Overview: React.FC = () => {
     });
   }, [ETHTVL, NESTTVL]);
 
-  let initParalletlAssetsChart = useCallback(() => {
-    let element = document.getElementById("paralletlAssets");
+  let initParallelAssetsChart = useCallback(() => {
+    let element = document.getElementById("parallelAssets");
     let myChart = echarts.init(element);
     let option = {
       title: {
@@ -319,7 +318,7 @@ const Overview: React.FC = () => {
 
   useEffect(() => {
     initStakedAssetsChart();
-    initParalletlAssetsChart();
+    initParallelAssetsChart();
   }, []);
 
   useEffect(() => {
@@ -335,7 +334,7 @@ const Overview: React.FC = () => {
   }, [ETHTVL, NESTTVL, i18n.language]);
 
   useEffect(() => {
-    initParalletlAssetsChart();
+    initParallelAssetsChart();
   }, [PUSDValue, PETHValue, i18n.language]);
 
   return (
@@ -354,7 +353,7 @@ const Overview: React.FC = () => {
       </Container>
       <Container title={t("zcfb")}>
         <div id={"stakedAssets"} style={{ height: 400 }} />
-        <div id={"paralletlAssets"} style={{ height: 400 }} />
+        <div id={"parallelAssets"} style={{ height: 400 }} />
       </Container>
     </>
   );

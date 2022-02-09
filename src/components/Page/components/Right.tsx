@@ -1,5 +1,5 @@
 //@ts-nocheck
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Toast from "light-toast";
 import { useWallet } from "use-wallet";
@@ -13,7 +13,6 @@ import useEncryptAddress from "../../../hooks/useEncryptAddress";
 import useBasisCash from "../../../hooks/useBasisCash";
 import useTotalSupply from "../../../hooks/useTokenTotalSupply";
 import usePrice from "../../../hooks/coin/usePrice";
-import config from "../../../config";
 const Right: React.FC = ({ isDatumPath }) => {
   const { t } = useTranslation();
   const { account, connect, status } = useWallet();
@@ -46,8 +45,8 @@ const Right: React.FC = ({ isDatumPath }) => {
           }}
         />
       </StyledWallet>
-      <div className="wing-blank-lg">
-        <div className="bd-bottom">
+      <div className="">
+        <div className="wing-blank-lg bd-bottom">
           <StyledLabel>{t("jiage")}</StyledLabel>
           <div className="flex-jc-start">
             <div className="flex-jc-center">
@@ -89,7 +88,7 @@ const Right: React.FC = ({ isDatumPath }) => {
           </div>
           <Spacer size="md" />
         </div>
-        <div className="">
+        <div className="wing-blank-lg">
           <StyledLabel>{t("ltl")}</StyledLabel>
           <a href={`https://etherscan.io/token/${PUSDToken?.address}`}>
             <div className="flex-jc-start ">
@@ -134,7 +133,7 @@ const Right: React.FC = ({ isDatumPath }) => {
 
 const StyledNavRight = styled.div`
   background-color: ${(props) => props.theme.color.grey[100]};
-  border-left: 1px solid ${(props) => props.theme.color.grey[200]};
+  border-left: 1px solid ${(props) => props.theme.color.black};
   min-height: 100vh;
   width: 240px;
   position: fixed;

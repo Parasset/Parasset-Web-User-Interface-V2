@@ -19,8 +19,8 @@ const Nav: React.FC = ({ toggleShow }) => {
     }
   }, [pathname, showMenu]);
   return (
-    <div className="wing-blank-lg font-size-16">
-      <div className={` ${isMobile ? "" : "bd-bottom width-100"} `}>
+    <div className="font-size-16">
+      <div className={` ${isMobile ? "" : "wing-blank-lg bd-bottom width-100"} `}>
         <div className="wing-blank">
           <StyledBarItem
             className="flex-jc-start"
@@ -161,7 +161,7 @@ const Nav: React.FC = ({ toggleShow }) => {
           
         </div>
       </div>
-      <div className={` ${isMobile ? "" : "bd-bottom width-100"} `}>
+      <div className={` ${isMobile ? "" : "wing-blank-lg bd-bottom width-100"} `}>
         <div className="wing-blank">
           <StyledBarItem
             className="flex-jc-center cursor-pointer"
@@ -238,7 +238,7 @@ const Nav: React.FC = ({ toggleShow }) => {
 };
 
 const StyledBarItem = styled(NavLink)`
-  color: ${(props) => props.theme.color.grey[300]};
+  color: ${(props) => props.theme.color.black};
   padding-top: 10px;
   &.active {
     color: ${(props) => props.theme.color.primary.main}!important;
