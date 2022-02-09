@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="28" height="28" viewBox="0 0 28 28">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#5a88bb"/>
+      <stop offset="1" stop-color="#7fc9ca"/>
+    </linearGradient>
+  </defs>
+  <g id="telegram_icon" transform="translate(-3 -3)">
+    <path id="路径_1" data-name="路径 1" class="cls-1" d="M17,31A14,14,0,1,0,3,17,14,14,0,0,0,17,31Z"/>
+    <path id="路径_2" data-name="路径 2" class="cls-2" d="M8.2,15.046q6.122-2.667,8.164-3.517c3.888-1.617,4.7-1.9,5.222-1.907a.922.922,0,0,1,.543.163.59.59,0,0,1,.2.379,2.466,2.466,0,0,1,.023.551c-.211,2.214-1.122,7.586-1.586,10.065-.2,1.049-.583,1.4-.957,1.435-.813.075-1.43-.537-2.218-1.053-1.232-.808-1.928-1.311-3.124-2.1-1.382-.911-.486-1.411.3-2.23.206-.214,3.788-3.472,3.858-3.768a.286.286,0,0,0-.065-.247.323.323,0,0,0-.29-.028q-.185.042-5.905,3.9a2.659,2.659,0,0,1-1.518.561,10,10,0,0,1-2.176-.515C7.8,16.454,7.1,16.3,7.162,15.82Q7.209,15.442,8.2,15.046Z" transform="translate(1.134 1.806)"/>
+  </g>
+</svg>

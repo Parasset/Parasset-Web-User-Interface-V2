@@ -1,10 +1,93 @@
-import React from "react";
+//@ts-nocheck
+import React, {useMemo, useState} from "react";
 import styled from "styled-components";
 import Spacer from "../../../components/Spacer";
 import useIsMobile from "../../../hooks/useIsMobile";
+import telegram from '../../../assets/svg/telegram_icon.svg'
+import telegramActive from '../../../assets/svg/telegram_icon(1).svg'
+import audit from '../../../assets/svg/audit_icon.svg'
+import auditActive from '../../../assets/svg/audit_icon(1).svg'
+import docs from '../../../assets/svg/docs_icon.svg'
+import docsActive from '../../../assets/svg/docs_icon(1).svg'
+import github from '../../../assets/svg/github_icon.svg'
+import githubActive from '../../../assets/svg/github_icon(1).svg'
+import medium from '../../../assets/svg/medium_icon.svg'
+import mediumActive from '../../../assets/svg/medium_icon(1).svg'
+import twitter from '../../../assets/svg/twitter_icon.svg'
+import twitterActive from '../../../assets/svg/twitter_icon(1).svg'
+import whitepaper from '../../../assets/svg/whitepaper_icon.svg'
+import whitepaperActive from '../../../assets/svg/whitepaper_icon(1).svg'
+
+const Icon = ({ name, img, imgActive, link }) => {
+  const [hover, setHover] = useState(false)
+
+  const toggleHover = () => {
+    setHover(!hover)
+  }
+
+  return (
+    <div style={{ paddingRight: "10px" }}>
+      <a
+        className="icon"
+        href={link}
+        target="_blank"
+        rel="noreferrer"
+        onMouseEnter={toggleHover}
+        onMouseLeave={toggleHover}>
+        <img src={hover ? imgActive : img} alt={name} />
+      </a>
+    </div>
+  )
+}
 
 const Footer: React.FC = () => {
   const isMobile = useIsMobile();
+  const links = useMemo(() => {
+    return [
+      {
+        name: 'telegram',
+        img: telegram,
+        imgActive: telegramActive,
+        link: 'https://t.me/parasset_chat'
+      },
+      {
+        name: 'twitter',
+        img: twitter,
+        imgActive: twitterActive,
+        link: 'https://twitter.com/Parasset2021'
+      },
+      {
+        name: 'github',
+        img: github,
+        imgActive: githubActive,
+        link: 'https://github.com/Parasset'
+      },
+      {
+        name: 'medium',
+        img: medium,
+        imgActive: mediumActive,
+        link: 'https://parasset2021-55646.medium.com/'
+      },
+      {
+        name: 'docs',
+        img: docs,
+        imgActive: docsActive,
+        link: 'https://github.com/Parasset/Parasset-Doc'
+      },
+      {
+        name: 'whitepaper',
+        img: whitepaper,
+        imgActive: whitepaperActive,
+        link: 'https://www.parasset.top/file/Parasset_WhitePaper.pdf'
+      },
+      {
+        name: 'audit',
+        img: audit,
+        imgActive: auditActive,
+        link: 'https://www.parasset.top/file/Certik_Parasset_final.pdf'
+      }
+    ]
+  }, [])
   return (
     <>
       <Spacer/>
@@ -17,84 +100,9 @@ const Footer: React.FC = () => {
             isMobile ? "wing-blank flex-jc-center" : "flex-jc-start flex1"
           } `}
         >
-          <a
-            href="https://t.me/parasset_chat"
-            target="_blank"
-            className={` ${
-              isMobile ? "flex-row-center-center width-33" : "margin-right-20"
-            } `}
-          >
-            <StyledItemImg
-              src={require("../../../assets/img/telegram_icon.png")}
-              width="22"
-              height="22"
-            />
-          </a>
-          <a
-            href="https://twitter.com/Parasset2021"
-            target="_blank"
-            className={` ${
-              isMobile ? "flex-row-center-center width-33" : "margin-right-20"
-            } `}
-          >
-            <StyledItemImg
-              src={require("../../../assets/img/twitter_icon.png")}
-              width="22"
-              height="22"
-            />
-          </a>
-          <a
-            href="https://github.com/Parasset"
-            target="_blank"
-            className={` ${
-              isMobile ? "flex-row-center-center width-33" : "margin-right-20"
-            } `}
-          >
-            <StyledItemImg
-              src={require("../../../assets/img/github_icon.png")}
-              width="22"
-              height="22"
-            />
-          </a>
-          <a
-            href="https://parasset2021-55646.medium.com/"
-            target="_blank"
-            className={` ${
-              isMobile ? "flex-row-center-center width-33" : "margin-right-20"
-            } `}
-          >
-            <StyledItemImg
-              src={require("../../../assets/img/Medium_icon.png")}
-              width="22"
-              height="22"
-            />
-          </a>
-          <a
-            href="https://www.parasset.top/file/Certik_Parasset_final.pdf"
-            target="_blank"
-            className={` ${
-              isMobile ? "flex-row-center-center width-33" : "margin-right-20"
-            } `}
-          >
-            <StyledItemImg
-              src={require("../../../assets/img/audit_icon.png")}
-              width="22"
-              height="22"
-            />
-          </a>
-          <a
-            href="https://www.parasset.top/file/Parasset_WhitePaper.pdf"
-            target="_blank"
-            className={` ${
-              isMobile ? "flex-row-center-center width-33" : "margin-right-20"
-            } `}
-          >
-            <StyledItemImg
-              src={require("../../../assets/img/whitepaper_icon.png")}
-              width="22"
-              height="22"
-            />
-          </a>
+          {links.map(item => (
+            <Icon key={item.name} img={item.img} imgActive={item.imgActive} link={item.link} />
+          ))}
         </div>
       </div>
     </>
