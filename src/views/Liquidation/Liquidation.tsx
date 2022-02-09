@@ -62,12 +62,12 @@ const Home: React.FC = () => {
     <>
       <BigValue
         text={t("dqsqsjz")}
-        color="#DD8751"
+        color="#000"
         value={<Value value={totalMortgageValue} prefix="$" />}
       />
       <BigValue
         text={t("yqszcjz")}
-        color="#77A89A"
+        color="#000"
         value={<Value value={liquidatedAssets} prefix="$" />}
       />
 

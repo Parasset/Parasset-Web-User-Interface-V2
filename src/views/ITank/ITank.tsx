@@ -53,7 +53,7 @@ const Mine: React.FC = () => {
     <>
       <BigValue
         text={`${t("bxc")} TVL`}
-        color="#77A89A"
+        color="#000"
         value={<Value value={totalItankValue} prefix="$" />}
       />
 
