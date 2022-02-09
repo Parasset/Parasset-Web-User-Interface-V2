@@ -6,7 +6,7 @@ import BigValue from "../../../components/BigValue";
 import Value from "../../../components/Value";
 import Depot from "./Depot";
 import useCreatedDebts from "../../../hooks/debt/useCreatedDebts";
-const Specie: React.FC = ({}) => {
+const Specie: React.FC = () => {
   const { t } = useTranslation();
   const {
     list,
