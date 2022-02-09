@@ -45,17 +45,12 @@ const App: React.FC = () => {
             >
               <Coin />
             </Route>
-
             <Route
               path="/liquidation"
               exact
             >
               <Liquidation />
             </Route>
-
-
-
-            
             <Route path="/datum/overview" exact>
               <DatumOverview />
             </Route>

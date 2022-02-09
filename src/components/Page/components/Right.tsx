@@ -54,7 +54,7 @@ const Right: React.FC = ({ isDatumPath }) => {
               <TokenSymbol symbol="USDT" size={25} isRight={true} />
             </div>
             <div className="margin-left-10">
-              <div>
+              <div className={"bold-600"}>
                 <Value value={ETHAvgPrice} decimals={8} />
               </div>
               <div className={"color-grey"}>ETH/USDT</div>
@@ -67,7 +67,7 @@ const Right: React.FC = ({ isDatumPath }) => {
               <TokenSymbol symbol="USDT" size={25} isRight={true} />
             </div>
             <div className="margin-left-10">
-              <div>
+              <div className={"bold-600"}>
                 <Value value={NESTToUSDTPrice} decimals={8} />
               </div>
               <div className={"color-grey"}>NEST/USDT</div>
@@ -80,7 +80,7 @@ const Right: React.FC = ({ isDatumPath }) => {
               <TokenSymbol symbol="ETH" size={25} isRight={true} />
             </div>
             <div className="margin-left-10">
-              <div>
+              <div className={"bold-600"}>
                 <Value value={NESTToETHPrice} decimals={8} />
               </div>
               <div className={"color-grey"}>NEST/ETH</div>
@@ -96,7 +96,7 @@ const Right: React.FC = ({ isDatumPath }) => {
                 <TokenSymbol symbol="PUSD" size={25} />
               </div>
               <div className="margin-left-10">
-                <div>
+                <div className={"bold-600"}>
                   <Value value={PUSDTotalSupply} />{" "}
                 </div>
                 <div className={"color-grey"}>PUSD</div>
@@ -111,7 +111,7 @@ const Right: React.FC = ({ isDatumPath }) => {
                 <TokenSymbol symbol="PETH" size={25} />
               </div>
               <div className="margin-left-10">
-                <div>
+                <div className={"bold-600"}>
                   <Value value={PETHTotalSupply} />{" "}
                 </div>
                 <div className={"color-grey"}>PETH</div>
@@ -151,6 +151,7 @@ const StyledWallet = styled.div`
 const StyledLabel = styled.div`
   height: 45px;
   display: flex;
+  font-weight: 600;
   align-items: center;
 `;
 

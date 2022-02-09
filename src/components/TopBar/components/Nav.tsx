@@ -5,12 +5,14 @@ import Logo from "../../Logo";
 import NavBar from "./NavBar";
 
 import Version from "./Version";
+import Spacer from "../../Spacer";
 
 const Nav: React.FC = () => {
   return (
     <StyledNav>
       <Logo/>
       <NavBar/>
+      <Spacer size={"sm"} />
       <Version/>
     </StyledNav>
   );
