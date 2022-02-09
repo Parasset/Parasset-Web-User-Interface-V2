@@ -109,7 +109,7 @@ const StyledHeaderPc = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  padding-left: 240px;
+  padding-left: 260px;
   padding-right: 240px;
   background-color: rgba(255, 255, 255, 0.9);
   z-index: 99;
