@@ -29,7 +29,7 @@ const MyInfo: React.FC = ({
 
   return (
     <>
-      <Card className={` ${isMobile ? "wing-blank" : "wing-blank-lg"} `}>
+      <Card className={`bg-white ${isMobile ? "wing-blank" : "wing-blank-lg"} `}>
         <Spacer size="mmd" />
 
         <div className={` ${isMobile ? "" : "wing-blank"} `}>

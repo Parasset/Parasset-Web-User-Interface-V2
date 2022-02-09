@@ -48,7 +48,7 @@ const Item: React.FC = ({ item }) => {
   return (
     <>
       <StyledWrapBox
-        className={`wing-blank-lg ${isMobile ? "" : "with-100-16"} `}
+        className={`wing-blank-lg bg-white ${isMobile ? "" : "with-100-24"} `}
       >
         <Spacer size="mmd" />
         <div className="flex-row-center-center">
@@ -110,8 +110,7 @@ const List: React.FC = ({ itanks }) => {
           return <Item item={item} key={item.name} />;
         })}
       </div>
-      <Spacer size="sm" />
-      <Spacer size="sm" />
+      <Spacer />
     </>
   );
 };

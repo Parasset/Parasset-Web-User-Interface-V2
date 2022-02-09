@@ -10,7 +10,7 @@ const ListItem: React.FC = ({
   showSpacer = true,
 }) => (
   <>
-    <Card className="text-center flex1">
+    <Card className="text-center flex1 bg-white">
       <Spacer size="sm" />
       <div className="font-size-22 bold-600 " style={{ color }}>
         {value}

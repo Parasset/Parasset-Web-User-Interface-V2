@@ -23,7 +23,7 @@ const Harvest: React.FC = ({ mine, mineInfo }) => {
   }, [onReward, mineInfo.fetchInfo]);
   return (
     <>
-      <StyledWrapBox className={`wing-blank-lg ${isMobile ? "" : "width-47"} `}>
+      <StyledWrapBox className={`bg-white wing-blank-lg ${isMobile ? "" : "width-47"} `}>
         <Spacer size="mmd" />
         <div className="color-grey">{t("wdsy")}</div>
         <Spacer />
@@ -54,7 +54,6 @@ const Harvest: React.FC = ({ mine, mineInfo }) => {
 };
 
 const StyledWrapBox = styled(Card)`
-  height: 260px;
   @media (max-width: 768px) {
     height: auto;
   }

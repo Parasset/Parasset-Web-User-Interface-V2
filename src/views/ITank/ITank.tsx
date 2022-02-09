@@ -1,5 +1,5 @@
 //@ts-nocheck
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import BigNumber from "bignumber.js";
 import useIsMobile from "../../hooks/useIsMobile";
@@ -9,7 +9,7 @@ import List from "./components/List";
 import RiskModal from "../../components/RiskModal";
 import useItanks from "../../hooks/itank/useItanks";
 import useItankInfo from "../../hooks/itank/useItankInfo";
-import { $isFiniteNumber, $isPositiveNumber } from "./../../utils/utils";
+import { $isFiniteNumber, $isPositiveNumber } from "../../utils/utils";
 const Mine: React.FC = () => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();

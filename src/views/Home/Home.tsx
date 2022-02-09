@@ -1,9 +1,9 @@
 //@ts-nocheck
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import BigNumber from "bignumber.js";
 import useIsMobile from "../../hooks/useIsMobile";
-import { $isFiniteNumber, $isPositiveNumber } from "./../../utils/utils";
+import { $isFiniteNumber, $isPositiveNumber } from "../../utils/utils";
 
 import BigValue from "../../components/BigValue";
 import TableTitle from "../../components/TableTitle";
@@ -230,17 +230,17 @@ const Home: React.FC = () => {
     <>
       <BigValue
         text={t("dyzcsdsz")}
-        color="#DD8751"
+        color="#000"
         value={<Value value={totalmortgageAssetValue} prefix="$" />}
       />
       <BigValue
         text={t("pxzcltsz")}
-        color="#77A89A"
+        color="#000"
         value={<Value value={parassetValue} prefix="$" />}
       />
       <BigValue
         text={t("bxcldxzsz")}
-        color="#5DB3D3"
+        color="#000"
         value={<Value value={totalItankValue} prefix="$" />}
       />
       <TableTitle titles={titles} />

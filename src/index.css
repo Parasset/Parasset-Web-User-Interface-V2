@@ -25,6 +25,10 @@ input {
   width: calc((100% - 16px) / 2) !important;
 }
 
+.with-100-24 {
+  width: calc((100% - 24px) / 2) !important;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -52,6 +56,9 @@ input::-webkit-inner-spin-button {
 /* 火狐浏览器 */
 input[type="number"] {
   -moz-appearance: textfield;
+}
+.bg-white {
+  background: white;
 }
 .input-dark-box {
   background: #f7f8fa;

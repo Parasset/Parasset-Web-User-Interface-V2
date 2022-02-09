@@ -144,17 +144,17 @@ const Overview: React.FC = () => {
         <div className="flex-jc-center-pc">
           <ListItem
             text="TVL"
-            color="#FA6141"
+            color="#000"
             value={<Value value={totalmortgageAssetValue} prefix="$" />}
           />
           <ListItem
             text={`ETH ${t("dysl")}`}
-            color="#FA6141"
+            color="#000"
             value={<Value value={ETHStaked} />}
           />
           <ListItem
             text={`NEST ${t("dysl")}`}
-            color="#FA6141"
+            color="#000"
             value={<Value value={NESTStaked} />}
             showSpacer={false}
           />
@@ -164,12 +164,12 @@ const Overview: React.FC = () => {
         <div className="flex-jc-center-pc">
           <ListItem
             text={t("pxzczjz")}
-            color="#03AEB1"
+            color="#000"
             value={<Value value={parassetValue} prefix="$" />}
           />
           <ListItem
             text={`PUSD ${t("ltl")}`}
-            color="#03AEB1"
+            color="#000"
             value={
               <Value
                 value={PUSDTotalSupply}
@@ -181,7 +181,7 @@ const Overview: React.FC = () => {
           />
           <ListItem
             text={`PETH ${t("ltl")}`}
-            color="#03AEB1"
+            color="#000"
             value={
               <Value
                 value={PETHTotalSupply}
@@ -198,12 +198,12 @@ const Overview: React.FC = () => {
         <div className="flex-jc-center-pc">
           <ListItem
             text={t("zczs")}
-            color="#B88450"
+            color="#000"
             value={<Value value={debtOverview.count} />}
           />
           <ListItem
             text={t("dqdyl")}
-            color="#B88450"
+            color="#000"
             value={<Value value={debtOverview.rate} suffix="%" />}
             showSpacer={false}
           />
@@ -219,17 +219,17 @@ const Overview: React.FC = () => {
         <div className="flex-jc-center-pc">
           <ListItem
             text="TVL"
-            color="#00A0E9"
+            color="#000"
             value={<Value value={totalItankValue} prefix="$" />}
           />
           <ListItem
             text={`USDT ${t("bxc")} TVL`}
-            color="#00A0E9"
+            color="#000"
             value={<Value value={USDTItankValue} prefix="$" />}
           />
           <ListItem
             text={`ETH ${t("bxc")} TVL`}
-            color="#00A0E9"
+            color="#000"
             value={<Value value={ETHItankValue} prefix="$" />}
             showSpacer={false}
           />
@@ -239,22 +239,22 @@ const Overview: React.FC = () => {
         <div className="flex-jc-center-pc">
           <ListItem
             text={t("ljyh")}
-            color="#11A538"
+            color="#000"
             value={<Value value={userOverview.total} />}
           />
           <ListItem
             text={t("zbljyh")}
-            color="#11A538"
+            color="#000"
             value={<Value value={userOverview.coin} />}
           />
           <ListItem
             text={t("bxcljyh")}
-            color="#11A538"
+            color="#000"
             value={<Value value={userOverview.ins} />}
           />
           <ListItem
             text={t("dhljyh")}
-            color="#11A538"
+            color="#000"
             value={<Value value={userOverview.exchange} />}
             showSpacer={false}
           />

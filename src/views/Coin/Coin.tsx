@@ -6,6 +6,7 @@ import { getQueryParam } from "../../utils/utils";
 import Specie from "./components/Specie";
 import Debt from "./components/Debt";
 import RiskModal from "../../components/RiskModal";
+import Spacer from "../../components/Spacer";
 const Coin: React.FC = () => {
   const history = useHistory();
   const locationObj = useLocation();
@@ -48,6 +49,7 @@ const Coin: React.FC = () => {
           history.replace({ path: "/coin", search: `?tab=${tab}` });
         }}
       />
+      <Spacer />
       {tab === 1 ? <Specie /> : <Debt />}
 
       <RiskModal

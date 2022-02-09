@@ -89,7 +89,7 @@ const Item: React.FC = ({ item, onSelect, openModal }) => {
         <Spacer size="sm" />
       </StyledPcItem>
       <StyledMobileItem>
-        <Card className="wing-blank-lg">
+        <Card className="wing-blank-lg bg-white">
           <Spacer size="mmd" />
           <div className="color-grey">{t("zhaicang")}</div>
           <Spacer size="mmd" />

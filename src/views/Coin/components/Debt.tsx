@@ -17,8 +17,6 @@ const Specie: React.FC = ({}) => {
   } = useCreatedDebts();
   return (
     <>
-      <Spacer size="sm" />
-      <Spacer size="sm" />
       <BigValue
         text={t("dasz")}
         color="#DD8751"

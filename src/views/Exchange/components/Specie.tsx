@@ -402,9 +402,8 @@ const Specie: React.FC = ({}) => {
 
   return (
     <>
-      <Spacer size="sm" />
-      <Spacer size="sm" />
-      <Card className="wing-blank-lg">
+      <Spacer />
+      <Card className="wing-blank-lg bg-white">
         <Spacer />
         <div className="flex-jc-center color-grey wing-blank-lg">
           <div>{t("cong")}</div>
@@ -550,8 +549,7 @@ const Specie: React.FC = ({}) => {
 
         <Spacer />
       </Card>
-      <Spacer size="sm" />
-      <Spacer size="sm" />
+      <Spacer />
       <BtnLink
         text={t("wbxctgldx")}
         path={`/itank/detail/${isETH ? "PETHInsPool" : "PUSDInsPool"}`}

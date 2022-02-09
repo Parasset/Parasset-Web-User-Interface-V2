@@ -6,21 +6,21 @@ import styled from "styled-components";
 const Container: React.FC = ({ title, children }) => (
   <>
     <StyledContainer>
-      <Spacer size="sm" />
+      <Spacer size={"sm"} />
       <div className="color-dark  bold-600 font-size-16">{title}</div>
       <Spacer size="sm" />
-      <Spacer size="sm" />
       {children}
+      <Spacer size={"sm"} />
+      <Spacer size={"sm"} />
     </StyledContainer>
-    <Spacer size="mmd" />
+    <Spacer/>
   </>
 );
 
 const StyledContainer = styled(Card)`
-  padding-bottom: 16px;
+  background: white;
   @media (max-width: 768px) {
     padding: 10px 16px;
-    padding-bottom: 16px;
   }
 `;
 export default Container;

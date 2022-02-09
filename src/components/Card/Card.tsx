@@ -10,7 +10,7 @@ const Card: React.FC<CardProps> = ({ className, children,onClick }) => (
 );
 
 const StyledCard = styled.div`
-  box-shadow: 0px 0px 10px ${(props) => props.theme.color.grey[200]};
+  box-shadow: 0 0 10px ${(props) => props.theme.color.grey[200]};
   padding:10px 30px;
   border-radius: 16px;
   border: 1px solid ${(props) => props.theme.color.grey[200]};

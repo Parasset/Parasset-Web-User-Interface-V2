@@ -33,7 +33,7 @@ const Item: React.FC = ({ item }) => {
   }, [mineInfo.info.rewardRate]);
   return (
     <>
-      <StyledWrapBox className={`wing-blank-lg ${isMobile ? "" : "with-100-16"} `}>
+      <StyledWrapBox className={`wing-blank-lg bg-white ${isMobile ? "" : "with-100-24"} `}>
         <StyledTag color={status.color}>{t(status.text)}</StyledTag>
         <Spacer size="mmd" />
         <div className="flex-row-center-center">
@@ -89,8 +89,7 @@ const List: React.FC = ({ mines }) => {
           return <Item item={item} key={item.name} />;
         })}
       </div>
-      <Spacer size="sm" />
-      <Spacer size="sm" />
+      <Spacer/>
     </>
   );
 };

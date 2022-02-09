@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 const Tab: React.FC = ({ tabs, tab, onChangeTab }) => {
   const { t } = useTranslation();
   return (
-    <StyledTab className="flex-jc-center text-center">
+    <StyledTab className="flex-jc-center text-center bg-white">
       {tabs.map((item) => {
         return (
           <StyledTabItem

@@ -5,7 +5,7 @@ import Card from "../Card";
 
 const BigValue: React.FC = ({ text, color = "#5DB3D3",value }) => (
   <>
-    <Card className="text-center">
+    <Card className="text-center bg-white">
       <Spacer size="sm" />
       <div className="font-size-50 bold-600 font-Wallpoet" style={{ color }}>
         {value}
@@ -14,8 +14,7 @@ const BigValue: React.FC = ({ text, color = "#5DB3D3",value }) => (
       <div className="color-grey">{text}</div>
       <Spacer size="sm" />
     </Card>
-    <Spacer size="sm" />
-    <Spacer size="sm" />
+    <Spacer />
   </>
 );
 

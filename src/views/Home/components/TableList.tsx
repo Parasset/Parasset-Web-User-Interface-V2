@@ -30,7 +30,7 @@ const Item: React.FC = ({ item }) => {
   return (
     <>
       <StyledPcItem>
-        <Card className=" flex-jc-center bold-600 font-size-16">
+        <Card className=" flex-jc-center bold-600 font-size-16 bg-white">
           <div className="flex1 flex-jc-start">
             <TokenSymbol
               symbol={item.name}

@@ -12,7 +12,7 @@ const Info: React.FC = ({ mine, mineInfo }) => {
   const { t } = useTranslation();
   return (
     <>
-      <Card className="wing-blank-lg">
+      <Card className="wing-blank-lg bg-white">
         <Spacer size="mmd" />
         <div className="color-grey">{t("kcgl")}</div>
         <div className="wing-blank">

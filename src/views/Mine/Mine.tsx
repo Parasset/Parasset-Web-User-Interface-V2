@@ -20,7 +20,7 @@ const Mine: React.FC = () => {
     <>
       <BigValue
         text={`${t("kuangchi")} TVL`}
-        color="#77A89A"
+        color="#000"
         value={<Value value={totalTvl} prefix="$" />}
       />
 

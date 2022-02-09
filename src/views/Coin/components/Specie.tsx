@@ -592,9 +592,7 @@ const Specie: React.FC = ({}) => {
 
   return (
     <>
-      <Spacer size="sm" />
-      <Spacer size="sm" />
-      <Card className="wing-blank-lg">
+      <Card className="wing-blank-lg bg-white">
         <Spacer />
         <div className="flex-jc-center color-grey wing-blank-lg">
           <div> {t("dyzcsl")}</div>

@@ -8,7 +8,7 @@ const TableTitle: React.FC = ({ titles }) => {
   const { t } = useTranslation();
   return (
     <StyledTableTitleBox>
-      <Card className=" flex-jc-center color-grey">
+      <Card className=" flex-jc-center color-grey bg-white">
         {titles.map((item, i) => {
           return (
             <div className={item.className} key={item.text + i}>
@@ -17,8 +17,7 @@ const TableTitle: React.FC = ({ titles }) => {
           );
         })}
       </Card>
-      <Spacer size="sm" />
-      <Spacer size="sm" />
+      <Spacer />
     </StyledTableTitleBox>
   );
 };

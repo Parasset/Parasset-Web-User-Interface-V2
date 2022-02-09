@@ -29,7 +29,7 @@ const Handler: React.FC = ({ debt, debtInfo, fetchInfo }) => {
   }, []);
   return (
     <>
-      <Card className="wing-blank-lg">
+      <Card className="wing-blank-lg bg-white">
         <Spacer size="mmd" />
         <div className="bd-bottom">
           <div className={` ${isMobile ? "" : "flex-jc-center"} `}>

@@ -36,11 +36,6 @@ const Mine: React.FC = () => {
 
   const depositBalance = useTokenBalance(mine?.depositToken)
 
-
-
-
-
-
   return (
     <>
       <Back
@@ -49,7 +44,7 @@ const Mine: React.FC = () => {
         img1={mine.icon2}
       />
       <Info mine={mine} mineInfo={mineInfo} />
-      <div className={` ${isMobile ? "" : "flex-jc-center width-100"} `}>
+      <div className={`${isMobile ? "" : "flex-jc-center width-100"} `}>
         <Harvest mine={mine} mineInfo={mineInfo} />
         {isMobile ? <Spacer size="mmd" /> : null}
         <Stake
@@ -63,10 +58,12 @@ const Mine: React.FC = () => {
           onOpenModal={() => setIsOpen(true)}
         />
       </div>
+      <Spacer/>
       <BtnLink
         text={` ${t("hq")} ${mine.depositTokenName}`}
         path={`/itank/detail/${mine.depositContract}`}
       />
+
       <OperatModal
         isOpen={isOpen}
         mine={mine}
@@ -74,10 +71,10 @@ const Mine: React.FC = () => {
         onDismiss={() => setIsOpen(false)}
         select={select}
         key={select + isOpen}
-       
+
         depositBalance={depositBalance}
         stakeBalance={displayStakeBalance1}
-        
+
       />
     </>
   );

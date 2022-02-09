@@ -13,7 +13,7 @@ const Info: React.FC = ({ debt, debtInfo }) => {
   const { t } = useTranslation();
   return (
     <>
-      <Card className="wing-blank-lg">
+      <Card className="wing-blank-lg bg-white">
         <div className={` ${isMobile ? "" : "flex-jc-center"} `}>
           <div
             className={` ${isMobile ? "" : "flex1 wing-blank-lg bd-right1 "} `}
