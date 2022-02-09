@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { NavLink, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import Spacer from "../../Spacer";
 import useIsMobile from "../../../hooks/useIsMobile";
 let flag=true
 const Nav: React.FC = ({ toggleShow }) => {
@@ -21,7 +20,7 @@ const Nav: React.FC = ({ toggleShow }) => {
   return (
     <div className="font-size-16">
       <div className={` ${isMobile ? "" : "wing-blank-lg bd-bottom width-100"} `}>
-        <div className={` ${isMobile ? "" : "wing-blank" } `}>
+        <div>
           <StyledBarItem
             className="flex-jc-start"
             exact
@@ -37,7 +36,7 @@ const Nav: React.FC = ({ toggleShow }) => {
               }
               width="35"
               height="35"
-              className="margin-right-5"
+              className="margin-right-10"
             />
             {t("shouye")}
           </StyledBarItem>
@@ -65,7 +64,7 @@ const Nav: React.FC = ({ toggleShow }) => {
               }
               width="35"
               height="35"
-              className="margin-right-5"
+              className="margin-right-10"
             />
             {t("zhubi")}
           </StyledBarItem>
@@ -84,7 +83,7 @@ const Nav: React.FC = ({ toggleShow }) => {
               }
               width="35"
               height="35"
-              className="margin-right-5"
+              className="margin-right-10"
             />
             {t("duihuan")}
           </StyledBarItem>
@@ -108,7 +107,7 @@ const Nav: React.FC = ({ toggleShow }) => {
               }
               width="35"
               height="35"
-              className="margin-right-5"
+              className="margin-right-10"
             />
             {t("bxc")}
           </StyledBarItem>
@@ -130,7 +129,7 @@ const Nav: React.FC = ({ toggleShow }) => {
               }
               width="35"
               height="35"
-              className="margin-right-5"
+              className="margin-right-10"
             />
             {t("wakuang")}
           </StyledBarItem>
@@ -152,7 +151,7 @@ const Nav: React.FC = ({ toggleShow }) => {
               }
               width="35"
               height="35"
-              className="margin-right-5"
+              className="margin-right-10"
             />
             {t("qingsuan")}
           </StyledBarItem>
@@ -162,7 +161,7 @@ const Nav: React.FC = ({ toggleShow }) => {
         </div>
       </div>
       <div className={` ${isMobile ? "" : "wing-blank-lg bd-bottom width-100"} `}>
-        <div className={` ${isMobile ? "" : "wing-blank" } `}>
+        <div>
           <StyledBarItem
             className="flex-jc-center cursor-pointer"
             as="div"
@@ -175,7 +174,7 @@ const Nav: React.FC = ({ toggleShow }) => {
                 src={require("../../../assets/img/icon_datum.png")}
                 width="35"
                 height="35"
-                className="margin-right-5"
+                className="margin-right-10"
               />
                {t("shuju")}
             </div>
@@ -250,7 +249,7 @@ const StyledBarItem = styled(NavLink)`
   }
 `;
 const StyledMenuItem = styled(StyledBarItem)`
-  padding-left: 40px;
+  padding-left: 45px;
   box-sizing: border-box;
 `;
 
