@@ -57,7 +57,7 @@ const Right: React.FC = ({ isDatumPath }) => {
               <div>
                 <Value value={ETHAvgPrice} decimals={8} />
               </div>
-              <div>ETH/USDT</div>
+              <div className={"color-grey"}>ETH/USDT</div>
             </div>
           </div>
           <Spacer size="md" />
@@ -70,7 +70,7 @@ const Right: React.FC = ({ isDatumPath }) => {
               <div>
                 <Value value={NESTToUSDTPrice} decimals={8} />
               </div>
-              <div>NEST/USDT</div>
+              <div className={"color-grey"}>NEST/USDT</div>
             </div>
           </div>
           <Spacer size="md" />
@@ -83,7 +83,7 @@ const Right: React.FC = ({ isDatumPath }) => {
               <div>
                 <Value value={NESTToETHPrice} decimals={8} />
               </div>
-              <div>NEST/ETH</div>
+              <div className={"color-grey"}>NEST/ETH</div>
             </div>
           </div>
           <Spacer size="md" />
@@ -99,7 +99,7 @@ const Right: React.FC = ({ isDatumPath }) => {
                 <div>
                   <Value value={PUSDTotalSupply} />{" "}
                 </div>
-                <div>PUSD</div>
+                <div className={"color-grey"}>PUSD</div>
               </div>
             </div>
           </a>
@@ -114,7 +114,7 @@ const Right: React.FC = ({ isDatumPath }) => {
                 <div>
                   <Value value={PETHTotalSupply} />{" "}
                 </div>
-                <div>PETH</div>
+                <div className={"color-grey"}>PETH</div>
               </div>
             </div>
           </a>

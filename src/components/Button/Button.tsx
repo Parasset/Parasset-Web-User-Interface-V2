@@ -22,7 +22,7 @@ const Button: React.FC<ButtonProps> = ({
   disabled,
   href,
   onClick,
-  size = "sm",
+  size = "md",
   text,
   to,
   variant,
@@ -52,12 +52,15 @@ const Button: React.FC<ButtonProps> = ({
       buttonSize = 35;
       fontSize = 16;
       break;
+    case "md":
+      buttonSize = 44;
+      fontSize = 16;
+      break;
     case "lg":
       buttonPadding = spacing[4];
       buttonSize = 50;
       fontSize = 16;
       break;
-    case "md":
     default:
       buttonPadding = spacing[3];
       buttonSize = 50;
