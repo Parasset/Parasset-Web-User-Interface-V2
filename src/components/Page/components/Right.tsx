@@ -132,7 +132,7 @@ const Right: React.FC = ({ isDatumPath }) => {
         <div className="wing-blank-lg">
           <StyledLabel>{t("ltl")}</StyledLabel>
           <Spacer size="sm" />
-          <a href={`https://etherscan.io/token/${PUSDToken?.address}`}>
+          <a href={`https://etherscan.io/token/${PUSDToken?.address}`} target="_blank" >
             <div className="flex-jc-start ">
               <div className="flex-jc-center">
                 <TokenSymbol symbol="PUSD" size={25} />
@@ -147,7 +147,7 @@ const Right: React.FC = ({ isDatumPath }) => {
           </a>
 
           <Spacer size="sm" />
-          <a href={`https://etherscan.io/token/${PETHToken?.address}`}>
+          <a href={`https://etherscan.io/token/${PETHToken?.address}`} target="_blank" >
             <div className="flex-jc-start">
               <div className="flex-jc-center">
                 <TokenSymbol symbol="PETH" size={25} />

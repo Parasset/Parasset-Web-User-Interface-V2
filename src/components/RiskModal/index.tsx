@@ -38,7 +38,7 @@ export default function RiskModal({ isOpen, onDismiss, messages,  }) {
             onClick={onDismiss}
           />
           <Spacer size="mmd" />
-          <a href={'https://www.parasset.top/file/Parasset_WhitePaper.pdf'} className="color-light-blue">
+          <a href={'https://www.parasset.top/file/Parasset_WhitePaper.pdf'} className="color-light-blue" target="_blank" >
             {t("ljgd")}
           </a>
         </div>
