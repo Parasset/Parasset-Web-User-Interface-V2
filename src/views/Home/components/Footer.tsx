@@ -1,6 +1,5 @@
 //@ts-nocheck
 import React, {useMemo, useState} from "react";
-import styled from "styled-components";
 import Spacer from "../../../components/Spacer";
 import useIsMobile from "../../../hooks/useIsMobile";
 import telegram from '../../../assets/svg/telegram_icon.svg'
@@ -108,9 +107,5 @@ const Footer: React.FC = () => {
     </>
   );
 };
-const StyledItemImg = styled.img`
-  margin-bottom: 10px;
-`;
-
 
 export default Footer;
