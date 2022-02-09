@@ -1,5 +1,5 @@
 //@ts-nocheck
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -56,7 +56,7 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <StyledHeaderPc className=" color-grey wing-blank-lg flex-jc-start">
+      <StyledHeaderPc className="wing-blank-lg flex-jc-start">
         <StyledHeaderText>
           <div>{t(title)}</div>
         </StyledHeaderText>
@@ -69,11 +69,10 @@ const Header: React.FC = () => {
           onClick={toggleShow}
         />
         <Logo />
-        <div></div>
       </StyledHeaderMobile>
       {show ? (
         <>
-          <StyledMask onClick={toggleShow}></StyledMask>
+          <StyledMask onClick={toggleShow}/>
         </>
       ) : null}
       <StyledSidebar style={{ left: show ? 0 : "-220px" }}>
@@ -110,9 +109,10 @@ const StyledHeaderPc = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  padding-left: 260px;
+  padding-left: 240px;
   padding-right: 240px;
-  background: white;
+  background-color: rgba(255, 255, 255, 0.9);
+  background-clip: content-box;
   z-index: 99;
   border-bottom: 1px solid black;
   @media (max-width: 768px) {
