@@ -21,7 +21,7 @@ const Nav: React.FC = ({ toggleShow }) => {
   return (
     <div className="font-size-16">
       <div className={` ${isMobile ? "" : "wing-blank-lg bd-bottom width-100"} `}>
-        <div className="wing-blank">
+        <div className={` ${isMobile ? "" : "wing-blank" } `}>
           <StyledBarItem
             className="flex-jc-start"
             exact
@@ -162,7 +162,7 @@ const Nav: React.FC = ({ toggleShow }) => {
         </div>
       </div>
       <div className={` ${isMobile ? "" : "wing-blank-lg bd-bottom width-100"} `}>
-        <div className="wing-blank">
+        <div className={` ${isMobile ? "" : "wing-blank" } `}>
           <StyledBarItem
             className="flex-jc-center cursor-pointer"
             as="div"
