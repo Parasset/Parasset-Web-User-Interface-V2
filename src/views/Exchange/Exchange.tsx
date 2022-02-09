@@ -3,7 +3,7 @@ import React from "react";
 
 import Specie from "./components/Specie";
 
-const Coin: React.FC = () => {
+const Exchange: React.FC = () => {
   return (
     <div className="wing-blank-xl1">
       <Specie/>
@@ -11,4 +11,4 @@ const Coin: React.FC = () => {
   );
 };
 
-export default Coin;
+export default Exchange;

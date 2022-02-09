@@ -9,7 +9,7 @@ import Handler from "./components/Handler";
 import useDebt from "../../hooks/debt/useDebt";
 import useDebtInfo from "../../hooks/debt/useDebtInfo";
 
-const Mine: React.FC = () => {
+const DebtDetail: React.FC = () => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
   const { debtId } = useParams();
@@ -28,4 +28,4 @@ const Mine: React.FC = () => {
   );
 };
 
-export default Mine;
+export default DebtDetail;

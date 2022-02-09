@@ -14,7 +14,7 @@ import useTokenBalance from "../../hooks/useTokenBalance";
 import useLiquidationList from "../../hooks/debt/useLiquidationList";
 import useLiquidatedAssets from "../../hooks/debt/useLiquidatedAssets";
 import LiqModal from "./components/LiqModal";
-const Home: React.FC = () => {
+const Liquidation: React.FC = () => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
   const basisCash = useBasisCash();
@@ -91,4 +91,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default Liquidation;

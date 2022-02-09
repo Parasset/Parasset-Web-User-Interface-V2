@@ -19,7 +19,7 @@ import useDebt from "../../hooks/debt/useDebt";
 import useTVL from "../../hooks/debt/useTVL";
 import useDebtInfo from "../../hooks/debt/useDebtInfo";
 import useTotalSupply from "./../../hooks/useTokenTotalSupply";
-const Overview: React.FC = () => {
+const DatumCoin: React.FC = () => {
   const isMobile = useIsMobile();
   const { t, i18n } = useTranslation();
   const basisCash = useBasisCash();
@@ -359,4 +359,4 @@ const Overview: React.FC = () => {
   );
 };
 
-export default Overview;
+export default DatumCoin;

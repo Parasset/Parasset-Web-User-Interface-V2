@@ -18,7 +18,7 @@ import useItankInfo from "../../hooks/itank/useItankInfo";
 import useTokenBalance from "../../hooks/useTokenBalance";
 import DepositModal from "./components/DepositModal";
 import WithdrawModal from "./components/WithdrawModal";
-const Mine: React.FC = () => {
+const ITankDetail: React.FC = () => {
   const [isDepositOpen, setIsDepositOpen] = useState(false);
   const [isWithdrawOpen, setIsWithdrawOpen] = useState(false);
   const { t } = useTranslation();
@@ -136,4 +136,4 @@ const Mine: React.FC = () => {
   );
 };
 
-export default Mine;
+export default ITankDetail;

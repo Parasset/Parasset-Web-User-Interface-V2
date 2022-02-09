@@ -9,7 +9,7 @@ import Container from "../../components/Datum/Container";
 import Picker from "../../components/Datum/Picker";
 
 import useUserDatum from "./../../hooks/datum/useUserDatum";
-const Overview: React.FC = () => {
+const DatumUser: React.FC = () => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
 
@@ -141,4 +141,4 @@ const Overview: React.FC = () => {
   );
 };
 
-export default Overview;
+export default DatumUser;

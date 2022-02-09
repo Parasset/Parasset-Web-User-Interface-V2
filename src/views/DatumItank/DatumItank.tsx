@@ -9,7 +9,7 @@ import { $isFiniteNumber, $isPositiveNumber } from "../../utils/utils";
 import Picker from "../../components/Datum/Picker";
 import Value from "../../components/Value";
 import useItankDatum from "./../../hooks/datum/useItankDatum";
-const Overview: React.FC = () => {
+const DatumItank: React.FC = () => {
   const { t, i18n } = useTranslation();
 
   const [tvlDatumValue, setTvlDatumValue] = useState("1W");
@@ -281,4 +281,4 @@ const Overview: React.FC = () => {
   );
 };
 
-export default Overview;
+export default DatumItank;

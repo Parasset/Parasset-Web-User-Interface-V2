@@ -10,7 +10,7 @@ import RiskModal from "../../components/RiskModal";
 import useItanks from "../../hooks/itank/useItanks";
 import useItankInfo from "../../hooks/itank/useItankInfo";
 import { $isFiniteNumber, $isPositiveNumber } from "../../utils/utils";
-const Mine: React.FC = () => {
+const ITank: React.FC = () => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
   const itanks = useItanks();
@@ -69,4 +69,4 @@ const Mine: React.FC = () => {
   );
 };
 
-export default Mine;
+export default ITank;

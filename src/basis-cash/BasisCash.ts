@@ -19,7 +19,7 @@ import { $isFiniteNumber, $isPositiveNumber } from "../utils/utils";
 import { getDefaultProvider } from "../utils/provider";
 import ERC20 from "./ERC20";
 /**
- * An API module of Gaea Coin contracts.
+ * An API module of Gaea Exchange contracts.
  * All contract-interacting domain logic should be defined in here.
  */
 export class BasisCash {

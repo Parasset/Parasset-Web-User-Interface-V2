@@ -18,7 +18,7 @@ import useMineInfo from "../../hooks/mine/useMineInfo";
 import useItank from "../../hooks/itank/useItank";
 import useTokenBalance from "../../hooks/useTokenBalance";
 import OperatModal from "./components/OperatModal";
-const Mine: React.FC = () => {
+const MinePool: React.FC = () => {
   const [select, setSelect] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useIsMobile();
@@ -80,4 +80,4 @@ const Mine: React.FC = () => {
   );
 };
 
-export default Mine;
+export default MinePool;
