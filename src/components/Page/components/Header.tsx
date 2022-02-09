@@ -61,7 +61,7 @@ const Header: React.FC = () => {
           <div>{t(title)}</div>
         </StyledHeaderText>
       </StyledHeaderPc>
-      <StyledHeaderMobile className="bd-bottom color-grey wing-blank-lg flex-jc-center">
+      <StyledHeaderMobile className="wing-blank-lg flex-jc-center">
         <img
           src={require("../../../assets/img/icon_menu.png")}
           width="28"
@@ -126,7 +126,7 @@ const StyledHeaderMobile = styled.div`
   left: 0;
   width: 100%;
   z-index: 1000;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid rgba(238, 238, 238, 0.4);
   background-color: #fff;
   @media (min-width: 1024px) {
     display: none !important;
@@ -154,6 +154,7 @@ const StyledSidebar = styled.div`
 `;
 
 const StyledHeaderText = styled.div`
+  padding-left: 24px;
   @media (max-width: 768px) {
     display: none;
   }
