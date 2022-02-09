@@ -5,7 +5,9 @@ import Specie from "./components/Specie";
 
 const Coin: React.FC = () => {
   return (
-    <Specie />
+    <div className="wing-blank-xl1">
+      <Specie/>
+    </div>
   );
 };
 
