@@ -438,7 +438,7 @@ input[type="number"] {
 .flex-al-start {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 .flex-jc-end {
   display: flex;

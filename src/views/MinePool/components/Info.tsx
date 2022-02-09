@@ -14,7 +14,7 @@ const Info: React.FC = ({ mine, mineInfo }) => {
     <>
       <Card className="wing-blank-lg bg-white">
         <Spacer size="mmd" />
-        <div className="color-grey">{t("kcgl")}</div>
+        <div className="color-dark">{t("kcgl")}</div>
         <div className="wing-blank">
           <Spacer />
           <div className={` ${isMobile ? "" : "flex-jc-center"} `}>

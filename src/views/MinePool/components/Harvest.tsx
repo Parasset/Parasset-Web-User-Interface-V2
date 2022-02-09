@@ -25,7 +25,7 @@ const Harvest: React.FC = ({ mine, mineInfo }) => {
     <>
       <StyledWrapBox className={`bg-white wing-blank-lg ${isMobile ? "" : "width-47"} `}>
         <Spacer size="mmd" />
-        <div className="color-grey">{t("wdsy")}</div>
+        <div className="color-dark">{t("wdsy")}</div>
         <Spacer />
         <div className="wing-blank-llg  text-center">
           <TokenSymbol symbol={mine.earnTokenName} size={40} />

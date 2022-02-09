@@ -29,42 +29,37 @@ const Datum: React.FC = () => {
 
   return (
     <div>
-      {/* <StyledLabel>{t("wdpxzc")}</StyledLabel>
-      <div className="flex-jc-center">
-        <div className="flex-jc-start">
-          <TokenSymbol symbol="PETH" size={25} />
-          <div className="margin-left-10">
-            <div>PETH</div>
-            <Spacer size="ssm" />
-            <div className="flex-jc-start color-grey">
-              <div>{PETHAddress}</div>
-              <Copy toCopy={PETHToken?.address} />
-            </div>
-            <div>
-              <Value value={PETHTokenBalance} />
-            </div>
+      <StyledLabel>{t("wdpxzc")}</StyledLabel>
+      <div className="flex-al-start">
+        <TokenSymbol symbol="PETH" size={25} />
+        <div className="margin-left-10">
+          <div className={"bold-600"}>PETH</div>
+          <Spacer size="ssm" />
+          <div className="flex-jc-start color-grey">
+            <div>{PETHAddress}</div>
+            <Copy toCopy={PETHToken?.address} />
+          </div>
+          <div className={"bold-600"}>
+            <Value value={PETHTokenBalance} />
           </div>
         </div>
       </div>
       <Spacer size="mmd" />
-      <div className="flex-jc-center">
-        <div className="flex-jc-start">
-          <TokenSymbol symbol="PUSD" size={25} />
-          <div className="margin-left-10">
-            <div>PUSD</div>
-            <Spacer size="ssm" />
-            <div className="flex-jc-start color-grey">
-              <div>{PUSDAddress}</div>
-              <Copy toCopy={PUSDToken?.address} />
-            </div>
-            <div>
-              {" "}
-              <Value value={PUSDTokenBalance} />
-            </div>
+      <div className="flex-al-start">
+        <TokenSymbol symbol="PUSD" size={25} />
+        <div className="margin-left-10">
+          <div className={"bold-600"}>PUSD</div>
+          <Spacer size="ssm" />
+          <div className="flex-jc-start color-grey">
+            <div>{PUSDAddress}</div>
+            <Copy toCopy={PUSDToken?.address} />
+          </div>
+          <div className={"bold-600"}>
+            <Value value={PUSDTokenBalance} />
           </div>
         </div>
       </div>
-      <Spacer size="mmd" /> */}
+      <Spacer size="mmd" />
       <div>
         <StyledLabel>{t("jiage")}</StyledLabel>
         <div className="flex-jc-start">
@@ -73,10 +68,10 @@ const Datum: React.FC = () => {
             <TokenSymbol symbol="USDT" size={25} isRight={true} />
           </div>
           <div className="margin-left-10">
-            <div>
+            <div className={"bold-600"}>
               <Value value={ETHAvgPrice} decimals={8}/>
             </div>
-            <div>ETH/USDT</div>
+            <div className={"color-grey"}>ETH/USDT</div>
           </div>
         </div>
         <Spacer size="mmd" />
@@ -86,10 +81,10 @@ const Datum: React.FC = () => {
             <TokenSymbol symbol="USDT" size={25} isRight={true} />
           </div>
           <div className="margin-left-10">
-            <div>
+            <div className={"bold-600"}>
               <Value value={NESTToUSDTPrice} decimals={8}/>
             </div>
-            <div>NEST/USDT</div>
+            <div className={"color-grey"}>NEST/USDT</div>
           </div>
         </div>
         <Spacer size="mmd" />
@@ -99,10 +94,10 @@ const Datum: React.FC = () => {
             <TokenSymbol symbol="ETH" size={25} isRight={true} />
           </div>
           <div className="margin-left-10">
-            <div>
+            <div className={"bold-600"}>
               <Value value={NESTToETHPrice}  decimals={8}/>
             </div>
-            <div>NEST/ETH</div>
+            <div className={"color-grey"}>NEST/ETH</div>
           </div>
         </div>
         <Spacer size="mmd" />
@@ -117,10 +112,10 @@ const Datum: React.FC = () => {
             </div>
 
             <div className="margin-left-10">
-              <div>
+              <div className={"bold-600"}>
                 <Value value={PUSDTotalSupply} />{" "}
               </div>
-              <div>PUSD</div>
+              <div className={"color-grey"}>PUSD</div>
             </div>
           </div>
         </a>
@@ -132,10 +127,10 @@ const Datum: React.FC = () => {
               <TokenSymbol symbol="PETH" size={25} />
             </div>
             <div className="margin-left-10">
-              <div>
+              <div className={"bold-600"}>
                 <Value value={PETHTotalSupply} />{" "}
               </div>
-              <div>PETH</div>
+              <div className={"color-grey"}>PETH</div>
             </div>
           </div>
         </a>
@@ -146,6 +141,7 @@ const Datum: React.FC = () => {
 const StyledLabel = styled.div`
   height: 40px;
   display: flex;
+  font-weight: 600;
   align-items: center;
 `;
 

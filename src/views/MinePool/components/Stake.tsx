@@ -17,7 +17,7 @@ const Stake: React.FC = ({mine, staked, onSelect, onOpenModal}) => {
     <>
       <StyledWrapBox className={`bg-white wing-blank-lg ${isMobile ? "" : "width-47"} `}>
         <Spacer size="mmd"/>
-        <div className="color-grey">{t("wddy")}</div>
+        <div className="color-dark">{t("wddy")}</div>
         <Spacer/>
         <div className="wing-blank-llg  text-center">
           <div className="flex-row-center-center">
