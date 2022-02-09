@@ -2,7 +2,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import * as echarts from "echarts";
-import useIsMobile from "../../hooks/useIsMobile";
 
 import Container from "../../components/Datum/Container";
 
@@ -10,7 +9,6 @@ import Picker from "../../components/Datum/Picker";
 
 import useUserDatum from "./../../hooks/datum/useUserDatum";
 const DatumUser: React.FC = () => {
-  const isMobile = useIsMobile();
   const { t } = useTranslation();
 
   const [activeUsersValue, setActiveUsersValue] = useState("1W");

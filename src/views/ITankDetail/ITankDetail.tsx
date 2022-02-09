@@ -1,14 +1,8 @@
 //@ts-nocheck
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
-import {
-  getNumberToMax,
-  getNumberToAll,
-  getDisplayNumber,
-} from "../../utils/formatBalance";
 import { $isFiniteNumber, $isPositiveNumber } from "../../utils/utils";
-import useIsMobile from "../../hooks/useIsMobile";
 import BigNumber from "bignumber.js";
 import Back from "../../components/Back";
 import MyInfo from "./components/MyInfo";
@@ -27,7 +21,6 @@ const ITankDetail: React.FC = () => {
   const { itankInfo, lastDate, redeemAmount } = useItankInfo(itank);
   const myShare = useTokenBalance(itank?.itankContract);
   const depositBalance = useTokenBalance(itank?.depositToken);
-  
 
   const myRatio = useMemo(() => {
     //我的LP余额除总供应

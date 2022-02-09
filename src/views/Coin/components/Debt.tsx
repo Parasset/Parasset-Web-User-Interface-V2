@@ -1,6 +1,5 @@
 //@ts-nocheck
 import React from "react";
-import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 import Spacer from "../../../components/Spacer";
 import BigValue from "../../../components/BigValue";

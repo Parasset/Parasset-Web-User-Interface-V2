@@ -1,5 +1,5 @@
 //@ts-nocheck
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import BigNumber from "bignumber.js";
 
@@ -7,7 +7,6 @@ import Toast from "light-toast";
 import HandlerModal from "../../../components/HandlerModal";
 import Value from "../../../components/Value";
 import {
-  getDep,
   $isFiniteNumber,
   $isPositiveNumber,
 } from "../../../utils/utils";

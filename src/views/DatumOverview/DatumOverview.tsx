@@ -1,8 +1,7 @@
 //@ts-nocheck
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import BigNumber from "bignumber.js";
-import useIsMobile from "../../hooks/useIsMobile";
 import { $isFiniteNumber, $isPositiveNumber } from "../../utils/utils";
 
 import Container from "../../components/Datum/Container";
@@ -19,7 +18,6 @@ import useItankInfo from "./../../hooks/itank/useItankInfo";
 import useUserOverview from "./../../hooks/datum/useUserOverview";
 import useDebtOverview from "./../../hooks/datum/useDebtOverview";
 const Overview: React.FC = () => {
-  const isMobile = useIsMobile();
   const { t } = useTranslation();
   const basisCash = useBasisCash();
   const PUSDToken = basisCash?.externalTokens["PUSD"];

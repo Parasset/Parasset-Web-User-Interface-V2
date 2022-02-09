@@ -1,9 +1,6 @@
 //@ts-nocheck
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import BigNumber from "bignumber.js";
-import useIsMobile from "../../hooks/useIsMobile";
-import { $isFiniteNumber, $isPositiveNumber } from "../../utils/utils";
 
 import BigValue from "../../components/BigValue";
 import TableTitle from "../../components/TableTitle";
@@ -15,7 +12,6 @@ import useLiquidationList from "../../hooks/debt/useLiquidationList";
 import useLiquidatedAssets from "../../hooks/debt/useLiquidatedAssets";
 import LiqModal from "./components/LiqModal";
 const Liquidation: React.FC = () => {
-  const isMobile = useIsMobile();
   const { t } = useTranslation();
   const basisCash = useBasisCash();
   const [isOpen, setIsOpen] = useState(false);

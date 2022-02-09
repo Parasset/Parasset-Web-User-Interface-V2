@@ -2,7 +2,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Tooltip, Slider } from "antd";
 import { useParams } from "react-router-dom";
-import styled from "styled-components";
 import BigNumber from "bignumber.js";
 import Toast from "light-toast";
 import { useTranslation } from "react-i18next";

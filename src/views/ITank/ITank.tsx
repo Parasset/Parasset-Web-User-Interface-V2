@@ -2,7 +2,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import BigNumber from "bignumber.js";
-import useIsMobile from "../../hooks/useIsMobile";
 import Value from "../../components/Value";
 import BigValue from "../../components/BigValue";
 import List from "./components/List";
@@ -11,7 +10,6 @@ import useItanks from "../../hooks/itank/useItanks";
 import useItankInfo from "../../hooks/itank/useItankInfo";
 import { $isFiniteNumber, $isPositiveNumber } from "../../utils/utils";
 const ITank: React.FC = () => {
-  const isMobile = useIsMobile();
   const { t } = useTranslation();
   const itanks = useItanks();
   const [messages] = useState(["risk_msg1", "risk_msg2", "risk_msg3"]);

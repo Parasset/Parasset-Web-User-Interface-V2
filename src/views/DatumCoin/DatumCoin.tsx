@@ -8,7 +8,6 @@ import React, {
 import * as echarts from "echarts";
 import { useTranslation } from "react-i18next";
 import BigNumber from "bignumber.js";
-import useIsMobile from "../../hooks/useIsMobile";
 import { $isFiniteNumber, $isPositiveNumber } from "../../utils/utils";
 import Container from "../../components/Datum/Container";
 
@@ -20,7 +19,6 @@ import useTVL from "../../hooks/debt/useTVL";
 import useDebtInfo from "../../hooks/debt/useDebtInfo";
 import useTotalSupply from "./../../hooks/useTokenTotalSupply";
 const DatumCoin: React.FC = () => {
-  const isMobile = useIsMobile();
   const { t, i18n } = useTranslation();
   const basisCash = useBasisCash();
   const ETHDebt = useDebt("ETHPUSD");

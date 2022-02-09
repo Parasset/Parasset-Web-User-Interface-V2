@@ -3,8 +3,6 @@ body {
   background-size: 100% 100%;
   overflow: auto;
   margin: 0;
-  /* font-family: "Nunito", sans-serif; */
-  /*font-family: "KumbhSans-Medium", "OPPOSans-M", serif !important;*/
   font-family: "KumbhSans-Medium" !important;
   font-size: 13px !important;
   -webkit-font-smoothing: antialiased;

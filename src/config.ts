@@ -2,8 +2,6 @@
 import { ChainId } from "@uniswap/sdk";
 import { Configuration } from "./basis-cash/config";
 import { MineInfo } from "./basis-cash";
-import { formatUnits } from "ethers/lib/utils";
-import { BigNumber } from "ethers";
 
 const configurations: { [env: string]: Configuration } = {
   development: {

@@ -1,8 +1,7 @@
 //@ts-nocheck
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
-import useIsMobile from "../../hooks/useIsMobile";
 import Back from "../../components/Back";
 import Info from "./components/Info";
 import Handler from "./components/Handler";
@@ -10,7 +9,6 @@ import useDebt from "../../hooks/debt/useDebt";
 import useDebtInfo from "../../hooks/debt/useDebtInfo";
 
 const DebtDetail: React.FC = () => {
-  const isMobile = useIsMobile();
   const { t } = useTranslation();
   const { debtId } = useParams();
   const debt = useDebt(debtId);

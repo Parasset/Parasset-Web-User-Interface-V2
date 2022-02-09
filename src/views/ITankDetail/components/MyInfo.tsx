@@ -1,7 +1,6 @@
 //@ts-nocheck
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import BigNumber from "bignumber.js";
 import { useHistory } from "react-router-dom";
 import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
@@ -13,10 +12,8 @@ import useIsMobile from "../../../hooks/useIsMobile";
 
 const MyInfo: React.FC = ({
   itank,
-  itankInfo,
   myShare,
   myRatio,
-  totalFund,
   myAssets,
   onOpenDepositModal,
   onOpenWithdrawModal,
@@ -24,8 +21,6 @@ const MyInfo: React.FC = ({
   const isMobile = useIsMobile();
   const { t } = useTranslation();
   const history = useHistory();
-
-  const [pendingTx, setPendingTx] = useState(false);
 
   return (
     <>

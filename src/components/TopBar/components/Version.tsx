@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import CardButton from "../../CardButton";
 import useIsMobile from "../../../hooks/useIsMobile";
-import Button from "../../Button";
 const Version: React.FC = () => {
   const isMobile = useIsMobile();
   return (

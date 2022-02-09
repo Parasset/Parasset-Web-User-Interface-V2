@@ -17,10 +17,6 @@ const DepositModal: React.FC = ({
   itankInfo,
   redeemAmount,
   lastDate,
-  myShare,
-  myRatio,
-  totalFund,
-  myAssets,
 }) => {
   const { t } = useTranslation();
   const [val, setVal] = useState(0);
