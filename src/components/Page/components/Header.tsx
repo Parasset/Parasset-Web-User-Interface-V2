@@ -111,7 +111,7 @@ const StyledHeaderPc = styled.div`
   left: 0;
   padding-left: 240px;
   padding-right: 240px;
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.9);
   z-index: 99;
   border-bottom: 1px solid black;
   @media (max-width: 768px) {

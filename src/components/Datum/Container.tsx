@@ -18,7 +18,7 @@ const Container: React.FC = ({ title, children }) => (
 );
 
 const StyledContainer = styled(Card)`
-  background: white;
+  background-color: rgba(255,255,255, 0.9);
   @media (max-width: 768px) {
     padding: 10px 16px;
   }

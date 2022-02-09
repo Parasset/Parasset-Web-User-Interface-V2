@@ -174,7 +174,7 @@ const Right: React.FC = ({ isDatumPath }) => {
 };
 
 const WrappedNavRight = styled.div`
-  background-color: rgba(255,255,255, 0.7);
+  background-color: rgba(255,255,255, 0.9);
   height: 100vh;
 `
 

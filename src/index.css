@@ -57,8 +57,11 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+.height44{
+  min-height: 44px;
+}
 .bg-white {
-  background: white;
+  background-color: rgba(255,255,255, 0.9);
 }
 .input-dark-box {
   background: #f7f8fa;

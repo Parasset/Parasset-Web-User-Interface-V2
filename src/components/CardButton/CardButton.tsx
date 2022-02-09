@@ -30,9 +30,9 @@ const CardButton: React.FC<CardProps> = ({
 const StyledButton = styled.div`
   /* box-shadow: 0px 0px 10px ${(props) => props.theme.color.grey[200]}; */
   border: 1px solid #eeeeee;
-  box-shadow: 0px 0px 10px ${(props) => props.theme.color.grey[200]} inset;
+  box-shadow: 0 0 10px ${(props) => props.theme.color.grey[200]} inset;
   border-radius: 999999px;
-  min-height: 40px;
+  min-height: 44px;
 `;
 
 export default CardButton;
