@@ -26,6 +26,7 @@ const Version: React.FC = () => {
 //
 const StyledCardButton = styled(CardButton)`
  box-shadow: 0 0 10px ${(props) => props.theme.color.grey[200]};
+  background-color: white;
  height: 44px;
  min-height: 44px;
 `;
