@@ -24,7 +24,6 @@ const Nav: React.FC = ({ onShowWallet,toggleShow }) => {
       />
       <Spacer size="mmd" />
       <Version />
-      <Lang />
     </>
   );
 };

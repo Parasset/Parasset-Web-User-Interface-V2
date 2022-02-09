@@ -1,5 +1,5 @@
 //@ts-nocheck
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
@@ -79,7 +79,7 @@ const Item: React.FC = ({ item }) => {
         <Spacer />
       </StyledPcItem>
       <StyledMobileItem>
-        <Card className="wing-blank-lg">
+        <Card className="wing-blank-lg bg-white">
           <Spacer size="mmd" />
           <div className="color-grey">{t("dyzc")}</div>
           <Spacer size="mmd" />
