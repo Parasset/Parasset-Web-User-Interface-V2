@@ -76,8 +76,7 @@ const Item: React.FC = ({ item }) => {
             </div>
           </div>
         </Card>
-        <Spacer size="sm" />
-        <Spacer size="sm" />
+        <Spacer />
       </StyledPcItem>
       <StyledMobileItem>
         <Card className="wing-blank-lg">

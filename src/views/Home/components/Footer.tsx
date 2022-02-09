@@ -7,12 +7,11 @@ const Footer: React.FC = () => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
   return (
-    <div className="wing-blank-lg ">
-      <Spacer />
+    <>
+      <Spacer/>
       <div className={`width-100 ${isMobile ? "" : "flex-jc-center"} `}>
         {isMobile ? <Spacer size="mmd" /> : null}
 
-        {/* <div className="color-grey text-center">{t("dypxzc")}</div> */}
         {isMobile ? <Spacer size="mmd" /> : null}
         <div
           className={` flex-wrap ${
@@ -93,9 +92,8 @@ const Footer: React.FC = () => {
             />
           </a>
         </div>
-        <div className="space-white-lg"></div>
       </div>
-    </div>
+    </>
   );
 };
 const StyledItemImg = styled.img`
