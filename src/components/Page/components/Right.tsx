@@ -51,7 +51,7 @@ const Right: React.FC = ({ isDatumPath }) => {
           }}
         />
       </StyledWallet>
-      <div className="">
+      <WrappedNavRight>
         <div className="wing-blank-lg bd-bottom">
           <StyledLabel>{t("wdpxzc")}</StyledLabel>
           <Spacer size="sm" />
@@ -161,7 +161,7 @@ const Right: React.FC = ({ isDatumPath }) => {
             </div>
           </a>
         </div>
-      </div>
+      </WrappedNavRight>
       <WalletModal
         isOpen={isOpen}
         key={isOpen}
@@ -173,8 +173,12 @@ const Right: React.FC = ({ isDatumPath }) => {
   );
 };
 
+const WrappedNavRight = styled.div`
+  background-color: rgba(255,255,255, 0.7);
+  height: 100vh;
+`
+
 const StyledNavRight = styled.div`
-  background-color: rgba(255, 255, 255, 0.7);
   border-left: 1px solid ${(props) => props.theme.color.black};
   min-height: 100vh;
   width: 240px;

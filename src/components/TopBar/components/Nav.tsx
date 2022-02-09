@@ -11,15 +11,21 @@ const Nav: React.FC = () => {
   return (
     <StyledNav>
       <Logo/>
-      <NavBar/>
-      <Spacer size={"sm"} />
-      <Version/>
+      <WrappedNav>
+        <NavBar/>
+        <Spacer size={"sm"} />
+        <Version/>
+      </WrappedNav>
     </StyledNav>
   );
 };
 
+const WrappedNav = styled.div`
+  background-color: rgba(255,255,255, 0.7);
+  height: 100vh;
+`
+
 const StyledNav = styled.div`
-  background-color: rgba(255, 255, 255, 0.7);
   border-right: 1px solid black;
   min-height: 100vh;
   width: 240px;
