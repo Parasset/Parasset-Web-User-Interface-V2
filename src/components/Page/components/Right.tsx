@@ -174,7 +174,7 @@ const Right: React.FC = ({ isDatumPath }) => {
 };
 
 const StyledNavRight = styled.div`
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.7);
   border-left: 1px solid ${(props) => props.theme.color.black};
   min-height: 100vh;
   width: 240px;

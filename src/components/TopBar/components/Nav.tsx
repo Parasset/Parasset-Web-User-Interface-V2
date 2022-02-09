@@ -19,7 +19,7 @@ const Nav: React.FC = () => {
 };
 
 const StyledNav = styled.div`
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.7);
   border-right: 1px solid black;
   min-height: 100vh;
   width: 240px;
