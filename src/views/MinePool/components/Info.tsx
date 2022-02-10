@@ -12,7 +12,7 @@ const Info: React.FC = ({ mine, mineInfo }) => {
   return (
     <>
       <Card className="wing-blank-lg bg-white">
-        <Spacer size="mmd" />
+        <Spacer />
         <div className="color-dark">{t("kcgl")}</div>
         <div className="wing-blank">
           <Spacer />
@@ -29,7 +29,7 @@ const Info: React.FC = ({ mine, mineInfo }) => {
               className={` ${isMobile ? "" : "width-47"} `}
             />
           </div>
-          <Spacer size="mmd" />
+          <Spacer />
           <div className={` ${isMobile ? "" : "flex-jc-center"} `}>
             <Label
               label="TVL"
@@ -44,10 +44,9 @@ const Info: React.FC = ({ mine, mineInfo }) => {
               className={` ${isMobile ? "" : "width-47"} `}
             />
           </div>
-          <Spacer />
         </div>
 
-        <Spacer size="mmd" />
+        <Spacer />
       </Card>
       <Spacer />
     </>
