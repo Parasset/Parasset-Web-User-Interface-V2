@@ -595,7 +595,6 @@ const Specie: React.FC = ({}) => {
         <Spacer />
         <div className="flex-jc-center color-grey wing-blank-lg">
           <div> {t("dyzcsl")}</div>
-      
           <div>
             {t("yue")}
             <span
@@ -611,8 +610,7 @@ const Specie: React.FC = ({}) => {
             </span>
           </div>
         </div>
-        <Spacer size="sm" />
-        <Spacer size="sm" />
+        <Spacer size={"sm"} />
         <Select
           showSelect={showInputCurrencySelect}
           list={currencyListInput}
@@ -638,7 +636,7 @@ const Specie: React.FC = ({}) => {
         <div className=" wing-blank-lg">
           <Spacer size="sm" />
           <div className="color-grey">{t("dyl")}</div>
-          <Spacer size="ssm" />
+          <Spacer size="sm" />
 
           <div id="slider">
             <Slider
@@ -680,9 +678,7 @@ const Specie: React.FC = ({}) => {
             onFocus(e, setOutputValue);
           }}
         />
-        <Spacer size="mmd" />
-
-        <Spacer size="mmd" />
+        <Spacer />
         <Label
           label={t("heyue", {
             label: selectOutputCurrency,
@@ -696,7 +692,7 @@ const Specie: React.FC = ({}) => {
           className="wing-blank-lg"
         />
 
-        <Spacer size="mmd" />
+        <Spacer />
         {/* <Label
           label={
             <Tooltip title={t("tip2")}>
@@ -765,8 +761,7 @@ const Specie: React.FC = ({}) => {
 
         <Spacer />
       </Card>
-      <Spacer size="sm" />
-      <Spacer size="sm" />
+      <Spacer />
     </>
   );
 };
