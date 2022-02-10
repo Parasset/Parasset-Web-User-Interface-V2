@@ -18,12 +18,12 @@ const Specie: React.FC = () => {
     <>
       <BigValue
         text={t("dasz")}
-        color="#DD8751"
+        color="#000"
         value={<Value value={mortgageValue} prefix="$"/>}
       />
       <BigValue
         text={t("zwsz")}
-        color="#77A89A"
+        color="#000"
         value={<Value value={parassetValue} prefix="$"/>}
       />
       <Spacer size="sm" />
