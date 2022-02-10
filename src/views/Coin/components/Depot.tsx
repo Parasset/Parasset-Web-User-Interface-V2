@@ -27,7 +27,7 @@ const Depot: React.FC = ({ list, loading }) => {
                       <Spacer />
                       <Progress ratio={item.rate} maxRatio={item.maxRatio} liqRatio={item.liqRatio} />
 
-                      <Spacer size="sm" />
+                      <Spacer />
                       <div className="flex-row-center-center ">
                         <TokenSymbol symbol={item.icon1} size={40} />
                         <TokenSymbol
@@ -36,11 +36,11 @@ const Depot: React.FC = ({ list, loading }) => {
                           isRight={true}
                         />
                       </div>
-                      <Spacer size="sm" />
+                      <Spacer size={"sm"} />
                       <div className="font-size-16 bold-600 text-center">
                         {item.name}
                       </div>
-                      <Spacer size="mmd" />
+                      <Spacer />
                       <StyledCardButton className="wing-blank-lg">
                         <div className="flex-jc-center flex1">
                           <div className="color-grey">{t("dyzc")}</div>
@@ -55,7 +55,7 @@ const Depot: React.FC = ({ list, loading }) => {
                           </div>
                         </div>
                       </StyledCardButton>
-                      <Spacer size="mmd" />
+                      <Spacer  />
                       <StyledCardButton className="wing-blank-lg">
                         <div className="flex-jc-center flex1">
                           <div className="color-grey">{t("zbzw")}</div>
@@ -71,7 +71,7 @@ const Depot: React.FC = ({ list, loading }) => {
                           </div>
                         </div>
                       </StyledCardButton>
-                      <Spacer size="mmd" />
+                      <Spacer  />
                       <StyledCardButton className="wing-blank-lg">
                         <div className="flex-jc-center flex1">
                           <div className="color-grey">{t("wdf")}</div>
@@ -91,7 +91,7 @@ const Depot: React.FC = ({ list, loading }) => {
                         </div>
                       </StyledCardButton>
 
-                      <Spacer size="md" />
+                      <Spacer />
                       <Button
                         text={t("chakan")}
                         variant="secondary"
@@ -108,7 +108,6 @@ const Depot: React.FC = ({ list, loading }) => {
             </>
           ) : (
             <div className="text-center">
-              <Spacer />
               <Spacer />
 
               <img alt="image"

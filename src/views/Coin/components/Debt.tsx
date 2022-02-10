@@ -15,22 +15,6 @@ const Specie: React.FC = () => {
     parassetValue,
   } = useCreatedDebts();
 
-  const demoList = [{
-    name: 'name',
-    rate: '0.2',
-    maxRatio: '0.4',
-    liqRatio: '0.2',
-    icon1: 'PETH',
-    icon2: 'PUSD',
-    mortgageAssets: '2',
-    depositTokenName: 'ETH',
-    mortgageValue: '0.2',
-    earnTokenName: 'PUSD',
-    parassetValue: '2',
-    fee: '0.3',
-    feeValue: '0.3',
-    key: 'ETH',
-  }]
   return (
     <>
       <BigValue
@@ -44,7 +28,7 @@ const Specie: React.FC = () => {
         value={<Value value={parassetValue} prefix="$"/>}
       />
       <Spacer size="sm" />
-      <Depot list={demoList} loading={loading} />
+      <Depot list={list} loading={loading} />
     </>
   );
 };
