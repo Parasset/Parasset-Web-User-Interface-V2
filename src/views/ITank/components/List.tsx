@@ -50,25 +50,25 @@ const Item: React.FC = ({ item }) => {
       <StyledWrapBox
         className={`wing-blank-lg bg-white ${isMobile ? "" : "with-100-24"} `}
       >
-        <Spacer size="mmd" />
+        <Spacer />
         <div className="flex-row-center-center">
           <TokenSymbol symbol={item.icon1} size={40} />
           <TokenSymbol symbol={item.icon2} size={40} isRight={true} />
         </div>
-        <Spacer size="sm" />
+        <Spacer size={"sm"} />
         <div className="font-size-16 text-center">{item.name}</div>
-        <Spacer size="mmd" />
+        <Spacer/>
         <Label label="TVL" value={<Value value={tvl} prefix="$" />} />
-        <Spacer size="mmd" />
+        <Spacer  />
         <Label label={t("scl")} value={<Value value={deposited} />} />
-        <Spacer size="mmd" />
+        <Spacer />
         <Label
           label={t("jingzhi")}
           value={
             <Value value={itankInfo.perShare} decimals={6} placeholder={true} />
           }
         />
-        <Spacer size="mmd" />
+        <Spacer />
         <Label
           label={t("yqnhsyl")}
           value={
@@ -81,12 +81,12 @@ const Item: React.FC = ({ item }) => {
           }
         />
 
-        <Spacer size="mmd" />
+        <Spacer />
         <Label
           label={t("wdfe")}
           value={<Value value={myShare} decimals={6} />}
         />
-        <Spacer size="mmd" />
+        <Spacer />
         <Label label={t("wdzb")} value={<Value value={myRatio} suffix="%" />} />
         <Spacer />
         <Button
@@ -96,7 +96,7 @@ const Item: React.FC = ({ item }) => {
             history.push(`/itank/detail/${item.contract}`);
           }}
         />
-        <Spacer size="mmd" />
+        <Spacer />
       </StyledWrapBox>
     </>
   );
