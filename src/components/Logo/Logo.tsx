@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import logo from "../../assets/img/Parasset.svg";
+import logo from "../../assets/svg/Parasset_logo_black.svg";
 const Logo: React.FC = () => {
   return (
     <StyledLogo className={`flex-row-center-center`}>
