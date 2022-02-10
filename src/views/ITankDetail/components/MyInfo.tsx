@@ -80,7 +80,7 @@ const MyInfo: React.FC = ({
               onClick={() => {
                 history.push(`/mine/pool/${itank.contract}`);
               }}
-              className="color-light-blue"
+              className="color-light-blue cursor-pointer"
             >
               {t("zywa", {
                 lpToken: itank.LPTokenName,
