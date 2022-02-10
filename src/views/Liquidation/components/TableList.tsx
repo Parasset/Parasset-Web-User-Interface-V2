@@ -13,7 +13,7 @@ const Item: React.FC = ({ item, onSelect, openModal }) => {
   return (
     <>
       <StyledPcItem>
-        <Card className=" flex-jc-center bold-600 font-size-14">
+        <Card className=" flex-jc-center bold-600 font-size-14 bg-white">
           <div className="flex1 flex-column-align-center">
             <div>
               <TokenSymbol symbol={item.depositTokenName} size={25} />
@@ -75,8 +75,6 @@ const Item: React.FC = ({ item, onSelect, openModal }) => {
               <Button
                 text={t("qingsuan")}
                 variant="secondary"
-                width="80px"
-                size="sm"
                 onClick={(e) => {
                   onSelect(item.itemKey);
                   openModal();
@@ -85,8 +83,7 @@ const Item: React.FC = ({ item, onSelect, openModal }) => {
             </div>
           </div>
         </Card>
-        <Spacer size="sm" />
-        <Spacer size="sm" />
+        <Spacer />
       </StyledPcItem>
       <StyledMobileItem>
         <Card className="wing-blank-lg bg-white">
