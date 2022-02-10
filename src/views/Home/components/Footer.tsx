@@ -78,13 +78,13 @@ const Footer: React.FC = () => {
         name: 'whitepaper',
         img: whitepaper,
         imgActive: whitepaperActive,
-        link: 'https://www.parasset.top/file/Parasset_WhitePaper.pdf'
+        link: 'https://github.com/Parasset/Parasset-Doc/blob/main/WhitePaper.pdf'
       },
       {
         name: 'audit',
         img: audit,
         imgActive: auditActive,
-        link: 'https://www.parasset.top/file/Certik_Parasset_final.pdf'
+        link: 'https://github.com/Parasset/Parasset-Doc/blob/main/Certik_Parasset_final.pdf'
       }
     ]
   }, [])

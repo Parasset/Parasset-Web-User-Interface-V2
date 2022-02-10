@@ -26,13 +26,9 @@ import useFee from "../../../hooks/coin/useFee";
 import useCoin from "../../../hooks/coin/useCoin";
 import useCallbackState from "../../../hooks/useCallbackState";
 
-import {
-  getDep,
-  $isFiniteNumber,
-  $isPositiveNumber,
-  getEncryptAddress,
-} from "../../../utils/utils";
-import { getNumberToFixed, updateNumDep } from "../../../utils/formatBalance";
+import {$isFiniteNumber, $isPositiveNumber, getDep, getEncryptAddress,} from "../../../utils/utils";
+import {getNumberToFixed, updateNumDep} from "../../../utils/formatBalance";
+
 const Specie: React.FC = ({}) => {
   const { t } = useTranslation();
   const basisCash = useBasisCash();
@@ -168,13 +164,13 @@ const Specie: React.FC = ({}) => {
   }, [inputValue, NESTToUSDTPrice, ETHAvgPrice, isETH]);
 
   const inputMax = useMemo(() => {
-    var max = $isPositiveNumber(
+    const max = $isPositiveNumber(
       $isFiniteNumber(
         new BigNumber(ETHWalletBalance).minus(0.025).toFixed(18, 1)
       )
     );
 
-    var canBuyAmount = isETH ? max : inputCurrencyBalance;
+    const canBuyAmount = isETH ? max : inputCurrencyBalance;
     const amount = new BigNumber(canBuyAmount);
     return amount.toFixed(getDep(amount), 1);
   }, [inputCurrencyBalance, isETH]);
@@ -248,8 +244,7 @@ const Specie: React.FC = ({}) => {
   }, [dataList, selectInputCurrency, selectOutputCurrency]);
 
   const fee = useMemo(() => {
-    const fee = dataList[selectInputCurrency + selectOutputCurrency].fee;
-    return fee;
+    return dataList[selectInputCurrency + selectOutputCurrency].fee;
   }, [dataList, selectInputCurrency, selectOutputCurrency]);
 
   const [approveStatusPUSD, approvePUSD] = useApprove(
