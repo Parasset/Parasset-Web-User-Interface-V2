@@ -58,13 +58,13 @@ const Right: React.FC = ({ isDatumPath }) => {
           <div className="flex-al-start">
             <TokenSymbol symbol="PETH" size={25} />
             <div className="margin-left-10">
-              <div className={"bold-600"}>PETH</div>
+              <div className={"bold-500"}>PETH</div>
               <Spacer size="ssm" />
               <div className="flex-jc-start color-grey">
                 <div>{PETHAddress}</div>
                 <Copy toCopy={PETHToken?.address} />
               </div>
-              <div className={"bold-600"}>
+              <div className={"bold-500"}>
                 <Value value={PETHTokenBalance} />
               </div>
             </div>
@@ -73,13 +73,13 @@ const Right: React.FC = ({ isDatumPath }) => {
           <div className="flex-al-start">
             <TokenSymbol symbol="PUSD" size={25} />
             <div className="margin-left-10">
-              <div className={"bold-600"}>PUSD</div>
+              <div className={"bold-500"}>PUSD</div>
               <Spacer size="ssm" />
               <div className="flex-jc-start color-grey">
                 <div>{PUSDAddress}</div>
                 <Copy toCopy={PUSDToken?.address} />
               </div>
-              <div className={"bold-600"}>
+              <div className={"bold-500"}>
                 <Value value={PUSDTokenBalance} />
               </div>
             </div>
@@ -95,7 +95,7 @@ const Right: React.FC = ({ isDatumPath }) => {
               <TokenSymbol symbol="USDT" size={25} isRight={true} />
             </div>
             <div className="margin-left-10">
-              <div className={"bold-600"}>
+              <div className={"bold-500"}>
                 <Value value={ETHAvgPrice} decimals={8} />
               </div>
               <div className={"color-grey"}>ETH/USDT</div>
@@ -108,7 +108,7 @@ const Right: React.FC = ({ isDatumPath }) => {
               <TokenSymbol symbol="USDT" size={25} isRight={true} />
             </div>
             <div className="margin-left-10">
-              <div className={"bold-600"}>
+              <div className={"bold-500"}>
                 <Value value={NESTToUSDTPrice} decimals={8} />
               </div>
               <div className={"color-grey"}>NEST/USDT</div>
@@ -121,7 +121,7 @@ const Right: React.FC = ({ isDatumPath }) => {
               <TokenSymbol symbol="ETH" size={25} isRight={true} />
             </div>
             <div className="margin-left-10">
-              <div className={"bold-600"}>
+              <div className={"bold-500"}>
                 <Value value={NESTToETHPrice} decimals={8} />
               </div>
               <div className={"color-grey"}>NEST/ETH</div>
@@ -138,7 +138,7 @@ const Right: React.FC = ({ isDatumPath }) => {
                 <TokenSymbol symbol="PUSD" size={25} />
               </div>
               <div className="margin-left-10">
-                <div className={"bold-600"}>
+                <div className={"bold-500"}>
                   <Value value={PUSDTotalSupply} />{" "}
                 </div>
                 <div className={"color-grey"}>PUSD</div>
@@ -153,7 +153,7 @@ const Right: React.FC = ({ isDatumPath }) => {
                 <TokenSymbol symbol="PETH" size={25} />
               </div>
               <div className="margin-left-10">
-                <div className={"bold-600"}>
+                <div className={"bold-500"}>
                   <Value value={PETHTotalSupply} />{" "}
                 </div>
                 <div className={"color-grey"}>PETH</div>
@@ -197,7 +197,7 @@ const StyledWallet = styled.div`
 const StyledLabel = styled.div`
   height: 45px;
   display: flex;
-  font-weight: 600;
+  font-weight: 500;
   align-items: center;
 `;
 
