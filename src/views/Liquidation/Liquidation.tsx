@@ -18,7 +18,7 @@ const Liquidation: React.FC = () => {
   const [selectKey, setSelectKey] = useState("ETHPUSD");
   const { list, loading, totalMortgageValue } = useLiquidationList();
   const liquidatedAssets = useLiquidatedAssets();
-  const [titles, setTitles] = useState([
+  const titles = [
     {
       text:'zhaicang',
       className:'flex1',
@@ -39,9 +39,7 @@ const Liquidation: React.FC = () => {
       text:'zdqsf',
       className:'flex15',
     },
-
-  
-  ]);
+  ]
 
   const onSelect = useCallback((itemKey) => {
     setSelectKey(itemKey);
