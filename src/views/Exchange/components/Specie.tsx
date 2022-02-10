@@ -504,13 +504,13 @@ const Specie: React.FC = ({}) => {
         <div className="text-right color-grey wing-blank-lg">
           ≈ <Value value={outputCurrencyValue} prefix="$" />
         </div>
-        <Spacer size="sm" />
+        <Spacer />
         <Label
           label={t("dhbl")}
           value={isETH ? "1 ETH=1 PETH" : "1 USDT=1 PUSD"}
           className="wing-blank-lg"
         />
-        <Spacer size="mmd" />
+        <Spacer />
         <Label
           label={t("sxf")}
           value={
