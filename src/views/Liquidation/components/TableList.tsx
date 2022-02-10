@@ -209,7 +209,8 @@ const TableList: React.FC = ({ list, loading, onSelect, openModal }) => {
             <div className="text-center">
               <Spacer />
 
-              <img alt="image"
+              <img
+                alt="image"
                 src={require("../../../assets/img/icon_empty.png")}
                 width="50"
                 height="50"

@@ -1,9 +1,9 @@
 //@ts-nocheck
-import React, {useMemo} from "react";
+import React, { useMemo } from "react";
 import styled from "styled-components";
-import {Tooltip} from "antd";
+import { Tooltip } from "antd";
 import BigNumber from "bignumber.js";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 import Value from "../../../components/Value";
 
 const Progress: React.FC = ({ ratio, maxRatio, liqRatio }) => {
@@ -51,9 +51,7 @@ const Progress: React.FC = ({ ratio, maxRatio, liqRatio }) => {
           <StyledProgressLine color={progressColor} percent={percent} />
           <StyledProgressGrey />
 
-          <div
-            className=" bold-600 font-size-32 color-dark"
-          >
+          <div className=" bold-600 font-size-32 color-dark">
             <Value value={ratio} decimals={2} suffix="%" />
           </div>
           <Tooltip title={t("tip1")}>

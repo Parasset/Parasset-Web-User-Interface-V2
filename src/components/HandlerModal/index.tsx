@@ -66,8 +66,8 @@ export default function HandlerModal({
                 className="text-underline cursor-pointer "
                 onClick={onSelectMax}
               >
-              <Value decimals={6} value={max} />
-            </span>
+                <Value decimals={6} value={max} />
+              </span>
             </div>
           </div>
           <Spacer size="mmd" />
@@ -154,34 +154,35 @@ export default function HandlerModal({
           ) : null}
 
           {columns &&
-          Object.keys(columns).map((key) => {
-            const item = columns[key];
-            return (
-              <React.Fragment key={key}>
-                <Spacer size="mmd" />
-                <Label
-                  label={
-                    item.isTooltip ? (
-                      <Tooltip title={t(item.tip)}>
-                        <div className="text-underline cursor-pointer">
-                          {" "}
-                          {t(item?.label)}
-                        </div>
-                      </Tooltip>
-                    ) : (
-                      t(item?.label) + (item?.labelUnit ? item?.labelUnit : "")
-                    )
-                  }
-                  value={
-                    <div className="flex-jc-end">
-                      {item?.value}
-                      {item?.unit}
-                    </div>
-                  }
-                />
-              </React.Fragment>
-            );
-          })}
+            Object.keys(columns).map((key) => {
+              const item = columns[key];
+              return (
+                <React.Fragment key={key}>
+                  <Spacer size="mmd" />
+                  <Label
+                    label={
+                      item.isTooltip ? (
+                        <Tooltip title={t(item.tip)}>
+                          <div className="text-underline cursor-pointer">
+                            {" "}
+                            {t(item?.label)}
+                          </div>
+                        </Tooltip>
+                      ) : (
+                        t(item?.label) +
+                        (item?.labelUnit ? item?.labelUnit : "")
+                      )
+                    }
+                    value={
+                      <div className="flex-jc-end">
+                        {item?.value}
+                        {item?.unit}
+                      </div>
+                    }
+                  />
+                </React.Fragment>
+              );
+            })}
 
           <Spacer size="mmd" />
           {showApprove && approveStatus ? (

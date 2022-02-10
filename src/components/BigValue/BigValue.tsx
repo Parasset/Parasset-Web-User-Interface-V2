@@ -3,7 +3,7 @@ import React from "react";
 import Spacer from "../Spacer";
 import Card from "../Card";
 
-const BigValue: React.FC = ({ text, color = "#5DB3D3",value }) => (
+const BigValue: React.FC = ({ text, color = "#5DB3D3", value }) => (
   <>
     <Card className="text-center bg-white">
       <Spacer size="sm" />

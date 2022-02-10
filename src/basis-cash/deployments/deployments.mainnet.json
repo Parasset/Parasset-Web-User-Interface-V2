@@ -2207,7 +2207,7 @@
         "stateMutability": "nonpayable",
         "type": "function"
       },
-    
+
       {
         "inputs": [
           {
@@ -4010,5 +4010,4 @@
       }
     ]
   }
-
 }

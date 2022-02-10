@@ -12,11 +12,11 @@ const DebtDetail: React.FC = () => {
   const { t } = useTranslation();
   const { debtId } = useParams();
   const debt = useDebt(debtId);
-  const { info: debtInfo,fetchInfo } = useDebtInfo(debt);
+  const { info: debtInfo, fetchInfo } = useDebtInfo(debt);
   return (
     <>
       <Back
-        text={`${debt?.name} ${t('zhaicang')} `}
+        text={`${debt?.name} ${t("zhaicang")} `}
         img={debt.icon1}
         img1={debt.icon2}
       />

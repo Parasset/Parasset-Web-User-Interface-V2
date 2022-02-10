@@ -37,7 +37,7 @@ const useDebtInfo = (debt) => {
     };
   }, [basisCash?.myAccount, debt, block]);
 
-  return { info,fetchInfo };
+  return { info, fetchInfo };
 };
 
 export default useDebtInfo;

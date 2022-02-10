@@ -1,1 +1,1 @@
-export { BasisCashProvider as default, Context } from './BasisCashProvider'
+export { BasisCashProvider as default, Context } from "./BasisCashProvider";

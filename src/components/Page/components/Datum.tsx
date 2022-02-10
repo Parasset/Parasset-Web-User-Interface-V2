@@ -69,7 +69,7 @@ const Datum: React.FC = () => {
           </div>
           <div className="margin-left-10">
             <div className={"bold-600"}>
-              <Value value={ETHAvgPrice} decimals={8}/>
+              <Value value={ETHAvgPrice} decimals={8} />
             </div>
             <div className={"color-grey"}>ETH/USDT</div>
           </div>
@@ -82,7 +82,7 @@ const Datum: React.FC = () => {
           </div>
           <div className="margin-left-10">
             <div className={"bold-600"}>
-              <Value value={NESTToUSDTPrice} decimals={8}/>
+              <Value value={NESTToUSDTPrice} decimals={8} />
             </div>
             <div className={"color-grey"}>NEST/USDT</div>
           </div>
@@ -95,7 +95,7 @@ const Datum: React.FC = () => {
           </div>
           <div className="margin-left-10">
             <div className={"bold-600"}>
-              <Value value={NESTToETHPrice}  decimals={8}/>
+              <Value value={NESTToETHPrice} decimals={8} />
             </div>
             <div className={"color-grey"}>NEST/ETH</div>
           </div>
@@ -105,7 +105,10 @@ const Datum: React.FC = () => {
 
       <div className="">
         <StyledLabel>{t("ltl")}</StyledLabel>
-        <a href={`https://etherscan.io/token/${PETHToken?.address}`} target="_blank" >
+        <a
+          href={`https://etherscan.io/token/${PETHToken?.address}`}
+          target="_blank"
+        >
           <div className="flex-jc-start">
             <div className="flex-jc-center">
               <TokenSymbol symbol="PUSD" size={25} />
@@ -121,7 +124,10 @@ const Datum: React.FC = () => {
         </a>
 
         <Spacer size="mmd" />
-        <a href={`https://etherscan.io/token/${PUSDToken?.address}`} target="_blank" >
+        <a
+          href={`https://etherscan.io/token/${PUSDToken?.address}`}
+          target="_blank"
+        >
           <div className="flex-jc-start">
             <div className="flex-jc-center">
               <TokenSymbol symbol="PETH" size={25} />

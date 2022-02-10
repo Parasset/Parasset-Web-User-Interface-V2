@@ -1,2 +1,2 @@
-export { default } from './ITanks'
-export { default as Context } from './context'
+export { default } from "./ITanks";
+export { default as Context } from "./context";

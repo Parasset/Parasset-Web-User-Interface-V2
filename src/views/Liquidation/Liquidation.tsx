@@ -20,26 +20,26 @@ const Liquidation: React.FC = () => {
   const liquidatedAssets = useLiquidatedAssets();
   const titles = [
     {
-      text:'zhaicang',
-      className:'flex1',
+      text: "zhaicang",
+      className: "flex1",
     },
     {
-      text:'dqdyl',
-      className:'flex1',
+      text: "dqdyl",
+      className: "flex1",
     },
     {
-      text:'dyzc',
-      className:'flex1',
+      text: "dyzc",
+      className: "flex1",
     },
     {
-      text:'zbzw',
-      className:'flex1',
+      text: "zbzw",
+      className: "flex1",
     },
     {
-      text:'zdqsf',
-      className:'flex15',
+      text: "zdqsf",
+      className: "flex15",
     },
-  ]
+  ];
 
   const onSelect = useCallback((itemKey) => {
     setSelectKey(itemKey);

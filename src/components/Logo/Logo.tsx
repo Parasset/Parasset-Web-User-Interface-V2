@@ -3,9 +3,7 @@ import styled from "styled-components";
 import logo from "../../assets/img/Parasset.svg";
 const Logo: React.FC = () => {
   return (
-    <StyledLogo
-      className={`flex-row-center-center`}
-    >
+    <StyledLogo className={`flex-row-center-center`}>
       <StyledLogoImg src={logo} />
     </StyledLogo>
   );
@@ -13,7 +11,7 @@ const Logo: React.FC = () => {
 const StyledLogo = styled.div`
   height: 88px;
   @media (max-width: 768px) {
-   height: auto;
+    height: auto;
   }
 `;
 

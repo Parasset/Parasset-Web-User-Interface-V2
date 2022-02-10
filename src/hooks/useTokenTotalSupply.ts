@@ -1,4 +1,3 @@
-
 //@ts-nocheck
 import { useCallback, useEffect, useState } from "react";
 import ERC20 from "../basis-cash/ERC20";
@@ -17,7 +16,6 @@ const useTotalSupply = (token: ERC20) => {
   }, [basisCash?.myAccount, basisCash?.provider, token]);
 
   useEffect(() => {
- 
     const refreshInterval = setInterval(() => {
       if (basisCash?.myAccount) {
         fetchTotalSupply().catch((err) =>

@@ -1,4 +1,4 @@
-import ERC20 from './ERC20';
+import ERC20 from "./ERC20";
 
 export type ContractName = string;
 
@@ -11,7 +11,7 @@ export interface MineInfo {
   finished: boolean;
 }
 
-export interface Mine extends  MineInfo {
+export interface Mine extends MineInfo {
   address: string;
   depositToken: ERC20;
   earnToken: ERC20;
@@ -25,4 +25,4 @@ export type TokenStat = {
 export type TreasuryAllocationTime = {
   prevAllocation: Date;
   nextAllocation: Date;
-}
+};

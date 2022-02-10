@@ -76,7 +76,7 @@ const StyledSelectItem = styled.div`
 `;
 const StyledSelectItemBox = styled.div`
   @media (max-width: 768px) {
-    justify-content: flex-start!important;
+    justify-content: flex-start !important;
     img {
       margin-right: 5px;
     }

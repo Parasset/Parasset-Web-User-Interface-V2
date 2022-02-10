@@ -22,7 +22,7 @@ const Handler: React.FC = ({ debt, debtInfo, fetchInfo }) => {
 
   const parassetBalance = useTokenBalance(debt?.uToken);
   const ETHWalletBalance = useTokenBalance(basisCash?.externalTokens["ETH"]);
-  const openModal = useCallback((select, ) => {
+  const openModal = useCallback((select) => {
     // setMax(max);
     setSelect(select);
     setOpen(true);

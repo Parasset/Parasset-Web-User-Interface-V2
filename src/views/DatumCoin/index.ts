@@ -1,1 +1,1 @@
-export { default } from './DatumCoin'
+export { default } from "./DatumCoin";

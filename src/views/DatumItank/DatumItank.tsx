@@ -272,8 +272,7 @@ const DatumItank: React.FC = () => {
         <Picker
           value={netValueDatumValue}
           onChangePicker={setNetValueDatumValue}
-        >
-        </Picker>
+        ></Picker>
         <div style={{ height: 400 }} id="itankValueChart" />
       </Container>
     </>

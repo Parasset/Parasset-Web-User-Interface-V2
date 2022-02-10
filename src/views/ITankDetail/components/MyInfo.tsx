@@ -24,7 +24,9 @@ const MyInfo: React.FC = ({
 
   return (
     <>
-      <Card className={`bg-white ${isMobile ? "wing-blank" : "wing-blank-lg"} `}>
+      <Card
+        className={`bg-white ${isMobile ? "wing-blank" : "wing-blank-lg"} `}
+      >
         <Spacer size="mmd" />
 
         <div className={` ${isMobile ? "" : "wing-blank"} `}>
@@ -59,7 +61,6 @@ const MyInfo: React.FC = ({
           />
           <Spacer size="mmd" />
           <div className="flex-jc-center">
-        
             <Button
               variant="secondary"
               text={`${t("zhuru")}`}
@@ -75,7 +76,6 @@ const MyInfo: React.FC = ({
           </div>
           <Spacer />
           <div className="text-center">
-         
             <div
               onClick={() => {
                 history.push(`/mine/pool/${itank.contract}`);

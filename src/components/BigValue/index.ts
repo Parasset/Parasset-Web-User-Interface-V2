@@ -1,1 +1,1 @@
-export { default } from './BigValue'
+export { default } from "./BigValue";

@@ -21,7 +21,7 @@ const ITanks: React.FC = ({ children }) => {
         earnToken: basisCash.externalTokens[itankInfo.earnTokenName],
       });
     }
-    
+
     setItanks(itanks);
   }, [basisCash, basisCash?.isUnlocked, setItanks]);
 

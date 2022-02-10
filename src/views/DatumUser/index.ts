@@ -1,1 +1,1 @@
-export { default } from './DatumUser'
+export { default } from "./DatumUser";

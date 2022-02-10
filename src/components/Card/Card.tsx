@@ -5,12 +5,14 @@ export interface CardProps {
   className?: string;
   children?: any;
 }
-const Card: React.FC<CardProps> = ({ className, children,onClick }) => (
-  <StyledCard className={`wing-blank ${className}`} onClick={onClick}>{children}</StyledCard>
+const Card: React.FC<CardProps> = ({ className, children, onClick }) => (
+  <StyledCard className={`wing-blank ${className}`} onClick={onClick}>
+    {children}
+  </StyledCard>
 );
 
 const StyledCard = styled.div`
-  padding:10px 30px;
+  padding: 10px 30px;
   border-radius: 16px;
 `;
 

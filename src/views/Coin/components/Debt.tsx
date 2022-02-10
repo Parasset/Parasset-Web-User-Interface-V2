@@ -8,24 +8,19 @@ import Depot from "./Depot";
 import useCreatedDebts from "../../../hooks/debt/useCreatedDebts";
 const Specie: React.FC = () => {
   const { t } = useTranslation();
-  const {
-    list,
-    loading,
-    mortgageValue,
-    parassetValue,
-  } = useCreatedDebts();
+  const { list, loading, mortgageValue, parassetValue } = useCreatedDebts();
 
   return (
     <>
       <BigValue
         text={t("dasz")}
         color="#000"
-        value={<Value value={mortgageValue} prefix="$"/>}
+        value={<Value value={mortgageValue} prefix="$" />}
       />
       <BigValue
         text={t("zwsz")}
         color="#000"
-        value={<Value value={parassetValue} prefix="$"/>}
+        value={<Value value={parassetValue} prefix="$" />}
       />
       <Spacer size="sm" />
       <Depot list={list} loading={loading} />

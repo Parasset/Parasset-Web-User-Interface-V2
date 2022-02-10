@@ -35,7 +35,8 @@ export default function WalletModal({ isOpen, onDismiss }) {
               }}
             >
               <div className="flex-jc-start width-100  bold-600 font-size-16">
-                <img alt="image"
+                <img
+                  alt="image"
                   src={require("../../assets/img/metamask.png")}
                   width="35"
                   height="35"
@@ -54,7 +55,8 @@ export default function WalletModal({ isOpen, onDismiss }) {
               }}
             >
               <div className="flex-jc-start width-100  bold-600 font-size-16">
-                <img alt="image"
+                <img
+                  alt="image"
                   src={require("../../assets/img/walletconnect.png")}
                   width="35"
                   height="35"
@@ -70,15 +72,16 @@ export default function WalletModal({ isOpen, onDismiss }) {
             <div className="flex-jc-center">
               <div className="flex-jc-start  bold-600 font-size-16">
                 {/* injected  */}
-                <img alt="image"
-                     src={
-                       connector === "injected"
-                         ? require("../../assets/img/metamask.png")
-                         : require("../../assets/img/walletconnect.png")
-                     }
-                     width="25"
-                     height="25"
-                     className="margin-right-10"
+                <img
+                  alt="image"
+                  src={
+                    connector === "injected"
+                      ? require("../../assets/img/metamask.png")
+                      : require("../../assets/img/walletconnect.png")
+                  }
+                  width="25"
+                  height="25"
+                  className="margin-right-10"
                 />
                 {connector === "injected" ? "MetaMask" : "WalletConnect"}
               </div>
@@ -95,11 +98,12 @@ export default function WalletModal({ isOpen, onDismiss }) {
             </div>
             <Spacer size="mmd" />
             <div className="flex-jc-start">
-              <img alt="image"
-                   src={require("../../assets/img/account_icon.png")}
-                   width="25"
-                   height="25"
-                   className="margin-right-10"
+              <img
+                alt="image"
+                src={require("../../assets/img/account_icon.png")}
+                width="25"
+                height="25"
+                className="margin-right-10"
               />
 
               <span className=" bold-600 font-size-16">{newAccount}</span>
@@ -108,11 +112,12 @@ export default function WalletModal({ isOpen, onDismiss }) {
             </div>
             <Spacer size="mmd" />
             <div className="flex-jc-start">
-              <img alt="image"
-                   src={require("../../assets/img/etherscan_icon.png")}
-                   width="25"
-                   height="25"
-                   className="margin-right-10"
+              <img
+                alt="image"
+                src={require("../../assets/img/etherscan_icon.png")}
+                width="25"
+                height="25"
+                className="margin-right-10"
               />
               <a
                 className="color-light-blue"

@@ -1,2 +1,2 @@
-export { default } from './Mines'
-export { default as Context } from './context'
+export { default } from "./Mines";
+export { default as Context } from "./context";

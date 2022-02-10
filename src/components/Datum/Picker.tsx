@@ -1,7 +1,6 @@
 //@ts-nocheck
 import React from "react";
 
-
 const Picker: React.FC = ({ value, onChangePicker, children }) => (
   <>
     <div className="flex-jc-center font-size-15">
@@ -16,7 +15,9 @@ const Picker: React.FC = ({ value, onChangePicker, children }) => (
           1W
         </div>
         <div
-          className={`${value === "1M" ? "color-main" : ""}  margin-left-10 cursor-pointer`}
+          className={`${
+            value === "1M" ? "color-main" : ""
+          }  margin-left-10 cursor-pointer`}
           onClick={() => {
             onChangePicker("1M");
           }}
@@ -24,7 +25,9 @@ const Picker: React.FC = ({ value, onChangePicker, children }) => (
           1M
         </div>
         <div
-          className={`${value === "ALL" ? "color-main" : ""}  margin-left-10 cursor-pointer`}
+          className={`${
+            value === "ALL" ? "color-main" : ""
+          }  margin-left-10 cursor-pointer`}
           onClick={() => {
             onChangePicker("ALL");
           }}

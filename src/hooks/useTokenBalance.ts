@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from "react";
 import ERC20 from "../basis-cash/ERC20";
 import useBasisCash from "./useBasisCash";
-import { formatUnits, parseUnits } from 'ethers/lib/utils';
+import { formatUnits, parseUnits } from "ethers/lib/utils";
 import { getTonumber } from "./../utils/formatBalance";
 const useTokenBalance = (token: ERC20) => {
   const [balance, setBalance] = useState(0);
@@ -10,15 +10,12 @@ const useTokenBalance = (token: ERC20) => {
 
   const fetchBalance = useCallback(async () => {
     if (token) {
-    
-
       if (token.symbol === "ETH") {
         const balance = await basisCash.provider.getBalance(
           basisCash.myAccount
         );
         setBalance(getTonumber(balance, token.decimal));
       } else {
-        
         const balance = await token.balanceOf(basisCash.myAccount);
         // console.log(token.symbol,formatUnits(balance),getTonumber(balance, token.decimal))
         setBalance(getTonumber(balance, token.decimal));
@@ -35,7 +32,7 @@ const useTokenBalance = (token: ERC20) => {
       }
     }, 1000);
     return () => clearInterval(refreshInterval);
-  }, [basisCash?.myAccount, ]);
+  }, [basisCash?.myAccount]);
 
   return balance;
 };

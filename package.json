@@ -49,7 +49,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build  --max_old_space_size=8192",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "i18n:extract": "lingui extract --clean",
+    "i18n:compile": "lingui compile --typescript",
+    "format": "prettier --write src"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -7,14 +7,15 @@ import Modal from "../Modal";
 import Spacer from "../Spacer";
 import Button from "../Button";
 
-export default function RiskModal({ isOpen, onDismiss, messages,  }) {
+export default function RiskModal({ isOpen, onDismiss, messages }) {
   const { t } = useTranslation();
 
   return (
     <>
       <Modal isOpen={isOpen} onDismiss={onDismiss}>
         <div className="text-center wing-blank">
-          <img alt="image"
+          <img
+            alt="image"
             src={require("../../assets/img/icon_warning.png")}
             width="48"
             height="48"
@@ -38,7 +39,11 @@ export default function RiskModal({ isOpen, onDismiss, messages,  }) {
             onClick={onDismiss}
           />
           <Spacer size="mmd" />
-          <a href={'https://www.parasset.top/file/Parasset_WhitePaper.pdf'} className="color-light-blue" target="_blank" >
+          <a
+            href={"https://www.parasset.top/file/Parasset_WhitePaper.pdf"}
+            className="color-light-blue"
+            target="_blank"
+          >
             {t("ljgd")}
           </a>
         </div>

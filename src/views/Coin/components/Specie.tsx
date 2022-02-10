@@ -26,8 +26,13 @@ import useFee from "../../../hooks/coin/useFee";
 import useCoin from "../../../hooks/coin/useCoin";
 import useCallbackState from "../../../hooks/useCallbackState";
 
-import {$isFiniteNumber, $isPositiveNumber, getDep, getEncryptAddress,} from "../../../utils/utils";
-import {getNumberToFixed, updateNumDep} from "../../../utils/formatBalance";
+import {
+  $isFiniteNumber,
+  $isPositiveNumber,
+  getDep,
+  getEncryptAddress,
+} from "../../../utils/utils";
+import { getNumberToFixed, updateNumDep } from "../../../utils/formatBalance";
 
 const Specie: React.FC = ({}) => {
   const { t } = useTranslation();

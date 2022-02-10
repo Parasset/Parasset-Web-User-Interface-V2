@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { NavLink, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import useIsMobile from "../../../hooks/useIsMobile";
-let flag=true
+let flag = true;
 const Nav: React.FC = ({ toggleShow }) => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
@@ -12,14 +12,16 @@ const Nav: React.FC = ({ toggleShow }) => {
   const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
-    if (pathname.includes("/datum")&&flag) {
+    if (pathname.includes("/datum") && flag) {
       setShowMenu(true);
-      flag=false
+      flag = false;
     }
   }, [pathname, showMenu]);
   return (
     <div className="font-size-16">
-      <div className={` ${isMobile ? "" : "wing-blank-lg bd-bottom width-100"} `}>
+      <div
+        className={` ${isMobile ? "" : "wing-blank-lg bd-bottom width-100"} `}
+      >
         <div className="wing-blank">
           <StyledBarItem
             className="flex-jc-start"
@@ -28,7 +30,8 @@ const Nav: React.FC = ({ toggleShow }) => {
             to="/"
             onClick={toggleShow}
           >
-            <img alt="image"
+            <img
+              alt="image"
               src={
                 pathname === "/"
                   ? require("../../../assets/img/home_icon1.png")
@@ -54,7 +57,8 @@ const Nav: React.FC = ({ toggleShow }) => {
               );
             }}
           >
-            <img alt="image"
+            <img
+              alt="image"
               src={
                 (pathname.includes("/coin") ||
                   pathname.includes("/debt/detail")) &&
@@ -75,7 +79,8 @@ const Nav: React.FC = ({ toggleShow }) => {
             to="/exchange"
             onClick={toggleShow}
           >
-            <img alt="image"
+            <img
+              alt="image"
               src={
                 pathname.includes("/exchange")
                   ? require("../../../assets/img/exchange_icon1.png")
@@ -99,7 +104,8 @@ const Nav: React.FC = ({ toggleShow }) => {
             }}
             onClick={toggleShow}
           >
-            <img alt="image"
+            <img
+              alt="image"
               src={
                 pathname.includes("/itank") && !pathname.includes("/datum")
                   ? require("../../../assets/img/pool_icon1.png")
@@ -121,7 +127,8 @@ const Nav: React.FC = ({ toggleShow }) => {
             }}
             onClick={toggleShow}
           >
-            <img alt="image"
+            <img
+              alt="image"
               src={
                 pathname.includes("/mine")
                   ? require("../../../assets/img/mine_icon1.png")
@@ -134,16 +141,15 @@ const Nav: React.FC = ({ toggleShow }) => {
             {t("wakuang")}
           </StyledBarItem>
 
-
           <StyledBarItem
             className="flex-jc-start "
             exact
             activeClassName="active"
             to="/liquidation"
-        
             onClick={toggleShow}
           >
-            <img alt="image"
+            <img
+              alt="image"
               src={
                 pathname.includes("/liquidation")
                   ? require("../../../assets/img/liquidation_icon1.png")
@@ -155,12 +161,11 @@ const Nav: React.FC = ({ toggleShow }) => {
             />
             {t("qingsuan")}
           </StyledBarItem>
-
-
-          
         </div>
       </div>
-      <div className={` ${isMobile ? "" : "wing-blank-lg bd-bottom width-100"} `}>
+      <div
+        className={` ${isMobile ? "" : "wing-blank-lg bd-bottom width-100"} `}
+      >
         <div className="wing-blank">
           <StyledBarItem
             className="flex-jc-center cursor-pointer"
@@ -170,16 +175,18 @@ const Nav: React.FC = ({ toggleShow }) => {
             }}
           >
             <div className="flex-jc-center">
-              <img alt="image"
+              <img
+                alt="image"
                 src={require("../../../assets/img/icon_datum.png")}
                 width="35"
                 height="35"
                 className="margin-right-10"
               />
-               {t("shuju")}
+              {t("shuju")}
             </div>
 
-            <img alt="image"
+            <img
+              alt="image"
               src={
                 showMenu
                   ? require("../../../assets/img/icon_arrow_top.png")
@@ -208,7 +215,7 @@ const Nav: React.FC = ({ toggleShow }) => {
                 to="/datum/coin"
                 onClick={toggleShow}
               >
-                  {t("zhubi")}
+                {t("zhubi")}
               </StyledMenuItem>
               <StyledMenuItem
                 className="flex-jc-start"
@@ -217,7 +224,7 @@ const Nav: React.FC = ({ toggleShow }) => {
                 to="/datum/itank"
                 onClick={toggleShow}
               >
-                  {t("bxc")}
+                {t("bxc")}
               </StyledMenuItem>
               <StyledMenuItem
                 className="flex-jc-start"

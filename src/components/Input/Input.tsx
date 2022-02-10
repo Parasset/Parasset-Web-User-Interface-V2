@@ -19,7 +19,7 @@ const Input: React.FC<InputProps> = ({
   placeholder,
   value,
   type,
-  className
+  className,
 }) => {
   return (
     <StyledInput
@@ -28,11 +28,11 @@ const Input: React.FC<InputProps> = ({
       onChange={onChange}
       type={type}
       className={className}
-      onFocus={(e)=>{
-        onFocus&&onFocus(e)
+      onFocus={(e) => {
+        onFocus && onFocus(e);
       }}
-      onBlur={(e)=>{
-        onBlur&&onBlur(e)
+      onBlur={(e) => {
+        onBlur && onBlur(e);
       }}
     />
   );

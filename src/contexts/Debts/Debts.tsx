@@ -21,7 +21,7 @@ const Debts: React.FC = ({ children }) => {
         uToken: basisCash.externalTokens[debtInfo.earnTokenName],
       });
     }
-    
+
     setItanks(debts);
   }, [basisCash, basisCash?.isUnlocked, setItanks]);
 

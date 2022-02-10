@@ -5,12 +5,12 @@ import { useBlockNumber } from "../../state/application/hooks";
 
 const useCoinDatum = ({ tvlDatumValue, debtDatumValue }) => {
   const [tvlDatum, setTvlDatum] = useState({
-    insTvlDatum:[],
-    morTvlDatum:[],
+    insTvlDatum: [],
+    morTvlDatum: [],
   });
   const [debtDatum, setDebtDatum] = useState({
-    avgRateDatum:[],
-    debtDatum:[],
+    avgRateDatum: [],
+    debtDatum: [],
   });
 
   const basisCash = useBasisCash();

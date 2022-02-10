@@ -10,20 +10,20 @@ import Spacer from "../../Spacer";
 const Nav: React.FC = () => {
   return (
     <StyledNav>
-      <Logo/>
+      <Logo />
       <WrappedNav>
-        <NavBar/>
+        <NavBar />
         <Spacer size={"sm"} />
-        <Version/>
+        <Version />
       </WrappedNav>
     </StyledNav>
   );
 };
 
 const WrappedNav = styled.div`
-  background-color: rgba(255,255,255, 0.9);
+  background-color: rgba(255, 255, 255, 0.9);
   height: 100vh;
-`
+`;
 
 const StyledNav = styled.div`
   border-right: 1px solid black;

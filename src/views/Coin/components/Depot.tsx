@@ -25,7 +25,11 @@ const Depot: React.FC = ({ list, loading }) => {
                   <div key={item.name}>
                     <Card className="wing-blank-lg position-relative bg-white">
                       <Spacer />
-                      <Progress ratio={item.rate} maxRatio={item.maxRatio} liqRatio={item.liqRatio} />
+                      <Progress
+                        ratio={item.rate}
+                        maxRatio={item.maxRatio}
+                        liqRatio={item.liqRatio}
+                      />
 
                       <Spacer />
                       <div className="flex-row-center-center ">
@@ -55,7 +59,7 @@ const Depot: React.FC = ({ list, loading }) => {
                           </div>
                         </div>
                       </StyledCardButton>
-                      <Spacer  />
+                      <Spacer />
                       <StyledCardButton className="wing-blank-lg">
                         <div className="flex-jc-center flex1">
                           <div className="color-grey">{t("zbzw")}</div>
@@ -71,7 +75,7 @@ const Depot: React.FC = ({ list, loading }) => {
                           </div>
                         </div>
                       </StyledCardButton>
-                      <Spacer  />
+                      <Spacer />
                       <StyledCardButton className="wing-blank-lg">
                         <div className="flex-jc-center flex1">
                           <div className="color-grey">{t("wdf")}</div>
@@ -110,7 +114,8 @@ const Depot: React.FC = ({ list, loading }) => {
             <div className="text-center">
               <Spacer />
 
-              <img alt="image"
+              <img
+                alt="image"
                 src={require("../../../assets/img/icon_empty.png")}
                 width="50"
                 height="50"

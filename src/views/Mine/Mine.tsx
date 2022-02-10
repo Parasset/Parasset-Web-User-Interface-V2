@@ -10,9 +10,8 @@ import useMineTotalTvl from "../../hooks/mine/useMineTotalTvl";
 const Mine: React.FC = () => {
   const { t } = useTranslation();
   const mines = useMines();
-  const {totalTvl} = useMineTotalTvl(mines);
+  const { totalTvl } = useMineTotalTvl(mines);
 
-  
   return (
     <>
       <BigValue

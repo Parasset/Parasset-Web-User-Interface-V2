@@ -58,7 +58,7 @@ const StyledModal = styled.div`
   padding: 20px 0;
   box-sizing: border-box;
   @media (max-width: 768px) {
-    width: 85%!important;
+    width: 85% !important;
   }
 `;
 const StyledModalWrapper = styled.div`

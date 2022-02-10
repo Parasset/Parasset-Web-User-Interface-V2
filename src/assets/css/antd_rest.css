@@ -1,14 +1,13 @@
 /* vietnamese */
 
 @font-face {
-  font-family: 'KumbhSans-Medium';
-  src: url(../font/KumbhSans-Medium.woff2) format('woff2');
+  font-family: "KumbhSans-Medium";
+  src: url(../font/KumbhSans-Medium.woff2) format("woff2");
 }
 /* @font-face {
   font-family: 'OPPOSans-M';
   src: url(../font/OPPOSans-M.woff2) format('woff2');
 } */
-
 
 .ant-tooltip-inner {
   background: #ffffff;

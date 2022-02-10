@@ -1,1 +1,1 @@
-export { default } from './MinePool'
+export { default } from "./MinePool";

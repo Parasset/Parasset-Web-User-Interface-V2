@@ -4,15 +4,16 @@ import Toast from "light-toast";
 import useCopyClipboard from "../../hooks/useCopyClipboard";
 import { useTranslation } from "react-i18next";
 
-export default function CopyHelper({toCopy}) {
+export default function CopyHelper({ toCopy }) {
   const [isCopied, setCopied] = useCopyClipboard();
   const { t } = useTranslation();
-  console.log(isCopied)
+  console.log(isCopied);
   return (
-    <img alt="image"
+    <img
+      alt="image"
       onClick={() => {
-        setCopied(toCopy)
-        Toast.info(t('fzcg'))
+        setCopied(toCopy);
+        Toast.info(t("fzcg"));
       }}
       src={require("../../assets/img/copy_icon.png")}
       width="16"

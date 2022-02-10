@@ -12,7 +12,9 @@ const FundInfo: React.FC = ({ itank, itankInfo }) => {
   const { t } = useTranslation();
   return (
     <>
-      <Card className={`bg-white ${isMobile ? "wing-blank" : "wing-blank-lg"} `}>
+      <Card
+        className={`bg-white ${isMobile ? "wing-blank" : "wing-blank-lg"} `}
+      >
         <Spacer size="mmd" />
         <div className={` ${isMobile ? "" : "wing-blank"} `}>
           <div className={` ${isMobile ? "" : "wing-blank-lg"} `}>
@@ -21,7 +23,11 @@ const FundInfo: React.FC = ({ itank, itankInfo }) => {
               <div>
                 <span className="color-grey">{t("dqjz")}：</span>
                 <span className="text-underline ">
-                  <Value value={itankInfo.perShare} decimals={6} placeholder={true} />
+                  <Value
+                    value={itankInfo.perShare}
+                    decimals={6}
+                    placeholder={true}
+                  />
                 </span>
               </div>
             </div>

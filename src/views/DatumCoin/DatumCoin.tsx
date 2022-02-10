@@ -1,10 +1,5 @@
 //@ts-nocheck
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import * as echarts from "echarts";
 import { useTranslation } from "react-i18next";
 import BigNumber from "bignumber.js";

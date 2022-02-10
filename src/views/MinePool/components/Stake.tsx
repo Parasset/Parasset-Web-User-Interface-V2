@@ -1,7 +1,7 @@
 //@ts-nocheck
 import React from "react";
 import styled from "styled-components";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 import TokenSymbol from "../../../components/TokenSymbol";
 import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
@@ -9,31 +9,33 @@ import Button from "../../../components/Button";
 import Value from "../../../components/Value";
 import useIsMobile from "../../../hooks/useIsMobile";
 
-const Stake: React.FC = ({mine, staked, onSelect, onOpenModal}) => {
+const Stake: React.FC = ({ mine, staked, onSelect, onOpenModal }) => {
   const isMobile = useIsMobile();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <>
-      <StyledWrapBox className={`bg-white wing-blank-lg ${isMobile ? "" : "width-47"} `}>
-        <Spacer size="mmd"/>
+      <StyledWrapBox
+        className={`bg-white wing-blank-lg ${isMobile ? "" : "width-47"} `}
+      >
+        <Spacer size="mmd" />
         <div className="color-dark">{t("wddy")}</div>
-        <Spacer/>
+        <Spacer />
         <div className="wing-blank-llg  text-center">
           <div className="flex-row-center-center">
-            <TokenSymbol symbol={mine.icon1} size={40}/>
-            <TokenSymbol symbol={mine.icon2} size={40} isRight={true}/>
+            <TokenSymbol symbol={mine.icon1} size={40} />
+            <TokenSymbol symbol={mine.icon2} size={40} isRight={true} />
           </div>
 
-          <Spacer size="sm"/>
+          <Spacer size="sm" />
           <div className="font-size-24 bold-600">
-            <Value value={staked}/>
+            <Value value={staked} />
           </div>
-          <Spacer size="sm"/>
+          <Spacer size="sm" />
           <div className="color-grey">
             {t("ydy")} ({mine.depositTokenName})
           </div>
-          <Spacer/>
+          <Spacer />
           {/* {approveStatus ? (
             <>
               <div className="flex-row-center-center">
@@ -53,7 +55,6 @@ const Stake: React.FC = ({mine, staked, onSelect, onOpenModal}) => {
           ) : (
 
           )} */}
-
 
           <div className="flex-jc-center">
             <Button
@@ -77,7 +78,7 @@ const Stake: React.FC = ({mine, staked, onSelect, onOpenModal}) => {
           </div>
         </div>
 
-        <Spacer size="mmd"/>
+        <Spacer size="mmd" />
       </StyledWrapBox>
     </>
   );

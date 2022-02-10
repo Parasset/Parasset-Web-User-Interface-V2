@@ -1,8 +1,8 @@
 //@ts-nocheck
-import React, {useEffect, useState} from "react";
-import {useLocation, useHistory} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useHistory } from "react-router-dom";
 import Tab from "../../components/Tab";
-import {getQueryParam} from "../../utils/utils";
+import { getQueryParam } from "../../utils/utils";
 import Specie from "./components/Specie";
 import Debt from "./components/Debt";
 import RiskModal from "../../components/RiskModal";
@@ -23,7 +23,7 @@ const Coin: React.FC = () => {
       text: "wdzc",
       id: 2,
     },
-  ]
+  ];
 
   const [tab, setTab] = useState(1);
 
@@ -47,17 +47,16 @@ const Coin: React.FC = () => {
         tab={tab}
         // onChangeTab={setTab}
         onChangeTab={(tab) => {
-          history.replace({path: "/coin", search: `?tab=${tab}`});
+          history.replace({ path: "/coin", search: `?tab=${tab}` });
         }}
       />
-      <Spacer/>
-      {tab === 1 ? <Specie/> : <Debt/>}
+      <Spacer />
+      {tab === 1 ? <Specie /> : <Debt />}
 
       <RiskModal
         messages={messages}
         isOpen={isOpen}
         onDismiss={() => {
-
           setOpen(false);
         }}
       />

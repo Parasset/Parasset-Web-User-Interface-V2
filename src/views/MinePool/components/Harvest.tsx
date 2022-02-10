@@ -23,7 +23,9 @@ const Harvest: React.FC = ({ mine, mineInfo }) => {
   }, [onReward, mineInfo.fetchInfo]);
   return (
     <>
-      <StyledWrapBox className={`bg-white wing-blank-lg ${isMobile ? "" : "width-47"} `}>
+      <StyledWrapBox
+        className={`bg-white wing-blank-lg ${isMobile ? "" : "width-47"} `}
+      >
         <Spacer size="mmd" />
         <div className="color-dark">{t("wdsy")}</div>
         <Spacer />

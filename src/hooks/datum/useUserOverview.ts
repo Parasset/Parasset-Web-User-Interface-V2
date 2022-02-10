@@ -8,7 +8,7 @@ const useUserOverview = () => {
     total: 0,
     exchange: 0,
     coin: 0,
-    ins:0,
+    ins: 0,
   });
 
   const basisCash = useBasisCash();

@@ -1,8 +1,8 @@
 //@ts-nocheck
-import React, {useCallback, useMemo, useState} from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import styled from "styled-components";
-import {useLocation} from "react-router-dom";
-import {useTranslation} from "react-i18next";
+import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Logo from "../../Logo";
 import Tab from "../../Tab";
 import Spacer from "../../Spacer";
@@ -11,7 +11,7 @@ import WalletModal from "../../WalletModal";
 import Nav from "./Nav";
 
 const Header: React.FC = () => {
-  const {pathname} = useLocation();
+  const { pathname } = useLocation();
   const [isOpen, setOpen] = useState(false);
 
   const tabs = [
@@ -23,11 +23,11 @@ const Header: React.FC = () => {
       text: "shuju",
       id: 2,
     },
-  ]
+  ];
 
   const [tab, setTab] = useState(1);
   const [show, setShow] = useState(false);
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const toggleShow = useCallback(async () => {
     setShow(!show);
   }, [show, setShow]);
@@ -39,7 +39,6 @@ const Header: React.FC = () => {
       pathname.includes("/data") ||
       pathname.includes("/debt/detail")
     ) {
-
     } else if (
       pathname.includes("/coin") ||
       pathname.includes("/debt/detail")
@@ -62,26 +61,27 @@ const Header: React.FC = () => {
         </StyledHeaderText>
       </StyledHeaderPc>
       <StyledHeaderMobile className="wing-blank-lg flex-jc-center">
-        <img alt="image"
-             src={require("../../../assets/img/icon_menu.png")}
-             width="28"
-             height="28"
-             onClick={toggleShow}
+        <img
+          alt="image"
+          src={require("../../../assets/img/icon_menu.png")}
+          width="28"
+          height="28"
+          onClick={toggleShow}
         />
-        <Logo/>
+        <Logo />
       </StyledHeaderMobile>
       {show ? (
         <>
-          <StyledMask onClick={toggleShow}/>
+          <StyledMask onClick={toggleShow} />
         </>
       ) : null}
-      <StyledSidebar style={{left: show ? 0 : "-220px"}}>
+      <StyledSidebar style={{ left: show ? 0 : "-220px" }}>
         <div className="wing-blank-lg">
-          <Spacer size="mmd"/>
-          <Tab tabs={tabs} tab={tab} onChangeTab={setTab}/>
-          <Spacer size="mmd"/>
+          <Spacer size="mmd" />
+          <Tab tabs={tabs} tab={tab} onChangeTab={setTab} />
+          <Spacer size="mmd" />
           {tab === 2 ? (
-            <Datum/>
+            <Datum />
           ) : (
             <Nav
               toggleShow={toggleShow}

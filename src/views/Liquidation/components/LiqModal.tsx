@@ -6,10 +6,7 @@ import BigNumber from "bignumber.js";
 import Toast from "light-toast";
 import HandlerModal from "../../../components/HandlerModal";
 import Value from "../../../components/Value";
-import {
-  $isFiniteNumber,
-  $isPositiveNumber,
-} from "../../../utils/utils";
+import { $isFiniteNumber, $isPositiveNumber } from "../../../utils/utils";
 
 import { getNumberToFixed } from "../../../utils/formatBalance";
 import useApprove from "../../../hooks/useApprove";
@@ -32,8 +29,6 @@ const LiqModal: React.FC = ({
   const { onLiquidation } = useLiquidation();
   const { onBlur } = useBlur();
   const { onFocus } = useFocus();
-
-
 
   const max = useMemo(() => {
     return select.mortgageAssets;
@@ -59,7 +54,6 @@ const LiqModal: React.FC = ({
       )
     );
   }, [val]);
-
 
   const [approveParassetTokenStatus, approveParassetToken] = useApprove(
     select?.uToken,

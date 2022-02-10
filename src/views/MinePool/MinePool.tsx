@@ -1,12 +1,9 @@
 //@ts-nocheck
-import React, {useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import useIsMobile from "../../hooks/useIsMobile";
-import {
-  getNumberToMax,
-  getNumberToAll,
-} from "../../utils/formatBalance";
+import { getNumberToMax, getNumberToAll } from "../../utils/formatBalance";
 import Back from "../../components/Back";
 import Info from "./components/Info";
 import Harvest from "./components/Harvest";
@@ -26,7 +23,7 @@ const MinePool: React.FC = () => {
   const { mineId } = useParams();
   const mine = useMine(mineId);
   const itank = useItank(mineId);
-  const mineInfo = useMineInfo(mine,itank);
+  const mineInfo = useMineInfo(mine, itank);
   const displayStakeBalance = useMemo(() => getNumberToMax(mineInfo.staked), [
     mineInfo.staked,
   ]);
@@ -34,7 +31,7 @@ const MinePool: React.FC = () => {
     mineInfo.staked,
   ]);
 
-  const depositBalance = useTokenBalance(mine?.depositToken)
+  const depositBalance = useTokenBalance(mine?.depositToken);
 
   return (
     <>
@@ -52,13 +49,13 @@ const MinePool: React.FC = () => {
           mineInfo={mineInfo}
           staked={displayStakeBalance}
           staked1={displayStakeBalance1}
-          onSelect={el => {
-            setSelect(el)
+          onSelect={(el) => {
+            setSelect(el);
           }}
           onOpenModal={() => setIsOpen(true)}
         />
       </div>
-      <Spacer/>
+      <Spacer />
       <BtnLink
         text={` ${t("hq")} ${mine.depositTokenName}`}
         path={`/itank/detail/${mine.depositContract}`}
@@ -71,10 +68,8 @@ const MinePool: React.FC = () => {
         onDismiss={() => setIsOpen(false)}
         select={select}
         key={select + isOpen}
-
         depositBalance={depositBalance}
         stakeBalance={displayStakeBalance1}
-
       />
     </>
   );

@@ -23,6 +23,4 @@ const StyledPage = styled.div`
   }
 `;
 
-
-
 export default Page;

@@ -41,14 +41,16 @@ const Select: React.FC = ({
           }}
         >
           <div className="flex-jc-center">
-            <img alt="image"
+            <img
+              alt="image"
               src={require(`../../assets/img/${selectItem?.name}.png`)}
               width="35"
               height="35"
               className="margin-right-10"
             />
             {selectItem?.name}
-            <img alt="image"
+            <img
+              alt="image"
               src={
                 showSelect
                   ? require("../../assets/img/icon_arrow_top.png")
@@ -103,7 +105,8 @@ const Select: React.FC = ({
                   }}
                 >
                   <div className="flex-jc-start">
-                    <img alt="image"
+                    <img
+                      alt="image"
                       src={require(`../../assets/img/${item.name}.png`)}
                       width="35"
                       height="35"

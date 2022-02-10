@@ -1,6 +1,5 @@
 //@ts-nocheck
-import { createContext } from 'react';
-
+import { createContext } from "react";
 
 const context = createContext({
   itanks: [],

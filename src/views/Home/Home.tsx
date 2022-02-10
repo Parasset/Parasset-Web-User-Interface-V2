@@ -48,7 +48,7 @@ const Home: React.FC = () => {
       text: "qsdyl",
       className: "flex1",
     },
-  ]
+  ];
   //两个保险池相加
   const { itankInfo: itankInfo1 } = useItankInfo(
     itanks.length ? itanks[0] : null

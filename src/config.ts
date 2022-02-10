@@ -19,7 +19,7 @@ const configurations: { [env: string]: Configuration } = {
       ETH: ["0x53f878Fb7Ec7B86e4F9a0CB1E9a6c89C0555FbbD", 18],
     },
     refreshInterval: 1000,
-    asetPrice:2
+    asetPrice: 2,
   },
   production: {
     chainId: ChainId.MAINNET,
@@ -36,7 +36,7 @@ const configurations: { [env: string]: Configuration } = {
       ETH: ["0x53f878Fb7Ec7B86e4F9a0CB1E9a6c89C0555FbbD", 18],
     },
     refreshInterval: 1000,
-    asetPrice:2
+    asetPrice: 2,
   },
 };
 
@@ -84,38 +84,37 @@ export const itankDefinitions = {
   },
 };
 
-
 export const debtDefinitions = {
   ETHPUSD: {
     name: "ETH-PUSD",
-    key:'ETHPUSD',
+    key: "ETHPUSD",
     icon1: "ETH",
     icon2: "PUSD",
     contract: "PUSDMorPool",
     depositTokenName: "ETH",
     earnTokenName: "PUSD",
-    liqUnit:'USDT'
+    liqUnit: "USDT",
   },
   NESTPUSD: {
     name: "NEST-PUSD",
-    key:'NESTPUSD',
+    key: "NESTPUSD",
     icon1: "NEST",
     icon2: "PUSD",
     contract: "PUSDMorPool",
     depositTokenName: "NEST",
     earnTokenName: "PUSD",
-    liqUnit:'USDT'
+    liqUnit: "USDT",
   },
 
   NESTPETH: {
     name: "NEST-PETH",
-    key:'NESTPETH',
+    key: "NESTPETH",
     icon1: "NEST",
     icon2: "PETH",
     contract: "PETHMorPool",
     depositTokenName: "NEST",
     earnTokenName: "PETH",
-    liqUnit:'ETH'
+    liqUnit: "ETH",
   },
 };
 

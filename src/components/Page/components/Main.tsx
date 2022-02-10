@@ -23,7 +23,7 @@ const Main: React.FC = ({ children }) => {
         </StyledWrapBox>
       </div>
       {/* {!isDatumPath ? <Right isDatumPath={isDatumPath}/> : null} */}
-      <Right isDatumPath={isDatumPath}/>
+      <Right isDatumPath={isDatumPath} />
     </StyledMain>
   );
 };

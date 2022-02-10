@@ -6,7 +6,7 @@ import Specie from "./components/Specie";
 const Exchange: React.FC = () => {
   return (
     <div className="wing-blank-xl1">
-      <Specie/>
+      <Specie />
     </div>
   );
 };

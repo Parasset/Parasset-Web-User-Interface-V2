@@ -57,9 +57,9 @@ const Item: React.FC = ({ item }) => {
         </div>
         <Spacer size={"sm"} />
         <div className="font-size-16 text-center">{item.name}</div>
-        <Spacer/>
+        <Spacer />
         <Label label="TVL" value={<Value value={tvl} prefix="$" />} />
-        <Spacer  />
+        <Spacer />
         <Label label={t("scl")} value={<Value value={deposited} />} />
         <Spacer />
         <Label

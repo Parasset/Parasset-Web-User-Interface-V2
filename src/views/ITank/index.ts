@@ -1,1 +1,1 @@
-export { default } from './ITank'
+export { default } from "./ITank";

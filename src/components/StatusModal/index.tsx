@@ -22,20 +22,15 @@ export default function StatusModal({}) {
 
   const textList = ["qrz", "jygbz", "jycg", "jysb", "jyqx"];
   const imgList = [
- require(`../../assets/img/loading.gif`),
- require(`../../assets/img/pending.gif`),
- require(`../../assets/img/icon_success.png`),
- require(`../../assets/img/icon_fail.png`),
- require(`../../assets/img/icon_warning.png`),
-
+    require(`../../assets/img/loading.gif`),
+    require(`../../assets/img/pending.gif`),
+    require(`../../assets/img/icon_success.png`),
+    require(`../../assets/img/icon_fail.png`),
+    require(`../../assets/img/icon_warning.png`),
   ];
   return (
     <>
-      <Modal
-        isOpen={isOpen}
-        onDismiss={onDismiss}
-        width="300px"
-      >
+      <Modal isOpen={isOpen} onDismiss={onDismiss} width="300px">
         <StyledModalHeader className="flex-jc-center wing-blank">
           <CloseIcon
             src={require("../../assets/img/icon_close.png")}
@@ -48,11 +43,7 @@ export default function StatusModal({}) {
         </StyledModalHeader>
 
         <div className="text-center">
-          <img alt="image"
-            src={imgList[status - 1]}
-            width="48"
-            height="48"
-          />
+          <img alt="image" src={imgList[status - 1]} width="48" height="48" />
           <Spacer size="ssm" />
           <div>{t(textList[status - 1])}</div>
         </div>
