@@ -115,7 +115,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   align-items: center;
   background-color: ${(props) => props.theme.color.white};
   border: 0;
-  border-radius: 20px;
+  border-radius: ${(props) => props.size}px;
   background-image: ${(props) =>
     props.variant === "secondary"
       ? "linear-gradient(90deg, #7076A8 0%, #5CA1C7 50%, #82C2CA 100%)"
