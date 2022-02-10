@@ -14,7 +14,7 @@ const Coin: React.FC = () => {
   const [messages] = useState(["risk_msg4"]);
 
   const [isOpen, setOpen] = useState(false);
-  const [tabs, setTabs] = useState([
+  const tabs = [
     {
       text: "zhubi",
       id: 1,
@@ -23,13 +23,13 @@ const Coin: React.FC = () => {
       text: "wdzc",
       id: 2,
     },
-  ]);
+  ]
 
   const [tab, setTab] = useState(1);
 
   useEffect(() => {
     if (locationObj && locationObj.search) {
-      var tab = getQueryParam("tab", locationObj.search);
+      const tab = getQueryParam("tab", locationObj.search);
       setTab(parseInt(tab));
     }
   }, [locationObj]);
