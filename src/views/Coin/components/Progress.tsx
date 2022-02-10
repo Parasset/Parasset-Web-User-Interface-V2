@@ -1,9 +1,9 @@
 //@ts-nocheck
-import React, { useMemo } from "react";
+import React, {useMemo} from "react";
 import styled from "styled-components";
-import { Tooltip } from "antd";
+import {Tooltip} from "antd";
 import BigNumber from "bignumber.js";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import Value from "../../../components/Value";
 
 const Progress: React.FC = ({ ratio, maxRatio, liqRatio }) => {
@@ -30,9 +30,7 @@ const Progress: React.FC = ({ ratio, maxRatio, liqRatio }) => {
     let rate = new BigNumber(ratio).gt(100)
       ? new BigNumber(100)
       : new BigNumber(ratio);
-    let percent = rate.div(100).times(180).minus(135).toNumber();
-
-    return percent;
+    return rate.div(100).times(180).minus(135).toNumber();
   }, [ratio]);
   return (
     <>
@@ -54,8 +52,7 @@ const Progress: React.FC = ({ ratio, maxRatio, liqRatio }) => {
           <StyledProgressGrey />
 
           <div
-            className=" bold-600 font-size-32"
-            style={{ color: progressColor }}
+            className=" bold-600 font-size-32 color-dark"
           >
             <Value value={ratio} decimals={2} suffix="%" />
           </div>
@@ -111,7 +108,7 @@ const StyledProgressLine = styled.div`
 const StyledProgressGrey = styled.div`
   width: 200px;
   height: 100px;
-  border-radius: 100px 100px 0px 0px;
+  border-radius: 100px 100px 0 0;
   border: 2px solid ${(props) => props.theme.color.grey[400]};
   box-sizing: border-box;
   background-color: transparent;
