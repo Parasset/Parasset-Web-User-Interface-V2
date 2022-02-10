@@ -192,7 +192,7 @@ const StyledNavRight = styled.div`
 `;
 
 const StyledWallet = styled.div`
-  height: 90px;
+  height: 88px;
 `;
 const StyledLabel = styled.div`
   height: 45px;

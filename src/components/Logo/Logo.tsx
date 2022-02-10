@@ -13,7 +13,7 @@ const Logo: React.FC = () => {
   );
 };
 const StyledLogo = styled.div`
-  height: 90px;
+  height: 88px;
   @media (max-width: 768px) {
    height: auto;
   }

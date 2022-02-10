@@ -105,7 +105,7 @@ const Header: React.FC = () => {
 };
 
 const StyledHeaderPc = styled.div`
-  height: 90px;
+  height: 88px;
   position: fixed;
   top: 0;
   left: 0;
