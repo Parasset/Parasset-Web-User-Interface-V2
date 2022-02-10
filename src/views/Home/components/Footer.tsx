@@ -33,7 +33,8 @@ const Icon = ({ name, img, imgActive, link }) => {
         rel="noreferrer"
         onMouseEnter={toggleHover}
         onMouseLeave={toggleHover}>
-        <img src={hover ? imgActive : img} alt={name} />
+        <img src={imgActive} alt={name} hidden={!hover} />
+        <img src={img} alt={name} hidden={hover} />
       </a>
     </div>
   )
