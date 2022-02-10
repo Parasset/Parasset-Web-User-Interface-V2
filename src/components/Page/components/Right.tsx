@@ -1,9 +1,9 @@
 //@ts-nocheck
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import Toast from "light-toast";
-import { useWallet } from "use-wallet";
-import { useTranslation } from "react-i18next";
+import {useWallet} from "use-wallet";
+import {useTranslation} from "react-i18next";
 import Button from "../../Button";
 import Spacer from "../../Spacer";
 import WalletModal from "../../WalletModal";
@@ -15,9 +15,10 @@ import useTotalSupply from "../../../hooks/useTokenTotalSupply";
 import usePrice from "../../../hooks/coin/usePrice";
 import Copy from "../../Copy";
 import useTokenBalance from "../../../hooks/useTokenBalance";
-const Right: React.FC = ({ isDatumPath }) => {
-  const { t } = useTranslation();
-  const { account, connect, status } = useWallet();
+
+const Right: React.FC = ({isDatumPath}) => {
+  const {t} = useTranslation();
+  const {account, connect, status} = useWallet();
   const newAccount = useEncryptAddress(account);
   const basisCash = useBasisCash();
   const PUSDToken = basisCash?.externalTokens["PUSD"];
@@ -31,7 +32,7 @@ const Right: React.FC = ({ isDatumPath }) => {
   const PUSDTotalSupply = useTotalSupply(PUSDToken);
 
   const [isOpen, setOpen] = useState(false);
-  const { NESTToUSDTPrice, NESTToETHPrice, ETHAvgPrice } = usePrice();
+  const {NESTToUSDTPrice, NESTToETHPrice, ETHAvgPrice} = usePrice();
   useEffect(() => {
     if (status === "disconnected") {
       connect("injected");
@@ -41,7 +42,7 @@ const Right: React.FC = ({ isDatumPath }) => {
   }, [status]);
 
   return (
-    <StyledNavRight style={{ display: isDatumPath ? "none" : "block" }}>
+    <StyledNavRight style={{display: isDatumPath ? "none" : "block"}}>
       <StyledWallet className="flex-row-center-center wing-blank-lg ">
         <Button
           text={!account ? t("ljqb") : newAccount}
@@ -54,107 +55,111 @@ const Right: React.FC = ({ isDatumPath }) => {
       <WrappedNavRight>
         <div className="wing-blank-lg bd-bottom">
           <StyledLabel>{t("wdpxzc")}</StyledLabel>
-          <Spacer size="sm" />
+          <Spacer size="sm"/>
           <div className="flex-al-start">
-            <TokenSymbol symbol="PETH" size={25} />
+            <div style={{paddingTop: "4px"}}>
+              <TokenSymbol symbol="PETH" size={25}/>
+            </div>
             <div className="margin-left-10">
               <div className={"bold-500"}>PETH</div>
-              <Spacer size="ssm" />
+              <Spacer size="ssm"/>
               <div className="flex-jc-start color-grey">
                 <div>{PETHAddress}</div>
-                <Copy toCopy={PETHToken?.address} />
+                <Copy toCopy={PETHToken?.address}/>
               </div>
               <div className={"bold-500"}>
-                <Value value={PETHTokenBalance} />
+                <Value value={PETHTokenBalance}/>
               </div>
             </div>
           </div>
-          <Spacer size="sm" />
+          <Spacer size="sm"/>
           <div className="flex-al-start">
-            <TokenSymbol symbol="PUSD" size={25} />
+            <div style={{paddingTop: "4px"}}>
+              <TokenSymbol symbol="PUSD" size={25}/>
+            </div>
             <div className="margin-left-10">
               <div className={"bold-500"}>PUSD</div>
-              <Spacer size="ssm" />
+              <Spacer size="ssm"/>
               <div className="flex-jc-start color-grey">
                 <div>{PUSDAddress}</div>
-                <Copy toCopy={PUSDToken?.address} />
+                <Copy toCopy={PUSDToken?.address}/>
               </div>
               <div className={"bold-500"}>
-                <Value value={PUSDTokenBalance} />
+                <Value value={PUSDTokenBalance}/>
               </div>
             </div>
           </div>
-          <Spacer size={"mmd"} />
+          <Spacer size={"mmd"}/>
         </div>
         <div className="wing-blank-lg bd-bottom">
           <StyledLabel>{t("jiage")}</StyledLabel>
-          <Spacer size="sm" />
+          <Spacer size="sm"/>
           <div className="flex-jc-start">
             <div className="flex-jc-center">
-              <TokenSymbol symbol="ETH" size={25} />
-              <TokenSymbol symbol="USDT" size={25} isRight={true} />
+              <TokenSymbol symbol="ETH" size={25}/>
+              <TokenSymbol symbol="USDT" size={25} isRight={true}/>
             </div>
             <div className="margin-left-10">
               <div className={"bold-500"}>
-                <Value value={ETHAvgPrice} decimals={8} />
+                <Value value={ETHAvgPrice} decimals={8}/>
               </div>
               <div className={"color-grey"}>ETH/USDT</div>
             </div>
           </div>
-          <Spacer size="sm" />
+          <Spacer size="sm"/>
           <div className="flex-jc-start">
             <div className="flex-jc-center">
-              <TokenSymbol symbol="NEST" size={25} />
-              <TokenSymbol symbol="USDT" size={25} isRight={true} />
+              <TokenSymbol symbol="NEST" size={25}/>
+              <TokenSymbol symbol="USDT" size={25} isRight={true}/>
             </div>
             <div className="margin-left-10">
               <div className={"bold-500"}>
-                <Value value={NESTToUSDTPrice} decimals={8} />
+                <Value value={NESTToUSDTPrice} decimals={8}/>
               </div>
               <div className={"color-grey"}>NEST/USDT</div>
             </div>
           </div>
-          <Spacer size="sm" />
+          <Spacer size="sm"/>
           <div className="flex-jc-start">
             <div className="flex-jc-center">
-              <TokenSymbol symbol="NEST" size={25} />
-              <TokenSymbol symbol="ETH" size={25} isRight={true} />
+              <TokenSymbol symbol="NEST" size={25}/>
+              <TokenSymbol symbol="ETH" size={25} isRight={true}/>
             </div>
             <div className="margin-left-10">
               <div className={"bold-500"}>
-                <Value value={NESTToETHPrice} decimals={8} />
+                <Value value={NESTToETHPrice} decimals={8}/>
               </div>
               <div className={"color-grey"}>NEST/ETH</div>
             </div>
           </div>
-          <Spacer size="md" />
+          <Spacer size="md"/>
         </div>
         <div className="wing-blank-lg">
           <StyledLabel>{t("ltl")}</StyledLabel>
-          <Spacer size="sm" />
-          <a href={`https://etherscan.io/token/${PUSDToken?.address}`} target="_blank" >
+          <Spacer size="sm"/>
+          <a href={`https://etherscan.io/token/${PUSDToken?.address}`} target="_blank">
             <div className="flex-jc-start ">
               <div className="flex-jc-center">
-                <TokenSymbol symbol="PUSD" size={25} />
+                <TokenSymbol symbol="PUSD" size={25}/>
               </div>
               <div className="margin-left-10">
                 <div className={"bold-500"}>
-                  <Value value={PUSDTotalSupply} />{" "}
+                  <Value value={PUSDTotalSupply}/>{" "}
                 </div>
                 <div className={"color-grey"}>PUSD</div>
               </div>
             </div>
           </a>
 
-          <Spacer size="sm" />
-          <a href={`https://etherscan.io/token/${PETHToken?.address}`} target="_blank" >
+          <Spacer size="sm"/>
+          <a href={`https://etherscan.io/token/${PETHToken?.address}`} target="_blank">
             <div className="flex-jc-start">
               <div className="flex-jc-center">
-                <TokenSymbol symbol="PETH" size={25} />
+                <TokenSymbol symbol="PETH" size={25}/>
               </div>
               <div className="margin-left-10">
                 <div className={"bold-500"}>
-                  <Value value={PETHTotalSupply} />{" "}
+                  <Value value={PETHTotalSupply}/>{" "}
                 </div>
                 <div className={"color-grey"}>PETH</div>
               </div>
@@ -174,7 +179,7 @@ const Right: React.FC = ({ isDatumPath }) => {
 };
 
 const WrappedNavRight = styled.div`
-  background-color: rgba(255,255,255, 0.9);
+  background-color: rgba(255, 255, 255, 0.9);
   height: 100vh;
 `
 
@@ -187,7 +192,7 @@ const StyledNavRight = styled.div`
   top: 0;
   z-index: 10000;
   @media (max-width: 768px) {
-    display: none!important;
+    display: none !important;
   }
 `;
 
