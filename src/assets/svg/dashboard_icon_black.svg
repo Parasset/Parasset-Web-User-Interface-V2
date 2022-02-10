@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <g id="数据_icon_black" transform="translate(100.001 15)">
+    <rect id="矩形_6" data-name="矩形 6" class="cls-1" width="40" height="40" transform="translate(-100.001 -15)"/>
+    <path id="路径_154" data-name="路径 154" d="M16.667,12.667A1.667,1.667,0,0,1,18.333,11h3.333a1.667,1.667,0,0,1,1.667,1.667V26.7H21.667V12.667H18.333V26.7H16.667Z" transform="translate(-100.001 -15)"/>
+    <path id="路径_155" data-name="路径 155" d="M15.7,15H13.333a1.667,1.667,0,0,0-1.667,1.667V26.7h1.667V16.667H15.7Z" transform="translate(-100.001 -15)"/>
+    <path id="路径_156" data-name="路径 156" d="M28.333,19v7.7H26.667V19H24.3V17.333h2.367A1.667,1.667,0,0,1,28.333,19Z" transform="translate(-100.001 -15)"/>
+    <path id="路径_157" data-name="路径 157" d="M10.833,27.667a.833.833,0,0,0,0,1.667H29.167a.833.833,0,0,0,0-1.667Z" transform="translate(-100.001 -15)"/>
+  </g>
+</svg>

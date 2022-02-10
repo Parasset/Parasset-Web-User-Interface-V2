@@ -4,6 +4,20 @@ import styled from "styled-components";
 import { NavLink, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import useIsMobile from "../../../hooks/useIsMobile";
+import dashboard from "../../../assets/svg/dashboard_icon_black.svg"
+import farm from "../../../assets/svg/farm_icon_black.svg"
+import farm_active from "../../../assets/svg/farm_icon_hover.svg"
+import home from "../../../assets/svg/home_icon_black.svg"
+import home_active from "../../../assets/svg/home_icon_hover.svg"
+import liquidate from "../../../assets/svg/liquidate_icon_black.svg"
+import liquidate_active from "../../../assets/svg/liquidate_icon_hover.svg"
+import mint from "../../../assets/svg/mint_icon_black.svg"
+import mint_active from "../../../assets/svg/mint_icon_hover.svg"
+import pool from "../../../assets/svg/pool_icon_black.svg"
+import pool_active from "../../../assets/svg/pool_icon_hover.svg"
+import swap from "../../../assets/svg/swap_icon_black.svg"
+import swap_active from "../../../assets/svg/swap_icon_hover.svg"
+
 let flag = true;
 const Nav: React.FC = ({ toggleShow }) => {
   const isMobile = useIsMobile();
@@ -34,8 +48,8 @@ const Nav: React.FC = ({ toggleShow }) => {
               alt="image"
               src={
                 pathname === "/"
-                  ? require("../../../assets/img/home_icon1.png")
-                  : require("../../../assets/img/home_icon.png")
+                  ? home_active
+                  : home
               }
               width="35"
               height="35"
@@ -63,8 +77,8 @@ const Nav: React.FC = ({ toggleShow }) => {
                 (pathname.includes("/coin") ||
                   pathname.includes("/debt/detail")) &&
                 !pathname.includes("/datum")
-                  ? require("../../../assets/img/coin_icon1.png")
-                  : require("../../../assets/img/coin_icon.png")
+                  ? mint_active
+                  : mint
               }
               width="35"
               height="35"
@@ -83,8 +97,8 @@ const Nav: React.FC = ({ toggleShow }) => {
               alt="image"
               src={
                 pathname.includes("/exchange")
-                  ? require("../../../assets/img/exchange_icon1.png")
-                  : require("../../../assets/img/exchange_icon.png")
+                  ? swap_active
+                  : swap
               }
               width="35"
               height="35"
@@ -108,8 +122,8 @@ const Nav: React.FC = ({ toggleShow }) => {
               alt="image"
               src={
                 pathname.includes("/itank") && !pathname.includes("/datum")
-                  ? require("../../../assets/img/pool_icon1.png")
-                  : require("../../../assets/img/pool_icon.png")
+                  ? pool_active
+                  : pool
               }
               width="35"
               height="35"
@@ -131,8 +145,8 @@ const Nav: React.FC = ({ toggleShow }) => {
               alt="image"
               src={
                 pathname.includes("/mine")
-                  ? require("../../../assets/img/mine_icon1.png")
-                  : require("../../../assets/img/mine_icon.png")
+                  ? farm_active
+                  : farm
               }
               width="35"
               height="35"
@@ -152,8 +166,8 @@ const Nav: React.FC = ({ toggleShow }) => {
               alt="image"
               src={
                 pathname.includes("/liquidation")
-                  ? require("../../../assets/img/liquidation_icon1.png")
-                  : require("../../../assets/img/liquidation_icon.png")
+                  ? liquidate_active
+                  : liquidate
               }
               width="35"
               height="35"
@@ -177,7 +191,7 @@ const Nav: React.FC = ({ toggleShow }) => {
             <div className="flex-jc-center">
               <img
                 alt="image"
-                src={require("../../../assets/img/icon_datum.png")}
+                src={dashboard}
                 width="35"
                 height="35"
                 className="margin-right-10"
