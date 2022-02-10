@@ -42,7 +42,7 @@ const Right: React.FC = ({ isDatumPath }) => {
 
   return (
     <StyledNavRight style={{ display: isDatumPath ? "none" : "block" }}>
-      <StyledWallet className="flex-row-center-center bd-bottom wing-blank-lg ">
+      <StyledWallet className="flex-row-center-center wing-blank-lg ">
         <Button
           text={!account ? t("ljqb") : newAccount}
           variant="secondary"

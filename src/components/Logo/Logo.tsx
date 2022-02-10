@@ -1,12 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import logo from "../../assets/img/Parasset.svg";
-import useIsMobile from "../../hooks/useIsMobile";
 const Logo: React.FC = () => {
-  const isMobile = useIsMobile();
   return (
     <StyledLogo
-      className={` ${isMobile ? "" : "bd-bottom"} flex-row-center-center`}
+      className={`flex-row-center-center`}
     >
       <StyledLogoImg src={logo} />
     </StyledLogo>
