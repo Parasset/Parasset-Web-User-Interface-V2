@@ -8,8 +8,7 @@ const BtnLink: React.FC = ({text, path}) => {
   const history = useHistory();
   return (
     <>
-      <Card
-        className="wing-blank-lg width-100 text-center cursor-pointer  bg-white height44"
+      <Card className="wing-blank-lg width-100 text-center cursor-pointer  bg-white height44"
         onClick={() => {
           history.push(path);
         }}
