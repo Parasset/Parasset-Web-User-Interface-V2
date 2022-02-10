@@ -345,9 +345,9 @@ const Specie: React.FC = ({}) => {
   const onConfirm = useCallback(async () => {
     const token = basisCash?.externalTokens[selectInputCurrency];
     if (!parseFloat(inputValue)) {
-      Toast.info(t("qsrbdzcdhsl"), 1000);
+      Toast.info(t("qsrbdzcdhsl"), 2000);
     } else if (parseFloat(inputValue) > parseFloat(inputMax)) {
-      Toast.info(t(!isTransform ? "qbbdzcyebz" : "qbkypxzcyebz"), 1000);
+      Toast.info(t(!isTransform ? "qbbdzcyebz" : "qbkypxzcyebz"), 2000);
     } else if (isTransform && outputValue > parseFloat(outputCurrencyBalance)) {
       Toast.info(t("bxcyebz"), 1000);
     } else if (getDep(inputValue) > token.decimal) {
@@ -355,7 +355,7 @@ const Specie: React.FC = ({}) => {
         t("zdsrws", {
           decimal: token.decimal,
         }),
-        1000
+        2000
       );
     } else {
       setPendingTx(true);
