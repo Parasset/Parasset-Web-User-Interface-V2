@@ -390,7 +390,7 @@ const Specie: React.FC = ({}) => {
   );
 
   const onChangeInputCurrencySelect = useCallback(
-    ({ id }, index) => {
+    ({ id }) => {
       setSelectInputCurrency(id);
       //默认输出PUSD
       const outputId = currencyListOutput[0].id;
