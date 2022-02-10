@@ -125,13 +125,13 @@ const DatumUser: React.FC = () => {
     <>
       <Container title={t("xzyh")}>
         <Picker value={newUsersValue} onChangePicker={setNewUsersValue}>
-          <div></div>
+          <div/>
         </Picker>
         <div id={"newUsers"} style={{ height: 400 }} />
       </Container>
       <Container title={t("hyyh")}>
         <Picker value={activeUsersValue} onChangePicker={setActiveUsersValue}>
-          <div></div>
+          <div/>
         </Picker>
         <div style={{ height: 400 }} id={"activeUsers"} />
       </Container>

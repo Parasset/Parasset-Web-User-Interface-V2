@@ -6,14 +6,13 @@ import styled from "styled-components";
 const Container: React.FC = ({ title, children }) => (
   <>
     <StyledContainer>
+      <Spacer size={"sm"}/>
+      <div className="color-dark font-size-16">{title}</div>
       <Spacer size={"sm"} />
-      <div className="color-dark  bold-600 font-size-16">{title}</div>
-      <Spacer size="sm" />
       {children}
-      <Spacer size={"sm"} />
-      <Spacer size={"sm"} />
+      <Spacer/>
     </StyledContainer>
-    <Spacer/>
+    <Spacer />
   </>
 );
 

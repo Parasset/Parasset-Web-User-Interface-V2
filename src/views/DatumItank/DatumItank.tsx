@@ -252,7 +252,7 @@ const DatumItank: React.FC = () => {
     <>
       <Container title={`${t("bxc")} TVL`}>
         <Picker value={tvlDatumValue} onChangePicker={setTvlDatumValue}>
-          <div>
+          <div className={"bold-600"}>
             <Value value={recentTvlDatum} prefix="$" />
           </div>
         </Picker>
@@ -261,7 +261,7 @@ const DatumItank: React.FC = () => {
 
       <Container title={t("ljsxfsr")}>
         <Picker value={feeDatumValue} onChangePicker={setFeeDatumValue}>
-          <div>
+          <div className={"bold-600"}>
             <Value value={recentFeeDatum} prefix="$" />
           </div>
         </Picker>
@@ -273,7 +273,6 @@ const DatumItank: React.FC = () => {
           value={netValueDatumValue}
           onChangePicker={setNetValueDatumValue}
         >
-          <div></div>
         </Picker>
         <div style={{ height: 400 }} id="itankValueChart" />
       </Container>
