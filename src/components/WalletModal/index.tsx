@@ -121,7 +121,6 @@ export default function WalletModal({ isOpen, onDismiss }) {
                 {t("zethsck")}
               </a>
             </div>
-            <Spacer size="mmd" />
           </div>
         )}
       </Modal>

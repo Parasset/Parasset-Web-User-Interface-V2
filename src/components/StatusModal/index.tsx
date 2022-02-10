@@ -1,5 +1,5 @@
 //@ts-nocheck
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React from "react";
 
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
@@ -36,7 +36,7 @@ export default function StatusModal({}) {
         onDismiss={onDismiss}
         width="300px"
       >
-        <StyledModalHeader className="flex-jc-center">
+        <StyledModalHeader className="flex-jc-center wing-blank">
           <CloseIcon
             src={require("../../assets/img/icon_close.png")}
             width="15"

@@ -56,7 +56,7 @@ export default function HandlerModal({
         showHeader={true}
         title={title}
       >
-        <div className={"wing-blank-lg"}>
+        <div className={"wing-blank"}>
           <Spacer size="mmd" />
           <div className="flex-jc-center">
             <div className="color-grey">{label}</div>
