@@ -52,7 +52,7 @@ export default function StatusModal({}) {
           <Button
             variant="tertiary"
             text={t("ckjy")}
-            width="100px"
+            width="160px"
             href={`${config.etherscanUrl}/tx/${tx}`}
             className="center-block"
             target="_self"

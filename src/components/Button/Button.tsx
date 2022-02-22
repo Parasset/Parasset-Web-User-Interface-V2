@@ -125,6 +125,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   color: ${(props) => (!props.disabled ? props.color : `${props.color}`)};
   cursor: pointer;
   display: flex;
+  white-space: nowrap;
   font-size: ${(props) => props.fontSize}px;
   border: ${(props) => (props.variant === "tertiary" ? "1px" : "0px")} solid
     ${(props) => props.theme.color.primary.main};
