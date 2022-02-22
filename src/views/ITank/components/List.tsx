@@ -96,7 +96,7 @@ const Item: React.FC = ({ item }) => {
             history.push(`/itank/detail/${item.contract}`);
           }}
         />
-        <Spacer />
+        <Spacer size={"mmd"}/>
       </StyledWrapBox>
     </>
   );
@@ -110,14 +110,13 @@ const List: React.FC = ({ itanks }) => {
           return <Item item={item} key={item.name} />;
         })}
       </div>
-      <Spacer />
     </>
   );
 };
 const StyledWrapBox = styled(Card)`
   min-height: 520px;
   @media (max-width: 768px) {
-    margin-bottom: 16px;
+    margin-bottom: 24px;
     height: auto;
     min-height: auto;
   }

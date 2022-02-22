@@ -92,7 +92,6 @@ const List: React.FC = ({ mines }) => {
           return <Item item={item} key={item.name} />;
         })}
       </div>
-      <Spacer />
     </>
   );
 };
@@ -100,7 +99,7 @@ const StyledWrapBox = styled(Card)`
   /* min-height: 420px; */
   position: relative;
   @media (max-width: 768px) {
-    margin-bottom: 16px;
+    margin-bottom: 24px;
     height: auto;
   }
 `;

@@ -148,7 +148,7 @@ const StyledPcItem = styled.div`
   }
 `;
 const StyledMobileItem = styled.div`
-  margin-bottom: 15px;
+  margin-bottom: 24px;
   @media (min-width: 1024px) {
     display: none;
   }
