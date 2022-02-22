@@ -4,19 +4,19 @@ import styled from "styled-components";
 import { NavLink, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import useIsMobile from "../../../hooks/useIsMobile";
-import dashboard from "../../../assets/svg/dashboard_icon_black.svg"
-import farm from "../../../assets/svg/farm_icon_black.svg"
-import farm_active from "../../../assets/svg/farm_icon_hover.svg"
-import home from "../../../assets/svg/home_icon_black.svg"
-import home_active from "../../../assets/svg/home_icon_hover.svg"
-import liquidate from "../../../assets/svg/liquidate_icon_black.svg"
-import liquidate_active from "../../../assets/svg/liquidate_icon_hover.svg"
-import mint from "../../../assets/svg/mint_icon_black.svg"
-import mint_active from "../../../assets/svg/mint_icon_hover.svg"
-import pool from "../../../assets/svg/pool_icon_black.svg"
-import pool_active from "../../../assets/svg/pool_icon_hover.svg"
-import swap from "../../../assets/svg/swap_icon_black.svg"
-import swap_active from "../../../assets/svg/swap_icon_hover.svg"
+import dashboard from "../../../assets/svg/dashboard_icon_black.svg";
+import farm from "../../../assets/svg/farm_icon_black.svg";
+import farm_active from "../../../assets/svg/farm_icon_hover.svg";
+import home from "../../../assets/svg/home_icon_black.svg";
+import home_active from "../../../assets/svg/home_icon_hover.svg";
+import liquidate from "../../../assets/svg/liquidate_icon_black.svg";
+import liquidate_active from "../../../assets/svg/liquidate_icon_hover.svg";
+import mint from "../../../assets/svg/mint_icon_black.svg";
+import mint_active from "../../../assets/svg/mint_icon_hover.svg";
+import pool from "../../../assets/svg/pool_icon_black.svg";
+import pool_active from "../../../assets/svg/pool_icon_hover.svg";
+import swap from "../../../assets/svg/swap_icon_black.svg";
+import swap_active from "../../../assets/svg/swap_icon_hover.svg";
 
 let flag = true;
 const Nav: React.FC = ({ toggleShow }) => {
@@ -46,11 +46,7 @@ const Nav: React.FC = ({ toggleShow }) => {
           >
             <img
               alt="image"
-              src={
-                pathname === "/"
-                  ? home_active
-                  : home
-              }
+              src={pathname === "/" ? home_active : home}
               width="35"
               height="35"
               className="margin-right-10"
@@ -95,11 +91,7 @@ const Nav: React.FC = ({ toggleShow }) => {
           >
             <img
               alt="image"
-              src={
-                pathname.includes("/exchange")
-                  ? swap_active
-                  : swap
-              }
+              src={pathname.includes("/exchange") ? swap_active : swap}
               width="35"
               height="35"
               className="margin-right-10"
@@ -143,11 +135,7 @@ const Nav: React.FC = ({ toggleShow }) => {
           >
             <img
               alt="image"
-              src={
-                pathname.includes("/mine")
-                  ? farm_active
-                  : farm
-              }
+              src={pathname.includes("/mine") ? farm_active : farm}
               width="35"
               height="35"
               className="margin-right-10"
@@ -165,9 +153,7 @@ const Nav: React.FC = ({ toggleShow }) => {
             <img
               alt="image"
               src={
-                pathname.includes("/liquidation")
-                  ? liquidate_active
-                  : liquidate
+                pathname.includes("/liquidation") ? liquidate_active : liquidate
               }
               width="35"
               height="35"

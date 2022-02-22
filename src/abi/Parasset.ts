@@ -2,10 +2,7 @@
 import { Configuration } from "./config";
 import { Contract, ethers } from "ethers";
 import BigNumber from "bignumber.js";
-import {
-  getTonumber,
-  getNumberToFixed,
-} from "../utils/formatBalance";
+import { getTonumber, getNumberToFixed } from "../utils/formatBalance";
 import {
   formatDate,
   getWeekDate,
