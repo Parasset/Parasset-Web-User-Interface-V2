@@ -8,7 +8,7 @@ const configurations: { [env: string]: Configuration } = {
     chainId: ChainId.RINKEBY,
     etherscanUrl: "https://rinkeby.etherscan.io/",
     defaultProvider:
-      "https://rinkeby.infura.io/v3/2a2c48954c8147de9e5d2aeb64fcf747",
+      process.env.REACT_APP_INFURA_RINKEBY_KEY ?? "",
     deployments: require("./abi/deployments/deployments.rinkeby.json"),
     externalTokens: {
       ASET: ["0xBA00239Dc53282207e2101CE78c70ca9E0592b57", 18],
@@ -25,7 +25,7 @@ const configurations: { [env: string]: Configuration } = {
     chainId: ChainId.MAINNET,
     etherscanUrl: "https://etherscan.io/",
     defaultProvider:
-      "https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
+      process.env.REACT_APP_INFURA_MAINNET_KEY ?? "",
     deployments: require("./abi/deployments/deployments.mainnet.json"),
     externalTokens: {
       ASET: ["0x139cec55d1ec47493dfa25ca77c9208aba4d3c68", 18],
@@ -118,4 +118,4 @@ export const debtDefinitions = {
   },
 };
 
-export default configurations[process.env.NODE_ENV || "development"];
+export default configurations[process.env.REACT_APP_NODE_ENV || "development"];
