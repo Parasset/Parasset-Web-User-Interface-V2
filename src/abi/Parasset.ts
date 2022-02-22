@@ -1,11 +1,8 @@
 //@ts-nocheck
-
 import { Configuration } from "./config";
-import { Contract, ethers, Overrides } from "ethers";
+import { Contract, ethers } from "ethers";
 import BigNumber from "bignumber.js";
 import {
-  getDisplayNumber,
-  getToBignumber,
   getTonumber,
   getNumberToFixed,
 } from "../utils/formatBalance";

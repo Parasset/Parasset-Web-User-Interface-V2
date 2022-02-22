@@ -5,21 +5,21 @@ import { MineInfo } from "./abi";
 
 const configurations: { [env: string]: Configuration } = {
   development: {
-    chainId: ChainId.MAINNET,
-    etherscanUrl: "https://etherscan.io/",
+    chainId: ChainId.RINKEBY,
+    etherscanUrl: "https://rinkeby.etherscan.io/",
     defaultProvider:
-      "https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
-    deployments: require("./abi/deployments/deployments.mainnet.json"),
+      "https://rinkeby.infura.io/v3/2a2c48954c8147de9e5d2aeb64fcf747",
+    deployments: require("./abi/deployments/deployments.rinkeby.json"),
     externalTokens: {
-      ASET: ["0x139cec55d1ec47493dfa25ca77c9208aba4d3c68", 18],
-      USDT: ["0xdac17f958d2ee523a2206206994597c13d831ec7", 6],
-      NEST: ["0x04abEdA201850aC0124161F037Efd70c74ddC74C", 18],
-      PUSD: ["0xCCEcC702Ec67309Bc3DDAF6a42E9e5a6b8Da58f0", 18],
-      PETH: ["0x53f878Fb7Ec7B86e4F9a0CB1E9a6c89C0555FbbD", 18],
+      ASET: ["0xBA00239Dc53282207e2101CE78c70ca9E0592b57", 18],
+      USDT: ["0x813369c81AfdB2C84fC5eAAA38D0a64B34BaE582", 6],
+      NEST: ["0x2Eb7850D7e14d3E359ce71B5eBbb03BbE732d6DD", 18],
+      PUSD: ["0xD51e8b129834F3Ae6855dd947f25726572862135", 18],
+      PETH: ["0x74E1cCEEB67bF8d56D7c28D5bB0cE388DF46e509", 18],
       ETH: ["0x53f878Fb7Ec7B86e4F9a0CB1E9a6c89C0555FbbD", 18],
     },
     refreshInterval: 1000,
-    asetPrice: 2,
+    assetPrice: 2,
   },
   production: {
     chainId: ChainId.MAINNET,
@@ -36,7 +36,7 @@ const configurations: { [env: string]: Configuration } = {
       ETH: ["0x53f878Fb7Ec7B86e4F9a0CB1E9a6c89C0555FbbD", 18],
     },
     refreshInterval: 1000,
-    asetPrice: 2,
+    assetPrice: 2,
   },
 };
 

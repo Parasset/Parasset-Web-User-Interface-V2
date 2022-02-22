@@ -19,7 +19,7 @@ export interface Mine extends MineInfo {
 
 export type TokenStat = {
   priceInDAI: string;
-  TokenSymboltotalSupply: string;
+  tokenSymbolTotalSupply: string;
 };
 
 export type TreasuryAllocationTime = {
