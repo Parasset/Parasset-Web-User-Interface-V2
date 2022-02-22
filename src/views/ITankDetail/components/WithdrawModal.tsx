@@ -1,15 +1,16 @@
 //@ts-nocheck
-import React, { useCallback, useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
+import React, {useCallback, useMemo, useState} from "react";
+import {useTranslation} from "react-i18next";
 import BigNumber from "bignumber.js";
 import Toast from "light-toast";
 import Value from "../../../components/Value";
 import HandlerModal from "../../../components/HandlerModal";
-import { getDep, $isFiniteNumber } from "../../../utils/utils";
+import {$isFiniteNumber, getDep} from "../../../utils/utils";
 import useWithdraw from "../../../hooks/itank/useWithdraw";
 import useBlur from "../../../hooks/useBlur";
 import useFocus from "../../../hooks/useFocus";
 import useApprove from "../../../hooks/useApprove";
+
 const DepositModal: React.FC = ({
   isOpen,
   onDismiss,
@@ -57,27 +58,23 @@ const DepositModal: React.FC = ({
     // 1、若X＜0（因为净值可能小于0），则预计可赎回的标的资产和平行资产都为0，点击“确定”时提示“保险池亏损，可提取资金为0” 英文提示：The loss of the insurance pool, and the available capital is 0
     // 2、若0≤X≤保险基金账户的标的资产数量，则预计提取的标的资产数量=X，预计提取的平行资产数量=0；点击“确定”可正常提取
     // 3、若X＞保险基金的标的资产数量，则预计提取的标的资产数量=保险基金中标的资产的数量；预计提取的平行资产数量=X-保险基金中标的资产数量；点击“确定”可正常提取
-    const x = new BigNumber(itankInfo.perShare).times(val);
-    return x;
+    return new BigNumber(itankInfo.perShare).times(val);
   }, [val, itankInfo]);
 
   const estimateWithdrawDepositToken = useMemo(() => {
-    const value = estimateValue.lt(0)
+    return estimateValue.lt(0)
       ? 0
       : estimateValue.lte(itankInfo.depositFundBalance)
-      ? estimateValue.toNumber()
-      : itankInfo.depositFundBalance;
-
-    return value;
+        ? estimateValue.toNumber()
+        : itankInfo.depositFundBalance;
   }, [estimateValue, itankInfo.depositFundBalance]);
 
   const estimateWithdrawEarnToken = useMemo(() => {
-    const value = estimateValue.lt(0)
+    return estimateValue.lt(0)
       ? 0
       : estimateValue.lte(itankInfo.depositFundBalance)
-      ? 0
-      : estimateValue.minus(itankInfo.depositFundBalance).toNumber();
-    return value;
+        ? 0
+        : estimateValue.minus(itankInfo.depositFundBalance).toNumber();
   }, [estimateValue, itankInfo.depositFundBalance]);
 
   const remainingShare = useMemo(() => {

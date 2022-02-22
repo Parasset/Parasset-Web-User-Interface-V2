@@ -48,7 +48,7 @@ const Item: React.FC = ({ item }) => {
   return (
     <>
       <StyledWrapBox
-        className={`wing-blank-lg bg-white ${isMobile ? "" : "with-100-24"} `}
+        className={`wing-blank-lg bg-white margin-bottom-24 ${isMobile ? "" : "with-100-24"} `}
       >
         <Spacer />
         <div className="flex-row-center-center">
@@ -105,8 +105,8 @@ const List: React.FC = ({ itanks }) => {
   const isMobile = useIsMobile();
   return (
     <>
-      <div className={`width-100 ${isMobile ? "" : "flex-jc-center"} `}>
-        {itanks.map((item, i) => {
+      <div className={`width-100 flex-wrap ${isMobile ? "" : "flex-jc-center"} `}>
+        {itanks.map((item) => {
           return <Item item={item} key={item.name} />;
         })}
       </div>

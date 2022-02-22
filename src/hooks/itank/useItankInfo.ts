@@ -25,46 +25,46 @@ const useItankInfo = (itank) => {
   const [redeemAmount, setRedeemAmount] = useState(0);
   const [fee, setFee] = useState(0);
 
-  const basisCash = useParasset();
+  const parasset = useParasset();
   const block = useBlockNumber();
 
   const fetchFundBalance = useCallback(async () => {
-    let itankInfo = await basisCash.getFundAsset(itank);
+    let itankInfo = await parasset.getFundAsset(itank);
     setItankInfo(itankInfo);
-  }, [basisCash?.myAccount, itank]);
+  }, [parasset?.myAccount, itank]);
 
   const fetchLastDate = useCallback(async () => {
-    let lastDate = await basisCash.getLastDate(itank);
+    let lastDate = await parasset.getLastDate(itank);
     setLastDate(lastDate);
-  }, [basisCash?.myAccount, itank]);
+  }, [parasset?.myAccount, itank]);
 
   const fetchRedeemAmount = useCallback(
-    async (address = basisCash?.myAccount) => {
-      let redeemAmount = await basisCash.getRedemptionAmount(
+    async (address = parasset?.myAccount) => {
+      let redeemAmount = await parasset.getRedemptionAmount(
         itank.itankContract,
         itank?.itankContract?.decimal,
         address
       );
       setRedeemAmount(redeemAmount);
     },
-    [basisCash?.myAccount, itank]
+    [parasset?.myAccount, itank]
   );
 
   const fetchFee = useCallback(async () => {
-    let fee = await basisCash.getExchangeFee(itank.itankContract);
+    let fee = await parasset.getExchangeFee(itank.itankContract);
     setFee(fee);
-  }, [basisCash?.myAccount, itank]);
+  }, [parasset?.myAccount, itank]);
   const fetchInfo = useCallback(async () => {
     fetchFundBalance();
     fetchRedeemAmount();
     fetchLastDate();
     fetchFee();
-  }, [basisCash?.myAccount, itank, block]);
+  }, [parasset?.myAccount, itank, block]);
 
   useEffect(() => {
     let refreshInterval = true;
     if (
-      basisCash?.myAccount &&
+      parasset?.myAccount &&
       itank &&
       itank.itankContract &&
       refreshInterval
@@ -74,7 +74,7 @@ const useItankInfo = (itank) => {
     return () => {
       refreshInterval = false;
     };
-  }, [basisCash?.myAccount, block, itank]);
+  }, [parasset?.myAccount, block, itank]);
 
   return { itankInfo, lastDate, fee, redeemAmount };
 };
