@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from "react";
 
 import useParasset from "./useParasset";
-import { getTonumber } from "../utils/formatBalance";
+import { getToNumber } from "../utils/formatBalance";
 const useAllowance = (token: any, spender: string) => {
   const [allowance, setAllowance] = useState(0);
   const basisCash = useParasset();
@@ -10,7 +10,7 @@ const useAllowance = (token: any, spender: string) => {
     if (token) {
       const allowance = await token.allowance(basisCash?.myAccount, spender);
 
-      setAllowance(getTonumber(allowance, token.decimal));
+      setAllowance(getToNumber(allowance, token.decimal));
     }
   }, [basisCash?.myAccount, spender, token]);
 

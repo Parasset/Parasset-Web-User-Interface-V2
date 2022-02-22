@@ -2,7 +2,7 @@
 import { Configuration } from "./config";
 import { Contract, ethers } from "ethers";
 import BigNumber from "bignumber.js";
-import { getTonumber, getNumberToFixed } from "../utils/formatBalance";
+import { getToNumber, getNumberToFixed } from "../utils/formatBalance";
 import {
   formatDate,
   getWeekDate,
@@ -103,7 +103,7 @@ export class Parasset {
       const { Mine } = this.contracts;
 
       let earned = await Mine.getAccountReward(address, account);
-      return getTonumber(earned);
+      return getToNumber(earned);
     } catch (error) {
       return "0";
     }
@@ -111,7 +111,7 @@ export class Parasset {
   async getFundBalance(token, address) {
     try {
       let balance = await token.balanceOf(address);
-      return getTonumber(balance, token.decimal);
+      return getToNumber(balance, token.decimal);
     } catch (error) {
       return "0";
     }
@@ -119,7 +119,7 @@ export class Parasset {
   async getTotalSupply(token) {
     try {
       let totalSupply = await token.totalSupply();
-      return getTonumber(totalSupply, token.decimal);
+      return getToNumber(totalSupply, token.decimal);
     } catch (error) {
       return "0";
     }
@@ -130,7 +130,7 @@ export class Parasset {
       const { NestQuery } = this.contracts;
       const { USDT } = this.externalTokens;
       let { avgPrice } = await NestQuery.triggeredPriceInfo(USDT.address);
-      return getTonumber(avgPrice, USDT.decimal);
+      return getToNumber(avgPrice, USDT.decimal);
     } catch (error) {
       return "0";
     }
@@ -204,7 +204,7 @@ export class Parasset {
       address
     );
 
-    return getTonumber(fee);
+    return getToNumber(fee);
   }
   async getLiqRatio(mortgagePoolContract, mortgageToken) {
     const address = this.gasETHAddress(mortgageToken);
@@ -239,8 +239,8 @@ export class Parasset {
         uToken,
         address
       );
-      maxSubM = getTonumber(maxSubM, mortgageToken.decimal);
-      maxAddP = getTonumber(maxAddP, uToken.decimal);
+      maxSubM = getToNumber(maxSubM, mortgageToken.decimal);
+      maxAddP = getToNumber(maxAddP, uToken.decimal);
 
       const priceList = {
         ETHPUSD: {
@@ -262,11 +262,11 @@ export class Parasset {
       const mortgagePrice = priceList[key].mortgagePrice;
       const parassetPrice = priceList[key].parassetPrice;
       const mortgageToParassetPrice = priceList[key].mortgageToParassetPrice;
-      const mortgageAssets = getTonumber(
+      const mortgageAssets = getToNumber(
         info.mortgageAssets,
         mortgageToken.decimal
       );
-      const parassetAssets = getTonumber(info.parassetAssets, uToken.decimal);
+      const parassetAssets = getToNumber(info.parassetAssets, uToken.decimal);
 
       const liqRatio = await this.getLiqRatio(
         mortgagePoolContract,
@@ -324,8 +324,8 @@ export class Parasset {
       );
       // avgPrice2/avgPrice1=NEST对u的价格
       return getNumberToFixed(
-        new BigNumber(getTonumber(avgPriceUSDT, USDT.decimal)).div(
-          getTonumber(avgPriceNEST, NEST.decimal)
+        new BigNumber(getToNumber(avgPriceUSDT, USDT.decimal)).div(
+          getToNumber(avgPriceNEST, NEST.decimal)
         )
       );
     } catch (error) {
@@ -340,7 +340,7 @@ export class Parasset {
       let { avgPrice } = await NestQuery.triggeredPriceInfo(NEST.address);
       // nest对ETH的价格  1/avgPrice2
       return getNumberToFixed(
-        new BigNumber(1).div(getTonumber(avgPrice, NEST.decimal))
+        new BigNumber(1).div(getToNumber(avgPrice, NEST.decimal))
       );
     } catch (error) {
       return "0";
@@ -398,13 +398,13 @@ export class Parasset {
         depositFundBalance = await this.getFundBalance(depositToken, address);
       } else {
         depositFundBalance = await this.provider.getBalance(address);
-        depositFundBalance = getTonumber(depositFundBalance);
+        depositFundBalance = getToNumber(depositFundBalance);
       }
       let earnFundBalance = await this.getFundBalance(earnToken, address);
       let negative = await itankContract._insNegative();
 
       earnFundBalance = new BigNumber(earnFundBalance)
-        .minus(getTonumber(negative))
+        .minus(getToNumber(negative))
         .toNumber();
 
       let avgPrice = await this.getAvgPrice();
@@ -468,7 +468,7 @@ export class Parasset {
     try {
       let amount = await itankContract.getRedemptionAmount(address);
 
-      return getTonumber(amount, decimal);
+      return getToNumber(amount, decimal);
     } catch (error) {
       return "0";
     }
@@ -612,8 +612,8 @@ export class Parasset {
       const endBlock = info.endBlock.toNumber();
 
       return {
-        rewardRate: block > endBlock ? 0 : getTonumber(info.rewardRate),
-        totalSupply: getTonumber(info.totalSupply),
+        rewardRate: block > endBlock ? 0 : getToNumber(info.rewardRate),
+        totalSupply: getToNumber(info.totalSupply),
       };
     } catch (error) {
       return "0";
@@ -628,7 +628,7 @@ export class Parasset {
       } = await this.getChannelInfo(address, block);
       const totalSupply = await depositToken.totalSupply();
       const ratio = new BigNumber(stakeTotalSupply)
-        .div(getTonumber(totalSupply))
+        .div(getToNumber(totalSupply))
         .toNumber();
       let itankInfo = await this.getFundAsset(itank);
       const totalValue = new BigNumber(itankInfo.depositFundValue).plus(

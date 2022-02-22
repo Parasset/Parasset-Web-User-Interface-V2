@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from "react";
 import ERC20 from "../abi/ERC20";
 import useParasset from "./useParasset";
-import { getTonumber } from "../utils/formatBalance";
+import { getToNumber } from "../utils/formatBalance";
 const useTokenBalance = (token: ERC20) => {
   const [balance, setBalance] = useState(0);
   const basisCash = useParasset();
@@ -13,11 +13,11 @@ const useTokenBalance = (token: ERC20) => {
         const balance = await basisCash.provider.getBalance(
           basisCash.myAccount
         );
-        setBalance(getTonumber(balance, token.decimal));
+        setBalance(getToNumber(balance, token.decimal));
       } else {
         const balance = await token.balanceOf(basisCash.myAccount);
-        // console.log(token.symbol,formatUnits(balance),getTonumber(balance, token.decimal))
-        setBalance(getTonumber(balance, token.decimal));
+        // console.log(token.symbol,formatUnits(balance),getToNumber(balance, token.decimal))
+        setBalance(getToNumber(balance, token.decimal));
       }
     }
   }, [basisCash?.myAccount, basisCash?.provider, token]);

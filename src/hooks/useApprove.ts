@@ -21,7 +21,7 @@ function useApprove(token: any, spender: string, amount) {
     const payAmount = $isPositiveNumber($isFiniteNumber(amount));
 
     if (payAmount) {
-      return approvalAmount.gte(payAmount) ? false : true;
+      return !approvalAmount.gte(payAmount);
     } else if (!parseFloat(payAmount)) {
       return !parseFloat(currentAllowance);
     }

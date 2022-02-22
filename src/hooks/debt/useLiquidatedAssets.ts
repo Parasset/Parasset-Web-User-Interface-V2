@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useBlockNumber } from "../../state/application/hooks";
 import useParasset from "../useParasset";
-import { getTonumber } from "../../utils/formatBalance";
+import { getToNumber } from "../../utils/formatBalance";
 const useLiquidatedAssets = () => {
   const [liquidatedAssets, setLiquidatedAssets] = useState(0);
   const basisCash = useParasset();

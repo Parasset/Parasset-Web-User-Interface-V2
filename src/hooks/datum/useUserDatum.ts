@@ -5,7 +5,7 @@ import { useBlockNumber } from "../../state/application/hooks";
 
 const useUserDatum = ({ activeUsersValue, newUsersValue }) => {
   const [activeUsers, setActiveUsers] = useState([]);
-  const [newUsers, setNewsers] = useState([]);
+  const [newUsers, setNewUsers] = useState([]);
 
   const basisCash = useParasset();
   const block = useBlockNumber();
@@ -15,19 +15,19 @@ const useUserDatum = ({ activeUsersValue, newUsersValue }) => {
     setActiveUsers(activeUsers);
   }, [basisCash, activeUsersValue]);
 
-  const fetchNewsers = useCallback(async () => {
+  const fetchNewUsers = useCallback(async () => {
     const newUsers = await basisCash.getNewUsers(newUsersValue);
-    setNewsers(newUsers);
+    setNewUsers(newUsers);
   }, [basisCash, newUsersValue]);
 
   useEffect(() => {
     if (basisCash) {
       fetchActiveUsers();
-      fetchNewsers();
+      fetchNewUsers();
     }
   }, [basisCash, block, activeUsersValue, newUsersValue]);
 
-  return { activeUsers, newUsers, fetchActiveUsers, fetchNewsers };
+  return { activeUsers, newUsers, fetchActiveUsers, fetchNewUsers };
 };
 
 export default useUserDatum;

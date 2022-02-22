@@ -84,10 +84,10 @@ const DatumCoin: React.FC = () => {
       tooltip: {
         trigger: "axis",
         formatter: function (params) {
-          var relVal = params[0].name;
-          var date = params[0].axisValueLabel;
+          let relVal = params[0].name;
+          let date = params[0].axisValueLabel;
           relVal += date + "<br/>";
-          for (var i = 0, l = params.length; i < l; i++) {
+          for (let i = 0, l = params.length; i < l; i++) {
             const unit = "$";
             relVal +=
               params[i].marker +
@@ -153,10 +153,10 @@ const DatumCoin: React.FC = () => {
       tooltip: {
         trigger: "axis",
         formatter: function (params) {
-          var relVal = params[0].name;
-          var date = params[0].axisValueLabel;
+          let relVal = params[0].name;
+          let date = params[0].axisValueLabel;
           relVal += date + "<br/>";
-          for (var i = 0, l = params.length; i < l; i++) {
+          for (let i = 0, l = params.length; i < l; i++) {
             const unit = params[i].seriesIndex === 0 ? "" : "%";
             relVal +=
               params[i].marker +

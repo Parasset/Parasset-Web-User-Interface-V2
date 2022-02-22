@@ -50,7 +50,7 @@ const Mine: React.FC = ({
       );
     } else {
       setPendingTx(true);
-      var func = select === 1 ? onStake : onWithdraw;
+      let func = select === 1 ? onStake : onWithdraw;
       const result = await func(val + "");
       setPendingTx(false);
       if (result !== "0") {
@@ -70,9 +70,9 @@ const Mine: React.FC = ({
   const handleChange = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
       const minLimit = 0;
-      var { value } = e.currentTarget;
-      var value1 = parseFloat(value);
-      var canBuyAmount1 = parseFloat(canBuyAmount);
+      let { value } = e.currentTarget;
+      let value1 = parseFloat(value);
+      let canBuyAmount1 = parseFloat(canBuyAmount);
 
       value =
         value1 > canBuyAmount1

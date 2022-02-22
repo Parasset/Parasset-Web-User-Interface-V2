@@ -121,9 +121,9 @@ const DepositModal: React.FC = ({
   const handleChange = useCallback(
     (e: React.FormEvent<HTMLInputElement>) => {
       const minLimit = 0;
-      var { value } = e.currentTarget;
-      var value1 = parseFloat(value);
-      var canBuyAmount1 = parseFloat(canBuyAmount);
+      let { value } = e.currentTarget;
+      let value1 = parseFloat(value);
+      let canBuyAmount1 = parseFloat(canBuyAmount);
 
       value =
         value1 > canBuyAmount1

@@ -1,38 +1,34 @@
 //@ts-nocheck
 import BigNumber from "bignumber.js";
+
 export const formatDate = (datetime: any) => {
   datetime = new Date(datetime * 1000);
   // 获取年月日时分秒值  slice(-2)过滤掉大于10日期前面的0
-  var year = datetime.getFullYear(),
+  let year = datetime.getFullYear(),
     month = ("0" + (datetime.getMonth() + 1)).slice(-2),
     date = ("0" + datetime.getDate()).slice(-2),
     hour = ("0" + datetime.getHours()).slice(-2),
     minute = ("0" + datetime.getMinutes()).slice(-2),
     second = ("0" + datetime.getSeconds()).slice(-2);
-  // 拼接
-  var result =
-    year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
   // 返回
-  return result;
+  return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
 };
 export const formatDate1 = (datetime: any) => {
   datetime = new Date(datetime);
   // 获取年月日时分秒值  slice(-2)过滤掉大于10日期前面的0
-  var year = datetime.getFullYear(),
+  let year = datetime.getFullYear(),
     month = ("0" + (datetime.getMonth() + 1)).slice(-2),
     date = ("0" + datetime.getDate()).slice(-2),
     hour = ("0" + datetime.getHours()).slice(-2),
     minute = ("0" + datetime.getMinutes()).slice(-2),
     second = ("0" + datetime.getSeconds()).slice(-2);
-  // 拼接
-  var result = year + "-" + month + "-" + date;
   // 返回
-  return result;
+  return year + "-" + month + "-" + date;
 };
 
 export const getStartDate = (n) => {
-  var currentTime = new Date().getTime();
-  var startDate = currentTime - n * 3600 * 24 * 1000;
+  let currentTime = new Date().getTime();
+  let startDate = currentTime - n * 3600 * 24 * 1000;
   return formatDate1(startDate);
 };
 export const getWeekDate = (n) => {

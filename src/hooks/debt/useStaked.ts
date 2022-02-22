@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useBlockNumber } from "../../state/application/hooks";
 import useParasset from "../useParasset";
-import { getTonumber } from "../../utils/formatBalance";
+import { getToNumber } from "../../utils/formatBalance";
 const useStaked = (mortgagePoolContract, token) => {
   const [staked, setStaked] = useState(0);
   const basisCash = useParasset();
@@ -14,11 +14,11 @@ const useStaked = (mortgagePoolContract, token) => {
           mortgagePoolContract.address
         );
 
-        setStaked(getTonumber(balance, token.decimal));
+        setStaked(getToNumber(balance, token.decimal));
       } else if (token.symbol === "NEST") {
         const balance = await token.balanceOf(mortgagePoolContract.address);
 
-        setStaked(getTonumber(balance, token.decimal));
+        setStaked(getToNumber(balance, token.decimal));
       }
     }
   }, [basisCash?.myAccount, basisCash?.provider, mortgagePoolContract, token]);

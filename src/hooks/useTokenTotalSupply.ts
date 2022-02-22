@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from "react";
 import ERC20 from "../abi/ERC20";
 import useParasset from "./useParasset";
-import { getTonumber } from "../utils/formatBalance";
+import { getToNumber } from "../utils/formatBalance";
 const useTotalSupply = (token: ERC20) => {
   const [totalSupply, setTotalSupply] = useState(0);
   const basisCash = useParasset();
@@ -10,7 +10,7 @@ const useTotalSupply = (token: ERC20) => {
   const fetchTotalSupply = useCallback(async () => {
     if (token) {
       const totalSupply = await token.totalSupply(basisCash.myAccount);
-      setTotalSupply(getTonumber(totalSupply, token.decimal));
+      setTotalSupply(getToNumber(totalSupply, token.decimal));
     }
   }, [basisCash?.myAccount, basisCash?.provider, token]);
 

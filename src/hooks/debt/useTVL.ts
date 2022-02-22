@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useBlockNumber } from "../../state/application/hooks";
 import useParasset from "../useParasset";
 import BigNumber from "bignumber.js";
-import { getTonumber } from "../../utils/formatBalance";
+import { getToNumber } from "../../utils/formatBalance";
 const useTVL = (mortgagePoolContract, token, price) => {
   const [tvl, setTvl] = useState(0);
   const basisCash = useParasset();
@@ -16,7 +16,7 @@ const useTVL = (mortgagePoolContract, token, price) => {
         );
 
         setTvl(
-          new BigNumber(getTonumber(balance, token.decimal))
+          new BigNumber(getToNumber(balance, token.decimal))
             .times(price)
             .toNumber()
         );
@@ -24,7 +24,7 @@ const useTVL = (mortgagePoolContract, token, price) => {
         const balance = await token.balanceOf(mortgagePoolContract.address);
 
         setTvl(
-          new BigNumber(getTonumber(balance, token.decimal))
+          new BigNumber(getToNumber(balance, token.decimal))
             .times(price)
             .toNumber()
         );
