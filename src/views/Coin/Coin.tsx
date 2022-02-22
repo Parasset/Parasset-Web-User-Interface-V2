@@ -7,12 +7,13 @@ import Specie from "./components/Specie";
 import Debt from "./components/Debt";
 import RiskModal from "../../components/RiskModal";
 import Spacer from "../../components/Spacer";
+import useIsMobile from "../../hooks/useIsMobile";
 
 const Coin: React.FC = () => {
   const history = useHistory();
   const locationObj = useLocation();
   const [messages] = useState(["risk_msg4"]);
-
+  const isMobile = useIsMobile();
   const [isOpen, setOpen] = useState(false);
   const tabs = [
     {
@@ -41,7 +42,7 @@ const Coin: React.FC = () => {
     }
   }, []);
   return (
-    <div className="wing-blank-xl1">
+    <div className={`${isMobile ? "" : "wing-blank-xl1"}`}>
       <Tab
         tabs={tabs}
         tab={tab}

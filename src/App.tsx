@@ -66,14 +66,12 @@ const App: React.FC = () => {
             <Route path="/exchange" exact>
               <Exchange />
             </Route>
-
             <Route path="/mine" exact>
               <Mine />
             </Route>
             <Route path="/mine/pool/:mineId" exact>
               <MinePool />
             </Route>
-
             <Route path="/itank" exact>
               <ITank />
             </Route>
