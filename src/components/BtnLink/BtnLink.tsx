@@ -1,7 +1,6 @@
 //@ts-nocheck
 import React from "react";
 import { useHistory } from "react-router-dom";
-import Spacer from "../Spacer";
 import Card from "../Card";
 
 const BtnLink: React.FC = ({ text, path }) => {
@@ -9,14 +8,12 @@ const BtnLink: React.FC = ({ text, path }) => {
   return (
     <>
       <Card
-        className="wing-blank-lg width-100 text-center cursor-pointer  bg-white height44"
+        className="wing-blank-lg width-100 text-center cursor-pointer bg-white height44 flex-row-center-center color-light-blue text-underline"
         onClick={() => {
           history.push(path);
         }}
       >
-        <span className="color-light-blue text-underline cursor-pointer">
-          {text}
-        </span>
+        {text}
       </Card>
     </>
   );
