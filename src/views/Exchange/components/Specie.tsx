@@ -28,7 +28,7 @@ import useBlur from "../../../hooks/useBlur";
 import useFocus from "../../../hooks/useFocus";
 const Specie: React.FC = ({}) => {
   const { t } = useTranslation();
-  const basisCash = useParasset();
+  const parasset = useParasset();
   const avgPrice = useAvgPrice();
 
   const { onExchange } = useExchange();
@@ -48,13 +48,17 @@ const Specie: React.FC = ({}) => {
 
   const { onBlur } = useBlur();
   const { onFocus } = useFocus();
-  const ETHWalletBalance = useTokenBalance(basisCash?.externalTokens["ETH"]);
-  const USDTWalletBalance = useTokenBalance(basisCash?.externalTokens["USDT"]);
-  const PETHWalletBalance = useTokenBalance(basisCash?.externalTokens["PETH"]);
-  const PUSDWalletBalance = useTokenBalance(basisCash?.externalTokens["PUSD"]);
+  const ETHWalletBalance = useTokenBalance(parasset?.externalTokens["ETH"]);
+  const USDTWalletBalance = useTokenBalance(parasset?.externalTokens["USDT"]);
+  const HBTCWalletBalance = useTokenBalance(parasset?.externalTokens["HBTC"]);
+  const PETHWalletBalance = useTokenBalance(parasset?.externalTokens["PETH"]);
+  const PUSDWalletBalance = useTokenBalance(parasset?.externalTokens["PUSD"]);
+  const PBTCWalletBalance = useTokenBalance(parasset?.externalTokens["PBTC"]);
 
   const itankPUSD = useItank("PUSDInsPool");
   const itankPETH = useItank("PETHInsPool");
+  const itankPBTC = useItank("PBTCInsPool");
+
   const {
     fee: itankPUSDFee,
     itankInfo: {
@@ -69,21 +73,40 @@ const Specie: React.FC = ({}) => {
       depositFundBalance: ETHItankBalance,
     },
   } = useItankInfo(itankPETH);
+  const {
+    fee: itankPBTCFee,
+    itankInfo: {
+      earnFundBalance: PBTCItankBalance,
+      depositFundBalance: HBTCItankBalance,
+    },
+  } = useItankInfo(itankPBTC);
   const [approveStatusPETH, approvePETH] = useApprove(
-    basisCash?.externalTokens["PETH"],
-    basisCash?.contracts["PETHInsPool"]?.address,
+    parasset?.externalTokens["PETH"],
+    parasset?.contracts["PETHInsPool"]?.address,
     inputValue
   );
 
   const [approveStatusUSDT, approveUSDT] = useApprove(
-    basisCash?.externalTokens["USDT"],
-    basisCash?.contracts["PUSDInsPool"]?.address,
+    parasset?.externalTokens["USDT"],
+    parasset?.contracts["PUSDInsPool"]?.address,
     inputValue
   );
 
   const [approveStatusPUSD, approvePUSD] = useApprove(
-    basisCash?.externalTokens["PUSD"],
-    basisCash?.contracts["PUSDInsPool"]?.address,
+    parasset?.externalTokens["PUSD"],
+    parasset?.contracts["PUSDInsPool"]?.address,
+    inputValue
+  );
+
+  const [approveStatusHBTC, approveHBTC] = useApprove(
+    parasset?.externalTokens["HBTC"],
+    parasset?.contracts["PBTCInsPool"]?.address,
+    inputValue
+  );
+
+  const [approveStatusPBTC, approvePBTC] = useApprove(
+    parasset?.externalTokens["PBTC"],
+    parasset?.contracts["PBTCInsPool"]?.address,
     inputValue
   );
 
@@ -101,14 +124,26 @@ const Specie: React.FC = ({}) => {
         status: approveStatusPUSD,
         approve: approvePUSD,
       },
+      HBTC: {
+        status: approveStatusHBTC,
+        approve: approveHBTC,
+      },
+      PBTC: {
+        status: approveStatusPBTC,
+        approve: approvePBTC,
+      },
     };
   }, [
     approveStatusPETH,
     approveStatusUSDT,
     approveStatusPUSD,
+    approveStatusPBTC,
+    approveStatusHBTC,
     approvePETH,
     approveUSDT,
     approvePUSD,
+    approveHBTC,
+    approvePBTC,
   ]);
 
   const inputCurrencyList = useMemo(() => {
@@ -124,6 +159,12 @@ const Specie: React.FC = ({}) => {
         id: "USDT",
         walletBalance: USDTWalletBalance,
         itankBalance: USDTItankBalance,
+      },
+      {
+        name: "HBTC",
+        id: "HBTC",
+        walletBalance: HBTCWalletBalance,
+        itankBalance: HBTCItankBalance,
       },
     ];
   }, [
@@ -148,6 +189,12 @@ const Specie: React.FC = ({}) => {
         id: "PUSD",
         walletBalance: PUSDWalletBalance,
         itankBalance: PUSDItankBalance,
+      },
+      {
+        name: "PBTC",
+        id: "PBTC",
+        walletBalance: PBTCWalletBalance,
+        itankBalance: PBTCItankBalance,
       },
     ];
   }, [
@@ -181,30 +228,48 @@ const Specie: React.FC = ({}) => {
     return item[0].itankBalance;
   }, [currencyListOutput, selectOutputCurrency]);
 
-  const isETH = useMemo(() => {
-    return selectInputCurrency === "ETH" || selectOutputCurrency === "ETH";
+  const selectCurrency = useMemo(() => {
+    if (selectInputCurrency === "ETH" || selectOutputCurrency === "ETH"){
+      return "ETH-PETH";
+    } else if (selectInputCurrency === "USDT" || selectOutputCurrency === "USDT") {
+      return "USDT-PUSD";
+    } else if (selectInputCurrency === "HBTC" || selectOutputCurrency === "HBTC") {
+      return "HBTC-PBTC";
+    }
+    return "ETH-PETH";
   }, [selectInputCurrency, selectOutputCurrency]);
 
   const fee = useMemo(() => {
-    const feeRatio = !isETH ? itankPUSDFee : itankPETHFee;
+    let feeRatio;
+    switch (selectCurrency) {
+      case "ETH-PETH":
+        feeRatio = itankPETHFee
+        break;
+      case "USDT-PUSD":
+        feeRatio = itankPUSDFee
+        break;
+      case "HBTC-PBTC":
+        feeRatio = itankPBTCFee
+        break;
+    }
     const fee = new BigNumber(inputValue).times(feeRatio).toNumber();
     return $isPositiveNumber($isFiniteNumber(fee));
-  }, [isETH, itankPUSDFee, itankPETHFee, inputValue]);
+  }, [selectCurrency, itankPUSDFee, itankPETHFee, inputValue]);
 
   const inputCurrencyValue = useMemo(() => {
-    let amount = !isETH
+    let amount = selectCurrency !== "ETH-PETH"
       ? inputValue
       : new BigNumber(inputValue).times(avgPrice).toNumber();
 
     return $isFiniteNumber(amount);
-  }, [inputValue, avgPrice, isETH]);
+  }, [inputValue, avgPrice, selectCurrency]);
 
   const outputCurrencyValue = useMemo(() => {
-    let amount = !isETH
+    let amount = selectCurrency !== "ETH-PETH"
       ? outputValue
       : new BigNumber(outputValue).times(avgPrice).toNumber();
     return $isFiniteNumber(amount);
-  }, [outputValue, avgPrice, isETH]);
+  }, [outputValue, avgPrice, selectCurrency]);
 
   const inputMax = useMemo(() => {
     let max = parseFloat(inputCurrencyBalance)
@@ -212,7 +277,7 @@ const Specie: React.FC = ({}) => {
       : 0;
 
     let canBuyAmount =
-      selectInputCurrency === "ETH" ? max : inputCurrencyBalance;
+      selectInputCurrency === "ETH-PETH" ? max : inputCurrencyBalance;
     const amount = new BigNumber(canBuyAmount);
     return amount.toFixed(getDep(amount), 1);
   }, [
@@ -224,14 +289,25 @@ const Specie: React.FC = ({}) => {
 
   const calcAmount = useCallback(
     ({ value, isInput }) => {
-      const inputToken = basisCash?.externalTokens[selectInputCurrency];
-      const outputToken = basisCash?.externalTokens[selectOutputCurrency];
+      const inputToken = parasset?.externalTokens[selectInputCurrency];
+      const outputToken = parasset?.externalTokens[selectOutputCurrency];
 
       if (isInput) {
         const val =
           value === "" ? value : $isPositiveNumber($isFiniteNumber(value));
         setInputValue(updateNumDep(val, inputToken));
-        const feeRatio = !isETH ? itankPUSDFee : itankPETHFee;
+        let feeRatio;
+        switch (selectCurrency) {
+          case "ETH-PETH":
+            feeRatio = itankPETHFee
+            break;
+          case "USDT-PUSD":
+            feeRatio = itankPUSDFee
+            break;
+          case "HBTC-PBTC":
+            feeRatio = itankPBTCFee
+            break;
+        }
         const amount = new BigNumber(val)
           .minus(new BigNumber(val).times(feeRatio))
           .toNumber();
@@ -242,7 +318,18 @@ const Specie: React.FC = ({}) => {
         const val =
           value === "" ? value : $isPositiveNumber($isFiniteNumber(value));
         setOutputValue(updateNumDep(val, outputToken));
-        const feeRatio = !isETH ? itankPUSDFee : itankPETHFee;
+        let feeRatio;
+        switch (selectCurrency) {
+          case "ETH-PETH":
+            feeRatio = itankPETHFee
+            break;
+          case "USDT-PUSD":
+            feeRatio = itankPUSDFee
+            break;
+          case "HBTC-PBTC":
+            feeRatio = itankPBTCFee
+            break;
+        }
         const amount = new BigNumber(val)
           .div(new BigNumber(1).minus(feeRatio))
           .toNumber();
@@ -253,12 +340,12 @@ const Specie: React.FC = ({}) => {
     },
     [
       inputCurrencyBalance,
-      isETH,
+      selectCurrency,
       outputCurrencyBalance,
       isTransform,
       itankPUSDFee,
       itankPETHFee,
-      basisCash?.externalTokens,
+      parasset?.externalTokens,
       selectInputCurrency,
       selectOutputCurrency,
     ]
@@ -274,7 +361,7 @@ const Specie: React.FC = ({}) => {
     },
     [
       inputCurrencyBalance,
-      isETH,
+      selectCurrency,
       outputCurrencyBalance,
       isTransform,
       itankPUSDFee,
@@ -293,7 +380,7 @@ const Specie: React.FC = ({}) => {
     },
     [
       inputCurrencyBalance,
-      isETH,
+      selectCurrency,
       outputCurrencyBalance,
       isTransform,
       itankPUSDFee,
@@ -337,13 +424,13 @@ const Specie: React.FC = ({}) => {
     selectOutputCurrency,
     inputCurrencyBalance,
     outputCurrencyBalance,
-    isETH,
+    selectCurrency,
     itankPUSDFee,
     itankPETHFee,
   ]);
 
   const onConfirm = useCallback(async () => {
-    const token = basisCash?.externalTokens[selectInputCurrency];
+    const token = parasset?.externalTokens[selectInputCurrency];
     if (!parseFloat(inputValue)) {
       Toast.info(t("qsrbdzcdhsl"), 2000);
     } else if (parseFloat(inputValue) > parseFloat(inputMax)) {
@@ -360,8 +447,8 @@ const Specie: React.FC = ({}) => {
     } else {
       setPendingTx(true);
       const itankContract = isETH
-        ? basisCash?.contracts["PETHInsPool"]
-        : basisCash?.contracts["PUSDInsPool"];
+        ? parasset?.contracts["PETHInsPool"]
+        : parasset?.contracts["PUSDInsPool"];
 
       const result = await onExchange(
         itankContract,
@@ -380,10 +467,10 @@ const Specie: React.FC = ({}) => {
     inputMax,
     inputValue,
     outputValue,
-    basisCash?.externalTokens,
-    basisCash?.contracts,
+    parasset?.externalTokens,
+    parasset?.contracts,
     isTransform,
-    isETH,
+    selectCurrency,
     selectInputCurrency,
     outputCurrencyBalance,
   ]);
@@ -508,7 +595,7 @@ const Specie: React.FC = ({}) => {
         <Spacer />
         <Label
           label={t("dhbl")}
-          value={isETH ? "1 ETH=1 PETH" : "1 USDT=1 PUSD"}
+          value={`1 ${selectCurrency.split('-')[0]}=1 ${selectCurrency.split('-')[1]}`}
           className="wing-blank-lg"
         />
         <Spacer />
@@ -552,7 +639,7 @@ const Specie: React.FC = ({}) => {
       <Spacer />
       <BtnLink
         text={t("wbxctgldx")}
-        path={`/itank/detail/${isETH ? "PETHInsPool" : "PUSDInsPool"}`}
+        path={`/itank/detail/${selectCurrency === "ETH" ? "PETHInsPool" : "PUSDInsPool"}`}
       />
     </>
   );

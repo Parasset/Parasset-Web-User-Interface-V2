@@ -2110,6 +2110,10 @@
       }
     ]
   },
+  "PBTCInsPool": {
+    "address": "0xdda6020268b5A8AAdE743c601c98D247c9F3e06A",
+    "abi": []
+  },
   "NestQuery": {
     "address": "0x4b4065a5d2443CbA45a0ebd324113E3775825442",
     "abi": [

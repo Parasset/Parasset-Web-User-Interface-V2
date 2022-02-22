@@ -7,7 +7,6 @@ import { useTranslation } from "react-i18next";
 export default function CopyHelper({ toCopy }) {
   const [isCopied, setCopied] = useCopyClipboard();
   const { t } = useTranslation();
-  console.log(isCopied);
   return (
     <img
       alt="image"
