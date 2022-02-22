@@ -18,7 +18,7 @@ import useBlur from "../../../hooks/useBlur";
 import useFocus from "../../../hooks/useFocus";
 import useApprove from "../../../hooks/useApprove";
 import useTokenBalance from "../../../hooks/useTokenBalance";
-import useBasisCash from "../../../hooks/useBasisCash";
+import useParasset from "../../../hooks/useParasset";
 
 import usePrice from "../../../hooks/coin/usePrice";
 import useMaxRatio from "../../../hooks/coin/useMaxRatio";
@@ -36,7 +36,7 @@ import { getNumberToFixed, updateNumDep } from "../../../utils/formatBalance";
 
 const Specie: React.FC = ({}) => {
   const { t } = useTranslation();
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
 
   const { onCoin } = useCoin();
   const {

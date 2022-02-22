@@ -11,7 +11,7 @@ import useDebt from "../../hooks/debt/useDebt";
 import useTVL from "../../hooks/debt/useTVL";
 import useDebtInfo from "../../hooks/debt/useDebtInfo";
 import useStaked from "../../hooks/debt/useStaked";
-import useBasisCash from "./../../hooks/useBasisCash";
+import useParasset from "./../../hooks/useParasset";
 import useTotalSupply from "./../../hooks/useTokenTotalSupply";
 import useItanks from "./../../hooks/itank/useItanks";
 import useItankInfo from "./../../hooks/itank/useItankInfo";
@@ -19,7 +19,7 @@ import useUserOverview from "./../../hooks/datum/useUserOverview";
 import useDebtOverview from "./../../hooks/datum/useDebtOverview";
 const Overview: React.FC = () => {
   const { t } = useTranslation();
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
   const PUSDToken = basisCash?.externalTokens["PUSD"];
   const PETHToken = basisCash?.externalTokens["PETH"];
   const PUSDTotalSupply = useTotalSupply(PUSDToken);

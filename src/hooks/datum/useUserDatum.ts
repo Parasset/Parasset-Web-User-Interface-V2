@@ -1,13 +1,13 @@
 //@ts-nocheck
 import { useCallback, useEffect, useState } from "react";
-import useBasisCash from "../useBasisCash";
+import useParasset from "../useParasset";
 import { useBlockNumber } from "../../state/application/hooks";
 
 const useUserDatum = ({ activeUsersValue, newUsersValue }) => {
   const [activeUsers, setActiveUsers] = useState([]);
   const [newUsers, setNewsers] = useState([]);
 
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
   const block = useBlockNumber();
 
   const fetchActiveUsers = useCallback(async () => {

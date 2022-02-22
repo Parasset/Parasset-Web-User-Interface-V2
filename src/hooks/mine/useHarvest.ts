@@ -1,11 +1,11 @@
 //@ts-nocheck
 import { useCallback } from "react";
 
-import useBasisCash from "../useBasisCash";
+import useParasset from "../useParasset";
 import useHandleTransactionReceipt from "../useHandleTransactionReceipt";
 
 const useHarvest = (address) => {
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleReward = useCallback(() => {

@@ -1,7 +1,7 @@
 //@ts-nocheck
 import { useCallback, useEffect, useState } from "react";
 import BigNumber from "bignumber.js";
-import useBasisCash from "../useBasisCash";
+import useParasset from "../useParasset";
 import { useBlockNumber } from "../../state/application/hooks";
 import useDebts from "./useDebts";
 const useCreatedDebts = () => {
@@ -14,7 +14,7 @@ const useCreatedDebts = () => {
     "🚀 ~ file: useCreatedDebts.ts ~ line 13 ~ useCreatedDebts ~ debts",
     debts
   );
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
   const block = useBlockNumber();
   const fetchList = useCallback(
     async (address = basisCash?.myAccount) => {

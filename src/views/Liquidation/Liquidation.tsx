@@ -6,14 +6,14 @@ import BigValue from "../../components/BigValue";
 import TableTitle from "../../components/TableTitle";
 import TableList from "./components/TableList";
 import Value from "../../components/Value";
-import useBasisCash from "../../hooks/useBasisCash";
+import useParasset from "../../hooks/useParasset";
 import useTokenBalance from "../../hooks/useTokenBalance";
 import useLiquidationList from "../../hooks/debt/useLiquidationList";
 import useLiquidatedAssets from "../../hooks/debt/useLiquidatedAssets";
 import LiqModal from "./components/LiqModal";
 const Liquidation: React.FC = () => {
   const { t } = useTranslation();
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
   const [isOpen, setIsOpen] = useState(false);
   const [selectKey, setSelectKey] = useState("ETHPUSD");
   const { list, loading, totalMortgageValue } = useLiquidationList();

@@ -1,6 +1,6 @@
 //@ts-nocheck
 import { useCallback, useEffect, useState } from "react";
-import useBasisCash from "../useBasisCash";
+import useParasset from "../useParasset";
 import { useBlockNumber } from "../../state/application/hooks";
 
 const useUserOverview = () => {
@@ -11,7 +11,7 @@ const useUserOverview = () => {
     ins: 0,
   });
 
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
   const block = useBlockNumber();
   const fetchUserOverview = useCallback(async () => {
     const userOverview = await basisCash.getUserOverview();

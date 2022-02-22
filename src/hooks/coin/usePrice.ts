@@ -1,13 +1,13 @@
 //@ts-nocheck
 import { useCallback, useEffect, useState } from "react";
-import useBasisCash from "../useBasisCash";
+import useParasset from "../useParasset";
 import { useBlockNumber } from "../../state/application/hooks";
 const usePrice = () => {
   const block = useBlockNumber();
   const [NESTToUSDTPrice, setNESTToUSDTPrice] = useState(0);
   const [NESTToETHPrice, setNESTToETHPrice] = useState(0);
   const [ETHAvgPrice, setETHAvgPrice] = useState(0);
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
 
   const fetchETHAvgPrice = useCallback(async () => {
     setETHAvgPrice(await basisCash.getAvgPrice());

@@ -1,10 +1,10 @@
 //@ts-nocheck
 import { useCallback, useEffect, useState } from "react";
-import useBasisCash from "./useBasisCash";
+import useParasset from "./useParasset";
 import config from "../config";
 const useAvgPrice = () => {
   const [avgPrice, setAvgPrice] = useState(0);
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
 
   const fetchAvgPrice = useCallback(async () => {
     setAvgPrice(await basisCash.getAvgPrice());

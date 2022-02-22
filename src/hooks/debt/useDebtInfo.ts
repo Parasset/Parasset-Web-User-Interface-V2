@@ -1,12 +1,12 @@
 //@ts-nocheck
 import { useCallback, useEffect, useState } from "react";
-import useBasisCash from "../useBasisCash";
+import useParasset from "../useParasset";
 import { useBlockNumber } from "../../state/application/hooks";
 
 const useDebtInfo = (debt) => {
   const [info, setInfo] = useState({});
 
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
   const block = useBlockNumber();
   const fetchInfo = useCallback(
     async (address = basisCash?.myAccount) => {

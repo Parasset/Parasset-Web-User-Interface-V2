@@ -5,15 +5,15 @@ import {
   useStatusModalToggle,
   useStatusToggle,
   useUpdateTransactionHash,
-} from "./../state/application/hooks";
+} from "../state/application/hooks";
 
-import useBasisCash from "./useBasisCash";
+import useParasset from "./useParasset";
 function useHandleTransactionReceipt() {
   const toggleWait = useStatusModalToggle();
   const updateTx = useUpdateTransactionHash();
   const toggleStatus = useStatusToggle();
 
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
   return useCallback(
     async (func, arg = [], contextObj?: any) => {
       try {

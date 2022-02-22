@@ -1,13 +1,13 @@
 //@ts-nocheck
 import React, { useCallback, useEffect, useState } from "react";
 import Context from "./context";
-import useBasisCash from "../../hooks/useBasisCash";
+import useParasset from "../../hooks/useParasset";
 
 import config, { itankDefinitions } from "../../config";
 
 const ITanks: React.FC = ({ children }) => {
   const [itanks, setItanks] = useState<Mine[]>([]);
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
 
   const fetchPools = useCallback(async () => {
     const itanks = [];

@@ -9,7 +9,7 @@ import useWithdraw from "../../../hooks/mine/useWithdraw";
 import useBlur from "../../../hooks/useBlur";
 import useFocus from "../../../hooks/useFocus";
 import useApprove from "../../../hooks/useApprove";
-import useBasisCash from "../../../hooks/useBasisCash";
+import useParasset from "../../../hooks/useParasset";
 const Mine: React.FC = ({
   isOpen,
   onDismiss,
@@ -26,7 +26,7 @@ const Mine: React.FC = ({
   const { onWithdraw } = useWithdraw(mine?.depositToken?.address);
   const { onBlur } = useBlur();
   const { onFocus } = useFocus();
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
   const [approveStatus, approve] = useApprove(
     mine?.depositToken,
     basisCash?.contracts.Mine?.address,

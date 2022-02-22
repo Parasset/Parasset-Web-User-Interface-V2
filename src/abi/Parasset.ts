@@ -22,7 +22,7 @@ import ERC20 from "./ERC20";
  * An API module of Gaea Exchange contracts.
  * All contract-interacting domain logic should be defined in here.
  */
-export class BasisCash {
+export class Parasset {
   myAccount: string;
   provider: ethers.providers.Web3Provider;
   signer?: ethers.Signer;

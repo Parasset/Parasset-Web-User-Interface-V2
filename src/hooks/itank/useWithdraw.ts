@@ -1,10 +1,10 @@
 import { useCallback } from "react";
-
-import useBasisCash from "../useBasisCash";
+import useParasset from "../useParasset";
 import useHandleTransactionReceipt from "../useHandleTransactionReceipt";
 import { decimalToBalance } from "../../abi/ether-utils";
+
 const useWithdraw = (itankContract: any, decimal: any) => {
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleWithdraw = useCallback(

@@ -7,7 +7,7 @@ import { $isFiniteNumber, $isPositiveNumber } from "../../utils/utils";
 import Container from "../../components/Datum/Container";
 
 import Picker from "../../components/Datum/Picker";
-import useBasisCash from "./../../hooks/useBasisCash";
+import useParasset from "./../../hooks/useParasset";
 import useCoinDatum from "../../hooks/datum/useCoinDatum";
 import useDebt from "../../hooks/debt/useDebt";
 import useTVL from "../../hooks/debt/useTVL";
@@ -15,7 +15,7 @@ import useDebtInfo from "../../hooks/debt/useDebtInfo";
 import useTotalSupply from "./../../hooks/useTokenTotalSupply";
 const DatumCoin: React.FC = () => {
   const { t, i18n } = useTranslation();
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
   const ETHDebt = useDebt("ETHPUSD");
   const NESTPUSDDebt = useDebt("NESTPUSD");
   const NESTPETHDebt = useDebt("NESTPETH");

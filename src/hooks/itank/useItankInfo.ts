@@ -1,6 +1,6 @@
 //@ts-nocheck
 import { useCallback, useEffect, useState } from "react";
-import useBasisCash from "../useBasisCash";
+import useParasset from "../useParasset";
 import { useBlockNumber } from "../../state/application/hooks";
 
 const useItankInfo = (itank) => {
@@ -25,7 +25,7 @@ const useItankInfo = (itank) => {
   const [redeemAmount, setRedeemAmount] = useState(0);
   const [fee, setFee] = useState(0);
 
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
   const block = useBlockNumber();
 
   const fetchFundBalance = useCallback(async () => {

@@ -10,14 +10,14 @@ import Button from "../../../components/Button";
 import OperatModal from "./OperatModal";
 import useIsMobile from "../../../hooks/useIsMobile";
 import useTokenBalance from "../../../hooks/useTokenBalance";
-import useBasisCash from "../../../hooks/useBasisCash";
+import useParasset from "../../../hooks/useParasset";
 
 const Handler: React.FC = ({ debt, debtInfo, fetchInfo }) => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
   const [isOpen, setOpen] = useState(false);
   const [select, setSelect] = useState("Stake");
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
   const mortgageBalance = useTokenBalance(debt?.mortgageToken);
 
   const parassetBalance = useTokenBalance(debt?.uToken);

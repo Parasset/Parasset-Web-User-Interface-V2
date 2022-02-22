@@ -10,7 +10,7 @@ import TableList from "./components/TableList";
 import Value from "../../components/Value";
 
 import Footer from "./components/Footer";
-import useBasisCash from "./../../hooks/useBasisCash";
+import useParasset from "./../../hooks/useParasset";
 import useDebt from "../../hooks/debt/useDebt";
 import useTVL from "../../hooks/debt/useTVL";
 import useStaked from "../../hooks/debt/useStaked";
@@ -21,7 +21,7 @@ import useItanks from "./../../hooks/itank/useItanks";
 import useItankInfo from "./../../hooks/itank/useItankInfo";
 const Home: React.FC = () => {
   const { t } = useTranslation();
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
   const itanks = useItanks();
   const titles = [
     {

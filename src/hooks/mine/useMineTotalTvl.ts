@@ -1,14 +1,15 @@
 //@ts-nocheck
 import { useCallback, useEffect, useState } from "react";
-import useBasisCash from "../useBasisCash";
+import useParasset from "../useParasset";
 import BigNumber from "bignumber.js";
 import { useBlockNumber } from "../../state/application/hooks";
 import { $isFiniteNumber, $isPositiveNumber } from "../../utils/utils";
 import useItanks from "../../hooks/itank/useItanks";
+
 const useMineTotalTvl = (mines) => {
   const [totalTvl, setTotalTvl] = useState(0);
   const itanks = useItanks();
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
   const block = useBlockNumber();
 
   const fetchTvl = useCallback(async () => {

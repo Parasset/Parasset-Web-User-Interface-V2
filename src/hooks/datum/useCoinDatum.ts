@@ -1,6 +1,6 @@
 //@ts-nocheck
 import { useCallback, useEffect, useState } from "react";
-import useBasisCash from "../useBasisCash";
+import useParasset from "../useParasset";
 import { useBlockNumber } from "../../state/application/hooks";
 
 const useCoinDatum = ({ tvlDatumValue, debtDatumValue }) => {
@@ -13,7 +13,7 @@ const useCoinDatum = ({ tvlDatumValue, debtDatumValue }) => {
     debtDatum: [],
   });
 
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
   const block = useBlockNumber();
 
   const fetchTvlDatum = useCallback(async () => {

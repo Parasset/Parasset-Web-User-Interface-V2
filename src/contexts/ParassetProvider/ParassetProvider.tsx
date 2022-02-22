@@ -3,13 +3,13 @@ import { useWallet } from "use-wallet";
 import BasisCash from "../../abi";
 import config from "../../config";
 
-export interface BasisCashContext {
+export interface ParassetContext {
   basisCash?: BasisCash;
 }
 
-export const Context = createContext<BasisCashContext>({ basisCash: null });
+export const Context = createContext<ParassetContext>({ basisCash: null });
 
-export const BasisCashProvider: React.FC = ({ children }) => {
+export const ParassetProvider: React.FC = ({ children }) => {
   const { ethereum, account } = useWallet();
 
   const [basisCash, setBasisCash] = useState<BasisCash>();

@@ -7,7 +7,7 @@ import { UseWalletProvider } from "use-wallet";
 import MinesProvider from "./contexts/Mines";
 import ItanksProvider from "./contexts/ITanks";
 import DebtsProvider from "./contexts/Debts";
-import BasisCashProvider from "./contexts/BasisCashProvider";
+import ParassetProvider from "./contexts/ParassetProvider";
 import Page from "./components/Page";
 
 import Home from "./views/Home";
@@ -99,7 +99,7 @@ const Providers: React.FC = ({ children }) => {
       >
         <Provider store={store}>
           <Updaters />
-          <BasisCashProvider>
+          <ParassetProvider>
             <ItanksProvider>
               <MinesProvider>
                 <DebtsProvider>
@@ -107,7 +107,7 @@ const Providers: React.FC = ({ children }) => {
                 </DebtsProvider>
               </MinesProvider>
             </ItanksProvider>
-          </BasisCashProvider>
+          </ParassetProvider>
         </Provider>
       </UseWalletProvider>
     </ThemeProvider>

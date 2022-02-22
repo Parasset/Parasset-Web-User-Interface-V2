@@ -1,13 +1,13 @@
 //@ts-nocheck
 import React, { useCallback, useEffect, useState } from "react";
 import Context from "./context";
-import useBasisCash from "../../hooks/useBasisCash";
+import useParasset from "../../hooks/useParasset";
 import { Mine } from "../../abi";
 import config, { mineDefinitions } from "../../config";
 
 const Mines: React.FC = ({ children }) => {
   const [mines, setMines] = useState<Mine[]>([]);
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
 
   const fetchPools = useCallback(async () => {
     const mines: Mine[] = [];

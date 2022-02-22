@@ -1,13 +1,13 @@
 //@ts-nocheck
 import React, { useCallback, useEffect, useState } from "react";
 import Context from "./context";
-import useBasisCash from "../../hooks/useBasisCash";
+import useParasset from "../../hooks/useParasset";
 
 import config, { debtDefinitions } from "../../config";
 
 const Debts: React.FC = ({ children }) => {
   const [debts, setItanks] = useState<Mine[]>([]);
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
 
   const fetchPools = useCallback(async () => {
     const debts = [];

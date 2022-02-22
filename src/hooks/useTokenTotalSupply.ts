@@ -1,12 +1,11 @@
 //@ts-nocheck
 import { useCallback, useEffect, useState } from "react";
 import ERC20 from "../abi/ERC20";
-import useBasisCash from "./useBasisCash";
-import config from "../config";
+import useParasset from "./useParasset";
 import { getTonumber } from "../utils/formatBalance";
 const useTotalSupply = (token: ERC20) => {
   const [totalSupply, setTotalSupply] = useState(0);
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
 
   const fetchTotalSupply = useCallback(async () => {
     if (token) {

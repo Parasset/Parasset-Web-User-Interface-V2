@@ -1,12 +1,12 @@
 //@ts-nocheck
 import { useCallback, useEffect, useState } from "react";
 import { useBlockNumber } from "../../state/application/hooks";
-import useBasisCash from "../useBasisCash";
+import useParasset from "../useParasset";
 import BigNumber from "bignumber.js";
 import { getTonumber } from "../../utils/formatBalance";
 const useTVL = (mortgagePoolContract, token, price) => {
   const [tvl, setTvl] = useState(0);
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
   const block = useBlockNumber();
   const fetchTvl = useCallback(async () => {
     if (token && mortgagePoolContract) {

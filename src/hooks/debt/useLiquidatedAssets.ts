@@ -1,11 +1,11 @@
 //@ts-nocheck
 import { useCallback, useEffect, useState } from "react";
 import { useBlockNumber } from "../../state/application/hooks";
-import useBasisCash from "../useBasisCash";
+import useParasset from "../useParasset";
 import { getTonumber } from "../../utils/formatBalance";
 const useLiquidatedAssets = () => {
   const [liquidatedAssets, setLiquidatedAssets] = useState(0);
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
 
   const fetchLiquidatedAssets = useCallback(async () => {
     const liquidatedAssets = await basisCash.getLiquidatedAssets();

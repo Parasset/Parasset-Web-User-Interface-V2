@@ -1,8 +1,8 @@
 //@ts-nocheck
 import { useCallback, useEffect, useState } from "react";
-import useBasisCash from "../useBasisCash";
+import useParasset from "../useParasset";
 import { useBlockNumber } from "../../state/application/hooks";
-import { $isFiniteNumber, $isPositiveNumber } from "./../../utils/utils";
+import { $isFiniteNumber, $isPositiveNumber } from "../../utils/utils";
 const useMineInfo = (mine, itank) => {
   const [staked, setStaked] = useState(0);
   const [earned, setEarned] = useState(0);
@@ -12,7 +12,7 @@ const useMineInfo = (mine, itank) => {
     rewardRate: 0,
     totalSupply: 0,
   });
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
   const block = useBlockNumber();
 
   const fetchStaked = useCallback(

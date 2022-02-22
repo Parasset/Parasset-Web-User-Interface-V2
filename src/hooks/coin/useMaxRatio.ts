@@ -1,11 +1,11 @@
 //@ts-nocheck
 import { useCallback, useEffect, useState } from "react";
-import useBasisCash from "../useBasisCash";
+import useParasset from "../useParasset";
 import { useBlockNumber } from "../../state/application/hooks";
 const useMaxRatio = (mortgagePoolContract, mortgageToken) => {
   const block = useBlockNumber();
   const [maxRatio, setMaxRatio] = useState(0);
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
 
   const fetchMaxRatio = useCallback(async () => {
     setMaxRatio(

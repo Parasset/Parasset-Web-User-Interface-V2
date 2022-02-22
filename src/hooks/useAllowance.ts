@@ -1,11 +1,11 @@
 //@ts-nocheck
 import { useCallback, useEffect, useState } from "react";
 
-import useBasisCash from "./useBasisCash";
+import useParasset from "./useParasset";
 import { getTonumber } from "../utils/formatBalance";
 const useAllowance = (token: any, spender: string) => {
   const [allowance, setAllowance] = useState(0);
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
   const fetchAllowance = useCallback(async () => {
     if (token) {
       const allowance = await token.allowance(basisCash?.myAccount, spender);

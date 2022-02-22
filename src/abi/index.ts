@@ -1,2 +1,2 @@
-export { BasisCash as default } from "./BasisCash";
+export { Parasset as default } from "./Parasset";
 export type { Mine, MineInfo, ContractName } from "./types";

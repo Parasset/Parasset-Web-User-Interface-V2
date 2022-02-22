@@ -1,11 +1,11 @@
 //@ts-nocheck
 import { useCallback, useEffect, useState } from "react";
 import { useBlockNumber } from "../../state/application/hooks";
-import useBasisCash from "../useBasisCash";
+import useParasset from "../useParasset";
 import { getTonumber } from "../../utils/formatBalance";
 const useStaked = (mortgagePoolContract, token) => {
   const [staked, setStaked] = useState(0);
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
   const block = useBlockNumber();
   const fetchStaked = useCallback(async () => {
     if (token && mortgagePoolContract) {

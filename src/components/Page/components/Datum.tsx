@@ -9,13 +9,13 @@ import TokenSymbol from "../../TokenSymbol";
 import Value from "../../Value";
 import Copy from "../../Copy";
 import useEncryptAddress from "../../../hooks/useEncryptAddress";
-import useBasisCash from "../../../hooks/useBasisCash";
+import useParasset from "../../../hooks/useParasset";
 import useTotalSupply from "../../../hooks/useTokenTotalSupply";
 import useTokenBalance from "../../../hooks/useTokenBalance";
 import usePrice from "../../../hooks/coin/usePrice";
 const Datum: React.FC = () => {
   const { t } = useTranslation();
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
   const PUSDToken = basisCash?.externalTokens["PUSD"];
   const PETHToken = basisCash?.externalTokens["PETH"];
   const PUSDTotalSupply = useTotalSupply(PUSDToken);

@@ -22,13 +22,13 @@ import useItankInfo from "../../../hooks/itank/useItankInfo";
 import useExchange from "../../../hooks/itank/useExchange";
 import useApprove from "../../../hooks/useApprove";
 import useTokenBalance from "../../../hooks/useTokenBalance";
-import useBasisCash from "../../../hooks/useBasisCash";
+import useParasset from "../../../hooks/useParasset";
 import useAvgPrice from "../../../hooks/useAvgPrice";
 import useBlur from "../../../hooks/useBlur";
 import useFocus from "../../../hooks/useFocus";
 const Specie: React.FC = ({}) => {
   const { t } = useTranslation();
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
   const avgPrice = useAvgPrice();
 
   const { onExchange } = useExchange();

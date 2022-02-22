@@ -10,7 +10,7 @@ import WalletModal from "../../WalletModal";
 import TokenSymbol from "../../TokenSymbol";
 import Value from "../../Value";
 import useEncryptAddress from "../../../hooks/useEncryptAddress";
-import useBasisCash from "../../../hooks/useBasisCash";
+import useParasset from "../../../hooks/useParasset";
 import useTotalSupply from "../../../hooks/useTokenTotalSupply";
 import usePrice from "../../../hooks/coin/usePrice";
 import Copy from "../../Copy";
@@ -20,7 +20,7 @@ const Right: React.FC = ({ isDatumPath }) => {
   const { t } = useTranslation();
   const { account, connect, status } = useWallet();
   const newAccount = useEncryptAddress(account);
-  const basisCash = useBasisCash();
+  const basisCash = useParasset();
   const PUSDToken = basisCash?.externalTokens["PUSD"];
   const PETHToken = basisCash?.externalTokens["PETH"];
   const PETHTotalSupply = useTotalSupply(PETHToken);
