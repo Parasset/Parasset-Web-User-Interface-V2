@@ -86,6 +86,16 @@ export const itankDefinitions = {
     LPTokenName: "LP-ETH",
     earnName: "ASET",
   },
+  HBTCPBTCPool: {
+    name: "HBTC-PBTC",
+    icon1: "HBTC",
+    icon2: "PBTC",
+    contract: "PBTCInsPool",
+    depositTokenName: "HBTC",
+    earnTokenName: "PBTC",
+    LPTokenName: "LP-BTC",
+    earnName: "ASET",
+  },
 };
 
 export const debtDefinitions = {
@@ -109,7 +119,6 @@ export const debtDefinitions = {
     earnTokenName: "PUSD",
     liqUnit: "USDT",
   },
-
   NESTPETH: {
     name: "NEST-PETH",
     key: "NESTPETH",

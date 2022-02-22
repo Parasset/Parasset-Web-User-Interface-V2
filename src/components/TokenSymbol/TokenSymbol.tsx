@@ -6,6 +6,8 @@ import NEST from "../../assets/img/NEST.png";
 import ETH from "../../assets/img/ETH.png";
 import USDT from "../../assets/img/USDT.png";
 import PUSD from "../../assets/img/PUSD.png";
+import HBTC from "../../assets/img/HBTC.png";
+import PBTC from "../../assets/img/PBTC.png";
 
 const logosBySymbol: { [title: string]: string } = {
   PETH,
@@ -14,6 +16,8 @@ const logosBySymbol: { [title: string]: string } = {
   ETH,
   USDT,
   PUSD,
+  HBTC,
+  PBTC,
 };
 
 type BasisLogoProps = {
