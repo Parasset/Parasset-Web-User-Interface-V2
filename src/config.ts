@@ -1,7 +1,7 @@
 //@ts-nocheck
 import { ChainId } from "@uniswap/sdk";
-import { Configuration } from "./basis-cash/config";
-import { MineInfo } from "./basis-cash";
+import { Configuration } from "./abi/config";
+import { MineInfo } from "./abi";
 
 const configurations: { [env: string]: Configuration } = {
   development: {
@@ -9,7 +9,7 @@ const configurations: { [env: string]: Configuration } = {
     etherscanUrl: "https://etherscan.io/",
     defaultProvider:
       "https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
-    deployments: require("./basis-cash/deployments/deployments.mainnet.json"),
+    deployments: require("./abi/deployments/deployments.mainnet.json"),
     externalTokens: {
       ASET: ["0x139cec55d1ec47493dfa25ca77c9208aba4d3c68", 18],
       USDT: ["0xdac17f958d2ee523a2206206994597c13d831ec7", 6],
@@ -26,7 +26,7 @@ const configurations: { [env: string]: Configuration } = {
     etherscanUrl: "https://etherscan.io/",
     defaultProvider:
       "https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
-    deployments: require("./basis-cash/deployments/deployments.mainnet.json"),
+    deployments: require("./abi/deployments/deployments.mainnet.json"),
     externalTokens: {
       ASET: ["0x139cec55d1ec47493dfa25ca77c9208aba4d3c68", 18],
       USDT: ["0xdac17f958d2ee523a2206206994597c13d831ec7", 6],

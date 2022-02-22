@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Context from "./context";
 import useBasisCash from "../../hooks/useBasisCash";
-import { Mine } from "../../basis-cash";
+import { Mine } from "../../abi";
 import config, { mineDefinitions } from "../../config";
 
 const Mines: React.FC = ({ children }) => {

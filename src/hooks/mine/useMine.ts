@@ -1,7 +1,7 @@
 //@ts-nocheck
 import { useContext } from "react";
 import { Context as MinesContext } from "../../contexts/Mines";
-import { Mine, ContractName } from "../../basis-cash";
+import { Mine, ContractName } from "../../abi";
 
 const useMine = (contractName: ContractName): Mine => {
   const { mines } = useContext(MinesContext);

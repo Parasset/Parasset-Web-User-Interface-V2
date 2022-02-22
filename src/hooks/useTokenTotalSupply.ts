@@ -1,6 +1,6 @@
 //@ts-nocheck
 import { useCallback, useEffect, useState } from "react";
-import ERC20 from "../basis-cash/ERC20";
+import ERC20 from "../abi/ERC20";
 import useBasisCash from "./useBasisCash";
 import config from "../config";
 import { getTonumber } from "../utils/formatBalance";

@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { Mine } from "../../basis-cash";
+import { Mine } from "../../abi";
 
 export interface MinesContext {
   mines: Mine[];

@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import BigNumber from "bignumber.js";
 import useBasisCash from "../useBasisCash";
 import useHandleTransactionReceipt from "../useHandleTransactionReceipt";
-import { decimalToBalance } from "../../basis-cash/ether-utils";
+import { decimalToBalance } from "../../abi/ether-utils";
 const useLiquidation = () => {
   const basisCash = useBasisCash();
   const handleTransactionReceipt = useHandleTransactionReceipt();
