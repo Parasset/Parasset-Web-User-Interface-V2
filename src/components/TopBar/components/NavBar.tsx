@@ -34,7 +34,7 @@ const Nav: React.FC = ({ toggleShow }) => {
   return (
     <div className="font-size-16">
       <div
-        className={` ${isMobile ? "" : "wing-blank-lg bd-bottom width-100"} `}
+        className={` ${isMobile ? "bd-bottom" : "wing-blank-lg bd-bottom width-100"} `}
       >
         <div className="wing-blank">
           <StyledBarItem
@@ -164,7 +164,7 @@ const Nav: React.FC = ({ toggleShow }) => {
         </div>
       </div>
       <div
-        className={` ${isMobile ? "" : "wing-blank-lg bd-bottom width-100"} `}
+        className={` ${isMobile ? " bd-bottom width-100" : "wing-blank-lg bd-bottom width-100"} `}
       >
         <div className="wing-blank">
           <StyledBarItem

@@ -28,7 +28,7 @@ const Datum: React.FC = () => {
   const PUSDAddress = useEncryptAddress(PUSDToken?.address);
 
   return (
-    <div>
+    <div className={"wing-blank-lg"}>
       <StyledLabel>{t("wdpxzc")}</StyledLabel>
       <div className="flex-al-start">
         <TokenSymbol symbol="PETH" size={25} />

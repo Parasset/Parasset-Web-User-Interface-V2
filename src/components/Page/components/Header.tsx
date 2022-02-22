@@ -77,10 +77,10 @@ const Header: React.FC = () => {
         </>
       ) : null}
       <StyledSidebar style={{ left: show ? 0 : "-220px" }}>
-        <div className="wing-blank-lg">
+        <div>
           <Spacer size="mmd" />
           <Tab tabs={tabs} tab={tab} onChangeTab={setTab} />
-          <Spacer size="mmd" />
+          {/*<Spacer size="mmd" />*/}
           {tab === 2 ? (
             <Datum />
           ) : (

@@ -16,13 +16,15 @@ const Nav: React.FC = ({ onShowWallet, toggleShow }) => {
     <>
       <NavBar toggleShow={toggleShow} />
       <Spacer size="mmd" />
-      <Button
-        text={!account ? t("ljqb") : newAccount}
-        variant="secondary"
-        onClick={onShowWallet}
-      />
-      <Spacer size="mmd" />
-      <Version />
+      <div className={"wing-blank-lg"}>
+        <Button
+          text={!account ? t("ljqb") : newAccount}
+          variant="secondary"
+          onClick={onShowWallet}
+        />
+        <Spacer size="mmd" />
+        <Version />
+      </div>
     </>
   );
 };
