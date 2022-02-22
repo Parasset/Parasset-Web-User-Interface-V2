@@ -20,16 +20,19 @@ const Right: React.FC = ({ isDatumPath }) => {
   const { t } = useTranslation();
   const { account, connect, status } = useWallet();
   const newAccount = useEncryptAddress(account);
-  const basisCash = useParasset();
-  const PUSDToken = basisCash?.externalTokens["PUSD"];
-  const PETHToken = basisCash?.externalTokens["PETH"];
+  const parasset = useParasset();
+  const PUSDToken = parasset?.externalTokens["PUSD"];
+  const PETHToken = parasset?.externalTokens["PETH"];
+  const PBTCToken = parasset?.externalTokens["PBTC"];
   const PETHTotalSupply = useTotalSupply(PETHToken);
   const PETHTokenBalance = useTokenBalance(PETHToken);
-  const PUSDTokenBalance = useTokenBalance(PUSDToken);
-
   const PETHAddress = useEncryptAddress(PETHToken?.address);
-  const PUSDAddress = useEncryptAddress(PUSDToken?.address);
   const PUSDTotalSupply = useTotalSupply(PUSDToken);
+  const PUSDTokenBalance = useTokenBalance(PUSDToken);
+  const PUSDAddress = useEncryptAddress(PUSDToken?.address);
+  const PBTCTotalSupply = useTotalSupply(PBTCToken);
+  const PBTCTokenBalance = useTokenBalance(PBTCToken);
+  const PBTCAddress = useEncryptAddress(PBTCToken?.address);
 
   const [isOpen, setOpen] = useState(false);
   const { NESTToUSDTPrice, NESTToETHPrice, ETHAvgPrice } = usePrice();
@@ -93,6 +96,23 @@ const Right: React.FC = ({ isDatumPath }) => {
               </div>
             </div>
           </div>
+          <Spacer size={"sm"} />
+          <div className="flex-al-start">
+            <div style={{ paddingTop: "4px" }}>
+              <TokenSymbol symbol="PUSD" size={25} />
+            </div>
+            <div className="margin-left-10">
+              <div className={"bold-500"}>PBTC</div>
+              <Spacer size="ssm" />
+              <div className="flex-jc-start color-grey">
+                <div>{PBTCAddress}</div>
+                <Copy toCopy={PBTCToken?.address} />
+              </div>
+              <div className={"bold-500"}>
+                <Value value={PBTCTokenBalance} />
+              </div>
+            </div>
+          </div>
           <Spacer size={"mmd"} />
         </div>
         <div className="wing-blank-lg bd-bottom">
@@ -136,7 +156,7 @@ const Right: React.FC = ({ isDatumPath }) => {
               <div className={"color-grey"}>NEST/ETH</div>
             </div>
           </div>
-          <Spacer size="md" />
+          <Spacer size={"mmd"} />
         </div>
         <div className="wing-blank-lg">
           <StyledLabel>{t("ltl")}</StyledLabel>
@@ -172,6 +192,23 @@ const Right: React.FC = ({ isDatumPath }) => {
                   <Value value={PETHTotalSupply} />{" "}
                 </div>
                 <div className={"color-grey"}>PETH</div>
+              </div>
+            </div>
+          </a>
+          <Spacer size={"sm"} />
+          <a
+            href={`https://etherscan.io/token/${PETHToken?.address}`}
+            target="_blank"
+          >
+            <div className="flex-jc-start">
+              <div className="flex-jc-center">
+                <TokenSymbol symbol="PBTC" size={25} />
+              </div>
+              <div className="margin-left-10">
+                <div className={"bold-500"}>
+                  <Value value={PBTCTotalSupply} />{" "}
+                </div>
+                <div className={"color-grey"}>PBTC</div>
               </div>
             </div>
           </a>
