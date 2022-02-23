@@ -20,10 +20,6 @@ function useHandleTransactionReceipt() {
         toggleStatus(1);
         toggleWait(true);
         const tx = await func.call(contextObj ? contextObj : basisCash, ...arg);
-        console.log(
-          "🚀 ~ file: useHandleTransactionReceipt.ts ~ line 23 ~ tx",
-          tx
-        );
         toggleStatus(2);
         if (tx?.wait) {
           const status = await tx.wait();

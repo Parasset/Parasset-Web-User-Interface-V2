@@ -13,13 +13,11 @@ const useCoin = () => {
       const amountBn = decimalToBalance(String(amount), mortgageToken.decimal);
       const value = decimalToBalance(
         mortgageToken.symbol === "ETH"
-          ? new BigNumber(amount).plus(0.001).toFixed()
-          : String(0.001),
+          ? new BigNumber(amount).plus( process.env.NODE_ENV === 'development' ? 0.01 : 0.001).toFixed()
+          : String(process.env.NODE_ENV === 'development' ? 0.01 : 0.001),
         mortgageToken.decimal
       );
       ratio = new BigNumber(ratio).times(100000).toFixed(0, 1);
-      console.log("🚀 ~ file: useCoin.ts ~ line 21 ~ useCoin ~ ratio", ratio);
-
       return handleTransactionReceipt(basisCash.coin, [
         mortgagePoolContract,
         mortgageToken,
