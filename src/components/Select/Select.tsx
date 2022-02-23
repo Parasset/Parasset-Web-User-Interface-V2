@@ -1,5 +1,5 @@
 //@ts-nocheck
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import styled from "styled-components";
 
 import CardButton from "../CardButton";
@@ -43,7 +43,7 @@ const Select: React.FC = ({
           <div className="flex-jc-center">
             <img
               alt="image"
-              src={require(`../../assets/img/${selectItem?.name}.png`)}
+              src={require(`../../assets/svg/${selectItem?.name}.svg`)}
               width="35"
               height="35"
               className="margin-right-10"
@@ -107,7 +107,7 @@ const Select: React.FC = ({
                   <div className="flex-jc-start">
                     <img
                       alt="image"
-                      src={require(`../../assets/img/${item.name}.png`)}
+                      src={require(`../../assets/svg/${item.name}.svg`)}
                       width="35"
                       height="35"
                       className="margin-right-10"

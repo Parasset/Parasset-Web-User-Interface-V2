@@ -22,14 +22,14 @@ const Back: React.FC = ({ img, img1, text }) => {
         <div className="flex-jc-start">
           <img
             alt="image"
-            src={require(`../../assets/img/${img}.png`)}
+            src={require(`../../assets/svg/${img}.svg`)}
             width="25"
             height="25"
           />
           {img1 ? (
             <img
               alt="image"
-              src={require(`../../assets/img/${img1}.png`)}
+              src={require(`../../assets/svg/${img1}.svg`)}
               width="25"
               height="25"
               className="margin-left-minus-10"
