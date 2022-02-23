@@ -5,25 +5,25 @@ import useParasset from "./useParasset";
 import { getToNumber } from "../utils/formatBalance";
 const useAllowance = (token: any, spender: string) => {
   const [allowance, setAllowance] = useState(0);
-  const basisCash = useParasset();
+  const parasset = useParasset();
   const fetchAllowance = useCallback(async () => {
     if (token) {
-      const allowance = await token.allowance(basisCash?.myAccount, spender);
+      const allowance = await token.allowance(parasset?.myAccount, spender);
 
       setAllowance(getToNumber(allowance, token.decimal));
     }
-  }, [basisCash?.myAccount, spender, token]);
+  }, [parasset?.myAccount, spender, token]);
 
   useEffect(() => {
     const refreshInterval = setInterval(() => {
-      if (basisCash?.isUnlocked && spender && token) {
+      if (parasset?.isUnlocked && spender && token) {
         fetchAllowance().catch((err) =>
           console.log(`Failed to fetch allowance: ${err.stack}`)
         );
       }
     }, 1000);
     return () => clearInterval(refreshInterval);
-  }, [basisCash?.isUnlocked, basisCash?.myAccount, spender, token]);
+  }, [parasset?.isUnlocked, parasset?.myAccount, spender, token]);
 
   return allowance;
 };

@@ -13,7 +13,7 @@ import useLiquidatedAssets from "../../hooks/debt/useLiquidatedAssets";
 import LiqModal from "./components/LiqModal";
 const Liquidation: React.FC = () => {
   const { t } = useTranslation();
-  const basisCash = useParasset();
+  const parasset = useParasset();
   const [isOpen, setIsOpen] = useState(false);
   const [selectKey, setSelectKey] = useState("ETHPUSD");
   const { list, loading, totalMortgageValue } = useLiquidationList();
@@ -49,9 +49,9 @@ const Liquidation: React.FC = () => {
     const item = list.filter((item) => item.itemKey === selectKey);
     return item.length ? item[0] : {};
   }, [selectKey, list]);
-  const PETHWalletBalance = useTokenBalance(basisCash?.externalTokens["PETH"]);
-  const PUSDWalletBalance = useTokenBalance(basisCash?.externalTokens["PUSD"]);
-  const ETHWalletBalance = useTokenBalance(basisCash?.externalTokens["ETH"]);
+  const PETHWalletBalance = useTokenBalance(parasset?.externalTokens["PETH"]);
+  const PUSDWalletBalance = useTokenBalance(parasset?.externalTokens["PUSD"]);
+  const ETHWalletBalance = useTokenBalance(parasset?.externalTokens["ETH"]);
   return (
     <>
       <BigValue

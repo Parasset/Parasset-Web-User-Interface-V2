@@ -9,7 +9,7 @@ import useItanks from "../../hooks/itank/useItanks";
 const useMineTotalTvl = (mines) => {
   const [totalTvl, setTotalTvl] = useState(0);
   const itanks = useItanks();
-  const basisCash = useParasset();
+  const parasset = useParasset();
   const block = useBlockNumber();
 
   const fetchTvl = useCallback(async () => {
@@ -17,7 +17,7 @@ const useMineTotalTvl = (mines) => {
       mines.map(async (item) => {
         const itank = itanks.find((el) => el.contract === item.depositContract);
         const { depositToken } = item;
-        const { tvl } = await basisCash.getMineTvl(
+        const { tvl } = await parasset.getMineTvl(
           depositToken,
           depositToken.address,
           block,
@@ -38,7 +38,7 @@ const useMineTotalTvl = (mines) => {
   useEffect(() => {
     let refreshInterval = true;
     if (
-      basisCash?.myAccount &&
+      parasset?.myAccount &&
       mines?.length &&
       itanks?.length &&
       refreshInterval
@@ -48,7 +48,7 @@ const useMineTotalTvl = (mines) => {
     return () => {
       refreshInterval = false;
     };
-  }, [basisCash?.myAccount, block, mines, itanks]);
+  }, [parasset?.myAccount, block, mines, itanks]);
 
   return { totalTvl };
 };

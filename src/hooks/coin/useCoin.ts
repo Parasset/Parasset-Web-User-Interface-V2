@@ -5,7 +5,7 @@ import useParasset from "../useParasset";
 import useHandleTransactionReceipt from "../useHandleTransactionReceipt";
 import { decimalToBalance } from "../../abi/ether-utils";
 const useCoin = () => {
-  const basisCash = useParasset();
+  const parasset = useParasset();
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleCoin = useCallback(
@@ -18,7 +18,7 @@ const useCoin = () => {
         mortgageToken.decimal
       );
       ratio = new BigNumber(ratio).times(100000).toFixed(0, 1);
-      return handleTransactionReceipt(basisCash.coin, [
+      return handleTransactionReceipt(parasset.coin, [
         mortgagePoolContract,
         mortgageToken,
         amountBn,
@@ -26,7 +26,7 @@ const useCoin = () => {
         value,
       ]);
     },
-    [basisCash]
+    [parasset]
   );
   return { onCoin: handleCoin };
 };

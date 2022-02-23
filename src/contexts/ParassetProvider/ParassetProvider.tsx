@@ -1,31 +1,31 @@
 import React, { createContext, useEffect, useState } from "react";
 import { useWallet } from "use-wallet";
-import BasisCash from "../../abi";
+import Parasset from "../../abi";
 import config from "../../config";
 
 export interface ParassetContext {
-  basisCash?: BasisCash;
+  parasset?: Parasset;
 }
 
-export const Context = createContext<ParassetContext>({ basisCash: null });
+export const Context = createContext<ParassetContext>({ parasset: null });
 
 export const ParassetProvider: React.FC = ({ children }) => {
   const { ethereum, account } = useWallet();
 
-  const [basisCash, setBasisCash] = useState<BasisCash>();
+  const [parasset, setParasset] = useState<Parasset>();
 
   useEffect(() => {
-    if (!basisCash) {
-      const basis = new BasisCash(config);
+    if (!parasset) {
+      const basis = new Parasset(config);
       if (account) {
         // wallet was unlocked at initialization
         basis.unlockWallet(ethereum, account);
       }
-      setBasisCash(basis);
+      setParasset(basis);
     } else if (account) {
-      basisCash.unlockWallet(ethereum, account);
+      parasset.unlockWallet(ethereum, account);
     }
   }, [account]);
 
-  return <Context.Provider value={{ basisCash }}>{children}</Context.Provider>;
+  return <Context.Provider value={{ parasset: parasset }}>{children}</Context.Provider>;
 };

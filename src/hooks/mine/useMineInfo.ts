@@ -12,44 +12,44 @@ const useMineInfo = (mine, itank) => {
     rewardRate: 0,
     totalSupply: 0,
   });
-  const basisCash = useParasset();
+  const parasset = useParasset();
   const block = useBlockNumber();
 
   const fetchStaked = useCallback(
-    async (address = basisCash?.myAccount) => {
-      const staked = await basisCash.getStaked(
+    async (address = parasset?.myAccount) => {
+      const staked = await parasset.getStaked(
         mine?.depositToken?.address,
         address
       );
       setStaked(staked);
       return staked;
     },
-    [basisCash?.myAccount, mine]
+    [parasset?.myAccount, mine]
   );
   const fetchEarned = useCallback(
-    async (address = basisCash?.myAccount) => {
-      const earned = await basisCash.getEarned(
+    async (address = parasset?.myAccount) => {
+      const earned = await parasset.getEarned(
         mine?.depositToken?.address,
         address
       );
       setEarned(earned);
       return earned;
     },
-    [basisCash?.myAccount, mine]
+    [parasset?.myAccount, mine]
   );
   const fetchChannelInfo = useCallback(async () => {
-    const info = await basisCash.getChannelInfo(
+    const info = await parasset.getChannelInfo(
       mine?.depositToken?.address,
       block
     );
 
     setInfo(info);
-  }, [basisCash?.myAccount, mine, block]);
+  }, [parasset?.myAccount, mine, block]);
 
   const fetchTvl = useCallback(async () => {
     if (itank?.itankContract && mine?.depositToken) {
       const { depositToken } = mine;
-      const { tvl, rewardRate } = await basisCash.getMineTvl(
+      const { tvl, rewardRate } = await parasset.getMineTvl(
         depositToken,
         depositToken.address,
         block,
@@ -57,28 +57,28 @@ const useMineInfo = (mine, itank) => {
       );
       setTvl($isPositiveNumber($isFiniteNumber(tvl)));
 
-      const apy = await basisCash.getMineApy(tvl, rewardRate);
+      const apy = await parasset.getMineApy(tvl, rewardRate);
 
       setApy($isPositiveNumber($isFiniteNumber(apy)));
     }
-  }, [basisCash?.myAccount, mine, block, itank]);
+  }, [parasset?.myAccount, mine, block, itank]);
 
   const fetchInfo = useCallback(async () => {
     fetchStaked();
     fetchEarned();
     fetchChannelInfo();
     fetchTvl();
-  }, [basisCash?.myAccount, mine, block, itank]);
+  }, [parasset?.myAccount, mine, block, itank]);
 
   useEffect(() => {
     let refreshInterval = true;
-    if (basisCash?.myAccount && mine?.depositToken && refreshInterval) {
+    if (parasset?.myAccount && mine?.depositToken && refreshInterval) {
       fetchInfo();
     }
     return () => {
       refreshInterval = false;
     };
-  }, [basisCash?.myAccount, block, mine, itank]);
+  }, [parasset?.myAccount, block, mine, itank]);
 
   return { staked, earned, info, tvl, apy, fetchInfo };
 };

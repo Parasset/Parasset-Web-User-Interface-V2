@@ -5,22 +5,22 @@ import useParasset from "../useParasset";
 import { getToNumber } from "../../utils/formatBalance";
 const useLiquidatedAssets = () => {
   const [liquidatedAssets, setLiquidatedAssets] = useState(0);
-  const basisCash = useParasset();
+  const parasset = useParasset();
 
   const fetchLiquidatedAssets = useCallback(async () => {
-    const liquidatedAssets = await basisCash.getLiquidatedAssets();
+    const liquidatedAssets = await parasset.getLiquidatedAssets();
     setLiquidatedAssets(liquidatedAssets);
-  }, [basisCash]);
+  }, [parasset]);
 
   useEffect(() => {
     let refreshInterval = true;
-    if (refreshInterval && basisCash) {
+    if (refreshInterval && parasset) {
       fetchLiquidatedAssets();
     }
     return () => {
       refreshInterval = false;
     };
-  }, [basisCash]);
+  }, [parasset]);
 
   return liquidatedAssets;
 };

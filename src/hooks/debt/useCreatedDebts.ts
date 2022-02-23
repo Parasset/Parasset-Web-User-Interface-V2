@@ -10,14 +10,14 @@ const useCreatedDebts = () => {
   const [mortgageValue, setTotalMortgageValue] = useState(0);
   const [parassetValue, setTotalParassetValue] = useState(0);
   const debts = useDebts();
-  const basisCash = useParasset();
+  const parasset = useParasset();
   const block = useBlockNumber();
   const fetchList = useCallback(
-    async (address = basisCash?.myAccount) => {
+    async (address = parasset?.myAccount) => {
       if (debts.length) {
         let list = await Promise.all(
           debts.map(async (item) => {
-            const info = await basisCash.getDebt(
+            const info = await parasset.getDebt(
               item.mortgagePoolContract,
               item.mortgageToken,
               address,
@@ -43,18 +43,18 @@ const useCreatedDebts = () => {
         return list;
       }
     },
-    [basisCash?.myAccount, debts]
+    [parasset?.myAccount, debts]
   );
 
   useEffect(() => {
     let refreshInterval = true;
-    if (basisCash?.myAccount && refreshInterval) {
+    if (parasset?.myAccount && refreshInterval) {
       fetchList();
     }
     return () => {
       refreshInterval = false;
     };
-  }, [basisCash?.myAccount, debts, block]);
+  }, [parasset?.myAccount, debts, block]);
 
   return { list, loading, mortgageValue, parassetValue };
 };

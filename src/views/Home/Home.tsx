@@ -21,7 +21,7 @@ import useItanks from "./../../hooks/itank/useItanks";
 import useItankInfo from "./../../hooks/itank/useItankInfo";
 const Home: React.FC = () => {
   const { t } = useTranslation();
-  const basisCash = useParasset();
+  const parasset = useParasset();
   const itanks = useItanks();
   const titles = [
     {
@@ -102,8 +102,8 @@ const Home: React.FC = () => {
     NESTPUSDDebt?.mortgageToken
   );
 
-  const PUSDTotalSupply = useTotalSupply(basisCash?.externalTokens["PUSD"]);
-  const PETHTotalSupply = useTotalSupply(basisCash?.externalTokens["PETH"]);
+  const PUSDTotalSupply = useTotalSupply(parasset?.externalTokens["PUSD"]);
+  const PETHTotalSupply = useTotalSupply(parasset?.externalTokens["PETH"]);
 
   const ETHTVL = useMemo(() => {
     return $isPositiveNumber($isFiniteNumber(ETHPUSDTVL));

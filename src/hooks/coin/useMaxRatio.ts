@@ -5,18 +5,18 @@ import { useBlockNumber } from "../../state/application/hooks";
 const useMaxRatio = (mortgagePoolContract, mortgageToken) => {
   const block = useBlockNumber();
   const [maxRatio, setMaxRatio] = useState(0);
-  const basisCash = useParasset();
+  const parasset = useParasset();
 
   const fetchMaxRatio = useCallback(async () => {
     setMaxRatio(
-      await basisCash.getMaxRatio(mortgagePoolContract, mortgageToken)
+      await parasset.getMaxRatio(mortgagePoolContract, mortgageToken)
     );
-  }, [basisCash, mortgageToken]);
+  }, [parasset, mortgageToken]);
 
   useEffect(() => {
     let refreshInterval = true;
     if (
-      basisCash?.myAccount &&
+      parasset?.myAccount &&
       mortgagePoolContract &&
       mortgageToken &&
       refreshInterval
@@ -26,7 +26,7 @@ const useMaxRatio = (mortgagePoolContract, mortgageToken) => {
     return () => {
       refreshInterval = false;
     };
-  }, [basisCash?.myAccount, block, mortgagePoolContract, mortgageToken]);
+  }, [parasset?.myAccount, block, mortgagePoolContract, mortgageToken]);
   return maxRatio;
 };
 

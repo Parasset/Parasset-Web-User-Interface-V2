@@ -11,18 +11,18 @@ const useUserOverview = () => {
     ins: 0,
   });
 
-  const basisCash = useParasset();
+  const parasset = useParasset();
   const block = useBlockNumber();
   const fetchUserOverview = useCallback(async () => {
-    const userOverview = await basisCash.getUserOverview();
+    const userOverview = await parasset.getUserOverview();
     setUserOverview(userOverview);
-  }, [basisCash]);
+  }, [parasset]);
 
   useEffect(() => {
-    if (basisCash) {
+    if (parasset) {
       fetchUserOverview();
     }
-  }, [basisCash, block]);
+  }, [parasset, block]);
 
   return { userOverview, fetchUserOverview };
 };

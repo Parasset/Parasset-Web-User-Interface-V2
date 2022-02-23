@@ -17,11 +17,11 @@ const Handler: React.FC = ({ debt, debtInfo, fetchInfo }) => {
   const { t } = useTranslation();
   const [isOpen, setOpen] = useState(false);
   const [select, setSelect] = useState("Stake");
-  const basisCash = useParasset();
+  const parasset = useParasset();
   const mortgageBalance = useTokenBalance(debt?.mortgageToken);
 
   const parassetBalance = useTokenBalance(debt?.uToken);
-  const ETHWalletBalance = useTokenBalance(basisCash?.externalTokens["ETH"]);
+  const ETHWalletBalance = useTokenBalance(parasset?.externalTokens["ETH"]);
   const openModal = useCallback((select) => {
     // setMax(max);
     setSelect(select);

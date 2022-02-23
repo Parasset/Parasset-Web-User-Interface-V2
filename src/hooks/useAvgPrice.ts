@@ -4,21 +4,21 @@ import useParasset from "./useParasset";
 import config from "../config";
 const useAvgPrice = () => {
   const [avgPrice, setAvgPrice] = useState(0);
-  const basisCash = useParasset();
+  const parasset = useParasset();
 
   const fetchAvgPrice = useCallback(async () => {
-    setAvgPrice(await basisCash.getAvgPrice());
-  }, [basisCash]);
+    setAvgPrice(await parasset.getAvgPrice());
+  }, [parasset]);
 
   useEffect(() => {
-    if (basisCash?.myAccount) {
+    if (parasset?.myAccount) {
       fetchAvgPrice().catch((err) =>
         console.error(`Failed to fetch avgPrice: ${err.stack}`)
       );
       let refreshInterval = setInterval(fetchAvgPrice, config.refreshInterval);
       return () => clearInterval(refreshInterval);
     }
-  }, [basisCash?.myAccount]);
+  }, [parasset?.myAccount]);
 
   return avgPrice;
 };

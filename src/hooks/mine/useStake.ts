@@ -4,16 +4,16 @@ import useHandleTransactionReceipt from "../useHandleTransactionReceipt";
 import { decimalToBalance } from "../../abi/ether-utils";
 
 const useStake = (address: any) => {
-  const basisCash = useParasset();
+  const parasset = useParasset();
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleStake = useCallback(
     (amount) => {
       const amountBn = decimalToBalance(amount, 18);
       console.log(amountBn, amount);
-      return handleTransactionReceipt(basisCash.stake, [amountBn, address]);
+      return handleTransactionReceipt(parasset.stake, [amountBn, address]);
     },
-    [basisCash, address]
+    [parasset, address]
   );
   return { onStake: handleStake };
 };

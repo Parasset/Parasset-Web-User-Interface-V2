@@ -13,13 +13,13 @@ function useHandleTransactionReceipt() {
   const updateTx = useUpdateTransactionHash();
   const toggleStatus = useStatusToggle();
 
-  const basisCash = useParasset();
+  const parasset = useParasset();
   return useCallback(
     async (func, arg = [], contextObj?: any) => {
       try {
         toggleStatus(1);
         toggleWait(true);
-        const tx = await func.call(contextObj ? contextObj : basisCash, ...arg);
+        const tx = await func.call(contextObj ? contextObj : parasset, ...arg);
         toggleStatus(2);
         if (tx?.wait) {
           const status = await tx.wait();
@@ -46,7 +46,7 @@ function useHandleTransactionReceipt() {
       }
     },
     //
-    [basisCash, toggleStatus, toggleWait]
+    [parasset, toggleStatus, toggleWait]
   );
 }
 

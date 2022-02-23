@@ -4,15 +4,15 @@ import useParasset from "../useParasset";
 import useHandleTransactionReceipt from "../useHandleTransactionReceipt";
 import { decimalToBalance } from "../../abi/ether-utils";
 const useWithdraw = (address: any) => {
-  const basisCash = useParasset();
+  const parasset = useParasset();
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleWithdraw = useCallback(
     (amount) => {
       const amountBn = decimalToBalance(amount, 18);
-      return handleTransactionReceipt(basisCash.unstake, [amountBn, address]);
+      return handleTransactionReceipt(parasset.unstake, [amountBn, address]);
     },
-    [basisCash, address]
+    [parasset, address]
   );
   return { onWithdraw: handleWithdraw };
 };

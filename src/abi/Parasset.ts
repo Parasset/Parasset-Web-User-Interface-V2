@@ -777,7 +777,7 @@ export class Parasset {
       );
     } catch (error) {
       console.log(
-        "🚀 ~ file: BasisCash.ts ~ line 741 ~ BasisCash ~ error",
+        "🚀 ~ file: Parasset.ts ~ line 741 ~ Parasset ~ error",
         error
       );
       return error;

@@ -5,12 +5,12 @@ import useParasset from "../useParasset";
 import { getToNumber } from "../../utils/formatBalance";
 const useStaked = (mortgagePoolContract, token) => {
   const [staked, setStaked] = useState(0);
-  const basisCash = useParasset();
+  const parasset = useParasset();
   const block = useBlockNumber();
   const fetchStaked = useCallback(async () => {
     if (token && mortgagePoolContract) {
       if (token.symbol === "ETH") {
-        const balance = await await basisCash.provider.getBalance(
+        const balance = await await parasset.provider.getBalance(
           mortgagePoolContract.address
         );
 
@@ -21,12 +21,12 @@ const useStaked = (mortgagePoolContract, token) => {
         setStaked(getToNumber(balance, token.decimal));
       }
     }
-  }, [basisCash?.myAccount, basisCash?.provider, mortgagePoolContract, token]);
+  }, [parasset?.myAccount, parasset?.provider, mortgagePoolContract, token]);
 
   useEffect(() => {
     let refreshInterval = true;
     if (
-      basisCash?.myAccount &&
+      parasset?.myAccount &&
       mortgagePoolContract &&
       token &&
       refreshInterval
@@ -36,7 +36,7 @@ const useStaked = (mortgagePoolContract, token) => {
     return () => {
       refreshInterval = false;
     };
-  }, [basisCash?.myAccount, mortgagePoolContract, block, token]);
+  }, [parasset?.myAccount, mortgagePoolContract, block, token]);
 
   return staked;
 };

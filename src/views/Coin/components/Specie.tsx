@@ -36,7 +36,7 @@ import { getNumberToFixed, updateNumDep } from "../../../utils/formatBalance";
 
 const Specie: React.FC = ({}) => {
   const { t } = useTranslation();
-  const basisCash = useParasset();
+  const parasset = useParasset();
 
   const { onCoin } = useCoin();
   const {
@@ -61,43 +61,43 @@ const Specie: React.FC = ({}) => {
   const { onBlur } = useBlur();
   const { onFocus } = useFocus();
   const maxRatioETHPUSD = useMaxRatio(
-    basisCash?.contracts["PUSDMorPool"],
-    basisCash?.externalTokens["ETH"]
+    parasset?.contracts["PUSDMorPool"],
+    parasset?.externalTokens["ETH"]
   );
   const maxRatioNESTPUSD = useMaxRatio(
-    basisCash?.contracts["PUSDMorPool"],
-    basisCash?.externalTokens["NEST"]
+    parasset?.contracts["PUSDMorPool"],
+    parasset?.externalTokens["NEST"]
   );
   const maxRatioNESTPETH = useMaxRatio(
-    basisCash?.contracts["PETHMorPool"],
-    basisCash?.externalTokens["NEST"]
+    parasset?.contracts["PETHMorPool"],
+    parasset?.externalTokens["NEST"]
   );
 
   const feeETHPUSD = useFee(
-    basisCash?.contracts["PUSDMorPool"],
-    basisCash?.externalTokens["ETH"],
-    basisCash?.externalTokens["USDT"]
+    parasset?.contracts["PUSDMorPool"],
+    parasset?.externalTokens["ETH"],
+    parasset?.externalTokens["USDT"]
   );
 
   const feeNESTPUSD = useFee(
-    basisCash?.contracts["PUSDMorPool"],
-    basisCash?.externalTokens["NEST"],
-    basisCash?.externalTokens["USDT"]
+    parasset?.contracts["PUSDMorPool"],
+    parasset?.externalTokens["NEST"],
+    parasset?.externalTokens["USDT"]
   );
   const feeNESTPETH = useFee(
-    basisCash?.contracts["PETHMorPool"],
-    basisCash?.externalTokens["NEST"],
-    basisCash?.externalTokens["PETH"]
+    parasset?.contracts["PETHMorPool"],
+    parasset?.externalTokens["NEST"],
+    parasset?.externalTokens["PETH"]
   );
 
   const isETH = useMemo(() => {
     return selectInputCurrency === "ETH" || setSelectOutputCurrency === "ETH";
   }, [selectInputCurrency, setSelectOutputCurrency]);
 
-  const ETHWalletBalance = useTokenBalance(basisCash?.externalTokens["ETH"]);
-  const NESTWalletBalance = useTokenBalance(basisCash?.externalTokens["NEST"]);
-  const PETHWalletBalance = useTokenBalance(basisCash?.externalTokens["PETH"]);
-  const PUSDWalletBalance = useTokenBalance(basisCash?.externalTokens["PUSD"]);
+  const ETHWalletBalance = useTokenBalance(parasset?.externalTokens["ETH"]);
+  const NESTWalletBalance = useTokenBalance(parasset?.externalTokens["NEST"]);
+  const PETHWalletBalance = useTokenBalance(parasset?.externalTokens["PETH"]);
+  const PUSDWalletBalance = useTokenBalance(parasset?.externalTokens["PUSD"]);
 
   const currencyListInput = useMemo(() => {
     return [
@@ -183,11 +183,11 @@ const Specie: React.FC = ({}) => {
   const cointAddress = useMemo(() => {
     return {
       encryptAddress: getEncryptAddress(
-        basisCash?.externalTokens[selectOutputCurrency].address
+        parasset?.externalTokens[selectOutputCurrency].address
       ),
-      address: basisCash?.externalTokens[selectOutputCurrency].address,
+      address: parasset?.externalTokens[selectOutputCurrency].address,
     };
-  }, [selectOutputCurrency, basisCash?.externalTokens]);
+  }, [selectOutputCurrency, parasset?.externalTokens]);
 
   const dataList = useMemo(() => {
     return {
@@ -195,24 +195,24 @@ const Specie: React.FC = ({}) => {
         maxRatio: maxRatioETHPUSD,
         price: ETHAvgPrice,
         fee: feeETHPUSD,
-        mortgagePoolContract: basisCash?.contracts["PUSDMorPool"],
-        mortgageToken: basisCash?.externalTokens["ETH"],
+        mortgagePoolContract: parasset?.contracts["PUSDMorPool"],
+        mortgageToken: parasset?.externalTokens["ETH"],
         walletBalance: PUSDWalletBalance,
       },
       NESTPUSD: {
         maxRatio: maxRatioNESTPUSD,
         price: NESTToUSDTPrice,
         fee: feeNESTPUSD,
-        mortgagePoolContract: basisCash?.contracts["PUSDMorPool"],
-        mortgageToken: basisCash?.externalTokens["NEST"],
+        mortgagePoolContract: parasset?.contracts["PUSDMorPool"],
+        mortgageToken: parasset?.externalTokens["NEST"],
         walletBalance: PUSDWalletBalance,
       },
       NESTPETH: {
         maxRatio: maxRatioNESTPETH,
         price: NESTToETHPrice,
         fee: feeNESTPETH,
-        mortgagePoolContract: basisCash?.contracts["PETHMorPool"],
-        mortgageToken: basisCash?.externalTokens["NEST"],
+        mortgagePoolContract: parasset?.contracts["PETHMorPool"],
+        mortgageToken: parasset?.externalTokens["NEST"],
         walletBalance: PETHWalletBalance,
       },
     };
@@ -253,24 +253,24 @@ const Specie: React.FC = ({}) => {
   }, [dataList, selectInputCurrency, selectOutputCurrency]);
 
   const [approveStatusPUSD, approvePUSD] = useApprove(
-    basisCash?.externalTokens["PUSD"],
-    basisCash?.contracts["PUSDMorPool"]?.address,
+    parasset?.externalTokens["PUSD"],
+    parasset?.contracts["PUSDMorPool"]?.address,
     fee
   );
 
   const [approveStatusPETH, approvePETH] = useApprove(
-    basisCash?.externalTokens["PETH"],
-    basisCash?.contracts["PETHMorPool"]?.address,
+    parasset?.externalTokens["PETH"],
+    parasset?.contracts["PETHMorPool"]?.address,
     fee
   );
   const [approveStatusNESTPETH, approveNESTPETH] = useApprove(
-    basisCash?.externalTokens["NEST"],
-    basisCash?.contracts["PETHMorPool"]?.address,
+    parasset?.externalTokens["NEST"],
+    parasset?.contracts["PETHMorPool"]?.address,
     inputValue
   );
   const [approveStatusNESTPUSD, approveNESTPUSD] = useApprove(
-    basisCash?.externalTokens["NEST"],
-    basisCash?.contracts["PUSDMorPool"]?.address,
+    parasset?.externalTokens["NEST"],
+    parasset?.contracts["PUSDMorPool"]?.address,
     inputValue
   );
 
@@ -307,8 +307,8 @@ const Specie: React.FC = ({}) => {
 
   const calcAmount = useCallback(
     ({ value, isInput, ratio, price }) => {
-      const inputToken = basisCash?.externalTokens[selectInputCurrency];
-      const outputToken = basisCash?.externalTokens[selectOutputCurrency];
+      const inputToken = parasset?.externalTokens[selectInputCurrency];
+      const outputToken = parasset?.externalTokens[selectOutputCurrency];
       price =
         price !== undefined
           ? price
@@ -353,7 +353,7 @@ const Specie: React.FC = ({}) => {
     },
     [
       calcRatio,
-      basisCash?.externalTokens,
+      parasset?.externalTokens,
       dataList,
       selectInputCurrency,
       selectOutputCurrency,
@@ -370,7 +370,7 @@ const Specie: React.FC = ({}) => {
     },
     [
       calcRatio,
-      basisCash?.externalTokens,
+      parasset?.externalTokens,
       dataList,
       selectInputCurrency,
       selectOutputCurrency,
@@ -387,7 +387,7 @@ const Specie: React.FC = ({}) => {
     },
     [
       calcRatio,
-      basisCash?.externalTokens,
+      parasset?.externalTokens,
       dataList,
       selectInputCurrency,
       selectOutputCurrency,
@@ -433,7 +433,7 @@ const Specie: React.FC = ({}) => {
       inputValue,
       outputValue,
       calcRatio,
-      basisCash?.externalTokens,
+      parasset?.externalTokens,
       dataList,
       selectInputCurrency,
       selectOutputCurrency,
@@ -471,7 +471,7 @@ const Specie: React.FC = ({}) => {
       inputValue,
       outputValue,
       calcRatio,
-      basisCash?.externalTokens,
+      parasset?.externalTokens,
       dataList,
       selectInputCurrency,
       selectOutputCurrency,
@@ -561,7 +561,7 @@ const Specie: React.FC = ({}) => {
     [
       inputValue,
       outputValue,
-      basisCash?.externalTokens,
+      parasset?.externalTokens,
       dataList,
       selectInputCurrency,
       selectOutputCurrency,

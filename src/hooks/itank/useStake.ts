@@ -5,7 +5,7 @@ import useParasset from "../useParasset";
 import useHandleTransactionReceipt from "../useHandleTransactionReceipt";
 import { decimalToBalance } from "../../abi/ether-utils";
 const useStake = (itankContract: any, decimal: any) => {
-  const basisCash = useParasset();
+  const parasset = useParasset();
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleStake = useCallback(
@@ -14,13 +14,13 @@ const useStake = (itankContract: any, decimal: any) => {
       const value = isPayETH
         ? { value: decimalToBalance(String(amount), 18) }
         : {};
-      return handleTransactionReceipt(basisCash.itankStake, [
+      return handleTransactionReceipt(parasset.itankStake, [
         itankContract,
         amountBn,
         value,
       ]);
     },
-    [basisCash, itankContract, decimal]
+    [parasset, itankContract, decimal]
   );
   return { onStake: handleStake };
 };

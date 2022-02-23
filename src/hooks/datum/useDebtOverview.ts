@@ -9,18 +9,18 @@ const useDebtOverview = () => {
     count: 0,
   });
 
-  const basisCash = useParasset();
+  const parasset = useParasset();
   const block = useBlockNumber();
   const fetchDebtOverview = useCallback(async () => {
-    const debtOverview = await basisCash.getDebtOverview();
+    const debtOverview = await parasset.getDebtOverview();
     setDebtOverview(debtOverview);
-  }, [basisCash]);
+  }, [parasset]);
 
   useEffect(() => {
-    if (basisCash) {
+    if (parasset) {
       fetchDebtOverview();
     }
-  }, [basisCash, block]);
+  }, [parasset, block]);
 
   return { debtOverview, fetchDebtOverview };
 };

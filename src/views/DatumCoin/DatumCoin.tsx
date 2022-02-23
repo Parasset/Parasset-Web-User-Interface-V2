@@ -15,7 +15,7 @@ import useDebtInfo from "../../hooks/debt/useDebtInfo";
 import useTotalSupply from "./../../hooks/useTokenTotalSupply";
 const DatumCoin: React.FC = () => {
   const { t, i18n } = useTranslation();
-  const basisCash = useParasset();
+  const parasset = useParasset();
   const ETHDebt = useDebt("ETHPUSD");
   const NESTPUSDDebt = useDebt("NESTPUSD");
   const NESTPETHDebt = useDebt("NESTPETH");
@@ -23,8 +23,8 @@ const DatumCoin: React.FC = () => {
   const { info: NESTPUSDDebtInfo } = useDebtInfo(NESTPUSDDebt);
   const { info: NESTPETHDebtfo } = useDebtInfo(NESTPETHDebt);
 
-  const PUSDToken = basisCash?.externalTokens["PUSD"];
-  const PETHToken = basisCash?.externalTokens["PETH"];
+  const PUSDToken = parasset?.externalTokens["PUSD"];
+  const PETHToken = parasset?.externalTokens["PETH"];
   const PUSDTotalSupply = useTotalSupply(PUSDToken);
   const PETHTotalSupply = useTotalSupply(PETHToken);
   const ETHPUSDTVL = useTVL(

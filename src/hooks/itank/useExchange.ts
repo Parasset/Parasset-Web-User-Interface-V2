@@ -4,7 +4,7 @@ import useHandleTransactionReceipt from "../useHandleTransactionReceipt";
 import { decimalToBalance } from "../../abi/ether-utils";
 
 const useExchange = () => {
-  const basisCash = useParasset();
+  const parasset = useParasset();
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleExchange = useCallback(
@@ -17,8 +17,8 @@ const useExchange = () => {
         console.log(amount, amountBn, value);
         return handleTransactionReceipt(
           !isTransform
-            ? basisCash.exchangeUnderlyingToPToken
-            : basisCash.exchangePTokenToUnderlying,
+            ? parasset.exchangeUnderlyingToPToken
+            : parasset.exchangePTokenToUnderlying,
           [itankContract, amountBn, value]
         );
       } catch (error) {
@@ -30,7 +30,7 @@ const useExchange = () => {
         );
       }
     },
-    [basisCash]
+    [parasset]
   );
   return { onExchange: handleExchange };
 };

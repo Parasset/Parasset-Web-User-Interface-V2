@@ -5,11 +5,11 @@ import { useBlockNumber } from "../../state/application/hooks";
 const useFee = (mortgagePoolContract, mortgageToken, uToken) => {
   const block = useBlockNumber();
   const [fee, setFee] = useState(0);
-  const basisCash = useParasset();
+  const parasset = useParasset();
 
   const fetchFee = useCallback(
-    async (address = basisCash?.myAccount) => {
-      const fee = await basisCash.getStableFee(
+    async (address = parasset?.myAccount) => {
+      const fee = await parasset.getStableFee(
         mortgagePoolContract,
         mortgageToken,
         uToken,
@@ -19,13 +19,13 @@ const useFee = (mortgagePoolContract, mortgageToken, uToken) => {
 
       setFee(fee);
     },
-    [basisCash?.myAccount, mortgageToken, uToken]
+    [parasset?.myAccount, mortgageToken, uToken]
   );
 
   useEffect(() => {
     let refreshInterval = true;
     if (
-      basisCash?.myAccount &&
+      parasset?.myAccount &&
       mortgagePoolContract &&
       mortgageToken &&
       uToken &&
@@ -37,7 +37,7 @@ const useFee = (mortgagePoolContract, mortgageToken, uToken) => {
       refreshInterval = false;
     };
   }, [
-    basisCash?.myAccount,
+    parasset?.myAccount,
     block,
     mortgagePoolContract,
     mortgageToken,

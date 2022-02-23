@@ -5,33 +5,33 @@ import useParasset from "./useParasset";
 import { getToNumber } from "../utils/formatBalance";
 const useTokenBalance = (token: ERC20) => {
   const [balance, setBalance] = useState(0);
-  const basisCash = useParasset();
+  const parasset = useParasset();
 
   const fetchBalance = useCallback(async () => {
     if (token) {
       if (token.symbol === "ETH") {
-        const balance = await basisCash.provider.getBalance(
-          basisCash.myAccount
+        const balance = await parasset.provider.getBalance(
+          parasset.myAccount
         );
         setBalance(getToNumber(balance, token.decimal));
       } else {
-        const balance = await token.balanceOf(basisCash.myAccount);
+        const balance = await token.balanceOf(parasset.myAccount);
         // console.log(token.symbol,formatUnits(balance),getToNumber(balance, token.decimal))
         setBalance(getToNumber(balance, token.decimal));
       }
     }
-  }, [basisCash?.myAccount, basisCash?.provider, token]);
+  }, [parasset?.myAccount, parasset?.provider, token]);
 
   useEffect(() => {
     const refreshInterval = setInterval(() => {
-      if (basisCash?.myAccount) {
+      if (parasset?.myAccount) {
         fetchBalance().catch((err) =>
           console.error(`Failed to fetch token balance: ${err.stack}`)
         );
       }
     }, 1000);
     return () => clearInterval(refreshInterval);
-  }, [basisCash?.myAccount]);
+  }, [parasset?.myAccount]);
 
   return balance;
 };

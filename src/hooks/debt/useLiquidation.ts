@@ -5,7 +5,7 @@ import useParasset from "../useParasset";
 import useHandleTransactionReceipt from "../useHandleTransactionReceipt";
 import { decimalToBalance } from "../../abi/ether-utils";
 const useLiquidation = () => {
-  const basisCash = useParasset();
+  const parasset = useParasset();
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleLiquidation = useCallback(
@@ -13,7 +13,7 @@ const useLiquidation = () => {
       const amountBn = decimalToBalance(String(amount), mortgageToken.decimal);
       const value = decimalToBalance(String(0.01), mortgageToken.decimal);
 
-      return handleTransactionReceipt(basisCash.liquidation, [
+      return handleTransactionReceipt(parasset.liquidation, [
         mortgagePoolContract,
         mortgageToken,
         amountBn,
@@ -21,7 +21,7 @@ const useLiquidation = () => {
         value,
       ]);
     },
-    [basisCash]
+    [parasset]
   );
   return { onLiquidation: handleLiquidation };
 };

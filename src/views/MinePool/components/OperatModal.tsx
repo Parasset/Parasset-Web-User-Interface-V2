@@ -26,10 +26,10 @@ const Mine: React.FC = ({
   const { onWithdraw } = useWithdraw(mine?.depositToken?.address);
   const { onBlur } = useBlur();
   const { onFocus } = useFocus();
-  const basisCash = useParasset();
+  const parasset = useParasset();
   const [approveStatus, approve] = useApprove(
     mine?.depositToken,
-    basisCash?.contracts.Mine?.address,
+    parasset?.contracts.Mine?.address,
     val
   );
   const canBuyAmount = useMemo(() => {

@@ -13,25 +13,25 @@ const useCoinDatum = ({ tvlDatumValue, debtDatumValue }) => {
     debtDatum: [],
   });
 
-  const basisCash = useParasset();
+  const parasset = useParasset();
   const block = useBlockNumber();
 
   const fetchTvlDatum = useCallback(async () => {
-    const tvlDatum = await basisCash.getCoinTvlDatum(tvlDatumValue);
+    const tvlDatum = await parasset.getCoinTvlDatum(tvlDatumValue);
     setTvlDatum(tvlDatum);
-  }, [basisCash, tvlDatumValue]);
+  }, [parasset, tvlDatumValue]);
 
   const fetchDebtDatum = useCallback(async () => {
-    const debtDatum = await basisCash.getDebtDatum(debtDatumValue);
+    const debtDatum = await parasset.getDebtDatum(debtDatumValue);
     setDebtDatum(debtDatum);
-  }, [basisCash, debtDatumValue]);
+  }, [parasset, debtDatumValue]);
 
   useEffect(() => {
-    if (basisCash) {
+    if (parasset) {
       fetchTvlDatum();
       fetchDebtDatum();
     }
-  }, [basisCash, block, tvlDatumValue, debtDatumValue]);
+  }, [parasset, block, tvlDatumValue, debtDatumValue]);
 
   return {
     tvlDatum,

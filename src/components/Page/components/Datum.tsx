@@ -15,9 +15,9 @@ import useTokenBalance from "../../../hooks/useTokenBalance";
 import usePrice from "../../../hooks/coin/usePrice";
 const Datum: React.FC = () => {
   const { t } = useTranslation();
-  const basisCash = useParasset();
-  const PUSDToken = basisCash?.externalTokens["PUSD"];
-  const PETHToken = basisCash?.externalTokens["PETH"];
+  const parasset = useParasset();
+  const PUSDToken = parasset?.externalTokens["PUSD"];
+  const PETHToken = parasset?.externalTokens["PETH"];
   const PUSDTotalSupply = useTotalSupply(PUSDToken);
   const PETHTotalSupply = useTotalSupply(PETHToken);
   const PETHTokenBalance = useTokenBalance(PETHToken);

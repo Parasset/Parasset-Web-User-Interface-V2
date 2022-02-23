@@ -7,25 +7,25 @@ const useUserDatum = ({ activeUsersValue, newUsersValue }) => {
   const [activeUsers, setActiveUsers] = useState([]);
   const [newUsers, setNewUsers] = useState([]);
 
-  const basisCash = useParasset();
+  const parasset = useParasset();
   const block = useBlockNumber();
 
   const fetchActiveUsers = useCallback(async () => {
-    const activeUsers = await basisCash.getActiveUsers(activeUsersValue);
+    const activeUsers = await parasset.getActiveUsers(activeUsersValue);
     setActiveUsers(activeUsers);
-  }, [basisCash, activeUsersValue]);
+  }, [parasset, activeUsersValue]);
 
   const fetchNewUsers = useCallback(async () => {
-    const newUsers = await basisCash.getNewUsers(newUsersValue);
+    const newUsers = await parasset.getNewUsers(newUsersValue);
     setNewUsers(newUsers);
-  }, [basisCash, newUsersValue]);
+  }, [parasset, newUsersValue]);
 
   useEffect(() => {
-    if (basisCash) {
+    if (parasset) {
       fetchActiveUsers();
       fetchNewUsers();
     }
-  }, [basisCash, block, activeUsersValue, newUsersValue]);
+  }, [parasset, block, activeUsersValue, newUsersValue]);
 
   return { activeUsers, newUsers, fetchActiveUsers, fetchNewUsers };
 };

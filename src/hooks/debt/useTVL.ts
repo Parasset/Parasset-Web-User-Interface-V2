@@ -6,12 +6,12 @@ import BigNumber from "bignumber.js";
 import { getToNumber } from "../../utils/formatBalance";
 const useTVL = (mortgagePoolContract, token, price) => {
   const [tvl, setTvl] = useState(0);
-  const basisCash = useParasset();
+  const parasset = useParasset();
   const block = useBlockNumber();
   const fetchTvl = useCallback(async () => {
     if (token && mortgagePoolContract) {
       if (token.symbol === "ETH") {
-        const balance = await await basisCash.provider.getBalance(
+        const balance = await parasset.provider.getBalance(
           mortgagePoolContract.address
         );
 
@@ -31,8 +31,8 @@ const useTVL = (mortgagePoolContract, token, price) => {
       }
     }
   }, [
-    basisCash?.myAccount,
-    basisCash?.provider,
+    parasset?.myAccount,
+    parasset?.provider,
     mortgagePoolContract,
     token,
     price,
@@ -41,7 +41,7 @@ const useTVL = (mortgagePoolContract, token, price) => {
   useEffect(() => {
     let refreshInterval = true;
     if (
-      basisCash?.myAccount &&
+      parasset?.myAccount &&
       mortgagePoolContract &&
       token &&
       price &&
@@ -52,7 +52,7 @@ const useTVL = (mortgagePoolContract, token, price) => {
     return () => {
       refreshInterval = false;
     };
-  }, [basisCash?.myAccount, mortgagePoolContract, block, token, price]);
+  }, [parasset?.myAccount, mortgagePoolContract, block, token, price]);
 
   return tvl;
 };

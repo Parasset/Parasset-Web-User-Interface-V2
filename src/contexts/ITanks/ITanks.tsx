@@ -7,31 +7,31 @@ import config, { itankDefinitions } from "../../config";
 
 const ITanks: React.FC = ({ children }) => {
   const [itanks, setItanks] = useState<Mine[]>([]);
-  const basisCash = useParasset();
+  const parasset = useParasset();
 
   const fetchPools = useCallback(async () => {
     const itanks = [];
     for (const itankInfo of Object.values(itankDefinitions)) {
-      if (!basisCash.isUnlocked) continue;
+      if (!parasset.isUnlocked) continue;
       itanks.push({
         ...itankInfo,
         address: config.deployments[itankInfo.contract].address,
-        itankContract: basisCash.contracts[itankInfo.contract],
-        depositToken: basisCash.externalTokens[itankInfo.depositTokenName],
-        earnToken: basisCash.externalTokens[itankInfo.earnTokenName],
+        itankContract: parasset.contracts[itankInfo.contract],
+        depositToken: parasset.externalTokens[itankInfo.depositTokenName],
+        earnToken: parasset.externalTokens[itankInfo.earnTokenName],
       });
     }
 
     setItanks(itanks);
-  }, [basisCash, basisCash?.isUnlocked, setItanks]);
+  }, [parasset, parasset?.isUnlocked, setItanks]);
 
   useEffect(() => {
-    if (basisCash) {
+    if (parasset) {
       fetchPools().catch((err) =>
         console.error(`Failed to fetch Itanks: ${err.stack}`)
       );
     }
-  }, [basisCash, basisCash?.isUnlocked, fetchPools]);
+  }, [parasset, parasset?.isUnlocked, fetchPools]);
 
   return <Context.Provider value={{ itanks }}>{children}</Context.Provider>;
 };

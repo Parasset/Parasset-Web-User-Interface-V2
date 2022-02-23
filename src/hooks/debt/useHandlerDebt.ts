@@ -6,7 +6,7 @@ import useHandleTransactionReceipt from "../useHandleTransactionReceipt";
 import { decimalToBalance } from "../../abi/ether-utils";
 
 const useHandlerDebt = () => {
-  const basisCash = useParasset();
+  const parasset = useParasset();
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handlerDebt = useCallback(
@@ -19,7 +19,7 @@ const useHandlerDebt = () => {
         mortgageToken.decimal
       );
 
-      return handleTransactionReceipt(basisCash.handlerDebt, [
+      return handleTransactionReceipt(parasset.handlerDebt, [
         mortgagePoolContract,
         mortgageToken,
         amountBn,
@@ -27,7 +27,7 @@ const useHandlerDebt = () => {
         value,
       ]);
     },
-    [basisCash]
+    [parasset]
   );
   return { onHandlerDebt: handlerDebt };
 };

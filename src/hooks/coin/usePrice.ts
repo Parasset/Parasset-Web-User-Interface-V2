@@ -7,35 +7,35 @@ const usePrice = () => {
   const [NESTToUSDTPrice, setNESTToUSDTPrice] = useState(0);
   const [NESTToETHPrice, setNESTToETHPrice] = useState(0);
   const [ETHAvgPrice, setETHAvgPrice] = useState(0);
-  const basisCash = useParasset();
+  const parasset = useParasset();
 
   const fetchETHAvgPrice = useCallback(async () => {
-    setETHAvgPrice(await basisCash.getAvgPrice());
-  }, [basisCash]);
+    setETHAvgPrice(await parasset.getAvgPrice());
+  }, [parasset]);
 
   const fetchNESTToUSDTPrice = useCallback(async () => {
-    setNESTToUSDTPrice(await basisCash.getNESTToUSDTPrice());
-  }, [basisCash]);
+    setNESTToUSDTPrice(await parasset.getNESTToUSDTPrice());
+  }, [parasset]);
 
   const fetchNESTToETHPrice = useCallback(async () => {
-    setNESTToETHPrice(await basisCash.getNESTToETHPrice());
-  }, [basisCash]);
+    setNESTToETHPrice(await parasset.getNESTToETHPrice());
+  }, [parasset]);
 
   const fetchInfo = useCallback(async () => {
     fetchETHAvgPrice();
     fetchNESTToUSDTPrice();
     fetchNESTToETHPrice();
-  }, [basisCash?.myAccount]);
+  }, [parasset?.myAccount]);
 
   useEffect(() => {
     let refreshInterval = true;
-    if (basisCash?.myAccount && refreshInterval) {
+    if (parasset?.myAccount && refreshInterval) {
       fetchInfo();
     }
     return () => {
       refreshInterval = false;
     };
-  }, [basisCash?.myAccount, block]);
+  }, [parasset?.myAccount, block]);
   return { NESTToUSDTPrice, NESTToETHPrice, ETHAvgPrice };
 };
 
