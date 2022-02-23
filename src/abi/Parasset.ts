@@ -580,7 +580,6 @@ export class Parasset {
     let { value } = await this.getFetchData(
       `https://apiv2.parasset.top/api/insPool/tvl/${date.startDate}/${date.endDate}`
     );
-
     return value;
   }
 

@@ -29,11 +29,14 @@ const DatumItank: React.FC = () => {
     let myChart = echarts.init(element);
     const usdtList = netValueDatum.filter((item) => item.type === "USDT");
     const ethList = netValueDatum.filter((item) => item.type === "ETH");
-
+    const hbtcList = netValueDatum.filter((item) => item.type === "HBTC");
     const usdtDatum = usdtList.map((item, i) => {
       return [item.x, item.y];
     });
     const ethDatum = ethList.map((item, i) => {
+      return [item.x, item.y];
+    });
+    const hbtcDatum = hbtcList.map((item, i) => {
       return [item.x, item.y];
     });
 
@@ -42,7 +45,7 @@ const DatumItank: React.FC = () => {
         trigger: "axis",
       },
       legend: {
-        data: [`USDT${t("bxc")}`, `ETH${t("bxc")}`],
+        data: [`USDT${t("bxc")}`, `ETH${t("bxc")}`, `HBTC${t("bxc")}`],
       },
       grid: {
         left: "3%",
@@ -79,6 +82,12 @@ const DatumItank: React.FC = () => {
           type: "line",
           stack: "Total",
           data: ethDatum,
+        },
+        {
+          name: `HBTC${t("bxc")}`,
+          type: "line",
+          stack: "Total",
+          data: hbtcDatum,
         },
       ],
     };
@@ -160,17 +169,22 @@ const DatumItank: React.FC = () => {
     let myChart = echarts.init(element);
     const usdtList = tvlDatum.filter((item) => item.type === "USDT");
     const ethList = tvlDatum.filter((item) => item.type === "ETH");
-
+    const hbtcList = tvlDatum.filter((item) => item.type === "HBTC");
     const usdtDatum = usdtList.map((item, i) => {
       return [item.x, item.y];
     });
     const ethDatum = ethList.map((item, i) => {
       return [item.x, item.y];
     });
+    const hbtcDatum = hbtcList.map((item, i) => {
+      return [item.x, item.y];
+    });
     const usdtRecentData = usdtList[usdtList.length - 1]?.y;
     const ethRecentData = ethList[ethList.length - 1]?.y;
+    const hbtcRecentData = hbtcList[hbtcList.length - 1]?.y;
     let recentTvlDatum = new BigNumber(usdtRecentData)
       .plus(ethRecentData)
+      // .plus(hbtcRecentData)
       .toNumber();
     recentTvlDatum = $isPositiveNumber($isFiniteNumber(recentTvlDatum));
     setRecentTvlDatum(recentTvlDatum);
@@ -196,7 +210,7 @@ const DatumItank: React.FC = () => {
         },
       },
       legend: {
-        data: [`USDT${t("bxc")}`, `ETH${t("bxc")}`],
+        data: [`USDT${t("bxc")}`, `ETH${t("bxc")}`, `HBTC${t("bxc")}`],
       },
       grid: {
         left: "3%",
@@ -230,6 +244,12 @@ const DatumItank: React.FC = () => {
           type: "line",
           stack: "Total",
           data: ethDatum,
+        },
+        {
+          name: `HBTC${t("bxc")}`,
+          type: "line",
+          stack: "Total",
+          data: hbtcDatum,
         },
       ],
     };

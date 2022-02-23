@@ -12,33 +12,33 @@ const useItankDatum = ({
   const [feeDatum, setFeeDatum] = useState([]);
   const [netValueDatum, setNetValueDatum] = useState([]);
 
-  const basisCash = useParasset();
+  const parasset = useParasset();
   const block = useBlockNumber();
 
   const fetchTvlDatum = useCallback(async () => {
-    const tvlDatum = await basisCash.getItankTvlDatum(tvlDatumValue);
+    const tvlDatum = await parasset.getItankTvlDatum(tvlDatumValue);
     setTvlDatum(tvlDatum);
-  }, [basisCash, tvlDatumValue]);
+  }, [parasset, tvlDatumValue]);
 
   const fetchFeeDatum = useCallback(async () => {
-    const feeDatum = await basisCash.getItankFeeDatum(feeDatumValue);
+    const feeDatum = await parasset.getItankFeeDatum(feeDatumValue);
     setFeeDatum(feeDatum);
-  }, [basisCash, feeDatumValue]);
+  }, [parasset, feeDatumValue]);
 
   const fetchNetValueDatum = useCallback(async () => {
-    const netValueDatum = await basisCash.getItankNetValueDatum(
+    const netValueDatum = await parasset.getItankNetValueDatum(
       netValueDatumValue
     );
     setNetValueDatum(netValueDatum);
-  }, [basisCash, netValueDatumValue]);
+  }, [parasset, netValueDatumValue]);
 
   useEffect(() => {
-    if (basisCash) {
+    if (parasset) {
       fetchTvlDatum();
       fetchFeeDatum();
       fetchNetValueDatum();
     }
-  }, [basisCash, block, tvlDatumValue, feeDatumValue, netValueDatumValue]);
+  }, [parasset, block, tvlDatumValue, feeDatumValue, netValueDatumValue]);
 
   return {
     tvlDatum,
