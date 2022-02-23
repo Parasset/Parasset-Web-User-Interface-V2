@@ -409,13 +409,13 @@ export class Parasset {
       const { pethRevenue, pusdtRevenue, pbtcRevenue } = revenue;
       switch (depositTokenName) {
         case "ETH":
-          revenue = pethRevenue
+          revenue = pethRevenue;
           break;
         case "USDT":
-          revenue = pusdtRevenue
+          revenue = pusdtRevenue;
           break;
         case "HBTC":
-          revenue = pbtcRevenue
+          revenue = pbtcRevenue;
           break;
       }
       revenue = $isPositiveNumber(

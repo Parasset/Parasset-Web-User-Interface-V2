@@ -36,13 +36,7 @@ const useFee = (mortgagePoolContract, mortgageToken, uToken) => {
     return () => {
       refreshInterval = false;
     };
-  }, [
-    parasset?.myAccount,
-    block,
-    mortgagePoolContract,
-    mortgageToken,
-    uToken,
-  ]);
+  }, [parasset?.myAccount, block, mortgagePoolContract, mortgageToken, uToken]);
   return fee;
 };
 

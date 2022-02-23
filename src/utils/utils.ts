@@ -11,7 +11,9 @@ export const formatDate = (datetime: any) => {
     minute = ("0" + datetime.getMinutes()).slice(-2),
     second = ("0" + datetime.getSeconds()).slice(-2);
   // 返回
-  return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
+  return (
+    year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second
+  );
 };
 export const formatDate1 = (datetime: any) => {
   datetime = new Date(datetime);

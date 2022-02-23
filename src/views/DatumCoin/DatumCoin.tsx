@@ -334,13 +334,13 @@ const DatumCoin: React.FC = () => {
     <>
       <Container title="TVL">
         <Picker value={tvlDatumValue} onChangePicker={setTvlDatumValue}>
-          <div/>
+          <div />
         </Picker>
         <div id={"tvlChart"} style={{ height: 400 }} />
       </Container>
       <Container title={t("zhaicang")}>
         <Picker value={debtDatumValue} onChangePicker={setDebtDatumValue}>
-          <div/>
+          <div />
         </Picker>
         <div style={{ height: 400 }} id={"debtChart"} />
       </Container>

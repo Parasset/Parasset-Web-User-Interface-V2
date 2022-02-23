@@ -1,8 +1,8 @@
 //@ts-nocheck
-import React, {useCallback, useEffect, useState} from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
-import {useTranslation} from "react-i18next";
-import {useHistory} from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
 import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
 import Button from "../../../components/Button";
@@ -11,8 +11,8 @@ import TokenSymbol from "../../../components/TokenSymbol";
 import Value from "../../../components/Value";
 import SelectToken from "../../../components/SelectToken";
 
-const Item: React.FC = ({item}) => {
-  const {t} = useTranslation();
+const Item: React.FC = ({ item }) => {
+  const { t } = useTranslation();
 
   const [showSelect, setShowSelect] = useState(false);
   const history = useHistory();
@@ -38,20 +38,20 @@ const Item: React.FC = ({item}) => {
               size={25}
               className="margin-right-5"
             />
-            <div style={{paddingLeft: "10px"}}>{item.name}</div>
+            <div style={{ paddingLeft: "10px" }}>{item.name}</div>
           </div>
           <div className="flex1">
-            <Value value={item.TVL} prefix="$"/>
+            <Value value={item.TVL} prefix="$" />
           </div>
           <div className="flex1">
-            <Value value={item.staked}/>
+            <Value value={item.staked} />
           </div>
           <div className="flex1">
-            <Value value={item.maxRatio} suffix="%"/>
+            <Value value={item.maxRatio} suffix="%" />
           </div>
           <div className="flex1 flex-jc-center">
             <span>
-              <Value value={item.liqRatio} suffix="%"/>
+              <Value value={item.liqRatio} suffix="%" />
             </span>
             <div className="position-relative">
               <Button
@@ -77,7 +77,7 @@ const Item: React.FC = ({item}) => {
             </div>
           </div>
         </Card>
-        <Spacer/>
+        <Spacer />
       </StyledPcItem>
       <StyledMobileItem>
         <Card className="wing-blank-lg bg-white">
@@ -85,25 +85,25 @@ const Item: React.FC = ({item}) => {
           <div className="color-grey">{t("dyzc")}</div>
           <Spacer size="mmd" />
           <div className="flex-row-center-center">
-            <TokenSymbol symbol={item.name} size={40}/>
+            <TokenSymbol symbol={item.name} size={40} />
           </div>
           <Spacer size="sm" />
           <div className="font-size-16 text-center width-100"> {item.name}</div>
           <Spacer size="sm" />
-          <Label label="TVL" value={<Value value={item.TVL} prefix="$"/>}/>
+          <Label label="TVL" value={<Value value={item.TVL} prefix="$" />} />
           <Spacer />
-          <Label label={t("diyashu")} value={<Value value={item.staked}/>}/>
+          <Label label={t("diyashu")} value={<Value value={item.staked} />} />
           <Spacer />
           <Label
             label={t("zddyl")}
-            value={<Value value={item.maxRatio} suffix="%"/>}
+            value={<Value value={item.maxRatio} suffix="%" />}
           />
           <Spacer />
           <Label
             label={t("qsdyl")}
-            value={<Value value={item.liqRatio} suffix="%"/>}
+            value={<Value value={item.liqRatio} suffix="%" />}
           />
-          <Spacer/>
+          <Spacer />
           <div className="position-relative">
             <Button
               text={t("zhubi")}
@@ -125,19 +125,17 @@ const Item: React.FC = ({item}) => {
               }}
             />
           </div>
-          <Spacer size="mmd"/>
+          <Spacer size="mmd" />
         </Card>
       </StyledMobileItem>
     </>
   );
 };
-const TableList: React.FC = ({list}) => {
+const TableList: React.FC = ({ list }) => {
   return (
     <>
       {list && list.length
-        ? list.map((item) => (
-          <Item item={item} key={item.name} />
-        ))
+        ? list.map((item) => <Item item={item} key={item.name} />)
         : null}
     </>
   );

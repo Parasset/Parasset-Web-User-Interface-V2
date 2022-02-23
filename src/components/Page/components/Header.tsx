@@ -69,7 +69,7 @@ const Header: React.FC = () => {
           onClick={toggleShow}
         />
         <Logo />
-        <div style={{  width: "28px" }}/>
+        <div style={{ width: "28px" }} />
       </StyledHeaderMobile>
       {show ? (
         <>

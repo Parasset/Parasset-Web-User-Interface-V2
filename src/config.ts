@@ -7,8 +7,7 @@ const configurations: { [env: string]: Configuration } = {
   development: {
     chainId: ChainId.RINKEBY,
     etherscanUrl: "https://rinkeby.etherscan.io/",
-    defaultProvider:
-      process.env.REACT_APP_INFURA_RINKEBY_KEY ?? "",
+    defaultProvider: process.env.REACT_APP_INFURA_RINKEBY_KEY ?? "",
     deployments: require("./abi/deployments/deployments.rinkeby.json"),
     externalTokens: {
       ASET: ["0xBA00239Dc53282207e2101CE78c70ca9E0592b57", 18],
@@ -26,8 +25,7 @@ const configurations: { [env: string]: Configuration } = {
   production: {
     chainId: ChainId.MAINNET,
     etherscanUrl: "https://etherscan.io/",
-    defaultProvider:
-      process.env.REACT_APP_INFURA_MAINNET_KEY ?? "",
+    defaultProvider: process.env.REACT_APP_INFURA_MAINNET_KEY ?? "",
     deployments: require("./abi/deployments/deployments.mainnet.json"),
     externalTokens: {
       ASET: ["0x139cec55d1ec47493dfa25ca77c9208aba4d3c68", 18],

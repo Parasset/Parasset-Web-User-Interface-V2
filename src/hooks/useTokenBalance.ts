@@ -10,9 +10,7 @@ const useTokenBalance = (token: ERC20) => {
   const fetchBalance = useCallback(async () => {
     if (token) {
       if (token.symbol === "ETH") {
-        const balance = await parasset.provider.getBalance(
-          parasset.myAccount
-        );
+        const balance = await parasset.provider.getBalance(parasset.myAccount);
         setBalance(getToNumber(balance, token.decimal));
       } else {
         const balance = await token.balanceOf(parasset.myAccount);

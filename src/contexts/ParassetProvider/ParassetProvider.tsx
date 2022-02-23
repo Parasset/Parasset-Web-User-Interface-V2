@@ -27,5 +27,9 @@ export const ParassetProvider: React.FC = ({ children }) => {
     }
   }, [account]);
 
-  return <Context.Provider value={{ parasset: parasset }}>{children}</Context.Provider>;
+  return (
+    <Context.Provider value={{ parasset: parasset }}>
+      {children}
+    </Context.Provider>
+  );
 };

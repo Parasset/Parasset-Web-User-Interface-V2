@@ -1,8 +1,8 @@
 //@ts-nocheck
-import React, {useCallback, useEffect, useMemo, useState} from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import Toast from "light-toast";
-import {useTranslation} from "react-i18next";
+import { useTranslation } from "react-i18next";
 import BigNumber from "bignumber.js";
 import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
@@ -16,7 +16,7 @@ import {
   $isFiniteNumber,
   $isPositiveNumber,
 } from "../../../utils/utils";
-import {updateNumDep} from "../../../utils/formatBalance";
+import { updateNumDep } from "../../../utils/formatBalance";
 import useItank from "../../../hooks/itank/useItank";
 import useItankInfo from "../../../hooks/itank/useItankInfo";
 import useExchange from "../../../hooks/itank/useExchange";
@@ -28,11 +28,11 @@ import useBlur from "../../../hooks/useBlur";
 import useFocus from "../../../hooks/useFocus";
 
 const Specie: React.FC = ({}) => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const parasset = useParasset();
   const avgPrice = useAvgPrice();
 
-  const {onExchange} = useExchange();
+  const { onExchange } = useExchange();
   const [pendingTx, setPendingTx] = useState(false);
   const [isTransform, setIsTransform] = useState(false);
   const [inputValue, setInputValue] = useState(0);
@@ -47,8 +47,8 @@ const Specie: React.FC = ({}) => {
   );
   const [selectOutputCurrency, setSelectOutputCurrency] = useState("PETH");
 
-  const {onBlur} = useBlur();
-  const {onFocus} = useFocus();
+  const { onBlur } = useBlur();
+  const { onFocus } = useFocus();
   const ETHWalletBalance = useTokenBalance(parasset?.externalTokens["ETH"]);
   const USDTWalletBalance = useTokenBalance(parasset?.externalTokens["USDT"]);
   const HBTCWalletBalance = useTokenBalance(parasset?.externalTokens["HBTC"]);
@@ -233,9 +233,15 @@ const Specie: React.FC = ({}) => {
   const selectCurrency = useMemo(() => {
     if (selectInputCurrency === "ETH" || selectOutputCurrency === "ETH") {
       return "ETH-PETH";
-    } else if (selectInputCurrency === "USDT" || selectOutputCurrency === "USDT") {
+    } else if (
+      selectInputCurrency === "USDT" ||
+      selectOutputCurrency === "USDT"
+    ) {
       return "USDT-PUSD";
-    } else if (selectInputCurrency === "HBTC" || selectOutputCurrency === "HBTC") {
+    } else if (
+      selectInputCurrency === "HBTC" ||
+      selectOutputCurrency === "HBTC"
+    ) {
       return "HBTC-PBTC";
     }
     return "ETH-PETH";
@@ -245,13 +251,13 @@ const Specie: React.FC = ({}) => {
     let feeRatio;
     switch (selectCurrency) {
       case "ETH-PETH":
-        feeRatio = itankPETHFee
+        feeRatio = itankPETHFee;
         break;
       case "USDT-PUSD":
-        feeRatio = itankPUSDFee
+        feeRatio = itankPUSDFee;
         break;
       case "HBTC-PBTC":
-        feeRatio = itankPBTCFee
+        feeRatio = itankPBTCFee;
         break;
     }
     const fee = new BigNumber(inputValue).times(feeRatio).toNumber();
@@ -259,17 +265,19 @@ const Specie: React.FC = ({}) => {
   }, [selectCurrency, itankPUSDFee, itankPETHFee, inputValue]);
 
   const inputCurrencyValue = useMemo(() => {
-    let amount = selectCurrency !== "ETH-PETH"
-      ? inputValue
-      : new BigNumber(inputValue).times(avgPrice).toNumber();
+    let amount =
+      selectCurrency !== "ETH-PETH"
+        ? inputValue
+        : new BigNumber(inputValue).times(avgPrice).toNumber();
 
     return $isFiniteNumber(amount);
   }, [inputValue, avgPrice, selectCurrency]);
 
   const outputCurrencyValue = useMemo(() => {
-    let amount = selectCurrency !== "ETH-PETH"
-      ? outputValue
-      : new BigNumber(outputValue).times(avgPrice).toNumber();
+    let amount =
+      selectCurrency !== "ETH-PETH"
+        ? outputValue
+        : new BigNumber(outputValue).times(avgPrice).toNumber();
     return $isFiniteNumber(amount);
   }, [outputValue, avgPrice, selectCurrency]);
 
@@ -290,7 +298,7 @@ const Specie: React.FC = ({}) => {
   ]);
 
   const calcAmount = useCallback(
-    ({value, isInput}) => {
+    ({ value, isInput }) => {
       const inputToken = parasset?.externalTokens[selectInputCurrency];
       const outputToken = parasset?.externalTokens[selectOutputCurrency];
 
@@ -301,13 +309,13 @@ const Specie: React.FC = ({}) => {
         let feeRatio;
         switch (selectCurrency) {
           case "ETH-PETH":
-            feeRatio = itankPETHFee
+            feeRatio = itankPETHFee;
             break;
           case "USDT-PUSD":
-            feeRatio = itankPUSDFee
+            feeRatio = itankPUSDFee;
             break;
           case "HBTC-PBTC":
-            feeRatio = itankPBTCFee
+            feeRatio = itankPBTCFee;
             break;
         }
         const amount = new BigNumber(val)
@@ -323,13 +331,13 @@ const Specie: React.FC = ({}) => {
         let feeRatio;
         switch (selectCurrency) {
           case "ETH-PETH":
-            feeRatio = itankPETHFee
+            feeRatio = itankPETHFee;
             break;
           case "USDT-PUSD":
-            feeRatio = itankPUSDFee
+            feeRatio = itankPUSDFee;
             break;
           case "HBTC-PBTC":
-            feeRatio = itankPBTCFee
+            feeRatio = itankPBTCFee;
             break;
         }
         const amount = new BigNumber(val)
@@ -355,7 +363,7 @@ const Specie: React.FC = ({}) => {
 
   const handleChangeInputValue = useCallback(
     (e) => {
-      const {value} = e.currentTarget;
+      const { value } = e.currentTarget;
       calcAmount({
         value,
         isInput: true,
@@ -373,7 +381,7 @@ const Specie: React.FC = ({}) => {
 
   const handleChangeOutputValue = useCallback(
     (e) => {
-      const {value} = e.currentTarget;
+      const { value } = e.currentTarget;
 
       calcAmount({
         value,
@@ -391,7 +399,7 @@ const Specie: React.FC = ({}) => {
   );
 
   const onChangeInputCurrencySelect = useCallback(
-    ({id}, index) => {
+    ({ id }, index) => {
       setSelectInputCurrency(id);
       setSelectOutputCurrency(currencyListOutput[index].id);
     },
@@ -399,7 +407,7 @@ const Specie: React.FC = ({}) => {
   );
 
   const onChangeOutputCurrencySelect = useCallback(
-    ({id}, index) => {
+    ({ id }, index) => {
       setSelectOutputCurrency(id);
       setSelectInputCurrency(currencyListInput[index].id);
     },
@@ -451,13 +459,13 @@ const Specie: React.FC = ({}) => {
       let itankContract;
       switch (selectCurrency) {
         case "ETH-PETH":
-          itankContract = parasset?.contracts["PETHInsPool"]
+          itankContract = parasset?.contracts["PETHInsPool"];
           break;
         case "HBTC-PBTC":
-          itankContract = parasset?.contracts["PBTCInsPool"]
+          itankContract = parasset?.contracts["PBTCInsPool"];
           break;
         case "USDT-PUSD":
-          itankContract = parasset?.contracts["PUSDInsPool"]
+          itankContract = parasset?.contracts["PUSDInsPool"];
           break;
       }
 
@@ -501,7 +509,7 @@ const Specie: React.FC = ({}) => {
   return (
     <>
       <Card className="wing-blank-lg bg-white">
-        <Spacer/>
+        <Spacer />
         <div className="flex-jc-center color-grey wing-blank-lg">
           <div>{t("cong")}</div>
           <div>
@@ -515,11 +523,11 @@ const Specie: React.FC = ({}) => {
                 });
               }}
             >
-              <Value value={inputCurrencyBalance} decimals={6}/>
+              <Value value={inputCurrencyBalance} decimals={6} />
             </span>
           </div>
         </div>
-        <Spacer size="sm"/>
+        <Spacer size="sm" />
         <Select
           showSelect={showInputCurrencySelect}
           list={currencyListInput}
@@ -538,11 +546,11 @@ const Specie: React.FC = ({}) => {
             onFocus(e, setInputValue);
           }}
         />
-        <Spacer size="sm"/>
+        <Spacer size="sm" />
         <div className="text-right color-grey wing-blank-lg">
-          ≈ <Value value={inputCurrencyValue} prefix="$"/>
+          ≈ <Value value={inputCurrencyValue} prefix="$" />
         </div>
-        <Spacer size="sm"/>
+        <Spacer size="sm" />
         <StyledExchangeImg className="text-center">
           <img
             alt="image"
@@ -574,12 +582,12 @@ const Specie: React.FC = ({}) => {
               {!isTransform ? (
                 t("buxian")
               ) : (
-                <Value value={outputCurrencyBalance} decimals={6}/>
+                <Value value={outputCurrencyBalance} decimals={6} />
               )}
             </span>
           </div>
         </div>
-        <Spacer size="sm"/>
+        <Spacer size="sm" />
 
         <Select
           showSelect={showOutputCurrencySelect}
@@ -599,25 +607,27 @@ const Specie: React.FC = ({}) => {
             onFocus(e, setOutputValue);
           }}
         />
-        <Spacer size="sm"/>
+        <Spacer size="sm" />
         <div className="text-right color-grey wing-blank-lg">
-          ≈ <Value value={outputCurrencyValue} prefix="$"/>
+          ≈ <Value value={outputCurrencyValue} prefix="$" />
         </div>
-        <Spacer/>
+        <Spacer />
         <Label
           label={t("dhbl")}
-          value={`1 ${selectCurrency.split('-')[0]}=1 ${selectCurrency.split('-')[1]}`}
+          value={`1 ${selectCurrency.split("-")[0]}=1 ${
+            selectCurrency.split("-")[1]
+          }`}
           className="wing-blank-lg"
         />
-        <Spacer/>
+        <Spacer />
         <Label
           label={t("sxf")}
           value={
-            <Value value={fee} suffix={selectOutputCurrency} decimals={6}/>
+            <Value value={fee} suffix={selectOutputCurrency} decimals={6} />
           }
           className="wing-blank-lg"
         />
-        <Spacer/>
+        <Spacer />
         {selectInputCurrency === "ETH" ? (
           <Button
             text={t("duihuan")}
@@ -645,26 +655,17 @@ const Specie: React.FC = ({}) => {
           />
         )}
 
-        <Spacer/>
+        <Spacer />
       </Card>
-      <Spacer/>
+      <Spacer />
       {selectCurrency === "ETH-PETH" && (
-        <BtnLink
-          text={t("wbxctgldx")}
-          path={`/itank/detail/PETHInsPool`}
-        />
+        <BtnLink text={t("wbxctgldx")} path={`/itank/detail/PETHInsPool`} />
       )}
       {selectCurrency === "USDT-PUSD" && (
-        <BtnLink
-          text={t("wbxctgldx")}
-          path={`/itank/detail/PUSDInsPool`}
-        />
+        <BtnLink text={t("wbxctgldx")} path={`/itank/detail/PUSDInsPool`} />
       )}
       {selectCurrency === "HBTC-PBTC" && (
-        <BtnLink
-          text={t("wbxctgldx")}
-          path={`/itank/detail/PBTCInsPool`}
-        />
+        <BtnLink text={t("wbxctgldx")} path={`/itank/detail/PBTCInsPool`} />
       )}
     </>
   );

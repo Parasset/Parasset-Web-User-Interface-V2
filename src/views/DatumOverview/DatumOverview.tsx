@@ -87,12 +87,18 @@ const Overview: React.FC = () => {
     );
     const PBTCValue = new BigNumber(PBTCTotalSupply).times(
       HBTCPUSDDebtInfo?.mortgagePrice
-    )
+    );
 
     return $isPositiveNumber(
       $isFiniteNumber(PUSDValue.plus(PETHValue).plus(PBTCValue).toNumber())
     );
-  }, [PUSDTotalSupply, PETHTotalSupply,PBTCTotalSupply, ETHPUSDDebtInfo?.mortgagePrice, HBTCPUSDDebtInfo?.mortgagePrice]);
+  }, [
+    PUSDTotalSupply,
+    PETHTotalSupply,
+    PBTCTotalSupply,
+    ETHPUSDDebtInfo?.mortgagePrice,
+    HBTCPUSDDebtInfo?.mortgagePrice,
+  ]);
 
   const ETHTVL = useMemo(() => {
     return $isPositiveNumber($isFiniteNumber(ETHPUSDTVL));
@@ -147,7 +153,10 @@ const Overview: React.FC = () => {
 
     return $isPositiveNumber(
       $isFiniteNumber(
-        new BigNumber(USDTItankValue).plus(ETHItankValue).plus(HBTCItankValue).toNumber()
+        new BigNumber(USDTItankValue)
+          .plus(ETHItankValue)
+          .plus(HBTCItankValue)
+          .toNumber()
       )
     );
   }, [USDTItankValue, ETHItankValue]);

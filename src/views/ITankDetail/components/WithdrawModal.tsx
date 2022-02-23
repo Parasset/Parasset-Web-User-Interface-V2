@@ -1,11 +1,11 @@
 //@ts-nocheck
-import React, {useCallback, useMemo, useState} from "react";
-import {useTranslation} from "react-i18next";
+import React, { useCallback, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import BigNumber from "bignumber.js";
 import Toast from "light-toast";
 import Value from "../../../components/Value";
 import HandlerModal from "../../../components/HandlerModal";
-import {$isFiniteNumber, getDep} from "../../../utils/utils";
+import { $isFiniteNumber, getDep } from "../../../utils/utils";
 import useWithdraw from "../../../hooks/itank/useWithdraw";
 import useBlur from "../../../hooks/useBlur";
 import useFocus from "../../../hooks/useFocus";
@@ -65,16 +65,16 @@ const DepositModal: React.FC = ({
     return estimateValue.lt(0)
       ? 0
       : estimateValue.lte(itankInfo.depositFundBalance)
-        ? estimateValue.toNumber()
-        : itankInfo.depositFundBalance;
+      ? estimateValue.toNumber()
+      : itankInfo.depositFundBalance;
   }, [estimateValue, itankInfo.depositFundBalance]);
 
   const estimateWithdrawEarnToken = useMemo(() => {
     return estimateValue.lt(0)
       ? 0
       : estimateValue.lte(itankInfo.depositFundBalance)
-        ? 0
-        : estimateValue.minus(itankInfo.depositFundBalance).toNumber();
+      ? 0
+      : estimateValue.minus(itankInfo.depositFundBalance).toNumber();
   }, [estimateValue, itankInfo.depositFundBalance]);
 
   const remainingShare = useMemo(() => {
