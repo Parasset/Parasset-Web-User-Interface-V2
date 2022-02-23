@@ -387,13 +387,8 @@ export class Parasset {
     try {
       let res = await fetch("https://robotv2.parasset.top/fee/totalClear");
       res = await res.json();
-      // console.log("🚀 ~ file: BasisCash.ts ~ line 378 ~ BasisCash ~ getLiquidatedAssets ~ res", res)
       return res;
     } catch (error) {
-      console.log(
-        "🚀 ~ file: BasisCash.ts ~ line 394 ~ BasisCash ~ getLiquidatedAssets ~ error",
-        error
-      );
       return 0;
     }
   }
@@ -411,15 +406,24 @@ export class Parasset {
         "https://api.parasset.top/fee/getDailyRevenueV1"
       );
       revenue = await revenue.json();
-      const { pethRevenue, pusdtRevenue } = revenue;
-      revenue = depositTokenName === "ETH" ? pethRevenue : pusdtRevenue;
+      const { pethRevenue, pusdtRevenue, pbtcRevenue } = revenue;
+      switch (depositTokenName) {
+        case "ETH":
+          revenue = pethRevenue
+          break;
+        case "USDT":
+          revenue = pusdtRevenue
+          break;
+        case "HBTC":
+          revenue = pbtcRevenue
+          break;
+      }
       revenue = $isPositiveNumber(
         $isFiniteNumber(getNumberToFixed(new BigNumber(revenue).times(365)))
       );
       // let revenue = 0;
 
       let depositFundBalance = 0;
-
       if (depositTokenName !== "ETH") {
         depositFundBalance = await this.getFundBalance(depositToken, address);
       } else {
