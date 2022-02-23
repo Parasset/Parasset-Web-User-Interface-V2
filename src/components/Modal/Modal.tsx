@@ -32,7 +32,7 @@ const Modal: React.FC<ModalProps> = ({
                 <div>{title}</div>
                 <CloseIcon
                   className="cursor-pointer"
-                  src={require("../../assets/img/icon_close.png")}
+                  src={require("../../assets/svg/icon_close.svg")}
                   width="15"
                   height="15"
                   onClick={onDismiss}

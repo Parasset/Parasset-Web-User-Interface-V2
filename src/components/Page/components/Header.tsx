@@ -63,7 +63,7 @@ const Header: React.FC = () => {
       <StyledHeaderMobile className="wing-blank-lg flex-jc-center">
         <img
           alt="image"
-          src={require("../../../assets/img/icon_menu.png")}
+          src={require("../../../assets/svg/icon_menu.svg")}
           width="28"
           height="28"
           onClick={toggleShow}

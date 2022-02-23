@@ -1,0 +1,19 @@
+<svg id="关闭_icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: #878787;
+      }
+    </style>
+  </defs>
+  <path id="路径_96" data-name="路径 96" class="cls-1" d="M10,20A10,10,0,1,0,0,10,10,10,0,0,0,10,20Zm0-1.818A8.182,8.182,0,1,0,1.818,10,8.182,8.182,0,0,0,10,18.182Z"/>
+  <g id="组_5" data-name="组 5" transform="translate(-0.342 -0.343)">
+    <path id="减去_8" data-name="减去 8" class="cls-2" d="M1.061,14.849A1.062,1.062,0,0,1,0,13.789V6.364H2.121v7.425A1.061,1.061,0,0,1,1.061,14.849ZM2.121,5.3H0V1.061a1.061,1.061,0,1,1,2.121,0V5.3Z" transform="translate(14.842 4.343) rotate(45)"/>
+    <rect id="矩形_42" data-name="矩形 42" class="cls-2" width="14.849" height="2.121" rx="1.061" transform="translate(5.843 4.343) rotate(45)"/>
+  </g>
+</svg>

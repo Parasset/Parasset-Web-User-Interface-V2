@@ -24,16 +24,16 @@ export default function StatusModal({}) {
   const imgList = [
     require(`../../assets/img/loading.gif`),
     require(`../../assets/img/pending.gif`),
-    require(`../../assets/img/icon_success.png`),
-    require(`../../assets/img/icon_fail.png`),
-    require(`../../assets/img/icon_warning.png`),
+    require(`../../assets/svg/icon_success.svg`),
+    require(`../../assets/svg/icon_fail.svg`),
+    require(`../../assets/svg/icon_warning.svg`),
   ];
   return (
     <>
       <Modal isOpen={isOpen} onDismiss={onDismiss} width="300px">
         <StyledModalHeader className="flex-jc-center wing-blank">
           <CloseIcon
-            src={require("../../assets/img/icon_close.png")}
+            src={require("../../assets/svg/icon_close.svg")}
             width="15"
             height="15"
             onClick={() => {

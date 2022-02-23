@@ -189,8 +189,8 @@ const Nav: React.FC = ({ toggleShow }) => {
               alt="image"
               src={
                 showMenu
-                  ? require("../../../assets/img/icon_arrow_top.png")
-                  : require("../../../assets/img/arrow_bottom_icon.png")
+                  ? require("../../../assets/svg/icon_arrow_top.svg")
+                  : require("../../../assets/svg/arrow_bottom_icon.svg")
               }
               width="8"
               height="5"

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #ee144c;
+      }
+    </style>
+  </defs>
+  <g id="风险_icon" transform="translate(-603 -430.944)">
+    <rect id="矩形_44" data-name="矩形 44" class="cls-1" width="48" height="48" transform="translate(603 430.944)"/>
+    <path id="风险" class="cls-2" d="M2.333,38.026a2.459,2.459,0,0,1-2-3.712c1.148-2.2,17.784-31.175,18.808-33.031a2.256,2.256,0,0,1,4.045,0c1.4,2.58,17.668,31.441,18.476,32.949a2.47,2.47,0,0,1-2.01,3.794ZM20.131,25.8H22.1l1.318-12.908h-4.6ZM18.817,27.65v3.686h4.6V27.652h-4.6v0Z" transform="translate(605.977 435.918)"/>
+  </g>
+</svg>

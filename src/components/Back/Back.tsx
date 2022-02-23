@@ -14,7 +14,7 @@ const Back: React.FC = ({ img, img1, text }) => {
       >
         <img
           alt="image"
-          src={require(`../../assets/img/back_icon.png`)}
+          src={require(`../../assets/svg/back_icon.svg`)}
           width="5"
           height="8"
           className="margin-right-10"

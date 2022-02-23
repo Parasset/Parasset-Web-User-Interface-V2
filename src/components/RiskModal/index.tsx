@@ -16,7 +16,7 @@ export default function RiskModal({ isOpen, onDismiss, messages }) {
         <div className="text-center wing-blank">
           <img
             alt="image"
-            src={require("../../assets/img/icon_warning.png")}
+            src={require("../../assets/svg/icon_warning.svg")}
             width="48"
             height="48"
           />

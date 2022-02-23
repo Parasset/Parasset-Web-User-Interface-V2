@@ -546,7 +546,7 @@ const Specie: React.FC = ({}) => {
         <StyledExchangeImg className="text-center">
           <img
             alt="image"
-            src={require("../../../assets/img/change_icon.png")}
+            src={require("../../../assets/svg/change_icon.svg")}
             width="70"
             height="70"
             className="center-block cursor-pointer"

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="28.001" height="28" viewBox="0 0 28.001 28">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #c9c9c9;
+      }
+    </style>
+  </defs>
+  <g id="菜单_icon" transform="translate(-20 -71)">
+    <rect id="矩形_27" data-name="矩形 27" class="cls-1" width="28" height="28" transform="translate(20 71)"/>
+    <path id="联合_1" data-name="联合 1" class="cls-2" d="M-1435,18a1,1,0,0,1-1-1,1,1,0,0,1,1-1h26a1,1,0,0,1,1,1,1,1,0,0,1-1,1Zm0-8a1,1,0,0,1-1-1,1,1,0,0,1,1-1h26a1,1,0,0,1,1,1,1,1,0,0,1-1,1Zm0-8a1,1,0,0,1-1-1,1,1,0,0,1,1-1h26a1,1,0,0,1,1,1,1,1,0,0,1-1,1Z" transform="translate(1456 76)"/>
+  </g>
+</svg>

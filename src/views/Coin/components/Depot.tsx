@@ -116,7 +116,7 @@ const Depot: React.FC = ({ list, loading }) => {
 
               <img
                 alt="image"
-                src={require("../../../assets/img/icon_empty.png")}
+                src={require("../../../assets/svg/icon_empty.svg")}
                 width="50"
                 height="50"
               />
