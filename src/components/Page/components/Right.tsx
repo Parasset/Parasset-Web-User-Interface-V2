@@ -62,7 +62,7 @@ const Right: React.FC = ({ isDatumPath }) => {
       <WrappedNavRight>
         <div className="wing-blank-lg bd-bottom">
           <StyledLabel>{t("wdpxzc")}</StyledLabel>
-          <Spacer size="sm" />
+          <Spacer size="ssm" />
           <div className="flex-al-start">
             <div style={{ paddingTop: "4px" }}>
               <TokenSymbol symbol="PETH" size={25} />
@@ -99,7 +99,7 @@ const Right: React.FC = ({ isDatumPath }) => {
           <Spacer size={"sm"} />
           <div className="flex-al-start">
             <div style={{ paddingTop: "4px" }}>
-              <TokenSymbol symbol="PUSD" size={25} />
+              <TokenSymbol symbol="PBTC" size={25} />
             </div>
             <div className="margin-left-10">
               <div className={"bold-500"}>PBTC</div>
@@ -117,7 +117,7 @@ const Right: React.FC = ({ isDatumPath }) => {
         </div>
         <div className="wing-blank-lg bd-bottom">
           <StyledLabel>{t("jiage")}</StyledLabel>
-          <Spacer size="sm" />
+          <Spacer size="ssm" />
           <div className="flex-jc-start">
             <div className="flex-jc-center">
               <TokenSymbol symbol="ETH" size={25} />
@@ -160,7 +160,7 @@ const Right: React.FC = ({ isDatumPath }) => {
         </div>
         <div className="wing-blank-lg">
           <StyledLabel>{t("ltl")}</StyledLabel>
-          <Spacer size="sm" />
+          <Spacer size="ssm" />
           <a
             href={`https://etherscan.io/token/${PUSDToken?.address}`}
             target="_blank"
@@ -177,7 +177,6 @@ const Right: React.FC = ({ isDatumPath }) => {
               </div>
             </div>
           </a>
-
           <Spacer size="sm" />
           <a
             href={`https://etherscan.io/token/${PETHToken?.address}`}

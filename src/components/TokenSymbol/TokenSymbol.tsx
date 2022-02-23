@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import PETH from "../../assets/img/PETH.png";
+import PETH from "../../assets/svg/PETH.svg";
 import ASET from "../../assets/img/ASET.png";
-import NEST from "../../assets/img/NEST.png";
+import NEST from "../../assets/svg/NEST.svg";
 import ETH from "../../assets/img/ETH.png";
-import USDT from "../../assets/img/USDT.png";
-import PUSD from "../../assets/img/PUSD.png";
-import HBTC from "../../assets/img/HBTC.png";
-import PBTC from "../../assets/img/PBTC.png";
+import USDT from "../../assets/svg/USDT.svg";
+import PUSD from "../../assets/svg/PUSD.svg";
+import HBTC from "../../assets/svg/HBTC.svg";
+import PBTC from "../../assets/svg/PBTC.svg";
 
 const logosBySymbol: { [title: string]: string } = {
   PETH,

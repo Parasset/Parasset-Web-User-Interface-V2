@@ -187,7 +187,7 @@ export default function HandlerModal({
           <Spacer size="mmd" />
           {showApprove && approveStatus ? (
             <Button
-              text={t("sq") + approveTokenName || ""}
+              text={t("sq") + " " + approveTokenName || ""}
               variant="secondary"
               disabled={disabled}
               onClick={approve}
