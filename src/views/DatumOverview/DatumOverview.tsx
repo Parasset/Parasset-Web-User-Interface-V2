@@ -19,31 +19,38 @@ import useUserOverview from "./../../hooks/datum/useUserOverview";
 import useDebtOverview from "./../../hooks/datum/useDebtOverview";
 const Overview: React.FC = () => {
   const { t } = useTranslation();
-  const basisCash = useParasset();
-  const PUSDToken = basisCash?.externalTokens["PUSD"];
-  const PETHToken = basisCash?.externalTokens["PETH"];
+  const parasset = useParasset();
+  const PUSDToken = parasset?.externalTokens["PUSD"];
+  const PETHToken = parasset?.externalTokens["PETH"];
+  const PBTCToken = parasset?.externalTokens["PBTC"];
   const PUSDTotalSupply = useTotalSupply(PUSDToken);
   const PETHTotalSupply = useTotalSupply(PETHToken);
+  const PBTCTotalSupply = useTotalSupply(PBTCToken);
   const { userOverview } = useUserOverview();
   const { debtOverview } = useDebtOverview();
-  const ETHDebt = useDebt("ETHPUSD");
+  const ETHPUSDDebt = useDebt("ETHPUSD");
+  const HBTCPUSDDebt = useDebt("HBTCPUSD");
   const NESTPUSDDebt = useDebt("NESTPUSD");
   const NESTPETHDebt = useDebt("NESTPETH");
-  const { info: ETHDebtInfo } = useDebtInfo(ETHDebt);
+  const { info: ETHPUSDDebtInfo } = useDebtInfo(ETHPUSDDebt);
+  const { info: HBTCPUSDDebtInfo } = useDebtInfo(HBTCPUSDDebt);
   const { info: NESTPUSDDebtInfo } = useDebtInfo(NESTPUSDDebt);
-  const { info: NESTPETHDebtfo } = useDebtInfo(NESTPETHDebt);
+  const { info: NESTPETHDebtInfo } = useDebtInfo(NESTPETHDebt);
   const itanks = useItanks();
   //两个保险池相加
-  const { itankInfo: itankInfo1 } = useItankInfo(
+  const { itankInfo: USDTItankInfo } = useItankInfo(
     itanks.length ? itanks[0] : null
   );
-  const { itankInfo: itankInfo2 } = useItankInfo(
+  const { itankInfo: ETHItankInfo } = useItankInfo(
     itanks.length ? itanks[1] : null
   );
+  const { itankInfo: HBTCItankInfo } = useItankInfo(
+    itanks.length ? itanks[2] : null
+  );
   const ETHPUSDTVL = useTVL(
-    ETHDebt?.mortgagePoolContract,
-    ETHDebt?.mortgageToken,
-    ETHDebtInfo?.mortgagePrice
+    ETHPUSDDebt?.mortgagePoolContract,
+    ETHPUSDDebt?.mortgageToken,
+    ETHPUSDDebtInfo?.mortgagePrice
   );
 
   const NESTPUSDTVL = useTVL(
@@ -54,12 +61,12 @@ const Overview: React.FC = () => {
   const NESTPETHTVL = useTVL(
     NESTPETHDebt?.mortgagePoolContract,
     NESTPETHDebt?.mortgageToken,
-    NESTPETHDebtfo?.mortgagePrice
+    NESTPETHDebtInfo?.mortgagePrice
   );
 
   const ETHPUSDStaked = useStaked(
-    ETHDebt?.mortgagePoolContract,
-    ETHDebt?.mortgageToken
+    ETHPUSDDebt?.mortgagePoolContract,
+    ETHPUSDDebt?.mortgageToken
   );
 
   const NESTPUSDStaked = useStaked(
@@ -76,12 +83,16 @@ const Overview: React.FC = () => {
     const PUSDValue = new BigNumber(PUSDTotalSupply).times(1);
 
     const PETHValue = new BigNumber(PETHTotalSupply).times(
-      ETHDebtInfo?.mortgagePrice
+      ETHPUSDDebtInfo?.mortgagePrice
     );
+    const PBTCValue = new BigNumber(PBTCTotalSupply).times(
+      HBTCPUSDDebtInfo?.mortgagePrice
+    )
+
     return $isPositiveNumber(
-      $isFiniteNumber(PUSDValue.plus(PETHValue).toNumber())
+      $isFiniteNumber(PUSDValue.plus(PETHValue).plus(PBTCValue).toNumber())
     );
-  }, [PUSDTotalSupply, PETHTotalSupply, ETHDebtInfo?.mortgagePrice]);
+  }, [PUSDTotalSupply, PETHTotalSupply,PBTCTotalSupply, ETHPUSDDebtInfo?.mortgagePrice, HBTCPUSDDebtInfo?.mortgagePrice]);
 
   const ETHTVL = useMemo(() => {
     return $isPositiveNumber($isFiniteNumber(ETHPUSDTVL));
@@ -104,34 +115,39 @@ const Overview: React.FC = () => {
     );
   }, [NESTPUSDStaked, NESTPETHStaked]);
 
-  const totalmortgageAssetValue = useMemo(() => {
+  const totalMortgageAssetValue = useMemo(() => {
     return $isPositiveNumber(
       $isFiniteNumber(new BigNumber(ETHTVL).plus(NESTTVL).toNumber())
     );
   }, [ETHTVL, NESTTVL]);
 
   const USDTItankValue = useMemo(() => {
-    let tvl1 = new BigNumber(itankInfo1.depositFundValue).plus(
-      itankInfo1.earnFundValue
+    let tvl1 = new BigNumber(USDTItankInfo.depositFundValue).plus(
+      USDTItankInfo.earnFundValue
     );
-    tvl1 = $isPositiveNumber($isFiniteNumber(tvl1.toNumber()));
-    return tvl1;
-  }, [itankInfo1.depositFundValue, itankInfo1.earnFundValue]);
+    return $isPositiveNumber($isFiniteNumber(tvl1.toNumber()));
+  }, [USDTItankInfo.depositFundValue, USDTItankInfo.earnFundValue]);
 
   const ETHItankValue = useMemo(() => {
-    let tvl2 = new BigNumber(itankInfo2.depositFundValue).plus(
-      itankInfo2.earnFundValue
+    let tvl2 = new BigNumber(ETHItankInfo.depositFundValue).plus(
+      ETHItankInfo.earnFundValue
     );
-    tvl2 = $isPositiveNumber($isFiniteNumber(tvl2.toNumber()));
-    return tvl2;
-  }, [itankInfo2.depositFundValue, itankInfo2.earnFundValue]);
+    return $isPositiveNumber($isFiniteNumber(tvl2.toNumber()));
+  }, [ETHItankInfo.depositFundValue, ETHItankInfo.earnFundValue]);
+
+  const HBTCItankValue = useMemo(() => {
+    let tvl2 = new BigNumber(HBTCItankInfo.depositFundValue).plus(
+      ETHItankInfo.earnFundValue
+    );
+    return $isPositiveNumber($isFiniteNumber(tvl2.toNumber()));
+  }, [ETHItankInfo.depositFundValue, ETHItankInfo.earnFundValue]);
 
   const totalItankValue = useMemo(() => {
     //保险池内资产两种币的总和换成USDT
 
     return $isPositiveNumber(
       $isFiniteNumber(
-        new BigNumber(USDTItankValue).plus(ETHItankValue).toNumber()
+        new BigNumber(USDTItankValue).plus(ETHItankValue).plus(HBTCItankValue).toNumber()
       )
     );
   }, [USDTItankValue, ETHItankValue]);
@@ -143,7 +159,7 @@ const Overview: React.FC = () => {
           <ListItem
             text="TVL"
             color="#000"
-            value={<Value value={totalmortgageAssetValue} prefix="$" />}
+            value={<Value value={totalMortgageAssetValue} prefix="$" />}
           />
           <ListItem
             text={`ETH ${t("dysl")}`}
@@ -160,11 +176,11 @@ const Overview: React.FC = () => {
       </Container>
       <Container title={t("pxzc")}>
         <div className="flex-jc-center-pc">
-          <ListItem
-            text={t("pxzczjz")}
-            color="#000"
-            value={<Value value={parassetValue} prefix="$" />}
-          />
+          {/*<ListItem*/}
+          {/*  text={t("pxzczjz")}*/}
+          {/*  color="#000"*/}
+          {/*  value={<Value value={parassetValue} prefix="$" />}*/}
+          {/*/>*/}
           <ListItem
             text={`PUSD ${t("ltl")}`}
             color="#000"
@@ -185,6 +201,18 @@ const Overview: React.FC = () => {
                 value={PETHTotalSupply}
                 suffix={
                   <span className="font-size-14 margin-left-4">PETH</span>
+                }
+              />
+            }
+          />
+          <ListItem
+            text={`PBTC ${t("ltl")}`}
+            color="#000"
+            value={
+              <Value
+                value={PBTCTotalSupply}
+                suffix={
+                  <span className="font-size-14 margin-left-4">PBTC</span>
                 }
               />
             }
@@ -229,6 +257,11 @@ const Overview: React.FC = () => {
             text={`ETH ${t("bxc")} TVL`}
             color="#000"
             value={<Value value={ETHItankValue} prefix="$" />}
+          />
+          <ListItem
+            text={`HBTC ${t("bxc")} TVL`}
+            color="#000"
+            value={<Value value={HBTCItankValue} prefix="$" />}
             showSpacer={false}
           />
         </div>

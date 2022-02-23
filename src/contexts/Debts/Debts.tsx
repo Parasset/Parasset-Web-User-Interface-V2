@@ -7,31 +7,31 @@ import config, { debtDefinitions } from "../../config";
 
 const Debts: React.FC = ({ children }) => {
   const [debts, setItanks] = useState<Mine[]>([]);
-  const basisCash = useParasset();
+  const parasset = useParasset();
 
   const fetchPools = useCallback(async () => {
     const debts = [];
     for (const debtInfo of Object.values(debtDefinitions)) {
-      if (!basisCash.isUnlocked) continue;
+      if (!parasset.isUnlocked) continue;
       debts.push({
         ...debtInfo,
         address: config.deployments[debtInfo.contract].address,
-        mortgagePoolContract: basisCash.contracts[debtInfo.contract],
-        mortgageToken: basisCash.externalTokens[debtInfo.depositTokenName],
-        uToken: basisCash.externalTokens[debtInfo.earnTokenName],
+        mortgagePoolContract: parasset.contracts[debtInfo.contract],
+        mortgageToken: parasset.externalTokens[debtInfo.depositTokenName],
+        uToken: parasset.externalTokens[debtInfo.earnTokenName],
       });
     }
 
     setItanks(debts);
-  }, [basisCash, basisCash?.isUnlocked, setItanks]);
+  }, [parasset, parasset?.isUnlocked, setItanks]);
 
   useEffect(() => {
-    if (basisCash) {
+    if (parasset) {
       fetchPools().catch((err) =>
         console.error(`Failed to fetch Itanks: ${err.stack}`)
       );
     }
-  }, [basisCash, basisCash?.isUnlocked, fetchPools]);
+  }, [parasset, parasset?.isUnlocked, fetchPools]);
 
   return <Context.Provider value={{ debts }}>{children}</Context.Provider>;
 };

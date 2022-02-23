@@ -16,10 +16,6 @@ const useUserOverview = () => {
   const fetchUserOverview = useCallback(async () => {
     const userOverview = await basisCash.getUserOverview();
     setUserOverview(userOverview);
-    console.log(
-      "🚀 ~ file: useUserOverview.ts ~ line 13 ~ fetchUserOverview ~ userOverview",
-      userOverview
-    );
   }, [basisCash]);
 
   useEffect(() => {

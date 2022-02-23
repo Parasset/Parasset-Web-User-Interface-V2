@@ -231,6 +231,7 @@ export class Parasset {
       );
       const ETHAvgPrice = await this.getAvgPrice();
       const NESTToUSDTPrice = await this.getNESTToUSDTPrice();
+      const HBTCToUSDTPrice = await this.getHBTCToUSDTPrice();
       const NESTToETHPrice = await this.getNESTToETHPrice();
 
       let { maxSubM, maxAddP, mortgageRate } = await this.getInfoRealTime(
@@ -252,6 +253,11 @@ export class Parasset {
           mortgagePrice: NESTToUSDTPrice,
           parassetPrice: 1,
           mortgageToParassetPrice: NESTToUSDTPrice,
+        },
+        HBTCPUSD: {
+          mortgagePrice: HBTCToUSDTPrice,
+          parassetPrice: 1,
+          mortgageToParassetPrice: HBTCToUSDTPrice,
         },
         NESTPETH: {
           mortgagePrice: NESTToUSDTPrice,
@@ -326,6 +332,26 @@ export class Parasset {
       return getNumberToFixed(
         new BigNumber(getToNumber(avgPriceUSDT, USDT.decimal)).div(
           getToNumber(avgPriceNEST, NEST.decimal)
+        )
+      );
+    } catch (error) {
+      return "0";
+    }
+  }
+
+  async getHBTCToUSDTPrice() {
+    try {
+      const { NestQuery } = this.contracts;
+      const { USDT, HBTC } = this.externalTokens;
+      let { avgPrice: avgPriceUSDT } = await NestQuery.triggeredPriceInfo(
+        USDT.address
+      );
+      let { avgPrice: avgPriceHBTC } = await NestQuery.triggeredPriceInfo(
+        HBTC.address
+      );
+      return getNumberToFixed(
+        new BigNumber(getToNumber(avgPriceUSDT, USDT.decimal)).div(
+          getToNumber(avgPriceHBTC, HBTC.decimal)
         )
       );
     } catch (error) {

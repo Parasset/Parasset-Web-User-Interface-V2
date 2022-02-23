@@ -6,11 +6,11 @@ import { useBlockNumber } from "../../state/application/hooks";
 const useDebtInfo = (debt) => {
   const [info, setInfo] = useState({});
 
-  const basisCash = useParasset();
+  const parasset = useParasset();
   const block = useBlockNumber();
   const fetchInfo = useCallback(
-    async (address = basisCash?.myAccount) => {
-      const info = await basisCash.getDebt(
+    async (address = parasset?.myAccount) => {
+      const info = await parasset.getDebt(
         debt.mortgagePoolContract,
         debt.mortgageToken,
         address,
@@ -19,13 +19,13 @@ const useDebtInfo = (debt) => {
       );
       setInfo({ ...debt, ...info });
     },
-    [basisCash?.myAccount, debt]
+    [parasset?.myAccount, debt]
   );
 
   useEffect(() => {
     let refreshInterval = true;
     if (
-      basisCash?.myAccount &&
+      parasset?.myAccount &&
       debt &&
       debt.mortgagePoolContract &&
       refreshInterval
@@ -35,7 +35,7 @@ const useDebtInfo = (debt) => {
     return () => {
       refreshInterval = false;
     };
-  }, [basisCash?.myAccount, debt, block]);
+  }, [parasset?.myAccount, debt, block]);
 
   return { info, fetchInfo };
 };

@@ -119,6 +119,16 @@ export const debtDefinitions = {
     earnTokenName: "PUSD",
     liqUnit: "USDT",
   },
+  HBTCPUSD: {
+    name: "HBTC-PUSD",
+    key: "HBTCPUSD",
+    icon1: "HBTC",
+    icon2: "PUSD",
+    contract: "PUSDMorPool",
+    depositTokenName: "HBTC",
+    earnTokenName: "PUSD",
+    liqUnit: "USDT",
+  },
   NESTPETH: {
     name: "NEST-PETH",
     key: "NESTPETH",

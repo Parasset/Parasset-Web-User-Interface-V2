@@ -14,10 +14,6 @@ const useDebtOverview = () => {
   const fetchDebtOverview = useCallback(async () => {
     const debtOverview = await basisCash.getDebtOverview();
     setDebtOverview(debtOverview);
-    console.log(
-      "🚀 ~ file: useDebtOverview.ts ~ line 13 ~ fetchDebtOverview ~ debtOverview",
-      debtOverview
-    );
   }, [basisCash]);
 
   useEffect(() => {
