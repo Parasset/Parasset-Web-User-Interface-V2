@@ -84,7 +84,7 @@ const Select: React.FC = ({
         </div>
         {showSelect ? (
           <StyledSelectBox
-            className="form-select-content  "
+            className="form-select-content"
             onClick={(e) => {
               e.stopPropagation();
 
@@ -139,7 +139,7 @@ const StyledSelectBox = styled.div`
   top: 65px;
   z-index: 1080;
   background: #fff;
-  box-shadow: 0px 0px 10px ${(props) => props.theme.color.grey[200]};
+  box-shadow: 0 0 10px ${(props) => props.theme.color.grey[200]};
 `;
 const StyledSelectItem = styled.div`
   height: 50px;

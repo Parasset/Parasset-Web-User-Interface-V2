@@ -41,6 +41,7 @@ const Coin: React.FC = () => {
       localStorage.setItem("isCoinMsg", "isCoinMsg");
     }
   }, []);
+
   return (
     <div className={`${isMobile ? "" : "wing-blank-xl1"}`}>
       <Tab

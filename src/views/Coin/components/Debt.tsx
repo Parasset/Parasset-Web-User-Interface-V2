@@ -22,7 +22,6 @@ const Specie: React.FC = () => {
         color="#000"
         value={<Value value={parassetValue} prefix="$" />}
       />
-      <Spacer size="sm" />
       <Depot list={list} loading={loading} />
     </>
   );

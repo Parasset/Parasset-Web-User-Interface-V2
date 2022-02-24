@@ -1,10 +1,10 @@
 //@ts-nocheck
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { Tooltip, Slider } from "antd";
-import { useParams } from "react-router-dom";
+import React, {useCallback, useEffect, useMemo, useState} from "react";
+import {Tooltip, Slider} from "antd";
+import {useParams} from "react-router-dom";
 import BigNumber from "bignumber.js";
 import Toast from "light-toast";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 
 import Spacer from "../../../components/Spacer";
 import Card from "../../../components/Card";
@@ -32,18 +32,18 @@ import {
   getDep,
   getEncryptAddress,
 } from "../../../utils/utils";
-import { getNumberToFixed, updateNumDep } from "../../../utils/formatBalance";
+import {getNumberToFixed, updateNumDep} from "../../../utils/formatBalance";
 
 const Specie: React.FC = ({}) => {
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   const parasset = useParasset();
 
-  const { onCoin } = useCoin();
+  const {onCoin} = useCoin();
   const {
     selectInputCurrency: inputCurrency,
     selectOutputCurrency: outputCurrency,
   } = useParams();
-  const { NESTToUSDTPrice, NESTToETHPrice, ETHAvgPrice } = usePrice();
+  const {NESTToUSDTPrice, NESTToETHPrice, ETHAvgPrice} = usePrice();
 
   const [inputValue, setInputValue] = useState(0);
   const [outputValue, setOutputValue] = useState(0);
@@ -58,8 +58,8 @@ const Specie: React.FC = ({}) => {
   );
   const [selectOutputCurrency, setSelectOutputCurrency] = useState("PUSD");
 
-  const { onBlur } = useBlur();
-  const { onFocus } = useFocus();
+  const {onBlur} = useBlur();
+  const {onFocus} = useFocus();
   const maxRatioETHPUSD = useMaxRatio(
     parasset?.contracts["PUSDMorPool"],
     parasset?.externalTokens["ETH"]
@@ -119,27 +119,27 @@ const Specie: React.FC = ({}) => {
   const currencyListOutput = useMemo(() => {
     return isETH
       ? [
-          {
-            name: "PUSD",
-            id: "PUSD",
-            walletBalance: PUSDWalletBalance,
-            itankBalance: 0,
-          },
-        ]
+        {
+          name: "PUSD",
+          id: "PUSD",
+          walletBalance: PUSDWalletBalance,
+          itankBalance: 0,
+        },
+      ]
       : [
-          {
-            name: "PUSD",
-            id: "PUSD",
-            walletBalance: PUSDWalletBalance,
-            itankBalance: 0,
-          },
-          {
-            name: "PETH",
-            id: "PETH",
-            walletBalance: PETHWalletBalance,
-            itankBalance: 0,
-          },
-        ];
+        {
+          name: "PUSD",
+          id: "PUSD",
+          walletBalance: PUSDWalletBalance,
+          itankBalance: 0,
+        },
+        {
+          name: "PETH",
+          id: "PETH",
+          walletBalance: PETHWalletBalance,
+          itankBalance: 0,
+        },
+      ];
   }, [selectInputCurrency, PETHWalletBalance, PUSDWalletBalance]);
 
   const maxList = useMemo(() => {
@@ -237,12 +237,12 @@ const Specie: React.FC = ({}) => {
   }, [ratio]);
 
   const isExceeds = useMemo(() => {
-    const { maxRatio } = dataList[selectInputCurrency + selectOutputCurrency];
+    const {maxRatio} = dataList[selectInputCurrency + selectOutputCurrency];
     return new BigNumber(calcRatio).gt(maxRatio);
   }, [calcRatio, dataList, selectInputCurrency, selectOutputCurrency]);
 
   const maxRatio = useMemo(() => {
-    const { maxRatio } = dataList[selectInputCurrency + selectOutputCurrency];
+    const {maxRatio} = dataList[selectInputCurrency + selectOutputCurrency];
     return !maxRatio
       ? 70
       : parseInt(new BigNumber(maxRatio).times(100).toNumber());
@@ -306,7 +306,7 @@ const Specie: React.FC = ({}) => {
   ]);
 
   const calcAmount = useCallback(
-    ({ value, isInput, ratio, price }) => {
+    ({value, isInput, ratio, price}) => {
       const inputToken = parasset?.externalTokens[selectInputCurrency];
       const outputToken = parasset?.externalTokens[selectOutputCurrency];
       price =
@@ -362,7 +362,7 @@ const Specie: React.FC = ({}) => {
 
   const handleChangeInputValue = useCallback(
     (e) => {
-      const { value } = e.currentTarget;
+      const {value} = e.currentTarget;
       calcAmount({
         value,
         isInput: true,
@@ -379,7 +379,7 @@ const Specie: React.FC = ({}) => {
 
   const handleChangeOutputValue = useCallback(
     (e) => {
-      const { value } = e.currentTarget;
+      const {value} = e.currentTarget;
       calcAmount({
         value,
         isInput: false,
@@ -395,7 +395,7 @@ const Specie: React.FC = ({}) => {
   );
 
   const onChangeInputCurrencySelect = useCallback(
-    ({ id }) => {
+    ({id}) => {
       setSelectInputCurrency(id);
       //默认输出PUSD
       const outputId = currencyListOutput[0].id;
@@ -441,7 +441,7 @@ const Specie: React.FC = ({}) => {
   );
 
   const onChangeOutputCurrencySelect = useCallback(
-    ({ id }) => {
+    ({id}) => {
       const price = dataList[selectInputCurrency + id].price;
       let rate = calcRatio;
       setSelectOutputCurrency(id);
@@ -592,7 +592,7 @@ const Specie: React.FC = ({}) => {
   return (
     <>
       <Card className="wing-blank-lg bg-white">
-        <Spacer />
+        <Spacer/>
         <div className="flex-jc-center color-grey wing-blank-lg">
           <div> {t("dyzcsl")}</div>
           <div>
@@ -606,11 +606,11 @@ const Specie: React.FC = ({}) => {
                 });
               }}
             >
-              <Value value={inputCurrencyBalance} decimals={6} />
+              <Value value={inputCurrencyBalance} decimals={6}/>
             </span>
           </div>
         </div>
-        <Spacer size={"sm"} />
+        <Spacer size={"sm"}/>
         <Select
           showSelect={showInputCurrencySelect}
           list={currencyListInput}
@@ -629,14 +629,14 @@ const Specie: React.FC = ({}) => {
             onFocus(e, setInputValue);
           }}
         />
-        <Spacer size="sm" />
+        <Spacer size="sm"/>
         <div className="text-right color-grey wing-blank-lg">
-          ≈ <Value value={inputCurrencyValue} prefix="$" />
+          ≈ <Value value={inputCurrencyValue} prefix="$"/>
         </div>
-        <div className=" wing-blank-lg">
-          <Spacer size="sm" />
+        <div className="wing-blank-lg">
+          <Spacer size="sm"/>
           <div className="color-grey">{t("dyl")}</div>
-          <Spacer size="sm" />
+          <Spacer size="sm"/>
 
           <div id="slider">
             <Slider
@@ -653,13 +653,13 @@ const Specie: React.FC = ({}) => {
             <div>1%</div>
             <div>{maxRatio}%</div>
           </div>
-          <Spacer />
+          <Spacer/>
         </div>
 
         <div className="color-grey wing-blank-lg">
           <div> {t("zbsl")}</div>
         </div>
-        <Spacer size="sm" />
+        <Spacer size="sm"/>
         <Select
           showSelect={showOutputCurrencySelect}
           list={currencyListOutput}
@@ -678,7 +678,7 @@ const Specie: React.FC = ({}) => {
             onFocus(e, setOutputValue);
           }}
         />
-        <Spacer />
+        <Spacer/>
         <Label
           label={t("heyue", {
             label: selectOutputCurrency,
@@ -686,24 +686,12 @@ const Specie: React.FC = ({}) => {
           value={
             <div>
               {cointAddress?.encryptAddress}{" "}
-              <Copy toCopy={cointAddress.address} />
+              <Copy toCopy={cointAddress.address}/>
             </div>
           }
           className="wing-blank-lg"
         />
-
-        <Spacer />
-        {/* <Label
-          label={
-            <Tooltip title={t("tip2")}>
-              <div className="text-underline cursor-pointer">{t("yyjdyf")}</div>
-            </Tooltip>
-          }
-          value="0.001 ETH"
-          className="wing-blank-lg"
-        />
-
-        <Spacer size="mmd" /> */}
+        <Spacer/>
         <Label
           label={
             <Tooltip title={t("tip4")}>
@@ -712,12 +700,10 @@ const Specie: React.FC = ({}) => {
           }
           className="wing-blank-lg"
           value={
-            <Value value={fee} suffix={selectOutputCurrency} showAll={true} />
+            <Value value={fee} suffix={selectOutputCurrency} showAll={true}/>
           }
         />
-        <Spacer />
-        {/* NESTPETH NESTPUSD 如果不是eth，就要授权给nest,然后看fee有没有大于0，大于0就需要授权 */}
-        {/* inputCurrencyBalance */}
+        <Spacer/>
         {selectInputCurrency !== "ETH" &&
         approveList[selectInputCurrency + selectOutputCurrency].status ? (
           <Button
@@ -727,8 +713,8 @@ const Specie: React.FC = ({}) => {
             onClick={async () => {
               setPendingTx(true);
               await approveList[
-                selectInputCurrency + selectOutputCurrency
-              ].approve();
+              selectInputCurrency + selectOutputCurrency
+                ].approve();
               setPendingTx(false);
             }}
           />
@@ -758,10 +744,9 @@ const Specie: React.FC = ({}) => {
             onClick={onConfirm}
           />
         )}
-
-        <Spacer />
+        <Spacer/>
       </Card>
-      <Spacer />
+      <Spacer/>
     </>
   );
 };
