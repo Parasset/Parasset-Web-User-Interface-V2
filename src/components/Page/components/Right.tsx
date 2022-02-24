@@ -209,10 +209,6 @@ const Right: React.FC = ({ isDatumPath }) => {
             </div>
           </a>
         </div>
-        <Spacer />
-        <Spacer />
-        <Spacer />
-        <Spacer />
       </WrappedNavRight>
       <WalletModal
         isOpen={isOpen}
@@ -228,6 +224,7 @@ const Right: React.FC = ({ isDatumPath }) => {
 const WrappedNavRight = styled.div`
   background-color: rgba(255, 255, 255, 0.9);
   height: 100vh;
+  padding-bottom: 100px;
   overflow: scroll;
 `;
 
