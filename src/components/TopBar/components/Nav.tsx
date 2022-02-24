@@ -23,6 +23,8 @@ const Nav: React.FC = () => {
 const WrappedNav = styled.div`
   background-color: rgba(255, 255, 255, 0.9);
   height: 100vh;
+  overflow: scroll;
+  padding-bottom: 100px;
 `;
 
 const StyledNav = styled.div`
