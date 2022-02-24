@@ -50,7 +50,7 @@ const ITank: React.FC = () => {
   return (
     <>
       <BigValue
-        text={`${t("bxc")} TVL`}
+        text={`${t("bxcldxzsz")}`}
         color="#000"
         value={<Value value={totalItankValue} prefix="$" />}
       />

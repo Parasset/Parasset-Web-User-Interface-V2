@@ -50,7 +50,7 @@ const Right: React.FC = ({ isDatumPath }) => {
 
   return (
     <StyledNavRight style={{ display: isDatumPath ? "none" : "block" }}>
-      <StyledWallet className="flex-row-center-center wing-blank-lg ">
+      <StyledWallet className="flex-row-center-center wing-blank-lg">
         <Button
           text={!account ? t("ljqb") : newAccount}
           variant="secondary"
@@ -62,7 +62,6 @@ const Right: React.FC = ({ isDatumPath }) => {
       <WrappedNavRight>
         <div className="wing-blank-lg bd-bottom">
           <StyledLabel>{t("wdpxzc")}</StyledLabel>
-          <Spacer size="ssm" />
           <div className="flex-al-start">
             <div style={{ paddingTop: "4px" }}>
               <TokenSymbol symbol="PETH" size={25} />
@@ -117,7 +116,6 @@ const Right: React.FC = ({ isDatumPath }) => {
         </div>
         <div className="wing-blank-lg bd-bottom">
           <StyledLabel>{t("jiage")}</StyledLabel>
-          <Spacer size="ssm" />
           <div className="flex-jc-start">
             <div className="flex-jc-center">
               <TokenSymbol symbol="ETH" size={25} />
@@ -160,7 +158,6 @@ const Right: React.FC = ({ isDatumPath }) => {
         </div>
         <div className="wing-blank-lg">
           <StyledLabel>{t("ltl")}</StyledLabel>
-          <Spacer size="ssm" />
           <a
             href={`https://etherscan.io/token/${PUSDToken?.address}`}
             target="_blank"
@@ -212,6 +209,10 @@ const Right: React.FC = ({ isDatumPath }) => {
             </div>
           </a>
         </div>
+        <Spacer />
+        <Spacer />
+        <Spacer />
+        <Spacer />
       </WrappedNavRight>
       <WalletModal
         isOpen={isOpen}
@@ -227,6 +228,7 @@ const Right: React.FC = ({ isDatumPath }) => {
 const WrappedNavRight = styled.div`
   background-color: rgba(255, 255, 255, 0.9);
   height: 100vh;
+  overflow: scroll;
 `;
 
 const StyledNavRight = styled.div`
