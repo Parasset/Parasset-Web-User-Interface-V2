@@ -40,7 +40,7 @@ const Right: React.FC = ({ isDatumPath }) => {
     if (status === "disconnected") {
       connect("injected");
     } else if (status === "error") {
-      if (process.env.NODE_ENV === "development") {
+      if (process.env.REACT_APP_NODE_ENV === "development") {
         Toast.info(t("cswlcw"));
       } else {
         Toast.info(t("zwwlcw"));
