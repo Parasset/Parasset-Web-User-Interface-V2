@@ -90,10 +90,6 @@ const Specie: React.FC = ({}) => {
     parasset?.externalTokens["PETH"]
   );
 
-  const isETH = useMemo(() => {
-    return selectInputCurrency === "ETH" || setSelectOutputCurrency === "ETH";
-  }, [selectInputCurrency, setSelectOutputCurrency]);
-
   const ETHWalletBalance = useTokenBalance(parasset?.externalTokens["ETH"]);
   const NESTWalletBalance = useTokenBalance(parasset?.externalTokens["NEST"]);
   const PETHWalletBalance = useTokenBalance(parasset?.externalTokens["PETH"]);
@@ -117,8 +113,9 @@ const Specie: React.FC = ({}) => {
   }, [ETHWalletBalance, NESTWalletBalance]);
 
   const currencyListOutput = useMemo(() => {
-    return isETH
-      ? [
+    switch (selectInputCurrency) {
+      case "ETH":
+        return [
           {
             name: "PUSD",
             id: "PUSD",
@@ -126,7 +123,8 @@ const Specie: React.FC = ({}) => {
             itankBalance: 0,
           },
         ]
-      : [
+      case "NEST":
+        return [
           {
             name: "PUSD",
             id: "PUSD",
@@ -139,7 +137,10 @@ const Specie: React.FC = ({}) => {
             walletBalance: PETHWalletBalance,
             itankBalance: 0,
           },
-        ];
+        ]
+      case "HBTC":
+        break;
+    }
   }, [selectInputCurrency, PETHWalletBalance, PUSDWalletBalance]);
 
   const maxList = useMemo(() => {
@@ -161,12 +162,13 @@ const Specie: React.FC = ({}) => {
   }, [currencyListInput, selectInputCurrency]);
 
   const inputCurrencyValue = useMemo(() => {
-    let amount = isETH
-      ? new BigNumber(inputValue).times(ETHAvgPrice).toNumber()
-      : new BigNumber(inputValue).times(NESTToUSDTPrice).toNumber();
-
-    return $isFiniteNumber(amount);
-  }, [inputValue, NESTToUSDTPrice, ETHAvgPrice, isETH]);
+    switch (selectInputCurrency) {
+      case "ETH":
+        return $isFiniteNumber(new BigNumber(inputValue).times(ETHAvgPrice).toNumber());
+      case "NEST":
+        return $isFiniteNumber(new BigNumber(inputValue).times(NESTToUSDTPrice).toNumber());
+    }
+  }, [inputValue, NESTToUSDTPrice, ETHAvgPrice, selectInputCurrency]);
 
   const inputMax = useMemo(() => {
     const max = $isPositiveNumber(
@@ -175,10 +177,20 @@ const Specie: React.FC = ({}) => {
       )
     );
 
-    const canBuyAmount = isETH ? max : inputCurrencyBalance;
+    let canBuyAmount;
+
+    switch (selectInputCurrency){
+      case "ETH":
+        canBuyAmount = max
+        break
+      case "NEST":
+        canBuyAmount = inputCurrencyBalance
+        break
+    }
+
     const amount = new BigNumber(canBuyAmount);
     return amount.toFixed(getDep(amount), 1);
-  }, [inputCurrencyBalance, isETH]);
+  }, [inputCurrencyBalance, selectInputCurrency]);
 
   const cointAddress = useMemo(() => {
     return {
@@ -426,7 +438,6 @@ const Specie: React.FC = ({}) => {
       }
     },
     [
-      isETH,
       currencyListOutput,
       inputMax,
       maxList,
@@ -464,7 +475,6 @@ const Specie: React.FC = ({}) => {
       }
     },
     [
-      isETH,
       currencyListOutput,
       inputMax,
       maxList,
