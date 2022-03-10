@@ -7,17 +7,13 @@ const usePrice = () => {
   const [NESTToUSDTPrice, setNESTToUSDTPrice] = useState(0);
   const [NESTToETHPrice, setNESTToETHPrice] = useState(0);
   const [NESTToBTCPrice, setNESTToBTCPrice] = useState(0);
-
   const [ETHToBTCPrice, setETHToBTCPrice] = useState(0);
-  const [ETHAvgPrice, setETHAvgPrice] = useState(0);
-
-  const [HBTCToUSDTPrice, setHBTCToUSDTPrice] = useState(0);
-  const [HBTCToETHPrice, setHBTCToETHPrice] = useState(0);
+  const [ETHToUSDTPrice, setETHToUSDTPrice] = useState(0);
 
   const parasset = useParasset();
 
-  const fetchETHAvgPrice = useCallback(async () => {
-    setETHAvgPrice(await parasset.getAvgPrice());
+  const fetchETHToUSDTPrice = useCallback(async () => {
+    setETHToUSDTPrice(await parasset.getETHToUSDTPrice());
   }, [parasset]);
 
   const fetchNESTToUSDTPrice = useCallback(async () => {
@@ -28,10 +24,20 @@ const usePrice = () => {
     setNESTToETHPrice(await parasset.getNESTToETHPrice());
   }, [parasset]);
 
+  const fetchNESTToBTCPrice = useCallback(async ()=> {
+    setNESTToBTCPrice(await parasset.getNESTToBTCPrice())
+  }, [parasset])
+
+  const fetchETHToBTCPrice = useCallback(async ()=> {
+    setETHToBTCPrice(await parasset.getETHToBTCPrice())
+  }, [parasset])
+
   const fetchInfo = useCallback(async () => {
-    fetchETHAvgPrice();
+    fetchETHToUSDTPrice();
     fetchNESTToUSDTPrice();
     fetchNESTToETHPrice();
+    fetchNESTToBTCPrice();
+    fetchETHToBTCPrice();
   }, [parasset?.myAccount]);
 
   useEffect(() => {
@@ -43,7 +49,7 @@ const usePrice = () => {
       refreshInterval = false;
     };
   }, [parasset?.myAccount, block]);
-  return { NESTToUSDTPrice, NESTToETHPrice, NESTToBTCPrice, ETHAvgPrice, ETHToBTCPrice, HBTCToUSDTPrice, HBTCToETHPrice };
+  return { NESTToUSDTPrice, NESTToETHPrice, NESTToBTCPrice, ETHToUSDTPrice, ETHToBTCPrice};
 };
 
 export default usePrice;

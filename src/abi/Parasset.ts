@@ -20,7 +20,7 @@ export class Parasset {
   externalTokens: { [name: string]: ERC20 };
 
   constructor(cfg: Configuration) {
-    const { deployments, externalTokens } = cfg;
+    const {deployments, externalTokens} = cfg;
     const provider = getDefaultProvider();
 
     // loads contracts from deployments
@@ -77,6 +77,7 @@ export class Parasset {
       from: this.myAccount,
     };
   }
+
   gasETHAddress(token) {
     return token.symbol === "ETH"
       ? "0x0000000000000000000000000000000000000000"
@@ -85,16 +86,17 @@ export class Parasset {
 
   async getStaked(address, account = this.myAccount) {
     try {
-      const { Mine } = this.contracts;
+      const {Mine} = this.contracts;
 
       return await Mine.getBalance(address, account);
     } catch (error) {
       return "0";
     }
   }
+
   async getEarned(address, account = this.myAccount) {
     try {
-      const { Mine } = this.contracts;
+      const {Mine} = this.contracts;
 
       let earned = await Mine.getAccountReward(address, account);
       return getToNumber(earned);
@@ -102,6 +104,7 @@ export class Parasset {
       return "0";
     }
   }
+
   async getFundBalance(token, address) {
     try {
       let balance = await token.balanceOf(address);
@@ -110,6 +113,7 @@ export class Parasset {
       return "0";
     }
   }
+
   async getTotalSupply(token) {
     try {
       let totalSupply = await token.totalSupply();
@@ -119,11 +123,11 @@ export class Parasset {
     }
   }
 
-  async getAvgPrice() {
+  async getETHToUSDTPrice() {
     try {
-      const { NestQuery } = this.contracts;
-      const { USDT } = this.externalTokens;
-      let { avgPrice } = await NestQuery.triggeredPriceInfo(USDT.address);
+      const {NestQuery} = this.contracts;
+      const {USDT} = this.externalTokens;
+      let {avgPrice} = await NestQuery.triggeredPriceInfo(USDT.address);
       return getToNumber(avgPrice, USDT.decimal);
     } catch (error) {
       return "0";
@@ -148,17 +152,17 @@ export class Parasset {
       // uTokenPrice	标的资产相对于ETH的价格数量（将从nest获取的数据直接传入，不需要做精度转换）
       // maxRateNum	最大抵押率限制
       // owner	债仓所有人地址
-      const { NestQuery } = this.contracts;
-      const { USDT } = this.externalTokens;
-      let { avgPrice: tokenPrice } = await NestQuery.triggeredPriceInfo(
+      const {NestQuery} = this.contracts;
+      const {USDT} = this.externalTokens;
+      let {avgPrice: tokenPrice} = await NestQuery.triggeredPriceInfo(
         mortgageToken.address
       );
 
-      let { avgPrice: avgPriceUToken } = await NestQuery.triggeredPriceInfo(
+      let {avgPrice: avgPriceUToken} = await NestQuery.triggeredPriceInfo(
         USDT.address
       );
 
-      let uTokenPrice = "";
+      let uTokenPrice;
       if (uToken.symbol === "PETH") {
         uTokenPrice = "1000000000000000000";
       } else {
@@ -172,7 +176,7 @@ export class Parasset {
       );
       maxRateNum = maxRateNum.toString();
 
-      let info = await mortgagePoolContract.getInfoRealTime(
+      return await mortgagePoolContract.getInfoRealTime(
         mortgageTokenAddress,
         mortgageToken.symbol === "ETH"
           ? "1000000000000000000"
@@ -181,8 +185,6 @@ export class Parasset {
         maxRateNum,
         address
       );
-
-      return info;
     } catch (err) {
       // console.log(err, "err");
       return {
@@ -190,16 +192,17 @@ export class Parasset {
       };
     }
   }
+
   async getStableFee(mortgagePoolContract, mortgageToken, uToken, address) {
-    let { fee } = await this.getInfoRealTime(
+    let {fee} = await this.getInfoRealTime(
       mortgagePoolContract,
       mortgageToken,
       uToken,
       address
     );
-
     return getToNumber(fee);
   }
+
   async getLiqRatio(mortgagePoolContract, mortgageToken) {
     const address = this.gasETHAddress(mortgageToken);
     const k = await mortgagePoolContract.getK(address);
@@ -223,12 +226,13 @@ export class Parasset {
         uToken,
         address
       );
-      const ETHAvgPrice = await this.getAvgPrice();
+      const ETHToUSDTPrice = await this.getETHToUSDTPrice();
+      const ETHToBTCPrice = await this.getETHToBTCPrice();
       const NESTToUSDTPrice = await this.getNESTToUSDTPrice();
-      const HBTCToUSDTPrice = await this.getHBTCToUSDTPrice();
       const NESTToETHPrice = await this.getNESTToETHPrice();
+      const NESTToBTCPrice = await this.getNESTToBTCPrice();
 
-      let { maxSubM, maxAddP, mortgageRate } = await this.getInfoRealTime(
+      let {maxSubM, maxAddP, mortgageRate} = await this.getInfoRealTime(
         mortgagePoolContract,
         mortgageToken,
         uToken,
@@ -239,24 +243,29 @@ export class Parasset {
 
       const priceList = {
         ETHPUSD: {
-          mortgagePrice: ETHAvgPrice,
+          mortgagePrice: ETHToUSDTPrice,
           parassetPrice: 1,
-          mortgageToParassetPrice: ETHAvgPrice,
+          mortgageToParassetPrice: ETHToUSDTPrice,
+        },
+        ETHPBTC: {
+          mortgagePrice: ETHToBTCPrice,
+          parassetPrice: 1,
+          mortgageToParassetPrice: ETHToBTCPrice,
         },
         NESTPUSD: {
           mortgagePrice: NESTToUSDTPrice,
           parassetPrice: 1,
           mortgageToParassetPrice: NESTToUSDTPrice,
         },
-        HBTCPUSD: {
-          mortgagePrice: HBTCToUSDTPrice,
-          parassetPrice: 1,
-          mortgageToParassetPrice: HBTCToUSDTPrice,
-        },
         NESTPETH: {
           mortgagePrice: NESTToUSDTPrice,
-          parassetPrice: ETHAvgPrice,
+          parassetPrice: ETHToUSDTPrice,
           mortgageToParassetPrice: NESTToETHPrice,
+        },
+        NESTPBTC: {
+          mortgagePrice: NESTToBTCPrice,
+          parassetPrice: ETHToBTCPrice,
+          mortgageToParassetPrice: NESTToBTCPrice,
         },
       };
       const mortgagePrice = priceList[key].mortgagePrice;
@@ -314,15 +323,14 @@ export class Parasset {
 
   async getNESTToUSDTPrice() {
     try {
-      const { NestQuery } = this.contracts;
-      const { USDT, NEST } = this.externalTokens;
-      let { avgPrice: avgPriceUSDT } = await NestQuery.triggeredPriceInfo(
+      const {NestQuery} = this.contracts;
+      const {USDT, NEST} = this.externalTokens;
+      const {avgPrice: avgPriceUSDT} = await NestQuery.triggeredPriceInfo(
         USDT.address
       );
-      let { avgPrice: avgPriceNEST } = await NestQuery.triggeredPriceInfo(
+      const {avgPrice: avgPriceNEST} = await NestQuery.triggeredPriceInfo(
         NEST.address
       );
-      // avgPrice2/avgPrice1=NEST对u的价格
       return getNumberToFixed(
         new BigNumber(getToNumber(avgPriceUSDT, USDT.decimal)).div(
           getToNumber(avgPriceNEST, NEST.decimal)
@@ -333,21 +341,30 @@ export class Parasset {
     }
   }
 
-  async getHBTCToUSDTPrice() {
+  async getNESTToBTCPrice() {
     try {
-      const { NestQuery } = this.contracts;
-      const { USDT, HBTC } = this.externalTokens;
-      let { avgPrice: avgPriceUSDT } = await NestQuery.triggeredPriceInfo(
-        USDT.address
-      );
-      let { avgPrice: avgPriceHBTC } = await NestQuery.triggeredPriceInfo(
-        HBTC.address
-      );
+      const {NestQuery2, NestQuery} = this.contracts;
+      const {HBTC, NEST, USDT} = this.externalTokens;
+      const {avgPrice: avgPriceHBTC} = await NestQuery2['triggeredPriceInfo(uint256,uint256)'](0, 0);
+      const {avgPrice: avgPriceUSDT} = await NestQuery.triggeredPriceInfo(USDT.address);
+      const {avgPrice: avgPriceNEST} = await NestQuery.triggeredPriceInfo(NEST.address);
       return getNumberToFixed(
-        new BigNumber(getToNumber(avgPriceUSDT, USDT.decimal)).div(
-          getToNumber(avgPriceHBTC, HBTC.decimal)
-        )
-      );
+        new BigNumber(getToNumber(avgPriceUSDT, USDT.decimal)).div(getToNumber(avgPriceNEST, NEST.decimal))
+          .div(getToNumber(avgPriceHBTC, HBTC.decimal)).div(new BigNumber(2000))
+      )
+    } catch (error) {
+      return "0";
+    }
+  }
+
+  async getETHToBTCPrice() {
+    try {
+      const {NestQuery, NestQuery2} = this.contracts;
+      const {HBTC, USDT} = this.externalTokens;
+      const {avgPrice: avgPriceUSDT} = await NestQuery.triggeredPriceInfo(USDT.address);
+      const {avgPrice: avgPriceHBTC} = await NestQuery2['triggeredPriceInfo(uint256,uint256)'](0, 0);
+      return getNumberToFixed(
+        new BigNumber(getToNumber(avgPriceUSDT, USDT.decimal)).div(getToNumber(avgPriceHBTC, HBTC.decimal)).div(new BigNumber(2000)))
     } catch (error) {
       return "0";
     }
@@ -355,9 +372,9 @@ export class Parasset {
 
   async getNESTToETHPrice() {
     try {
-      const { NestQuery } = this.contracts;
-      const { NEST } = this.externalTokens;
-      let { avgPrice } = await NestQuery.triggeredPriceInfo(NEST.address);
+      const {NestQuery} = this.contracts;
+      const {NEST} = this.externalTokens;
+      let {avgPrice} = await NestQuery.triggeredPriceInfo(NEST.address);
       // nest对ETH的价格  1/avgPrice2
       return getNumberToFixed(
         new BigNumber(1).div(getToNumber(avgPrice, NEST.decimal))
@@ -400,7 +417,7 @@ export class Parasset {
         "https://api.parasset.top/fee/getDailyRevenueV1"
       );
       revenue = await revenue.json();
-      const { pethRevenue, pusdtRevenue, pbtcRevenue } = revenue;
+      const {pethRevenue, pusdtRevenue, pbtcRevenue} = revenue;
       switch (depositTokenName) {
         case "ETH":
           revenue = pethRevenue;
@@ -415,9 +432,8 @@ export class Parasset {
       revenue = $isPositiveNumber(
         $isFiniteNumber(getNumberToFixed(new BigNumber(revenue).times(365)))
       );
-      // let revenue = 0;
 
-      let depositFundBalance = 0;
+      let depositFundBalance;
       if (depositTokenName !== "ETH") {
         depositFundBalance = await this.getFundBalance(depositToken, address);
       } else {
@@ -431,7 +447,7 @@ export class Parasset {
         .minus(getToNumber(negative))
         .toNumber();
 
-      let avgPrice = await this.getAvgPrice();
+      let avgPrice = await this.getETHToUSDTPrice();
 
       let depositFundValue =
         itank.depositTokenName === "USDT"
@@ -472,7 +488,7 @@ export class Parasset {
     }
   }
 
-  async getLastDate({ itankContract }) {
+  async getLastDate({itankContract}) {
     try {
       let {
         startTime: nextStartTime,
@@ -485,7 +501,8 @@ export class Parasset {
         nextStartTimeNum: nextStartTime.toNumber(),
         nextEndTimeNum: nextEndTime.toNumber(),
       };
-    } catch (error) {}
+    } catch (error) {
+    }
   }
 
   async getRedemptionAmount(itankContract, decimal, address) {
@@ -497,6 +514,7 @@ export class Parasset {
       return "0";
     }
   }
+
   async itankStake(itankContract, amount, value) {
     try {
       return await itankContract.subscribeIns(amount, {
@@ -507,6 +525,7 @@ export class Parasset {
       return error;
     }
   }
+
   async itankUnstake(itankContract, amount) {
     try {
       return await itankContract.redemptionIns(amount, this.gasOptions());
@@ -514,12 +533,15 @@ export class Parasset {
       return error;
     }
   }
+
   async getExchangeFee(itankContract) {
     try {
       const fee = await itankContract._feeRate();
       return fee.toNumber() / 1000;
-    } catch (error) {}
+    } catch (error) {
+    }
   }
+
   async getFetchData(url) {
     try {
       let res = await fetch(url);
@@ -531,6 +553,7 @@ export class Parasset {
       return {};
     }
   }
+
   getStartEndDate(value) {
     const funcList = {
       "1W": getWeekDate,
@@ -538,26 +561,26 @@ export class Parasset {
       ALL: getAllDate,
     };
     const func = funcList[value];
-    const date = func();
-
-    return date;
+    return func();
   }
 
   async getUserOverview() {
-    let { value } = await this.getFetchData(
+    let {value} = await this.getFetchData(
       "https://apiv2.parasset.top/api/user/overview"
     );
     return value;
   }
+
   async getDebtOverview() {
-    let { value } = await this.getFetchData(
+    let {value} = await this.getFetchData(
       "https://apiv2.parasset.top/api/coin/debtTotal"
     );
     return value;
   }
+
   async getActiveUsers(activeUsersValue) {
     const date = this.getStartEndDate(activeUsersValue);
-    let { value } = await this.getFetchData(
+    let {value} = await this.getFetchData(
       `https://apiv2.parasset.top/api/user/active/${date.startDate}/${date.endDate}`
     );
 
@@ -566,7 +589,7 @@ export class Parasset {
 
   async getNewUsers(newUsersValue) {
     const date = this.getStartEndDate(newUsersValue);
-    let { value } = await this.getFetchData(
+    let {value} = await this.getFetchData(
       `https://apiv2.parasset.top/api/user/new/${date.startDate}/${date.endDate}`
     );
 
@@ -575,7 +598,7 @@ export class Parasset {
 
   async getItankTvlDatum(tvlDatumValue) {
     const date = this.getStartEndDate(tvlDatumValue);
-    let { value } = await this.getFetchData(
+    let {value} = await this.getFetchData(
       `https://apiv2.parasset.top/api/insPool/tvl/${date.startDate}/${date.endDate}`
     );
     return value;
@@ -583,27 +606,29 @@ export class Parasset {
 
   async getItankFeeDatum(feeDatumValue) {
     const date = this.getStartEndDate(feeDatumValue);
-    let { value } = await this.getFetchData(
+    let {value} = await this.getFetchData(
       `https://apiv2.parasset.top/api/insPool/fee/${date.startDate}/${date.endDate}`
     );
 
     return value;
   }
+
   async getItankNetValueDatum(netValueDatumValue) {
     const date = this.getStartEndDate(netValueDatumValue);
-    let { value } = await this.getFetchData(
+    let {value} = await this.getFetchData(
       `https://apiv2.parasset.top/api/insPool/netValue/${date.startDate}/${date.endDate}`
     );
 
     return value;
   }
+
   async getCoinTvlDatum(tvlDatumValue) {
     const date = this.getStartEndDate(tvlDatumValue);
-    let { value: insTvlDatum } = await this.getFetchData(
+    let {value: insTvlDatum} = await this.getFetchData(
       `https://apiv2.parasset.top/api/coin/insTvl/${date.startDate}/${date.endDate}`
     );
 
-    let { value: morTvlDatum } = await this.getFetchData(
+    let {value: morTvlDatum} = await this.getFetchData(
       `https://apiv2.parasset.top/api/coin/morTvl/${date.startDate}/${date.endDate}`
     );
 
@@ -615,10 +640,10 @@ export class Parasset {
 
   async getDebtDatum(debtDatumValue) {
     const date = this.getStartEndDate(debtDatumValue);
-    let { value: avgRateDatum } = await this.getFetchData(
+    let {value: avgRateDatum} = await this.getFetchData(
       `https://apiv2.parasset.top/api/coin/avgRate/${date.startDate}/${date.endDate}`
     );
-    let { value: debtDatum } = await this.getFetchData(
+    let {value: debtDatum} = await this.getFetchData(
       `https://apiv2.parasset.top/api/coin/debtData/${date.startDate}/${date.endDate}`
     );
 
@@ -630,7 +655,7 @@ export class Parasset {
 
   async getChannelInfo(address, block) {
     try {
-      const { Mine } = this.contracts;
+      const {Mine} = this.contracts;
       let info = await Mine.getChannelInfo(address);
       const endBlock = info.endBlock.toNumber();
 
@@ -667,9 +692,10 @@ export class Parasset {
       return "0";
     }
   }
+
   async getMineApy(tvl, rewardRate) {
     try {
-      const { asetPrice } = this.config;
+      const {asetPrice} = this.config;
 
       return new BigNumber(rewardRate)
         .times(5760)
@@ -687,7 +713,7 @@ export class Parasset {
 
   async stake(amount, address) {
     try {
-      const { Mine } = this.contracts;
+      const {Mine} = this.contracts;
       return await Mine.stake(amount, address, this.gasOptions());
     } catch (error) {
       return error;
@@ -696,7 +722,7 @@ export class Parasset {
 
   async unstake(amount, address) {
     try {
-      const { Mine } = this.contracts;
+      const {Mine} = this.contracts;
 
       return await Mine.withdraw(amount, address, this.gasOptions());
     } catch (error) {
@@ -706,12 +732,13 @@ export class Parasset {
 
   async harvest(address) {
     try {
-      const { Mine } = this.contracts;
+      const {Mine} = this.contracts;
       return await Mine.getReward(address, this.gasOptions());
     } catch (error) {
       return error;
     }
   }
+
   async exchangePTokenToUnderlying(itankContract, amount, value) {
     try {
       return await itankContract.exchangePTokenToUnderlying(amount, {
@@ -750,6 +777,7 @@ export class Parasset {
       return error;
     }
   }
+
   async liquidation(
     mortgagePoolContract,
     mortgageToken,

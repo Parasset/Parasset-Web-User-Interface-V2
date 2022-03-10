@@ -43,7 +43,7 @@ const Specie: React.FC = ({}) => {
     selectInputCurrency: inputCurrency,
     selectOutputCurrency: outputCurrency,
   } = useParams();
-  const { NESTToUSDTPrice, NESTToETHPrice, NESTToBTCPrice, ETHAvgPrice, ETHToBTCPrice, HBTCToUSDTPrice, HBTCToETHPrice } = usePrice();
+  const { NESTToUSDTPrice, NESTToETHPrice, NESTToBTCPrice, ETHToBTCPrice, ETHToUSDTPrice} = usePrice();
 
   const [inputValue, setInputValue] = useState(0);
   const [outputValue, setOutputValue] = useState(0);
@@ -80,14 +80,6 @@ const Specie: React.FC = ({}) => {
     parasset?.contracts["PBTCMorPool"],
     parasset?.externalTokens["NEST"]
   );
-  const maxRatioHBTCPETH = useMaxRatio(
-    parasset?.contracts["PETHMorPool"],
-    parasset?.externalTokens["HBTC"]
-  );
-  const maxRatioHBTCPUSD = useMaxRatio(
-    parasset?.contracts["PUSDMorPool"],
-    parasset?.externalTokens["HBTC"]
-  );
 
   const feeETHPUSD = useFee(
     parasset?.contracts["PUSDMorPool"],
@@ -114,20 +106,8 @@ const Specie: React.FC = ({}) => {
     parasset?.externalTokens["NEST"],
     parasset?.externalTokens["HBTC"]
   );
-  const feeHBTCPETH = useFee(
-    parasset?.contracts["PETHMorPool"],
-    parasset?.externalTokens["HBTC"],
-    parasset?.externalTokens["ETH"]
-  );
-  const feeHBTCPUSD = useFee(
-    parasset?.contracts["PUSDMorPool"],
-    parasset?.externalTokens["HBTC"],
-    parasset?.externalTokens["USDT"]
-  );
-
   const ETHWalletBalance = useTokenBalance(parasset?.externalTokens["ETH"]);
   const NESTWalletBalance = useTokenBalance(parasset?.externalTokens["NEST"]);
-  const HBTCWalletBalance = useTokenBalance(parasset?.externalTokens["HBTC"]);
   const PETHWalletBalance = useTokenBalance(parasset?.externalTokens["PETH"]);
   const PUSDWalletBalance = useTokenBalance(parasset?.externalTokens["PUSD"]);
   const PBTCWalletBalance = useTokenBalance(parasset?.externalTokens["PBTC"]);
@@ -145,13 +125,7 @@ const Specie: React.FC = ({}) => {
         id: "NEST",
         walletBalance: NESTWalletBalance,
         itankBalance: 0,
-      },
-      {
-        name: "HBTC",
-        id: "HBTC",
-        walletBalance: HBTCWalletBalance,
-        itankBalance: 0,
-      },
+      }
     ];
   }, [ETHWalletBalance, NESTWalletBalance]);
 
@@ -193,21 +167,6 @@ const Specie: React.FC = ({}) => {
             itankBalance: 0,
           },
         ]
-      case "HBTC":
-        return [
-          {
-            name: "PUSD",
-            id: "PUSD",
-            walletBalance: PUSDWalletBalance,
-            itankBalance: 0,
-          },
-          {
-            name: "PETH",
-            id: "PETH",
-            walletBalance: PETHWalletBalance,
-            itankBalance: 0,
-          }
-        ]
     }
   }, [selectInputCurrency, PETHWalletBalance, PUSDWalletBalance, PBTCWalletBalance]);
 
@@ -232,11 +191,11 @@ const Specie: React.FC = ({}) => {
   const inputCurrencyValue = useMemo(() => {
     switch (selectInputCurrency) {
       case "ETH":
-        return $isFiniteNumber(new BigNumber(inputValue).times(ETHAvgPrice).toNumber());
+        return $isFiniteNumber(new BigNumber(inputValue).times(ETHToUSDTPrice).toNumber());
       case "NEST":
         return $isFiniteNumber(new BigNumber(inputValue).times(NESTToUSDTPrice).toNumber());
     }
-  }, [inputValue, NESTToUSDTPrice, ETHAvgPrice, selectInputCurrency]);
+  }, [inputValue, ETHToUSDTPrice, NESTToUSDTPrice, selectInputCurrency]);
 
   const inputMax = useMemo(() => {
     const max = $isPositiveNumber(
@@ -273,10 +232,11 @@ const Specie: React.FC = ({}) => {
     return {
       ETHPUSD: {
         maxRatio: maxRatioETHPUSD,
-        price: ETHAvgPrice,
+        price: ETHToUSDTPrice,
         fee: feeETHPUSD,
         mortgagePoolContract: parasset?.contracts["PUSDMorPool"],
         mortgageToken: parasset?.externalTokens["ETH"],
+        getToken: parasset?.externalTokens["PUSD"],
         walletBalance: PUSDWalletBalance,
       },
       ETHPBTC: {
@@ -285,6 +245,7 @@ const Specie: React.FC = ({}) => {
         fee: feeETHPBTC,
         mortgagePoolContract: parasset?.contracts["PBTCMorPool"],
         mortgageToken: parasset?.externalTokens["ETH"],
+        getToken: parasset?.externalTokens["PBTC"],
         walletBalance: PBTCWalletBalance,
       },
       NESTPUSD: {
@@ -293,6 +254,7 @@ const Specie: React.FC = ({}) => {
         fee: feeNESTPUSD,
         mortgagePoolContract: parasset?.contracts["PUSDMorPool"],
         mortgageToken: parasset?.externalTokens["NEST"],
+        getToken: parasset?.externalTokens["PUSD"],
         walletBalance: PUSDWalletBalance,
       },
       NESTPETH: {
@@ -301,6 +263,7 @@ const Specie: React.FC = ({}) => {
         fee: feeNESTPETH,
         mortgagePoolContract: parasset?.contracts["PETHMorPool"],
         mortgageToken: parasset?.externalTokens["NEST"],
+        getToken: parasset?.externalTokens["PETH"],
         walletBalance: PETHWalletBalance,
       },
       NESTPBTC: {
@@ -309,44 +272,26 @@ const Specie: React.FC = ({}) => {
         fee: feeNESTPBTC,
         mortgagePoolContract: parasset?.contracts["PBTCMorPool"],
         mortgageToken: parasset?.externalTokens["NEST"],
+        getToken: parasset?.externalTokens["PBTC"],
         walletBalance: PBTCWalletBalance,
-      },
-      HBTCPUSD: {
-        maxRatio: maxRatioHBTCPUSD,
-        price: HBTCToUSDTPrice,
-        fee: feeHBTCPUSD,
-        mortgagePoolContract: parasset?.contracts["PUSDMorPool"],
-        mortgageToken: parasset?.externalTokens["HBTC"],
-        walletBalance: PUSDWalletBalance,
-      },
-      HBTCPETH: {
-        maxRatio: maxRatioHBTCPETH,
-        price: HBTCToETHPrice,
-        fee: feeHBTCPETH,
-        mortgagePoolContract: parasset?.contracts["PETHMorPool"],
-        mortgageToken: parasset?.externalTokens["HBTC"],
-        walletBalance: PETHWalletBalance,
       },
     };
   }, [
     NESTToUSDTPrice,
     NESTToETHPrice,
     NESTToBTCPrice,
-    ETHAvgPrice,
+    ETHToUSDTPrice,
+    ETHToBTCPrice,
     feeETHPUSD,
     feeETHPBTC,
     feeNESTPUSD,
     feeNESTPETH,
     feeNESTPBTC,
-    feeHBTCPUSD,
-    feeHBTCPETH,
     maxRatioETHPUSD,
     maxRatioETHPBTC,
     maxRatioNESTPUSD,
     maxRatioNESTPETH,
     maxRatioNESTPBTC,
-    maxRatioHBTCPETH,
-    maxRatioHBTCPUSD,
     selectInputCurrency,
     selectOutputCurrency,
     PUSDWalletBalance,
@@ -472,7 +417,7 @@ const Specie: React.FC = ({}) => {
 
       ratio = ratio !== undefined ? ratio : calcRatio;
       if (isInput) {
-        // NESTToUSDTPrice, NESTToETHPrice, ETHAvgPrice
+        // ETHToUSDTPrice, NESTToETHPrice, NESTToUSDTPrice
         // X=输入的PUSD数量/(输入的ETH数量*ETH-USDT预言机价格) ETH铸币PUSD
         // X=输入的PUSD数量/(输入的NEST数量*NEST-USDT预言机价格) NEST铸币PUSD
         // X=输入的PETH数量/(输入的NEST数量*NEST-PETH预言机价格)  NEST铸币PETH
@@ -636,10 +581,12 @@ const Specie: React.FC = ({}) => {
     const {
       mortgagePoolContract,
       mortgageToken,
+      getToken,
       fee,
       maxRatio,
       walletBalance,
     } = dataList[selectInputCurrency + selectOutputCurrency];
+
     if (!parseFloat(inputValue)) {
       Toast.info(t("qsrdyyszc"), 1000);
     } else if (parseFloat(inputValue) > parseFloat(inputMax)) {
@@ -670,6 +617,7 @@ const Specie: React.FC = ({}) => {
       const result = await onCoin(
         mortgagePoolContract,
         mortgageToken,
+        getToken,
         inputValue,
         calcRatio
       );

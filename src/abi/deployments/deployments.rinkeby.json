@@ -3242,6 +3242,102 @@
       }
     ]
   },
+  "NestQuery2": {
+    "address": "0x2F768141145053E73AEf80dde50828C87709023f",
+    "abi": [
+      {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "index",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256"
+          }
+        ],
+        "name": "setAvg",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "channelId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "pairIndex",
+            "type": "uint256"
+          }
+        ],
+        "name": "triggeredPriceInfo",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "blockNumber",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "price",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "avgPrice",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "sigmaSQ",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "channelId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "pairIndices",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "address",
+            "name": "payback",
+            "type": "address"
+          }
+        ],
+        "name": "triggeredPriceInfo",
+        "outputs": [
+          {
+            "internalType": "uint256[]",
+            "name": "prices",
+            "type": "uint256[]"
+          }
+        ],
+        "stateMutability": "payable",
+        "type": "function"
+      }
+    ]
+  },
   "PUSDMorPool": {
     "address": "0xE6eda6C6E149A887c516066CEdfa8D7fa429Cd1b",
     "abi": [

@@ -7,7 +7,7 @@ const useAvgPrice = () => {
   const parasset = useParasset();
 
   const fetchAvgPrice = useCallback(async () => {
-    setAvgPrice(await parasset.getAvgPrice());
+    setAvgPrice(await parasset.getETHToUSDTPrice());
   }, [parasset]);
 
   useEffect(() => {

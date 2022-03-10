@@ -9,14 +9,14 @@ const useCoin = () => {
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleCoin = useCallback(
-    (mortgagePoolContract, mortgageToken, amount, ratio) => {
+    (mortgagePoolContract, mortgageToken, getToken, amount, ratio) => {
       const amountBn = decimalToBalance(String(amount), mortgageToken.decimal);
       const value = decimalToBalance(
         mortgageToken.symbol === "ETH"
           ? new BigNumber(amount)
-              .plus(process.env.REACT_APP_NODE_ENV === "development" ? 0.01 : 0.001)
+              .plus(getToken.symbol === "PBTC" ? 0.002: 0.001)
               .toFixed()
-          : String(process.env.REACT_APP_NODE_ENV === "development" ? 0.01 : 0.001),
+          : String(getToken.symbol === "PBTC" ? 0.002: 0.001),
         mortgageToken.decimal
       );
       ratio = new BigNumber(ratio).times(100000).toFixed(0, 1);

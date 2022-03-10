@@ -15,8 +15,6 @@ const useFee = (mortgagePoolContract, mortgageToken, uToken) => {
         uToken,
         address
       );
-      // console.log(mortgagePoolContract, mortgageToken, uToken, address, fee);
-
       setFee(fee);
     },
     [parasset?.myAccount, mortgageToken, uToken]

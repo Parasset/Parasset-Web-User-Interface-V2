@@ -1,7 +1,6 @@
 //@ts-nocheck
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import Toast from "light-toast";
 import { useTranslation } from "react-i18next";
 import Spacer from "../../Spacer";
 
@@ -23,7 +22,7 @@ const Datum: React.FC = () => {
   const PETHTokenBalance = useTokenBalance(PETHToken);
   const PUSDTokenBalance = useTokenBalance(PUSDToken);
 
-  const { NESTToUSDTPrice, NESTToETHPrice, ETHAvgPrice } = usePrice();
+  const { NESTToUSDTPrice, NESTToETHPrice, ETHToUSDTPrice } = usePrice();
   const PETHAddress = useEncryptAddress(PETHToken?.address);
   const PUSDAddress = useEncryptAddress(PUSDToken?.address);
 
@@ -69,7 +68,7 @@ const Datum: React.FC = () => {
           </div>
           <div className="margin-left-10">
             <div className={"bold-600"}>
-              <Value value={ETHAvgPrice} decimals={8} />
+              <Value value={ETHToUSDTPrice} decimals={8} />
             </div>
             <div className={"color-grey"}>ETH/USDT</div>
           </div>

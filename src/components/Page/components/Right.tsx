@@ -35,7 +35,7 @@ const Right: React.FC = ({ isDatumPath }) => {
   const PBTCAddress = useEncryptAddress(PBTCToken?.address);
 
   const [isOpen, setOpen] = useState(false);
-  const { NESTToUSDTPrice, NESTToETHPrice, ETHAvgPrice } = usePrice();
+  const { NESTToUSDTPrice, NESTToETHPrice, ETHToUSDTPrice, NESTToBTCPrice, ETHToBTCPrice } = usePrice();
   useEffect(() => {
     if (status === "disconnected") {
       connect("injected");
@@ -123,9 +123,22 @@ const Right: React.FC = ({ isDatumPath }) => {
             </div>
             <div className="margin-left-10">
               <div className={"bold-500"}>
-                <Value value={ETHAvgPrice} decimals={8} />
+                <Value value={ETHToUSDTPrice} decimals={8} />
               </div>
               <div className={"color-grey"}>ETH/USDT</div>
+            </div>
+          </div>
+          <Spacer size={"sm"}/>
+          <div className="flex-jc-start">
+            <div className="flex-jc-center">
+              <TokenSymbol symbol="ETH" size={25} />
+              <TokenSymbol symbol="HBTC" size={25} isRight={true} />
+            </div>
+            <div className="margin-left-10">
+              <div className={"bold-500"}>
+                <Value value={ETHToBTCPrice} decimals={8} />
+              </div>
+              <div className={"color-grey"}>ETH/HBTC</div>
             </div>
           </div>
           <Spacer size="sm" />
@@ -152,6 +165,19 @@ const Right: React.FC = ({ isDatumPath }) => {
                 <Value value={NESTToETHPrice} decimals={8} />
               </div>
               <div className={"color-grey"}>NEST/ETH</div>
+            </div>
+          </div>
+          <Spacer size={"sm"}/>
+          <div className="flex-jc-start">
+            <div className="flex-jc-center">
+              <TokenSymbol symbol="NEST" size={25} />
+              <TokenSymbol symbol="HBTC" size={25} isRight={true} />
+            </div>
+            <div className="margin-left-10">
+              <div className={"bold-500"}>
+                <Value value={NESTToBTCPrice} decimals={8} />
+              </div>
+              <div className={"color-grey"}>NEST/HBTC</div>
             </div>
           </div>
           <Spacer size={"mmd"} />
