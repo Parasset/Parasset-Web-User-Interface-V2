@@ -43,7 +43,7 @@ const Specie: React.FC = ({}) => {
     selectInputCurrency: inputCurrency,
     selectOutputCurrency: outputCurrency,
   } = useParams();
-  const { NESTToUSDTPrice, NESTToETHPrice, ETHAvgPrice } = usePrice();
+  const { NESTToUSDTPrice, NESTToETHPrice, NESTToBTCPrice, ETHAvgPrice, ETHToBTCPrice, HBTCToUSDTPrice, HBTCToETHPrice } = usePrice();
 
   const [inputValue, setInputValue] = useState(0);
   const [outputValue, setOutputValue] = useState(0);
@@ -64,6 +64,10 @@ const Specie: React.FC = ({}) => {
     parasset?.contracts["PUSDMorPool"],
     parasset?.externalTokens["ETH"]
   );
+  const maxRatioETHPBTC = useMaxRatio(
+    parasset?.contracts["PBTCMorPool"],
+    parasset?.externalTokens["ETH"]
+  );
   const maxRatioNESTPUSD = useMaxRatio(
     parasset?.contracts["PUSDMorPool"],
     parasset?.externalTokens["NEST"]
@@ -72,13 +76,29 @@ const Specie: React.FC = ({}) => {
     parasset?.contracts["PETHMorPool"],
     parasset?.externalTokens["NEST"]
   );
+  const maxRatioNESTPBTC = useMaxRatio(
+    parasset?.contracts["PBTCMorPool"],
+    parasset?.externalTokens["NEST"]
+  );
+  const maxRatioHBTCPETH = useMaxRatio(
+    parasset?.contracts["PETHMorPool"],
+    parasset?.externalTokens["HBTC"]
+  );
+  const maxRatioHBTCPUSD = useMaxRatio(
+    parasset?.contracts["PUSDMorPool"],
+    parasset?.externalTokens["HBTC"]
+  );
 
   const feeETHPUSD = useFee(
     parasset?.contracts["PUSDMorPool"],
     parasset?.externalTokens["ETH"],
     parasset?.externalTokens["USDT"]
   );
-
+  const feeETHPBTC = useFee(
+    parasset?.contracts["PBTCMorPool"],
+    parasset?.externalTokens["ETH"],
+    parasset?.externalTokens["HBTC"]
+  );
   const feeNESTPUSD = useFee(
     parasset?.contracts["PUSDMorPool"],
     parasset?.externalTokens["NEST"],
@@ -89,11 +109,28 @@ const Specie: React.FC = ({}) => {
     parasset?.externalTokens["NEST"],
     parasset?.externalTokens["PETH"]
   );
+  const feeNESTPBTC = useFee(
+    parasset?.contracts["PBTCMorPool"],
+    parasset?.externalTokens["NEST"],
+    parasset?.externalTokens["HBTC"]
+  );
+  const feeHBTCPETH = useFee(
+    parasset?.contracts["PETHMorPool"],
+    parasset?.externalTokens["HBTC"],
+    parasset?.externalTokens["ETH"]
+  );
+  const feeHBTCPUSD = useFee(
+    parasset?.contracts["PUSDMorPool"],
+    parasset?.externalTokens["HBTC"],
+    parasset?.externalTokens["USDT"]
+  );
 
   const ETHWalletBalance = useTokenBalance(parasset?.externalTokens["ETH"]);
   const NESTWalletBalance = useTokenBalance(parasset?.externalTokens["NEST"]);
+  const HBTCWalletBalance = useTokenBalance(parasset?.externalTokens["HBTC"]);
   const PETHWalletBalance = useTokenBalance(parasset?.externalTokens["PETH"]);
   const PUSDWalletBalance = useTokenBalance(parasset?.externalTokens["PUSD"]);
+  const PBTCWalletBalance = useTokenBalance(parasset?.externalTokens["PBTC"]);
 
   const currencyListInput = useMemo(() => {
     return [
@@ -109,6 +146,12 @@ const Specie: React.FC = ({}) => {
         walletBalance: NESTWalletBalance,
         itankBalance: 0,
       },
+      {
+        name: "HBTC",
+        id: "HBTC",
+        walletBalance: HBTCWalletBalance,
+        itankBalance: 0,
+      },
     ];
   }, [ETHWalletBalance, NESTWalletBalance]);
 
@@ -120,6 +163,12 @@ const Specie: React.FC = ({}) => {
             name: "PUSD",
             id: "PUSD",
             walletBalance: PUSDWalletBalance,
+            itankBalance: 0,
+          },
+          {
+            name: "PBTC",
+            id: "PBTC",
+            walletBalance: PBTCWalletBalance,
             itankBalance: 0,
           },
         ]
@@ -137,11 +186,30 @@ const Specie: React.FC = ({}) => {
             walletBalance: PETHWalletBalance,
             itankBalance: 0,
           },
+          {
+            name: "PBTC",
+            id: "PBTC",
+            walletBalance: PBTCWalletBalance,
+            itankBalance: 0,
+          },
         ]
       case "HBTC":
-        break;
+        return [
+          {
+            name: "PUSD",
+            id: "PUSD",
+            walletBalance: PUSDWalletBalance,
+            itankBalance: 0,
+          },
+          {
+            name: "PETH",
+            id: "PETH",
+            walletBalance: PETHWalletBalance,
+            itankBalance: 0,
+          }
+        ]
     }
-  }, [selectInputCurrency, PETHWalletBalance, PUSDWalletBalance]);
+  }, [selectInputCurrency, PETHWalletBalance, PUSDWalletBalance, PBTCWalletBalance]);
 
   const maxList = useMemo(() => {
     return {
@@ -211,6 +279,14 @@ const Specie: React.FC = ({}) => {
         mortgageToken: parasset?.externalTokens["ETH"],
         walletBalance: PUSDWalletBalance,
       },
+      ETHPBTC: {
+        maxRatio: maxRatioETHPBTC,
+        price: ETHToBTCPrice,
+        fee: feeETHPBTC,
+        mortgagePoolContract: parasset?.contracts["PBTCMorPool"],
+        mortgageToken: parasset?.externalTokens["ETH"],
+        walletBalance: PBTCWalletBalance,
+      },
       NESTPUSD: {
         maxRatio: maxRatioNESTPUSD,
         price: NESTToUSDTPrice,
@@ -227,21 +303,55 @@ const Specie: React.FC = ({}) => {
         mortgageToken: parasset?.externalTokens["NEST"],
         walletBalance: PETHWalletBalance,
       },
+      NESTPBTC: {
+        maxRatio: maxRatioNESTPBTC,
+        price: NESTToBTCPrice,
+        fee: feeNESTPBTC,
+        mortgagePoolContract: parasset?.contracts["PBTCMorPool"],
+        mortgageToken: parasset?.externalTokens["NEST"],
+        walletBalance: PBTCWalletBalance,
+      },
+      HBTCPUSD: {
+        maxRatio: maxRatioHBTCPUSD,
+        price: HBTCToUSDTPrice,
+        fee: feeHBTCPUSD,
+        mortgagePoolContract: parasset?.contracts["PUSDMorPool"],
+        mortgageToken: parasset?.externalTokens["HBTC"],
+        walletBalance: PUSDWalletBalance,
+      },
+      HBTCPETH: {
+        maxRatio: maxRatioHBTCPETH,
+        price: HBTCToETHPrice,
+        fee: feeHBTCPETH,
+        mortgagePoolContract: parasset?.contracts["PETHMorPool"],
+        mortgageToken: parasset?.externalTokens["HBTC"],
+        walletBalance: PETHWalletBalance,
+      },
     };
   }, [
     NESTToUSDTPrice,
     NESTToETHPrice,
+    NESTToBTCPrice,
     ETHAvgPrice,
     feeETHPUSD,
+    feeETHPBTC,
     feeNESTPUSD,
     feeNESTPETH,
+    feeNESTPBTC,
+    feeHBTCPUSD,
+    feeHBTCPETH,
     maxRatioETHPUSD,
+    maxRatioETHPBTC,
     maxRatioNESTPUSD,
     maxRatioNESTPETH,
+    maxRatioNESTPBTC,
+    maxRatioHBTCPETH,
+    maxRatioHBTCPUSD,
     selectInputCurrency,
     selectOutputCurrency,
     PUSDWalletBalance,
     PETHWalletBalance,
+    PBTCWalletBalance,
   ]);
 
   const calcRatio = useMemo(() => {
@@ -269,7 +379,11 @@ const Specie: React.FC = ({}) => {
     parasset?.contracts["PUSDMorPool"]?.address,
     fee
   );
-
+  const [approveStatusPBTC, approvePBTC] = useApprove(
+    parasset?.externalTokens["PBTC"],
+    parasset?.contracts["PBTCMorPool"]?.address,
+    fee
+  );
   const [approveStatusPETH, approvePETH] = useApprove(
     parasset?.externalTokens["PETH"],
     parasset?.contracts["PETHMorPool"]?.address,
@@ -285,6 +399,21 @@ const Specie: React.FC = ({}) => {
     parasset?.contracts["PUSDMorPool"]?.address,
     inputValue
   );
+  const [approveStatusNESTPBTC, approveNESTPBTC] = useApprove(
+    parasset?.externalTokens["NEST"],
+    parasset?.contracts["PBTCMorPool"]?.address,
+    inputValue
+  );
+  const [approveStatusHBTCPETH, approveHBTCPETH] = useApprove(
+    parasset?.externalTokens["HBTC"],
+    parasset?.contracts["PETHMorPool"]?.address,
+    inputValue
+  );
+  const [approveStatusHBTCPUSD, approveHBTCPUSD] = useApprove(
+    parasset?.externalTokens["HBTC"],
+    parasset?.contracts["PUSDMorPool"]?.address,
+    inputValue
+  );
 
   const approveList = useMemo(() => {
     return {
@@ -296,11 +425,26 @@ const Specie: React.FC = ({}) => {
         status: approveStatusNESTPUSD,
         approve: approveNESTPUSD,
       },
+      NESTPBTC: {
+        status: approveStatusNESTPBTC,
+        approve: approveNESTPBTC,
+      },
+      HBTCPUSD: {
+        status: approveStatusHBTCPUSD,
+        approve: approveHBTCPUSD,
+      },
+      HBTCPETH: {
+        status: approveStatusHBTCPETH,
+        approve: approveHBTCPETH,
+      },
       PETH: {
         status: approveStatusPETH,
         approve: approvePETH,
       },
-
+      PBTC: {
+        status: approveStatusPBTC,
+        approve: approvePBTC,
+      },
       PUSD: {
         status: approveStatusPUSD,
         approve: approvePUSD,

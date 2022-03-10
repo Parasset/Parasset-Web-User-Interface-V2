@@ -6,7 +6,14 @@ const usePrice = () => {
   const block = useBlockNumber();
   const [NESTToUSDTPrice, setNESTToUSDTPrice] = useState(0);
   const [NESTToETHPrice, setNESTToETHPrice] = useState(0);
+  const [NESTToBTCPrice, setNESTToBTCPrice] = useState(0);
+
+  const [ETHToBTCPrice, setETHToBTCPrice] = useState(0);
   const [ETHAvgPrice, setETHAvgPrice] = useState(0);
+
+  const [HBTCToUSDTPrice, setHBTCToUSDTPrice] = useState(0);
+  const [HBTCToETHPrice, setHBTCToETHPrice] = useState(0);
+
   const parasset = useParasset();
 
   const fetchETHAvgPrice = useCallback(async () => {
@@ -36,7 +43,7 @@ const usePrice = () => {
       refreshInterval = false;
     };
   }, [parasset?.myAccount, block]);
-  return { NESTToUSDTPrice, NESTToETHPrice, ETHAvgPrice };
+  return { NESTToUSDTPrice, NESTToETHPrice, NESTToBTCPrice, ETHAvgPrice, ETHToBTCPrice, HBTCToUSDTPrice, HBTCToETHPrice };
 };
 
 export default usePrice;

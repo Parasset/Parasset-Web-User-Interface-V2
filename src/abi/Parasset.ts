@@ -1,17 +1,12 @@
 //@ts-nocheck
-import { Configuration } from "./config";
-import { Contract, ethers } from "ethers";
+import {Configuration} from "./config";
+import {Contract, ethers} from "ethers";
 import BigNumber from "bignumber.js";
-import { getToNumber, getNumberToFixed } from "../utils/formatBalance";
-import {
-  formatDate,
-  getWeekDate,
-  getMonthDate,
-  getAllDate,
-} from "../utils/utils";
-import { $isFiniteNumber, $isPositiveNumber } from "../utils/utils";
-import { getDefaultProvider } from "../utils/provider";
+import {getNumberToFixed, getToNumber} from "../utils/formatBalance";
+import {$isFiniteNumber, $isPositiveNumber, formatDate, getAllDate, getMonthDate, getWeekDate,} from "../utils/utils";
+import {getDefaultProvider} from "../utils/provider";
 import ERC20 from "./ERC20";
+
 /**
  * An API module of Gaea Exchange contracts.
  * All contract-interacting domain logic should be defined in here.
@@ -92,8 +87,7 @@ export class Parasset {
     try {
       const { Mine } = this.contracts;
 
-      let staked = await Mine.getBalance(address, account);
-      return staked;
+      return await Mine.getBalance(address, account);
     } catch (error) {
       return "0";
     }
