@@ -349,8 +349,10 @@ export class Parasset {
       const {avgPrice: avgPriceUSDT} = await NestQuery.triggeredPriceInfo(USDT.address);
       const {avgPrice: avgPriceNEST} = await NestQuery.triggeredPriceInfo(NEST.address);
       return getNumberToFixed(
-        new BigNumber(getToNumber(avgPriceUSDT, USDT.decimal)).div(getToNumber(avgPriceNEST, NEST.decimal))
-          .div(getToNumber(avgPriceHBTC, HBTC.decimal)).div(new BigNumber(2000))
+        new BigNumber(getToNumber(avgPriceUSDT, USDT.decimal))
+          .div(getToNumber(avgPriceNEST, NEST.decimal))
+          .div(2000)
+          .multipliedBy(getToNumber(avgPriceHBTC, HBTC.decimal))
       )
     } catch (error) {
       return "0";
@@ -364,7 +366,8 @@ export class Parasset {
       const {avgPrice: avgPriceUSDT} = await NestQuery.triggeredPriceInfo(USDT.address);
       const {avgPrice: avgPriceHBTC} = await NestQuery2['triggeredPriceInfo(uint256,uint256)'](0, 0);
       return getNumberToFixed(
-        new BigNumber(getToNumber(avgPriceUSDT, USDT.decimal)).div(getToNumber(avgPriceHBTC, HBTC.decimal)).div(new BigNumber(2000)))
+        new BigNumber(getToNumber(avgPriceUSDT, USDT.decimal)).multipliedBy(getToNumber(avgPriceHBTC, HBTC.decimal)).div(2000)
+      )
     } catch (error) {
       return "0";
     }
