@@ -15,7 +15,7 @@ import useDebtInfo from "../../hooks/debt/useDebtInfo";
 import useTotalSupply from "./../../hooks/useTokenTotalSupply";
 
 const DatumCoin: React.FC = () => {
-  const {t, i18n} = useTranslation();
+  const {t} = useTranslation();
   const parasset = useParasset();
   const ETHDebt = useDebt("ETHPUSD");
   const NESTPUSDDebt = useDebt("NESTPUSD");
@@ -81,6 +81,7 @@ const DatumCoin: React.FC = () => {
     const PBTCValue = new BigNumber(PBTCTotalSupply).times(HBTCUSDTDebtInfo?.mortgagePrice)
     return $isPositiveNumber($isFiniteNumber(PBTCValue.toNumber()))
   }, [PBTCTotalSupply, HBTCUSDTDebtInfo?.mortgagePrice])
+
   let initTvlChart = useCallback(() => {
     let element = document.getElementById("tvlChart");
     let myChart = echarts.init(element);
@@ -318,23 +319,23 @@ const DatumCoin: React.FC = () => {
   useEffect(() => {
     initStakedAssetsChart();
     initParallelAssetsChart();
-  }, []);
+  }, [initStakedAssetsChart, initParallelAssetsChart]);
 
   useEffect(() => {
     initTvlChart();
-  }, [tvlDatum, i18n.language]);
+  }, [initTvlChart]);
 
   useEffect(() => {
     initDebtChart();
-  }, [debtDatum, i18n.language]);
+  }, [initDebtChart]);
 
   useEffect(() => {
     initStakedAssetsChart();
-  }, [ETHTVL, NESTTVL, i18n.language]);
+  }, [initStakedAssetsChart]);
 
   useEffect(() => {
     initParallelAssetsChart();
-  }, [PUSDValue, PETHValue, i18n.language]);
+  }, [initParallelAssetsChart]);
 
   return (
     <>
