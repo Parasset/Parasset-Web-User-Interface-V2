@@ -272,7 +272,6 @@ export class Parasset {
           mortgageToParassetPrice: BTCToUSDTPrice,
         }
       };
-      console.log(key, priceList[key])
       const mortgagePrice = priceList[key].mortgagePrice;
       const parassetPrice = priceList[key].parassetPrice;
       const mortgageToParassetPrice = priceList[key].mortgageToParassetPrice;

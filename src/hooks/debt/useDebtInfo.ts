@@ -18,11 +18,7 @@ const useDebtInfo = (debt) => {
         debt.key
       );
       setInfo({ ...debt, ...info });
-      if (debt.mortgageToken.symbol === 'HBTC') {
-        console.log(info)
-      }
     },
-
     [parasset?.myAccount, debt]
   );
 
