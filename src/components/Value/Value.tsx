@@ -1,7 +1,6 @@
 //@ts-nocheck
-import React, { useMemo, useCallback } from "react";
+import React, { useMemo } from "react";
 import BigNumber from "bignumber.js";
-import { getDep } from "../../utils/utils";
 export default function FormatValue({
   value,
   decimals = 3,
@@ -26,9 +25,10 @@ export default function FormatValue({
   }, [value, decimals, placeholder]);
   return (
     <>
-      {" "}
       {prefix}
+      {" "}
       {formatValue}
+      {" "}
       {suffix}
     </>
   );
