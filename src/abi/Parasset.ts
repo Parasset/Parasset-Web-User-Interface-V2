@@ -231,7 +231,7 @@ export class Parasset {
       const NESTToUSDTPrice = await this.getNESTToUSDTPrice();
       const NESTToETHPrice = await this.getNESTToETHPrice();
       const NESTToBTCPrice = await this.getNESTToBTCPrice();
-
+      const BTCToUSDTPrice = await this.getBTCToUSDTPrice();
       let {maxSubM, maxAddP, mortgageRate} = await this.getInfoRealTime(
         mortgagePoolContract,
         mortgageToken,
@@ -240,7 +240,6 @@ export class Parasset {
       );
       maxSubM = getToNumber(maxSubM, mortgageToken.decimal);
       maxAddP = getToNumber(maxAddP, uToken.decimal);
-
       const priceList = {
         ETHPUSD: {
           mortgagePrice: ETHToUSDTPrice,
@@ -258,16 +257,22 @@ export class Parasset {
           mortgageToParassetPrice: NESTToUSDTPrice,
         },
         NESTPETH: {
-          mortgagePrice: NESTToUSDTPrice,
-          parassetPrice: ETHToUSDTPrice,
+          mortgagePrice: NESTToETHPrice,
+          parassetPrice: 1,
           mortgageToParassetPrice: NESTToETHPrice,
         },
         NESTPBTC: {
           mortgagePrice: NESTToBTCPrice,
-          parassetPrice: ETHToBTCPrice,
+          parassetPrice: 1,
           mortgageToParassetPrice: NESTToBTCPrice,
         },
+        HBTCPUSD: {
+          mortgagePrice: BTCToUSDTPrice,
+          parassetPrice: 1,
+          mortgageToParassetPrice: BTCToUSDTPrice,
+        }
       };
+      console.log(key, priceList[key])
       const mortgagePrice = priceList[key].mortgagePrice;
       const parassetPrice = priceList[key].parassetPrice;
       const mortgageToParassetPrice = priceList[key].mortgageToParassetPrice;
@@ -316,7 +321,7 @@ export class Parasset {
         maxAddPValue: new BigNumber(maxAddP).times(parassetPrice).toNumber(),
       };
     } catch (err) {
-      console.log(err, "err");
+      console.log(err)
       return "0";
     }
   }
@@ -356,6 +361,20 @@ export class Parasset {
       )
     } catch (error) {
       return "0";
+    }
+  }
+
+  async getBTCToUSDTPrice() {
+    try {
+      const {NestQuery2} = this.contracts;
+      const {HBTC} = this.externalTokens;
+      const {avgPrice: avgPriceHBTC} = await NestQuery2['triggeredPriceInfo(uint256,uint256)'](0, 0);
+      return getNumberToFixed(
+        new BigNumber(2000)
+          .div(getToNumber(avgPriceHBTC, HBTC.decimal))
+      )
+    }catch (error) {
+      return "0"
     }
   }
 

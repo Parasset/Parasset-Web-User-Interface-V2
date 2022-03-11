@@ -81,14 +81,12 @@ const Overview: React.FC = () => {
   const parassetValue = useMemo(() => {
     //两个平行资产总供应*对U价值
     const PUSDValue = new BigNumber(PUSDTotalSupply).times(1);
-
     const PETHValue = new BigNumber(PETHTotalSupply).times(
       ETHPUSDDebtInfo?.mortgagePrice
     );
     const PBTCValue = new BigNumber(PBTCTotalSupply).times(
       HBTCPUSDDebtInfo?.mortgagePrice
     );
-
     return $isPositiveNumber(
       $isFiniteNumber(PUSDValue.plus(PETHValue).plus(PBTCValue).toNumber())
     );
@@ -185,11 +183,11 @@ const Overview: React.FC = () => {
       </Container>
       <Container title={t("pxzc")}>
         <div className="flex-jc-center-pc">
-          {/*<ListItem*/}
-          {/*  text={t("pxzczjz")}*/}
-          {/*  color="#000"*/}
-          {/*  value={<Value value={parassetValue} prefix="$" />}*/}
-          {/*/>*/}
+          <ListItem
+            text={t("pxzczjz")}
+            color="#000"
+            value={<Value value={parassetValue} prefix="$" />}
+          />
           <ListItem
             text={`PUSD ${t("ltl")}`}
             color="#000"
