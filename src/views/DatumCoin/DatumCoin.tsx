@@ -1,9 +1,9 @@
 //@ts-nocheck
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {useCallback, useEffect, useMemo, useState} from "react";
 import * as echarts from "echarts";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 import BigNumber from "bignumber.js";
-import { $isFiniteNumber, $isPositiveNumber } from "../../utils/utils";
+import {$isFiniteNumber, $isPositiveNumber} from "../../utils/utils";
 import Container from "../../components/Datum/Container";
 
 import Picker from "../../components/Datum/Picker";
@@ -13,26 +13,29 @@ import useDebt from "../../hooks/debt/useDebt";
 import useTVL from "../../hooks/debt/useTVL";
 import useDebtInfo from "../../hooks/debt/useDebtInfo";
 import useTotalSupply from "./../../hooks/useTokenTotalSupply";
+
 const DatumCoin: React.FC = () => {
-  const { t, i18n } = useTranslation();
+  const {t, i18n} = useTranslation();
   const parasset = useParasset();
   const ETHDebt = useDebt("ETHPUSD");
   const NESTPUSDDebt = useDebt("NESTPUSD");
   const NESTPETHDebt = useDebt("NESTPETH");
-  const { info: ETHDebtInfo } = useDebtInfo(ETHDebt);
-  const { info: NESTPUSDDebtInfo } = useDebtInfo(NESTPUSDDebt);
-  const { info: NESTPETHDebtfo } = useDebtInfo(NESTPETHDebt);
-
+  const HBTCPUSDDebt = useDebt("HBTCPUSD");
+  const {info: ETHDebtInfo} = useDebtInfo(ETHDebt);
+  const {info: NESTPUSDDebtInfo} = useDebtInfo(NESTPUSDDebt);
+  const {info: NESTPETHDebtfo} = useDebtInfo(NESTPETHDebt);
+  const {info: HBTCUSDTDebtInfo} = useDebtInfo(HBTCPUSDDebt);
   const PUSDToken = parasset?.externalTokens["PUSD"];
   const PETHToken = parasset?.externalTokens["PETH"];
+  const PBTCToken = parasset?.externalTokens["PBTC"];
   const PUSDTotalSupply = useTotalSupply(PUSDToken);
   const PETHTotalSupply = useTotalSupply(PETHToken);
+  const PBTCTotalSupply = useTotalSupply(PBTCToken);
   const ETHPUSDTVL = useTVL(
     ETHDebt?.mortgagePoolContract,
     ETHDebt?.mortgageToken,
     ETHDebtInfo?.mortgagePrice
   );
-
   const NESTPUSDTVL = useTVL(
     NESTPUSDDebt?.mortgagePoolContract,
     NESTPUSDDebt?.mortgageToken,
@@ -43,7 +46,6 @@ const DatumCoin: React.FC = () => {
     NESTPETHDebt?.mortgageToken,
     NESTPETHDebtfo?.mortgagePrice
   );
-
   const ETHTVL = useMemo(() => {
     return $isPositiveNumber($isFiniteNumber(ETHPUSDTVL));
   }, [ETHPUSDTVL]);
@@ -55,7 +57,7 @@ const DatumCoin: React.FC = () => {
 
   const [tvlDatumValue, setTvlDatumValue] = useState("1W");
   const [debtDatumValue, setDebtDatumValue] = useState("1W");
-  const { tvlDatum, debtDatum } = useCoinDatum({
+  const {tvlDatum, debtDatum} = useCoinDatum({
     tvlDatumValue,
     debtDatumValue,
   });
@@ -69,13 +71,16 @@ const DatumCoin: React.FC = () => {
 
   const PETHValue = useMemo(() => {
     //*对U价值
-
     const PETHValue = new BigNumber(PETHTotalSupply).times(
       ETHDebtInfo?.mortgagePrice
     );
     return $isPositiveNumber($isFiniteNumber(PETHValue.toNumber()));
   }, [PETHTotalSupply, ETHDebtInfo?.mortgagePrice]);
 
+  const PBTCValue = useMemo(() => {
+    const PBTCValue = new BigNumber(PBTCTotalSupply).times(HBTCUSDTDebtInfo?.mortgagePrice)
+    return $isPositiveNumber($isFiniteNumber(PBTCValue.toNumber()))
+  }, [PBTCTotalSupply, HBTCUSDTDebtInfo?.mortgagePrice])
   let initTvlChart = useCallback(() => {
     let element = document.getElementById("tvlChart");
     let myChart = echarts.init(element);
@@ -114,7 +119,7 @@ const DatumCoin: React.FC = () => {
         axisLabel: {
           interval: 0,
           rotate: -20,
-          formatter: function (value, index) {
+          formatter: function (value) {
             return echarts.format.formatTime("MM.dd", new Date(value));
             // return echarts.format.formatTime('yyyy-MM-dd', new Date(value));
           },
@@ -128,7 +133,7 @@ const DatumCoin: React.FC = () => {
           name: t("dyzc"),
           type: "line",
           stack: "Total",
-          data: tvlDatum.morTvlDatum.map((item, i) => {
+          data: tvlDatum.morTvlDatum.map((item) => {
             return [item.x, item.y];
           }),
         },
@@ -136,7 +141,7 @@ const DatumCoin: React.FC = () => {
           name: t("pxzc"),
           type: "line",
           stack: "Total",
-          data: tvlDatum.insTvlDatum.map((item, i) => {
+          data: tvlDatum.insTvlDatum.map((item) => {
             return [item.x, item.y];
           }),
         },
@@ -183,7 +188,7 @@ const DatumCoin: React.FC = () => {
         axisLabel: {
           interval: 0,
           rotate: -20,
-          formatter: function (value, index) {
+          formatter: function (value) {
             return echarts.format.formatTime("MM.dd", new Date(value));
             // return echarts.format.formatTime('yyyy-MM-dd', new Date(value));
           },
@@ -197,7 +202,7 @@ const DatumCoin: React.FC = () => {
           name: t("zcs"),
           type: "line",
           stack: "Total",
-          data: debtDatum.debtDatum.map((item, i) => {
+          data: debtDatum.debtDatum.map((item) => {
             return [item.x, item.y];
           }),
         },
@@ -205,7 +210,7 @@ const DatumCoin: React.FC = () => {
           name: t("pjdyl"),
           type: "line",
           stack: "Total",
-          data: debtDatum.avgRateDatum.map((item, i) => {
+          data: debtDatum.avgRateDatum.map((item) => {
             return [item.x, item.y];
           }),
         },
@@ -246,8 +251,8 @@ const DatumCoin: React.FC = () => {
           type: "pie",
           radius: "50%",
           data: [
-            { value: ETHTVL, name: "ETH" },
-            { value: NESTTVL, name: "NEST" },
+            {value: ETHTVL, name: "ETH"},
+            {value: NESTTVL, name: "NEST"},
           ],
           emphasis: {
             itemStyle: {
@@ -293,8 +298,9 @@ const DatumCoin: React.FC = () => {
           type: "pie",
           radius: "50%",
           data: [
-            { value: PUSDValue, name: "PUSD" },
-            { value: PETHValue, name: "PETH" },
+            {value: PUSDValue, name: "PUSD"},
+            {value: PETHValue, name: "PETH"},
+            {value: PBTCValue, name: "PBTC"},
           ],
           emphasis: {
             itemStyle: {
@@ -307,7 +313,7 @@ const DatumCoin: React.FC = () => {
       ],
     };
     myChart.setOption(option);
-  }, [PUSDValue, PETHValue]);
+  }, [PUSDValue, PETHValue, PBTCValue]);
 
   useEffect(() => {
     initStakedAssetsChart();
@@ -334,19 +340,19 @@ const DatumCoin: React.FC = () => {
     <>
       <Container title="TVL">
         <Picker value={tvlDatumValue} onChangePicker={setTvlDatumValue}>
-          <div />
+          <div/>
         </Picker>
-        <div id={"tvlChart"} style={{ height: 400 }} />
+        <div id={"tvlChart"} style={{height: 400}}/>
       </Container>
       <Container title={t("zhaicang")}>
         <Picker value={debtDatumValue} onChangePicker={setDebtDatumValue}>
-          <div />
+          <div/>
         </Picker>
-        <div style={{ height: 400 }} id={"debtChart"} />
+        <div style={{height: 400}} id={"debtChart"}/>
       </Container>
       <Container title={t("zcfb")}>
-        <div id={"stakedAssets"} style={{ height: 400 }} />
-        <div id={"parallelAssets"} style={{ height: 400 }} />
+        <div id={"stakedAssets"} style={{height: 400}}/>
+        <div id={"parallelAssets"} style={{height: 400}}/>
       </Container>
     </>
   );
