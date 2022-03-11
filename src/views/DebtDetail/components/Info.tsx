@@ -28,7 +28,7 @@ const Info: React.FC = ({ debt, debtInfo }) => {
             <div className={` ${isMobile ? "" : "wing-blank  "} `}>
               <Spacer size={isMobile ? "mmd" : "md"} />
               <div className="font-size-24 bold-600 text-center">
-                <Value value={debtInfo?.liqPrice} suffix={debt.liqUnit} />
+                <Value value={debtInfo?.liqPrice} suffix={debt.liqUnit} decimals={6}/>
               </div>
               <Spacer size={isMobile ? "mmd" : "md"} />
               <div className="flex-jc-center">
