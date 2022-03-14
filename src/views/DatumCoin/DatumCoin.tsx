@@ -23,7 +23,7 @@ const DatumCoin: React.FC = () => {
   const HBTCPUSDDebt = useDebt("HBTCPUSD");
   const {info: ETHDebtInfo} = useDebtInfo(ETHDebt);
   const {info: NESTPUSDDebtInfo} = useDebtInfo(NESTPUSDDebt);
-  const {info: NESTPETHDebtfo} = useDebtInfo(NESTPETHDebt);
+  const {info: NESTPETHDebtInfo} = useDebtInfo(NESTPETHDebt);
   const {info: HBTCUSDTDebtInfo} = useDebtInfo(HBTCPUSDDebt);
   const PUSDToken = parasset?.externalTokens["PUSD"];
   const PETHToken = parasset?.externalTokens["PETH"];
@@ -44,7 +44,7 @@ const DatumCoin: React.FC = () => {
   const NESTPETHTVL = useTVL(
     NESTPETHDebt?.mortgagePoolContract,
     NESTPETHDebt?.mortgageToken,
-    NESTPETHDebtfo?.mortgagePrice
+    NESTPETHDebtInfo?.mortgagePrice
   );
   const ETHTVL = useMemo(() => {
     return $isPositiveNumber($isFiniteNumber(ETHPUSDTVL));
