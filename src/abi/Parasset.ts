@@ -154,18 +154,21 @@ export class Parasset {
       // owner	债仓所有人地址
       const {NestQuery} = this.contracts;
       const {USDT} = this.externalTokens;
+
       let {avgPrice: tokenPrice} = await NestQuery.triggeredPriceInfo(
         mortgageToken.address
-      );
-
-      let {avgPrice: avgPriceUToken} = await NestQuery.triggeredPriceInfo(
-        USDT.address
       );
 
       let uTokenPrice;
       if (uToken.symbol === "PETH") {
         uTokenPrice = "1000000000000000000";
-      } else {
+      } else if (uToken.symbol === 'HBTC') {
+        const res = await this.getETHToBTCPrice()
+        uTokenPrice = new BigNumber(res).shiftedBy(18).toString();
+      } else if (uToken.symbol === 'USDT') {
+        let {avgPrice: avgPriceUToken} = await NestQuery.triggeredPriceInfo(
+          USDT.address
+        );
         uTokenPrice = avgPriceUToken.toString();
       }
 
@@ -175,7 +178,6 @@ export class Parasset {
         mortgageTokenAddress
       );
       maxRateNum = maxRateNum.toString();
-
       return await mortgagePoolContract.getInfoRealTime(
         mortgageTokenAddress,
         mortgageToken.symbol === "ETH"
