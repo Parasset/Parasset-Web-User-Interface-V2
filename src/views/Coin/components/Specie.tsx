@@ -349,16 +349,6 @@ const Specie: React.FC = ({}) => {
     parasset?.contracts["PBTCMorPool"]?.address,
     inputValue
   );
-  const [approveStatusHBTCPETH, approveHBTCPETH] = useApprove(
-    parasset?.externalTokens["HBTC"],
-    parasset?.contracts["PETHMorPool"]?.address,
-    inputValue
-  );
-  const [approveStatusHBTCPUSD, approveHBTCPUSD] = useApprove(
-    parasset?.externalTokens["HBTC"],
-    parasset?.contracts["PUSDMorPool"]?.address,
-    inputValue
-  );
 
   const approveList = useMemo(() => {
     return {
@@ -373,14 +363,6 @@ const Specie: React.FC = ({}) => {
       NESTPBTC: {
         status: approveStatusNESTPBTC,
         approve: approveNESTPBTC,
-      },
-      HBTCPUSD: {
-        status: approveStatusHBTCPUSD,
-        approve: approveHBTCPUSD,
-      },
-      HBTCPETH: {
-        status: approveStatusHBTCPETH,
-        approve: approveHBTCPETH,
       },
       PETH: {
         status: approveStatusPETH,
@@ -398,10 +380,14 @@ const Specie: React.FC = ({}) => {
   }, [
     approveStatusPETH,
     approveStatusPUSD,
+    approveStatusPBTC,
     approvePETH,
     approvePUSD,
+    approvePBTC,
     approveStatusNESTPETH,
     approveStatusNESTPUSD,
+    approveStatusNESTPBTC,
+    approveNESTPBTC,
     approveNESTPETH,
     approveNESTPUSD,
   ]);
