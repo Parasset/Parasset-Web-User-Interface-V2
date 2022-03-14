@@ -164,8 +164,8 @@ export class Parasset {
         uTokenPrice = "1000000000000000000";
       } else if (uToken.symbol === 'HBTC') {
         const res = await this.getETHToBTCPrice()
-        uTokenPrice = new BigNumber(res).shiftedBy(18).toString();
-      } else if (uToken.symbol === 'USDT') {
+        uTokenPrice = (new BigNumber(res)).shiftedBy(18).toString();
+      } else {
         let {avgPrice: avgPriceUToken} = await NestQuery.triggeredPriceInfo(
           USDT.address
         );
@@ -188,7 +188,7 @@ export class Parasset {
         address
       );
     } catch (err) {
-      // console.log(err, "err");
+      console.log(err, "err");
       return {
         fee: 0,
       };
