@@ -23,19 +23,26 @@ const Overview: React.FC = () => {
   const PUSDToken = parasset?.externalTokens["PUSD"];
   const PETHToken = parasset?.externalTokens["PETH"];
   const PBTCToken = parasset?.externalTokens["PBTC"];
+
   const PUSDTotalSupply = useTotalSupply(PUSDToken);
   const PETHTotalSupply = useTotalSupply(PETHToken);
   const PBTCTotalSupply = useTotalSupply(PBTCToken);
+
   const { userOverview } = useUserOverview();
   const { debtOverview } = useDebtOverview();
+
   const ETHPUSDDebt = useDebt("ETHPUSD");
-  const HBTCPUSDDebt = useDebt("HBTCPUSD");
+  const ETHPBTCDebt = useDebt("ETHPBTC");
   const NESTPUSDDebt = useDebt("NESTPUSD");
   const NESTPETHDebt = useDebt("NESTPETH");
+  const NESTPBTCDebt = useDebt("NESTPBTC");
+
   const { info: ETHPUSDDebtInfo } = useDebtInfo(ETHPUSDDebt);
-  const { info: HBTCPUSDDebtInfo } = useDebtInfo(HBTCPUSDDebt);
+  const { info: ETHPBTCDebtInfo } = useDebtInfo(ETHPBTCDebt);
   const { info: NESTPUSDDebtInfo } = useDebtInfo(NESTPUSDDebt);
   const { info: NESTPETHDebtInfo } = useDebtInfo(NESTPETHDebt);
+  const { info: NESTPBTCDebtInfo } = useDebtInfo(NESTPBTCDebt);
+
   const itanks = useItanks();
   //两个保险池相加
   const { itankInfo: USDTItankInfo } = useItankInfo(
@@ -47,12 +54,17 @@ const Overview: React.FC = () => {
   const { itankInfo: HBTCItankInfo } = useItankInfo(
     itanks.length ? itanks[2] : null
   );
+
   const ETHPUSDTVL = useTVL(
     ETHPUSDDebt?.mortgagePoolContract,
     ETHPUSDDebt?.mortgageToken,
     ETHPUSDDebtInfo?.mortgagePrice
   );
-
+  const ETHPBTCTVL = useTVL(
+    ETHPBTCDebt?.mortgagePoolContract,
+    ETHPBTCDebt?.mortgageToken,
+    ETHPBTCDebtInfo?.mortgagePrice
+  )
   const NESTPUSDTVL = useTVL(
     NESTPUSDDebt?.mortgagePoolContract,
     NESTPUSDDebt?.mortgageToken,
@@ -63,12 +75,20 @@ const Overview: React.FC = () => {
     NESTPETHDebt?.mortgageToken,
     NESTPETHDebtInfo?.mortgagePrice
   );
+  const NESTPBTCTVL = useTVL(
+    NESTPBTCDebt?.mortgagePoolContract,
+    NESTPBTCDebt?.mortgageToken,
+    NESTPBTCDebtInfo?.mortgagePrice
+  );
 
   const ETHPUSDStaked = useStaked(
     ETHPUSDDebt?.mortgagePoolContract,
     ETHPUSDDebt?.mortgageToken
   );
-
+  const ETHPBTCStaked = useStaked(
+    ETHPBTCDebt?.mortgagePoolContract,
+    ETHPBTCDebt?.mortgageToken
+  );
   const NESTPUSDStaked = useStaked(
     NESTPUSDDebt?.mortgagePoolContract,
     NESTPUSDDebt?.mortgageToken
@@ -77,16 +97,19 @@ const Overview: React.FC = () => {
     NESTPETHDebt?.mortgagePoolContract,
     NESTPETHDebt?.mortgageToken
   );
+  const NESTPBTCStaked = useStaked(
+    NESTPBTCDebt?.mortgagePoolContract,
+    NESTPBTCDebt?.mortgageToken
+  );
 
   const parassetValue = useMemo(() => {
-    //两个平行资产总供应*对U价值
     const PUSDValue = new BigNumber(PUSDTotalSupply).times(1);
     const PETHValue = new BigNumber(PETHTotalSupply).times(
       ETHPUSDDebtInfo?.mortgagePrice
     );
-    const PBTCValue = new BigNumber(PBTCTotalSupply).times(
-      HBTCPUSDDebtInfo?.mortgagePrice
-    );
+    const PBTCValue = new BigNumber(PBTCTotalSupply)
+      .times(ETHPUSDDebtInfo?.mortgagePrice)
+      .div(ETHPBTCDebtInfo?.mortgagePrice)
     return $isPositiveNumber(
       $isFiniteNumber(PUSDValue.plus(PETHValue).plus(PBTCValue).toNumber())
     );
@@ -95,29 +118,30 @@ const Overview: React.FC = () => {
     PETHTotalSupply,
     PBTCTotalSupply,
     ETHPUSDDebtInfo?.mortgagePrice,
-    HBTCPUSDDebtInfo?.mortgagePrice,
+    ETHPBTCDebtInfo?.mortgagePrice
   ]);
 
   const ETHTVL = useMemo(() => {
-    return $isPositiveNumber($isFiniteNumber(ETHPUSDTVL));
-  }, [ETHPUSDTVL]);
+    return $isPositiveNumber($isFiniteNumber(new BigNumber(ETHPUSDTVL).plus(ETHPBTCTVL).toNumber()));
+  }, [ETHPUSDTVL, ETHPBTCTVL]);
+
   const NESTTVL = useMemo(() => {
     return $isPositiveNumber(
-      $isFiniteNumber(new BigNumber(NESTPUSDTVL).plus(NESTPETHTVL).toNumber())
+      $isFiniteNumber(new BigNumber(NESTPUSDTVL).plus(NESTPETHTVL).plus(NESTPBTCTVL).toNumber())
     );
-  }, [NESTPUSDTVL, NESTPETHTVL]);
+  }, [NESTPUSDTVL, NESTPETHTVL, NESTPBTCTVL]);
 
   const ETHStaked = useMemo(() => {
-    return $isPositiveNumber($isFiniteNumber(ETHPUSDStaked));
-  }, [ETHPUSDStaked]);
+    return $isPositiveNumber($isFiniteNumber(new BigNumber(ETHPUSDStaked).plus(ETHPBTCStaked).toNumber()));
+  }, [ETHPUSDStaked, ETHPBTCStaked]);
 
   const NESTStaked = useMemo(() => {
     return $isPositiveNumber(
       $isFiniteNumber(
-        new BigNumber(NESTPUSDStaked).plus(NESTPETHStaked).toNumber()
+        new BigNumber(NESTPUSDStaked).plus(NESTPETHStaked).plus(NESTPBTCStaked).toNumber()
       )
     );
-  }, [NESTPUSDStaked, NESTPETHStaked]);
+  }, [NESTPUSDStaked, NESTPETHStaked, NESTPBTCStaked]);
 
   const totalMortgageAssetValue = useMemo(() => {
     return $isPositiveNumber(

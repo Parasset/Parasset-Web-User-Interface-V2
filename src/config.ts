@@ -146,27 +146,7 @@ export const debtDefinitions = {
     depositTokenName: "NEST",
     earnTokenName: "PBTC",
     liqUnit: "HBTC",
-  },
-  HBTCPETH: {
-    name: "HBTC-PETH",
-    key: "HBTCPETH",
-    icon1: "HBTC",
-    icon2: "PETH",
-    contract: "PETHMorPool",
-    depositTokenName: "HBTC",
-    earnTokenName: "PETH",
-    liqUnit: "ETH",
-  },
-  HBTCPUSD: {
-    name: "HBTC-PUSD",
-    key: "HBTCPUSD",
-    icon1: "HBTC",
-    icon2: "PUSD",
-    contract: "PUSDMorPool",
-    depositTokenName: "HBTC",
-    earnTokenName: "PUSD",
-    liqUnit: "USDT",
-  },
+  }
 };
 
 export default configurations[process.env.REACT_APP_NODE_ENV || "production"];

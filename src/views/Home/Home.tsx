@@ -1,5 +1,5 @@
 //@ts-nocheck
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import BigNumber from "bignumber.js";
 import { $isFiniteNumber, $isPositiveNumber } from "../../utils/utils";
@@ -56,18 +56,28 @@ const Home: React.FC = () => {
   const { itankInfo: itankInfo2 } = useItankInfo(
     itanks.length ? itanks[1] : null
   );
-  const ETHDebt = useDebt("ETHPUSD");
+  const ETHPUSDDebt = useDebt("ETHPUSD");
+  const ETHPBTCDebt = useDebt("ETHPBTC");
   const NESTPUSDDebt = useDebt("NESTPUSD");
   const NESTPETHDebt = useDebt("NESTPETH");
-  const { info: ETHDebtInfo } = useDebtInfo(ETHDebt);
-  const { info: NESTPUSDDebtInfo } = useDebtInfo(NESTPUSDDebt);
-  const { info: NESTPETHDebtfo } = useDebtInfo(NESTPETHDebt);
-  const ETHPUSDTVL = useTVL(
-    ETHDebt?.mortgagePoolContract,
-    ETHDebt?.mortgageToken,
-    ETHDebtInfo?.mortgagePrice
-  );
+  const NESTPBTCDebt = useDebt("NESTPBTC");
 
+  const { info: ETHPUSDDebtInfo } = useDebtInfo(ETHPUSDDebt);
+  const { info: ETHPBTCDebtInfo } = useDebtInfo(ETHPBTCDebt);
+  const { info: NESTPUSDDebtInfo } = useDebtInfo(NESTPUSDDebt);
+  const { info: NESTPETHDebtInfo } = useDebtInfo(NESTPETHDebt);
+  const { info: NESTPBTCDebtInfo } = useDebtInfo(NESTPBTCDebt);
+
+  const ETHPUSDTVL = useTVL(
+    ETHPUSDDebt?.mortgagePoolContract,
+    ETHPUSDDebt?.mortgageToken,
+    ETHPUSDDebtInfo?.mortgagePrice
+  );
+  const ETHPBTCTVL = useTVL(
+    ETHPBTCDebt?.mortgagePoolContract,
+    ETHPBTCDebt?.mortgageToken,
+    ETHPBTCDebtInfo?.mortgagePrice
+  )
   const NESTPUSDTVL = useTVL(
     NESTPUSDDebt?.mortgagePoolContract,
     NESTPUSDDebt?.mortgageToken,
@@ -76,14 +86,21 @@ const Home: React.FC = () => {
   const NESTPETHTVL = useTVL(
     NESTPETHDebt?.mortgagePoolContract,
     NESTPETHDebt?.mortgageToken,
-    NESTPETHDebtfo?.mortgagePrice
+    NESTPETHDebtInfo?.mortgagePrice
   );
-
+  const NESTPBTCTVL = useTVL(
+    NESTPBTCDebt?.mortgagePoolContract,
+    NESTPBTCDebt?.mortgageToken,
+    NESTPBTCDebtInfo?.mortgagePrice
+  )
   const ETHPUSDStaked = useStaked(
-    ETHDebt?.mortgagePoolContract,
-    ETHDebt?.mortgageToken
+    ETHPUSDDebt?.mortgagePoolContract,
+    ETHPUSDDebt?.mortgageToken
   );
-
+  const ETHPBTCStaked = useStaked(
+    ETHPBTCDebt?.mortgagePoolContract,
+    ETHPBTCDebt?.mortgageToken
+  )
   const NESTPUSDStaked = useStaked(
     NESTPUSDDebt?.mortgagePoolContract,
     NESTPUSDDebt?.mortgageToken
@@ -92,10 +109,13 @@ const Home: React.FC = () => {
     NESTPETHDebt?.mortgagePoolContract,
     NESTPETHDebt?.mortgageToken
   );
-
+  const NESTPBTCStaked = useStaked(
+    NESTPBTCDebt?.mortgagePoolContract,
+    NESTPBTCDebt?.mortgageToken
+  )
   const maxRatioETH = useMaxRatio(
-    ETHDebt?.mortgagePoolContract,
-    ETHDebt?.mortgageToken
+    ETHPUSDDebt?.mortgagePoolContract,
+    ETHPUSDDebt?.mortgageToken
   );
   const maxRatioNEST = useMaxRatio(
     NESTPUSDDebt?.mortgagePoolContract,
@@ -104,27 +124,29 @@ const Home: React.FC = () => {
 
   const PUSDTotalSupply = useTotalSupply(parasset?.externalTokens["PUSD"]);
   const PETHTotalSupply = useTotalSupply(parasset?.externalTokens["PETH"]);
+  const PBTCTotalSupply = useTotalSupply(parasset?.externalTokens["PBTC"]);
 
   const ETHTVL = useMemo(() => {
-    return $isPositiveNumber($isFiniteNumber(ETHPUSDTVL));
-  }, [ETHPUSDTVL]);
+    return $isPositiveNumber($isFiniteNumber(new BigNumber(ETHPUSDTVL).plus(ETHPBTCTVL).toNumber()));
+  }, [ETHPUSDTVL, ETHPBTCTVL]);
+
   const NESTTVL = useMemo(() => {
     return $isPositiveNumber(
-      $isFiniteNumber(new BigNumber(NESTPUSDTVL).plus(NESTPETHTVL).toNumber())
+      $isFiniteNumber(new BigNumber(NESTPUSDTVL).plus(NESTPETHTVL).plus(NESTPBTCTVL).toNumber())
     );
-  }, [NESTPUSDTVL, NESTPETHTVL]);
+  }, [NESTPUSDTVL, NESTPETHTVL, NESTPBTCTVL]);
 
   const ETHStaked = useMemo(() => {
-    return $isPositiveNumber($isFiniteNumber(ETHPUSDStaked));
-  }, [ETHPUSDStaked]);
+    return $isPositiveNumber($isFiniteNumber(new BigNumber(ETHPUSDStaked).plus(ETHPBTCStaked).toNumber()));
+  }, [ETHPUSDStaked, ETHPBTCStaked]);
 
   const NESTStaked = useMemo(() => {
     return $isPositiveNumber(
       $isFiniteNumber(
-        new BigNumber(NESTPUSDStaked).plus(NESTPETHStaked).toNumber()
+        new BigNumber(NESTPUSDStaked).plus(NESTPETHStaked).plus(NESTPBTCStaked).toNumber()
       )
     );
-  }, [NESTPUSDStaked, NESTPETHStaked]);
+  }, [NESTPUSDStaked, NESTPETHStaked, NESTPBTCStaked]);
 
   const list = useMemo(() => {
     return [
@@ -138,7 +160,7 @@ const Home: React.FC = () => {
 
         liqRatio: $isPositiveNumber(
           $isFiniteNumber(
-            new BigNumber(ETHDebtInfo.liqRatio).times(100).toNumber()
+            new BigNumber(ETHPUSDDebtInfo.liqRatio).times(100).toNumber()
           )
         ),
         balance: "",
@@ -147,6 +169,10 @@ const Home: React.FC = () => {
           {
             name: "PUSD",
             id: "PUSD",
+          },
+          {
+            name: "PBTC",
+            id: "PBTC",
           },
         ],
       },
@@ -173,6 +199,10 @@ const Home: React.FC = () => {
             name: "PETH",
             id: "PETH",
           },
+          {
+            name: "PBTC",
+            id: "PBTC",
+          },
         ],
       },
     ];
@@ -181,7 +211,7 @@ const Home: React.FC = () => {
     NESTTVL,
     maxRatioETH,
     maxRatioNEST,
-    ETHDebtInfo,
+    ETHPUSDDebtInfo,
     NESTPUSDDebtInfo,
     ETHStaked,
     NESTStaked,
@@ -193,16 +223,21 @@ const Home: React.FC = () => {
   }, [ETHTVL, NESTTVL]);
 
   const parassetValue = useMemo(() => {
-    //两个平行资产总供应*对U价值
+    // 平行资产总供应*对U价值
     const PUSDValue = new BigNumber(PUSDTotalSupply).times(1);
 
     const PETHValue = new BigNumber(PETHTotalSupply).times(
-      ETHDebtInfo?.mortgagePrice
+      ETHPUSDDebtInfo?.mortgagePrice
     );
+
+    const PBTCValue = new BigNumber(PBTCTotalSupply)
+      .times(ETHPUSDDebtInfo?.mortgagePrice)
+      .div(ETHPBTCDebtInfo?.mortgagePrice)
+
     return $isPositiveNumber(
-      $isFiniteNumber(PUSDValue.plus(PETHValue).toNumber())
+      $isFiniteNumber(PUSDValue.plus(PETHValue).plus(PBTCValue).toNumber())
     );
-  }, [PUSDTotalSupply, PETHTotalSupply, ETHDebtInfo?.mortgagePrice]);
+  }, [PUSDTotalSupply, PETHTotalSupply, PBTCTotalSupply, ETHPUSDDebtInfo?.mortgagePrice, ETHPBTCDebtInfo?.mortgagePrice]);
 
   const totalItankValue = useMemo(() => {
     //保险池内资产两种币的总和换成USDT
