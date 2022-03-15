@@ -21,24 +21,34 @@ const ITank: React.FC = () => {
   const { itankInfo: itankInfo2 } = useItankInfo(
     itanks.length ? itanks[1] : null
   );
+  const { itankInfo: itankInfo3 } = useItankInfo(
+    itanks.length ? itanks[2] : null
+  )
   const totalItankValue = useMemo(() => {
-    //保险池内资产两种币的总和换成USDT
+    //保险池内资产的总和换成USDT
     let tvl1 = new BigNumber(itankInfo1.depositFundValue).plus(
       itankInfo1.earnFundValue
     );
     let tvl2 = new BigNumber(itankInfo2.depositFundValue).plus(
       itankInfo2.earnFundValue
     );
+    let tvl3 = new BigNumber(itankInfo3.depositFundValue).plus(
+      itankInfo3.earnFundValue
+    );
+
     tvl1 = $isPositiveNumber($isFiniteNumber(tvl1.toNumber()));
     tvl2 = $isPositiveNumber($isFiniteNumber(tvl2.toNumber()));
+    tvl3 = $isPositiveNumber($isFiniteNumber(tvl3.toNumber()));
     return $isPositiveNumber(
-      $isFiniteNumber(new BigNumber(tvl1).plus(tvl2).toNumber())
+      $isFiniteNumber(new BigNumber(tvl1).plus(tvl2).plus(tvl3).toNumber())
     );
   }, [
     itankInfo1.depositFundValue,
     itankInfo1.earnFundValue,
     itankInfo2.depositFundValue,
     itankInfo2.earnFundValue,
+    itankInfo3.depositFundValue,
+    itankInfo3.earnFundValue,
   ]);
 
   useEffect(() => {
