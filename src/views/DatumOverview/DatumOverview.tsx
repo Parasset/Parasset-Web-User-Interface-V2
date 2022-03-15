@@ -40,8 +40,6 @@ const Overview: React.FC = () => {
   const { info: ETHPUSDDebtInfo } = useDebtInfo(ETHPUSDDebt);
   const { info: ETHPBTCDebtInfo } = useDebtInfo(ETHPBTCDebt);
   const { info: NESTPUSDDebtInfo } = useDebtInfo(NESTPUSDDebt);
-  const { info: NESTPETHDebtInfo } = useDebtInfo(NESTPETHDebt);
-  const { info: NESTPBTCDebtInfo } = useDebtInfo(NESTPBTCDebt);
 
   const itanks = useItanks();
   //两个保险池相加
@@ -63,7 +61,7 @@ const Overview: React.FC = () => {
   const ETHPBTCTVL = useTVL(
     ETHPBTCDebt?.mortgagePoolContract,
     ETHPBTCDebt?.mortgageToken,
-    ETHPBTCDebtInfo?.mortgagePrice
+    ETHPUSDDebtInfo?.mortgagePrice
   )
   const NESTPUSDTVL = useTVL(
     NESTPUSDDebt?.mortgagePoolContract,
@@ -73,12 +71,12 @@ const Overview: React.FC = () => {
   const NESTPETHTVL = useTVL(
     NESTPETHDebt?.mortgagePoolContract,
     NESTPETHDebt?.mortgageToken,
-    NESTPETHDebtInfo?.mortgagePrice
+    NESTPUSDDebtInfo?.mortgagePrice
   );
   const NESTPBTCTVL = useTVL(
     NESTPBTCDebt?.mortgagePoolContract,
     NESTPBTCDebt?.mortgageToken,
-    NESTPBTCDebtInfo?.mortgagePrice
+    NESTPUSDDebtInfo?.mortgagePrice
   );
 
   const ETHPUSDStaked = useStaked(

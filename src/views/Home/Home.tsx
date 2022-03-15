@@ -1,6 +1,5 @@
 //@ts-nocheck
 import React, { useMemo } from "react";
-import { useTranslation } from "react-i18next";
 import BigNumber from "bignumber.js";
 import { $isFiniteNumber, $isPositiveNumber } from "../../utils/utils";
 
@@ -20,12 +19,11 @@ import useTotalSupply from "./../../hooks/useTokenTotalSupply";
 import useItanks from "./../../hooks/itank/useItanks";
 import useItankInfo from "./../../hooks/itank/useItankInfo";
 const Home: React.FC = () => {
-  const { t } = useTranslation();
   const parasset = useParasset();
   const itanks = useItanks();
   const titles = [
     {
-      text: "dyzc",
+      text: "Assets",
       className: "flex1",
     },
 
@@ -35,17 +33,17 @@ const Home: React.FC = () => {
     },
 
     {
-      text: "diyashu",
+      text: "Staked",
       className: "flex1",
     },
 
     {
-      text: "zddyl",
+      text: "Max Coll. Ratio",
       className: "flex1",
     },
 
     {
-      text: "qsdyl",
+      text: "Liquidation Ratio",
       className: "flex1",
     },
   ];
@@ -65,8 +63,6 @@ const Home: React.FC = () => {
   const { info: ETHPUSDDebtInfo } = useDebtInfo(ETHPUSDDebt);
   const { info: ETHPBTCDebtInfo } = useDebtInfo(ETHPBTCDebt);
   const { info: NESTPUSDDebtInfo } = useDebtInfo(NESTPUSDDebt);
-  const { info: NESTPETHDebtInfo } = useDebtInfo(NESTPETHDebt);
-  const { info: NESTPBTCDebtInfo } = useDebtInfo(NESTPBTCDebt);
 
   const ETHPUSDTVL = useTVL(
     ETHPUSDDebt?.mortgagePoolContract,
@@ -76,7 +72,7 @@ const Home: React.FC = () => {
   const ETHPBTCTVL = useTVL(
     ETHPBTCDebt?.mortgagePoolContract,
     ETHPBTCDebt?.mortgageToken,
-    ETHPBTCDebtInfo?.mortgagePrice
+    ETHPUSDDebtInfo?.mortgagePrice
   )
   const NESTPUSDTVL = useTVL(
     NESTPUSDDebt?.mortgagePoolContract,
@@ -86,12 +82,12 @@ const Home: React.FC = () => {
   const NESTPETHTVL = useTVL(
     NESTPETHDebt?.mortgagePoolContract,
     NESTPETHDebt?.mortgageToken,
-    NESTPETHDebtInfo?.mortgagePrice
+    NESTPUSDDebtInfo?.mortgagePrice
   );
   const NESTPBTCTVL = useTVL(
     NESTPBTCDebt?.mortgagePoolContract,
     NESTPBTCDebt?.mortgageToken,
-    NESTPBTCDebtInfo?.mortgagePrice
+    NESTPUSDDebtInfo?.mortgagePrice
   )
   const ETHPUSDStaked = useStaked(
     ETHPUSDDebt?.mortgagePoolContract,
@@ -216,7 +212,7 @@ const Home: React.FC = () => {
     ETHStaked,
     NESTStaked,
   ]);
-  const totalmortgageAssetValue = useMemo(() => {
+  const totalMortgageAssetValue = useMemo(() => {
     return $isPositiveNumber(
       $isFiniteNumber(new BigNumber(ETHTVL).plus(NESTTVL).toNumber())
     );
@@ -262,17 +258,17 @@ const Home: React.FC = () => {
   return (
     <>
       <BigValue
-        text={t("dyzcsdsz")}
+        text={"Staked Assets TVL"}
         color="#000"
-        value={<Value value={totalmortgageAssetValue} prefix="$" />}
+        value={<Value value={totalMortgageAssetValue} prefix="$" />}
       />
       <BigValue
-        text={t("pxzcltsz")}
+        text={"Parallel Assets CMV"}
         color="#000"
         value={<Value value={parassetValue} prefix="$" />}
       />
       <BigValue
-        text={t("bxcldxzsz")}
+        text={"Insurance Pool TVL"}
         color="#000"
         value={<Value value={totalItankValue} prefix="$" />}
       />
