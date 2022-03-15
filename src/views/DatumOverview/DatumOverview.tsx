@@ -163,10 +163,10 @@ const Overview: React.FC = () => {
 
   const HBTCItankValue = useMemo(() => {
     let tvl2 = new BigNumber(HBTCItankInfo.depositFundValue).plus(
-      ETHItankInfo.earnFundValue
+      HBTCItankInfo.earnFundValue
     );
     return $isPositiveNumber($isFiniteNumber(tvl2.toNumber()));
-  }, [ETHItankInfo.depositFundValue, ETHItankInfo.earnFundValue]);
+  }, [HBTCItankInfo.depositFundValue, HBTCItankInfo.earnFundValue]);
 
   const totalItankValue = useMemo(() => {
     //保险池内资产两种币的总和换成USDT
