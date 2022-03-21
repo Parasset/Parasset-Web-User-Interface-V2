@@ -30,13 +30,13 @@ const DatumItank: React.FC = () => {
     const usdtList = netValueDatum.filter((item) => item.type === "USDT");
     const ethList = netValueDatum.filter((item) => item.type === "ETH");
     const hbtcList = netValueDatum.filter((item) => item.type === "HBTC");
-    const usdtDatum = usdtList.map((item, i) => {
+    const usdtDatum = usdtList.map((item) => {
       return [item.x, item.y];
     });
-    const ethDatum = ethList.map((item, i) => {
+    const ethDatum = ethList.map((item) => {
       return [item.x, item.y];
     });
-    const hbtcDatum = hbtcList.map((item, i) => {
+    const hbtcDatum = hbtcList.map((item) => {
       return [item.x, item.y];
     });
 
@@ -58,7 +58,7 @@ const DatumItank: React.FC = () => {
         axisLabel: {
           interval: 0,
           rotate: -20,
-          formatter: function (value, index) {
+          formatter: function (value) {
             return echarts.format.formatTime("MM.dd", new Date(value));
             // return echarts.format.formatTime('yyyy-MM-dd', new Date(value));
           },
@@ -98,7 +98,7 @@ const DatumItank: React.FC = () => {
     let element = document.getElementById("totalFeeIncome");
     let myChart = echarts.init(element);
 
-    const data = feeDatum.map((item, i) => {
+    const data = feeDatum.map((item) => {
       return [item.x, item.y];
     });
 
@@ -127,7 +127,7 @@ const DatumItank: React.FC = () => {
         axisLabel: {
           interval: 0,
           rotate: -20,
-          formatter: function (value, index) {
+          formatter: function (value) {
             return echarts.format.formatTime("MM.dd", new Date(value));
             // return echarts.format.formatTime('yyyy-MM-dd', new Date(value));
           },
@@ -170,13 +170,13 @@ const DatumItank: React.FC = () => {
     const usdtList = tvlDatum.filter((item) => item.type === "USDT");
     const ethList = tvlDatum.filter((item) => item.type === "ETH");
     const hbtcList = tvlDatum.filter((item) => item.type === "HBTC");
-    const usdtDatum = usdtList.map((item, i) => {
+    const usdtDatum = usdtList.map((item) => {
       return [item.x, item.y];
     });
-    const ethDatum = ethList.map((item, i) => {
+    const ethDatum = ethList.map((item) => {
       return [item.x, item.y];
     });
-    const hbtcDatum = hbtcList.map((item, i) => {
+    const hbtcDatum = hbtcList.map((item) => {
       return [item.x, item.y];
     });
     const usdtRecentData = usdtList[usdtList.length - 1]?.y;
@@ -184,7 +184,7 @@ const DatumItank: React.FC = () => {
     const hbtcRecentData = hbtcList[hbtcList.length - 1]?.y;
     let recentTvlDatum = new BigNumber(usdtRecentData)
       .plus(ethRecentData)
-      // .plus(hbtcRecentData)
+      .plus(hbtcRecentData)
       .toNumber();
     recentTvlDatum = $isPositiveNumber($isFiniteNumber(recentTvlDatum));
     setRecentTvlDatum(recentTvlDatum);
@@ -223,7 +223,7 @@ const DatumItank: React.FC = () => {
         axisLabel: {
           interval: 0,
           rotate: -20,
-          formatter: function (value, index) {
+          formatter: function (value) {
             return echarts.format.formatTime("MM.dd", new Date(value));
             // return echarts.format.formatTime('yyyy-MM-dd', new Date(value));
           },

@@ -20,11 +20,11 @@ const DatumCoin: React.FC = () => {
   const ETHDebt = useDebt("ETHPUSD");
   const NESTPUSDDebt = useDebt("NESTPUSD");
   const NESTPETHDebt = useDebt("NESTPETH");
-  const HBTCPUSDDebt = useDebt("HBTCPUSD");
-  const {info: ETHDebtInfo} = useDebtInfo(ETHDebt);
+  const ETHPBTCDebt = useDebt("ETHPBTC");
+  const {info: ETHPUSDDebtInfo} = useDebtInfo(ETHDebt);
   const {info: NESTPUSDDebtInfo} = useDebtInfo(NESTPUSDDebt);
   const {info: NESTPETHDebtInfo} = useDebtInfo(NESTPETHDebt);
-  const {info: HBTCUSDTDebtInfo} = useDebtInfo(HBTCPUSDDebt);
+  const {info: ETHPBTCDebtInfo} = useDebtInfo(ETHPBTCDebt);
   const PUSDToken = parasset?.externalTokens["PUSD"];
   const PETHToken = parasset?.externalTokens["PETH"];
   const PBTCToken = parasset?.externalTokens["PBTC"];
@@ -34,7 +34,7 @@ const DatumCoin: React.FC = () => {
   const ETHPUSDTVL = useTVL(
     ETHDebt?.mortgagePoolContract,
     ETHDebt?.mortgageToken,
-    ETHDebtInfo?.mortgagePrice
+    ETHPUSDDebtInfo?.mortgagePrice
   );
   const NESTPUSDTVL = useTVL(
     NESTPUSDDebt?.mortgagePoolContract,
@@ -72,15 +72,17 @@ const DatumCoin: React.FC = () => {
   const PETHValue = useMemo(() => {
     //*对U价值
     const PETHValue = new BigNumber(PETHTotalSupply).times(
-      ETHDebtInfo?.mortgagePrice
+      ETHPUSDDebtInfo?.mortgagePrice
     );
     return $isPositiveNumber($isFiniteNumber(PETHValue.toNumber()));
-  }, [PETHTotalSupply, ETHDebtInfo?.mortgagePrice]);
+  }, [PETHTotalSupply, ETHPUSDDebtInfo?.mortgagePrice]);
 
   const PBTCValue = useMemo(() => {
-    const PBTCValue = new BigNumber(PBTCTotalSupply).times(HBTCUSDTDebtInfo?.mortgagePrice)
+    const PBTCValue = new BigNumber(PBTCTotalSupply)
+      .times(ETHPUSDDebtInfo?.mortgagePrice)
+      .div(ETHPBTCDebtInfo?.mortgagePrice)
     return $isPositiveNumber($isFiniteNumber(PBTCValue.toNumber()))
-  }, [PBTCTotalSupply, HBTCUSDTDebtInfo?.mortgagePrice])
+  }, [PBTCTotalSupply, ETHPBTCDebtInfo?.mortgagePrice, ETHPUSDDebtInfo?.mortgagePrice])
 
   let initTvlChart = useCallback(() => {
     let element = document.getElementById("tvlChart");
