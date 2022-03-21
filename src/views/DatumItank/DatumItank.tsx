@@ -29,7 +29,8 @@ const DatumItank: React.FC = () => {
     let myChart = echarts.init(element);
     const usdtList = netValueDatum.filter((item) => item.type === "USDT");
     const ethList = netValueDatum.filter((item) => item.type === "ETH");
-    const hbtcList = netValueDatum.filter((item) => item.type === "HBTC");
+    const hbtcList = netValueDatum.filter((item) => item.type === "BTC");
+
     const usdtDatum = usdtList.map((item) => {
       return [item.x, item.y];
     });
@@ -169,7 +170,7 @@ const DatumItank: React.FC = () => {
     let myChart = echarts.init(element);
     const usdtList = tvlDatum.filter((item) => item.type === "USDT");
     const ethList = tvlDatum.filter((item) => item.type === "ETH");
-    const hbtcList = tvlDatum.filter((item) => item.type === "HBTC");
+    const hbtcList = tvlDatum.filter((item) => item.type === "BTC");
     const usdtDatum = usdtList.map((item) => {
       return [item.x, item.y];
     });
