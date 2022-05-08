@@ -123,6 +123,17 @@ export class Parasset {
     }
   }
 
+  async getHBTCToUSDTPrice() {
+    try {
+      const {NestQuery2} = this.contracts;
+      const {HBTC} = this.externalTokens;
+      let {avgPrice} = await NestQuery2['triggeredPriceInfo(uint256,uint256)'](0, 0);
+      return new BigNumber(2000).div(getToNumber(avgPrice, HBTC.decimal))
+    } catch (error) {
+      return "0";
+    }
+  }
+
   async getETHToUSDTPrice() {
     try {
       const {NestQuery2} = this.contracts;
@@ -436,12 +447,15 @@ export class Parasset {
       switch (depositTokenName) {
         case "ETH":
           revenue = pethRevenue;
+
           break;
         case "USDT":
           revenue = pusdtRevenue;
+
           break;
         case "HBTC":
           revenue = pbtcRevenue;
+
           break;
       }
       revenue = $isPositiveNumber(
@@ -462,7 +476,14 @@ export class Parasset {
         .minus(getToNumber(negative))
         .toNumber();
 
-      let avgPrice = await this.getETHToUSDTPrice();
+      let avgPrice
+      if (depositToken.symbol === 'HBTC') {
+        avgPrice = await this.getHBTCToUSDTPrice()
+      } else if (depositToken.symbol === 'ETH') {
+        avgPrice = await this.getETHToUSDTPrice();
+      } else if (depositToken.symbol === 'USDT') {
+        avgPrice = "1000000"
+      }
 
       let depositFundValue =
         itank.depositTokenName === "USDT"
