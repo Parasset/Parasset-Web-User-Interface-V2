@@ -329,16 +329,11 @@ export class Parasset {
 
   async getNESTToUSDTPrice() {
     try {
-      const {NestQuery} = this.contracts;
-      const {USDT, NEST} = this.externalTokens;
-      const {avgPrice: avgPriceUSDT} = await NestQuery.triggeredPriceInfo(
-        USDT.address
-      );
-      const {avgPrice: avgPriceNEST} = await NestQuery.triggeredPriceInfo(
-        NEST.address
-      );
+      const {NestQuery2} = this.contracts;
+      const {NEST} = this.externalTokens;
+      const {avgPrice: avgPriceNEST} = await NestQuery2['triggeredPriceInfo(uint256,uint256)'](0, 2);
       return getNumberToFixed(
-        new BigNumber(getToNumber(avgPriceUSDT, USDT.decimal)).div(
+        new BigNumber(2000).div(
           getToNumber(avgPriceNEST, NEST.decimal)
         )
       );
@@ -349,16 +344,13 @@ export class Parasset {
 
   async getNESTToBTCPrice() {
     try {
-      const {NestQuery2, NestQuery} = this.contracts;
-      const {HBTC, NEST, USDT} = this.externalTokens;
+      const {NestQuery2} = this.contracts;
+      const {HBTC, NEST} = this.externalTokens;
       const {avgPrice: avgPriceHBTC} = await NestQuery2['triggeredPriceInfo(uint256,uint256)'](0, 0);
-      const {avgPrice: avgPriceUSDT} = await NestQuery.triggeredPriceInfo(USDT.address);
-      const {avgPrice: avgPriceNEST} = await NestQuery.triggeredPriceInfo(NEST.address);
+      const {avgPrice: avgPriceNEST} = await NestQuery2['triggeredPriceInfo(uint256,uint256)'](0, 2);
       return getNumberToFixed(
-        new BigNumber(getToNumber(avgPriceUSDT, USDT.decimal))
+        new BigNumber(getToNumber(avgPriceHBTC, HBTC.decimal))
           .div(getToNumber(avgPriceNEST, NEST.decimal))
-          .div(2000)
-          .multipliedBy(getToNumber(avgPriceHBTC, HBTC.decimal))
       )
     } catch (error) {
       return "0";
@@ -381,12 +373,13 @@ export class Parasset {
 
   async getETHToBTCPrice() {
     try {
-      const {NestQuery, NestQuery2} = this.contracts;
-      const {HBTC, USDT} = this.externalTokens;
-      const {avgPrice: avgPriceUSDT} = await NestQuery.triggeredPriceInfo(USDT.address);
+      const {NestQuery2} = this.contracts;
+      const {HBTC, ETH} = this.externalTokens;
       const {avgPrice: avgPriceHBTC} = await NestQuery2['triggeredPriceInfo(uint256,uint256)'](0, 0);
+      const {avgPrice: avgPriceETH} = await NestQuery2['triggeredPriceInfo(uint256,uint256)'](0, 1);
       return getNumberToFixed(
-        new BigNumber(getToNumber(avgPriceUSDT, USDT.decimal)).multipliedBy(getToNumber(avgPriceHBTC, HBTC.decimal)).div(2000)
+        new BigNumber(getToNumber(avgPriceETH, ETH.decimal))
+          .multipliedBy(getToNumber(avgPriceHBTC, HBTC.decimal))
       )
     } catch (error) {
       return "0";
@@ -395,12 +388,12 @@ export class Parasset {
 
   async getNESTToETHPrice() {
     try {
-      const {NestQuery} = this.contracts;
-      const {NEST} = this.externalTokens;
-      let {avgPrice} = await NestQuery.triggeredPriceInfo(NEST.address);
-      // nest对ETH的价格  1/avgPrice2
+      const {NestQuery2} = this.contracts;
+      const {NEST, ETH} = this.externalTokens;
+      let {avgPrice: avgPriceETH} = await NestQuery2['triggeredPriceInfo(uint256,uint256)'](0, 1);
+      let {avgPrice: avgPriceNEST} = await NestQuery2['triggeredPriceInfo(uint256,uint256)'](0, 2);
       return getNumberToFixed(
-        new BigNumber(1).div(getToNumber(avgPrice, NEST.decimal))
+        new BigNumber(getToNumber(avgPriceETH, ETH.decimal)).div(getToNumber(avgPriceNEST, NEST.decimal))
       );
     } catch (error) {
       return "0";
