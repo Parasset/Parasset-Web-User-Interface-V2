@@ -125,10 +125,10 @@ export class Parasset {
 
   async getETHToUSDTPrice() {
     try {
-      const {NestQuery} = this.contracts;
-      const {USDT} = this.externalTokens;
-      let {avgPrice} = await NestQuery.triggeredPriceInfo(USDT.address);
-      return getToNumber(avgPrice, USDT.decimal);
+      const {NestQuery2} = this.contracts;
+      const {ETH} = this.externalTokens;
+      let {avgPrice} = await NestQuery2['triggeredPriceInfo(uint256,uint256)'](0, 1);
+      return new BigNumber(2000).div(getToNumber(avgPrice, ETH.decimal))
     } catch (error) {
       return "0";
     }
