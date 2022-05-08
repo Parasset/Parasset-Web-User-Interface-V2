@@ -146,30 +146,30 @@ export class Parasset {
   }
 
   async getInfoRealTime(mortgagePoolContract, mortgageToken, uToken, address) {
+    // mortgageToken	抵押资产地址
+    // tokenPrice	抵押资产相对于2000USDT的价格数量
+    // uTokenPrice	标的资产相对于2000USDT的价格数量（将从nest获取的数据直接传入，不需要做精度转换）
+    // maxRateNum	最大抵押率限制
+    // address	债仓所有人地址
     try {
-      // mortgageToken	抵押资产地址
-      // tokenPrice	抵押资产相对于ETH的价格数量
-      // uTokenPrice	标的资产相对于ETH的价格数量（将从nest获取的数据直接传入，不需要做精度转换）
-      // maxRateNum	最大抵押率限制
-      // owner	债仓所有人地址
-      const {NestQuery} = this.contracts;
-      const {USDT} = this.externalTokens;
-
-      let {avgPrice: tokenPrice} = await NestQuery.triggeredPriceInfo(
-        mortgageToken.address
-      );
-
+      const {NestQuery2} = this.contracts;
+      let tokenPrice
+      if (mortgageToken.symbol === 'NEST') {
+        let {avgPrice} = await NestQuery2['triggeredPriceInfo(uint256,uint256)'](0, 2);
+        tokenPrice = avgPrice.toString()
+      } else if (mortgageToken.symbol === 'ETH') {
+        let {avgPrice} = await NestQuery2['triggeredPriceInfo(uint256,uint256)'](0, 1);
+        tokenPrice = avgPrice.toString()
+      }
       let uTokenPrice;
       if (uToken.symbol === "PETH") {
-        uTokenPrice = "1000000000000000000";
+        let {avgPrice} = await NestQuery2['triggeredPriceInfo(uint256,uint256)'](0, 1);
+        uTokenPrice = avgPrice.toString();
       } else if (uToken.symbol === 'HBTC') {
-        const res = await this.getETHToBTCPrice()
-        uTokenPrice = (new BigNumber(res)).shiftedBy(18).toString();
+        let {avgPrice} = await NestQuery2['triggeredPriceInfo(uint256,uint256)'](0, 0);
+        uTokenPrice = avgPrice.toString();
       } else {
-        let {avgPrice: avgPriceUToken} = await NestQuery.triggeredPriceInfo(
-          USDT.address
-        );
-        uTokenPrice = avgPriceUToken.toString();
+        uTokenPrice = '1000000'
       }
 
       const mortgageTokenAddress = this.gasETHAddress(mortgageToken);
@@ -178,11 +178,10 @@ export class Parasset {
         mortgageTokenAddress
       );
       maxRateNum = maxRateNum.toString();
+
       return await mortgagePoolContract.getInfoRealTime(
         mortgageTokenAddress,
-        mortgageToken.symbol === "ETH"
-          ? "1000000000000000000"
-          : tokenPrice.toString(),
+        tokenPrice,
         uTokenPrice,
         maxRateNum,
         address
