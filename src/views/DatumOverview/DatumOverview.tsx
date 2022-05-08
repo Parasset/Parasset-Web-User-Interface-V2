@@ -179,7 +179,7 @@ const Overview: React.FC = () => {
           .toNumber()
       )
     );
-  }, [USDTItankValue, ETHItankValue]);
+  }, [USDTItankValue, ETHItankValue, HBTCItankValue]);
 
   return (
     <>
