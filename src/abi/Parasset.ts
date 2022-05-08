@@ -388,8 +388,8 @@ export class Parasset {
       const {avgPrice: avgPriceHBTC} = await NestQuery2['triggeredPriceInfo(uint256,uint256)'](0, 0);
       const {avgPrice: avgPriceETH} = await NestQuery2['triggeredPriceInfo(uint256,uint256)'](0, 1);
       return getNumberToFixed(
-        new BigNumber(getToNumber(avgPriceETH, ETH.decimal))
-          .multipliedBy(getToNumber(avgPriceHBTC, HBTC.decimal))
+        new BigNumber(getToNumber(avgPriceHBTC, ETH.decimal))
+          .div(getToNumber(avgPriceETH, HBTC.decimal))
       )
     } catch (error) {
       return "0";
