@@ -14,8 +14,8 @@ const useHandlerDebt = () => {
       const amountBn = decimalToBalance(String(amount), mortgageToken.decimal);
       const value = decimalToBalance(
         mortgageToken.symbol === "ETH" && select === "Stake"
-          ? new BigNumber(amount).plus(0.001).toFixed()
-          : String(0.001),
+          ? new BigNumber(amount).toFixed()
+          : String(0),
         mortgageToken.decimal
       );
 

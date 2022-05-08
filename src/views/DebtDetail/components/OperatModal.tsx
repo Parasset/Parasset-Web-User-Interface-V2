@@ -223,7 +223,7 @@ const Mine: React.FC = ({
       },
       oracleFee: {
         label: "yyjdyf",
-        value:  process.env.REACT_APP_NODE_ENV === "development" ? "0.001" : "0",
+        value: "0",
         unit: "ETH",
         isTooltip: true,
         tip: "tip2",
@@ -252,7 +252,7 @@ const Mine: React.FC = ({
       },
       oracleFee: {
         label: "yyjdyf",
-        value:  process.env.REACT_APP_NODE_ENV === "development" ? "0.001" : "0",
+        value:  "0",
         unit: "ETH",
         isTooltip: true,
         tip: "tip2",

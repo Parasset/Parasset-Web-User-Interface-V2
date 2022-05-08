@@ -14,9 +14,8 @@ const useCoin = () => {
       const value = decimalToBalance(
         mortgageToken.symbol === "ETH"
           ? new BigNumber(amount)
-              .plus(getToken.symbol === "PBTC" ? 0.002: 0.001)
               .toFixed()
-          : String(getToken.symbol === "PBTC" ? 0.002: 0.001),
+          : String(0),
         mortgageToken.decimal
       );
       ratio = new BigNumber(ratio).times(100000).toFixed(0, 1);
