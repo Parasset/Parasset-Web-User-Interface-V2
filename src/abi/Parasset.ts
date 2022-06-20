@@ -180,7 +180,7 @@ export class Parasset {
         let {avgPrice} = await NestQuery2['triggeredPriceInfo(uint256,uint256)'](0, 0);
         uTokenPrice = avgPrice.toString();
       } else {
-        uTokenPrice = '1000000'
+        uTokenPrice = '2000000000'
       }
 
       const mortgageTokenAddress = this.gasETHAddress(mortgageToken);
@@ -297,6 +297,7 @@ export class Parasset {
         mortgagePoolContract,
         mortgageToken
       );
+
       let liqPrice = new BigNumber(parassetAssets)
         .plus(fee)
         .div(new BigNumber(liqRatio).times(mortgageAssets))

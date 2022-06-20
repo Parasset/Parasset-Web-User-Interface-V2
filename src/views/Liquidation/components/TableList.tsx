@@ -197,8 +197,6 @@ const TableList: React.FC = ({ list, loading, onSelect, openModal }) => {
         <>
           {list && list.length ? (
             list.map((item) => {
-              console.log(item.itemKey, item, "item.itemKey");
-
               return (
                 <React.Fragment key={item.itemKey}>
                   <Item item={item} onSelect={onSelect} openModal={openModal} />
