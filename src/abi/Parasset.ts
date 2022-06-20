@@ -158,8 +158,8 @@ export class Parasset {
 
   async getInfoRealTime(mortgagePoolContract, mortgageToken, uToken, address) {
     // mortgageToken	抵押资产地址
-    // tokenPrice	抵押资产相对于USDT的价格数量
-    // uTokenPrice	标的资产相对于USDT的价格数量（将从nest获取的数据直接传入，不需要做精度转换）
+    // tokenPrice	抵押资产相对于2000USDT的价格数量
+    // uTokenPrice	标的资产相对于2000USDT的价格数量（将从nest获取的数据直接传入，不需要做精度转换）
     // maxRateNum	最大抵押率限制
     // address	债仓所有人地址
     try {
@@ -167,20 +167,20 @@ export class Parasset {
       let tokenPrice
       if (mortgageToken.symbol === 'NEST') {
         let {avgPrice} = await NestQuery2['triggeredPriceInfo(uint256,uint256)'](0, 2);
-        tokenPrice = avgPrice.div(2000).toString()
+        tokenPrice = avgPrice.toString()
       } else if (mortgageToken.symbol === 'ETH') {
         let {avgPrice} = await NestQuery2['triggeredPriceInfo(uint256,uint256)'](0, 1);
-        tokenPrice = avgPrice.div(2000).toString()
+        tokenPrice = avgPrice.toString()
       }
       let uTokenPrice;
       if (uToken.symbol === "PETH") {
         let {avgPrice} = await NestQuery2['triggeredPriceInfo(uint256,uint256)'](0, 1);
-        uTokenPrice = avgPrice.div(2000).toString();
+        uTokenPrice = avgPrice.toString();
       } else if (uToken.symbol === 'HBTC') {
         let {avgPrice} = await NestQuery2['triggeredPriceInfo(uint256,uint256)'](0, 0);
-        uTokenPrice = avgPrice.div(2000).toString();
+        uTokenPrice = avgPrice.toString();
       } else {
-        uTokenPrice = '1000000'
+        uTokenPrice = '2000000000'
       }
 
       const mortgageTokenAddress = this.gasETHAddress(mortgageToken);
