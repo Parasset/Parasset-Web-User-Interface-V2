@@ -483,7 +483,7 @@ export class Parasset {
       } else if (depositToken.symbol === 'ETH') {
         avgPrice = await this.getETHToUSDTPrice();
       } else if (depositToken.symbol === 'USDT') {
-        avgPrice = "1000000"
+        avgPrice = "2000000000"
       }
 
       let depositFundValue =
