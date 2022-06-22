@@ -151,7 +151,6 @@ export class Parasset {
       let maxRatio = await mortgagePoolContract.getMaxRate(address);
       return maxRatio.toNumber() / 100000;
     } catch (err) {
-      console.log(err, "err");
       return "0";
     }
   }
@@ -176,7 +175,7 @@ export class Parasset {
       if (uToken.symbol === "PETH") {
         let {avgPrice} = await NestQuery2['triggeredPriceInfo(uint256,uint256)'](0, 1);
         uTokenPrice = avgPrice.toString();
-      } else if (uToken.symbol === 'HBTC') {
+      } else if (uToken.symbol === 'PBTC') {
         let {avgPrice} = await NestQuery2['triggeredPriceInfo(uint256,uint256)'](0, 0);
         uTokenPrice = avgPrice.toString();
       } else {
@@ -189,7 +188,6 @@ export class Parasset {
         mortgageTokenAddress
       );
       maxRateNum = maxRateNum.toString();
-
       return await mortgagePoolContract.getInfoRealTime(
         mortgageTokenAddress,
         tokenPrice,
@@ -259,8 +257,8 @@ export class Parasset {
           mortgageToParassetPrice: ETHToUSDTPrice,
         },
         ETHPBTC: {
-          mortgagePrice: ETHToBTCPrice,
-          parassetPrice: 1,
+          mortgagePrice: ETHToUSDTPrice,
+          parassetPrice: BTCToUSDTPrice,
           mortgageToParassetPrice: ETHToBTCPrice,
         },
         NESTPUSD: {
@@ -269,13 +267,13 @@ export class Parasset {
           mortgageToParassetPrice: NESTToUSDTPrice,
         },
         NESTPETH: {
-          mortgagePrice: NESTToETHPrice,
-          parassetPrice: 1,
+          mortgagePrice: NESTToUSDTPrice,
+          parassetPrice: ETHToUSDTPrice,
           mortgageToParassetPrice: NESTToETHPrice,
         },
         NESTPBTC: {
-          mortgagePrice: NESTToBTCPrice,
-          parassetPrice: 1,
+          mortgagePrice: NESTToUSDTPrice,
+          parassetPrice: BTCToUSDTPrice,
           mortgageToParassetPrice: NESTToBTCPrice,
         },
         HBTCPUSD: {
@@ -333,7 +331,6 @@ export class Parasset {
         maxAddPValue: new BigNumber(maxAddP).times(parassetPrice).toNumber(),
       };
     } catch (err) {
-      console.log(err)
       return "0";
     }
   }
@@ -483,7 +480,7 @@ export class Parasset {
       } else if (depositToken.symbol === 'ETH') {
         avgPrice = await this.getETHToUSDTPrice();
       } else if (depositToken.symbol === 'USDT') {
-        avgPrice = "2000000000"
+        avgPrice = "1"
       }
 
       let depositFundValue =
