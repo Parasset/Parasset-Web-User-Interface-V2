@@ -89,7 +89,7 @@ const Specie: React.FC = ({}) => {
   const feeETHPBTC = useFee(
     parasset?.contracts["PBTCMorPool"],
     parasset?.externalTokens["ETH"],
-    parasset?.externalTokens["HBTC"]
+    parasset?.externalTokens["PBTC"]
   );
   const feeNESTPUSD = useFee(
     parasset?.contracts["PUSDMorPool"],
@@ -104,7 +104,7 @@ const Specie: React.FC = ({}) => {
   const feeNESTPBTC = useFee(
     parasset?.contracts["PBTCMorPool"],
     parasset?.externalTokens["NEST"],
-    parasset?.externalTokens["HBTC"]
+    parasset?.externalTokens["PBTC"]
   );
   const ETHWalletBalance = useTokenBalance(parasset?.externalTokens["ETH"]);
   const NESTWalletBalance = useTokenBalance(parasset?.externalTokens["NEST"]);
